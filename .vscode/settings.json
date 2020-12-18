@@ -1,3 +1,6 @@
 {
-	"eslint.alwaysShowStatus": true
+	"eslint.alwaysShowStatus": true,
+	"triggerTaskOnSave.tasks": {
+		"Run current test file": ["**/*.spec.ts"]
+	}
 }
