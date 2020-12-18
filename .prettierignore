@@ -1,0 +1,10 @@
+# Add files here to ignore them from prettier formatting
+
+/dist
+/tmp
+/out-tsc
+/coverage
+/data
+/node_modules
+**/.git*
+*.md
