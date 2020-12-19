@@ -12,14 +12,10 @@ import { CoreModule } from '@wa/app/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-const createTranslateLoader = (http: HttpClient) => {
-	return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-};
-
 export const ConfiguredTranslateModule = TranslateModule.forRoot({
 	loader: {
 		provide: TranslateLoader,
-		useFactory: createTranslateLoader,
+		useFactory: (http: HttpClient) => new TranslateHttpLoader(http, './assets/i18n/', '.json'),
 		deps: [HttpClient],
 	},
 });
