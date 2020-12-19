@@ -8,15 +8,15 @@ describe('AppComponent', () => {
 	const createHost = createHostFactory({ component: AppComponent });
 
 	it('should create the app', () => {
-		host = createHost('<app-root></app-root>');
+		host = createHost('<wa-root></wa-root>');
 
-		const element = host.queryHost('app-root');
+		const element = host.queryHost('wa-root');
 
 		expect(element).toBeDefined();
 	});
 
 	it(`should have as title 'weather-app'`, () => {
-		host = createHost('<app-root></app-root>');
+		host = createHost('<wa-root></wa-root>');
 
 		const title = host.component.title;
 
@@ -24,7 +24,7 @@ describe('AppComponent', () => {
 	});
 
 	it('should render title', () => {
-		host = createHost('<app-root></app-root>');
+		host = createHost('<wa-root></wa-root>');
 
 		const span = host.query('.content span');
 
