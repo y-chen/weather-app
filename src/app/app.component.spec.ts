@@ -22,12 +22,4 @@ describe('AppComponent', () => {
 
 		expect(title).toEqual('weather-app');
 	});
-
-	it('should render title', () => {
-		host = createHost('<wa-root></wa-root>');
-
-		const span = host.query('.content span');
-
-		expect(span.textContent).toContain('weather-app app is running!');
-	});
 });

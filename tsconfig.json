@@ -17,6 +17,7 @@
 		"paths": {
 			"@wa/app": ["src/app/index.ts"],
 			"@wa/app/core": ["src/app/core/index.ts"],
+			"@wa/app/features/config": ["src/app/features/config/index.ts"],
 			"@wa/app/models": ["src/app/models/index.ts"],
 			"@wa/app/shared": ["src/app/shared/index.ts"],
 			"@wa/environments": ["src/environments/index.ts"]
