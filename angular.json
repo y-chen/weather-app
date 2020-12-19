@@ -29,6 +29,9 @@
 							"src/assets/themes/material.scss",
 							"src/assets/flags/flag-icon.scss"
 						],
+						"stylePreprocessorOptions": {
+							"includePaths": ["src/assets/scss"]
+						},
 						"scripts": []
 					},
 					"configurations": {

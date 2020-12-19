@@ -1,0 +1,12 @@
+@mixin flex-box(
+	$flex-direction: row,
+	$justify-content: unset,
+	$align-items: unset,
+	$align-content: unset
+) {
+	display: flex;
+	flex-direction: $flex-direction;
+	justify-content: $justify-content;
+	align-items: $align-items;
+	align-content: $align-content;
+}
