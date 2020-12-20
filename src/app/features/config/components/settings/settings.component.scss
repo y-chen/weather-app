@@ -1,5 +1,5 @@
-@import 'mixins.scss';
-@import 'media.scss';
+@import 'mixins';
+@import 'media';
 
 :host {
 	height: 100vh;
@@ -22,15 +22,19 @@
 
 		mat-card-content {
 			gap: 10px;
-			@include flex-box(row, space-around, center, center);
+			@include flex-box(row, space-around, center, flex-end);
 
 			> mat-form-field {
-				flex: 3;
+				flex: 5;
 			}
 
 			> button {
 				flex: 1;
 			}
+		}
+
+		mat-card-actions {
+			text-align: center;
 		}
 	}
 }

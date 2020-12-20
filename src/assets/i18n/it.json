@@ -1,9 +1,13 @@
 {
 	"config": {
-		"languageSelection": {
-			"title": "Per favore, seleziona la tua lingua",
-			"subtitle": "È possibile cambiarla successivamente",
-			"dropdownLabel": "Seleziona..."
+		"settings": {
+			"title": "Seleziona le tue impostazioni",
+			"subtitle": "È possibile cambiarle successivamente",
+			"form": {
+				"language": "Lingua",
+				"location": "Consenti localizzazione",
+				"confirm": "Conferma"
+			}
 		}
 	}
 }

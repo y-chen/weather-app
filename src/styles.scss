@@ -1,3 +1,6 @@
+@import 'mixins';
+@import 'media';
+
 html,
 body {
 	width: 100vw;
@@ -25,8 +28,39 @@ body {
 			}
 		}
 
-		mat-card-content {
+		mat-card-content,
+		mat-card-actions {
+			width: auto !important;
 			margin: 16px !important;
+		}
+
+		mat-card-content.form {
+			@include flex-box(column, center, center);
+			width: 100%;
+
+			.form-row {
+				@include flex-box(row, space-between, center);
+				gap: 10px;
+				width: 100%;
+
+				@include media('<=smalldesktop') {
+					@include flex-box(column);
+				}
+			}
+
+			.form-column {
+				@include flex-box(column, center, center);
+				gap: unset;
+				width: 100%;
+
+				> * {
+					width: 100%;
+				}
+			}
+		}
+
+		mat-card-actions {
+			@include flex-box(row, center);
 		}
 	}
 }

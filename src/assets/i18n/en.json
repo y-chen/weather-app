@@ -1,10 +1,13 @@
 {
 	"config": {
-		"languageSelection": {
-			"title": "Please, select your language",
-			"subtitle": "You can change it later",
-			"label": "Language",
-			"confirm": "Confirm"
+		"settings": {
+			"title": "Select your settings",
+			"subtitle": "You can change them later",
+			"form": {
+				"language": "Language",
+				"localization": "Allow localization",
+				"confirm": "Confirm"
+			}
 		}
 	}
 }

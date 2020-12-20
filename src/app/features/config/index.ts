@@ -1,2 +1,2 @@
-export * from './components/language-selection/language-selection.component';
+export * from './components/settings/settings.component';
 export * from './config.module';

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LanguageSelectionComponent } from './components/language-selection/language-selection.component';
+import { SettingsComponent } from './components/settings/settings.component';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: LanguageSelectionComponent,
-		data: { localizationBasePath: 'config.languageSelection' },
+		component: SettingsComponent,
+		data: { localizationBasePath: 'config.settings' },
 	},
 	{ path: 'config', redirectTo: '', pathMatch: 'full' },
 ];

@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@wa/app/shared';
 
 import { ConfigRoutingModule } from './config-routing.module';
-import { LanguageSelectionComponent } from './components/language-selection/language-selection.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-	declarations: [LanguageSelectionComponent],
+	declarations: [SettingsComponent],
 	imports: [CommonModule, ConfigRoutingModule, SharedModule],
 	exports: [],
 	providers: [],
