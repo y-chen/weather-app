@@ -7,4 +7,26 @@ body {
 body {
 	margin: 0;
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
+
+	mat-card {
+		padding: 0 !important;
+
+		> mat-card-header {
+			background-color: var(--primary-color);
+			border-radius: 4px 4px 0 0;
+
+			mat-card-title,
+			mat-card-subtitle {
+				color: white !important;
+			}
+
+			mat-card-title {
+				margin: 16px 16px 16px 0;
+			}
+		}
+
+		mat-card-content {
+			margin: 16px !important;
+		}
+	}
 }

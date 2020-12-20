@@ -3,12 +3,10 @@
 
 :host {
 	height: 100vh;
-
 	@include flex-box(column, center, center, center);
 
 	mat-card {
 		width: 30vw;
-		padding: 0;
 
 		@include media('<=smalldesktop') {
 			width: 45vw;
@@ -22,22 +20,7 @@
 			width: 70vw;
 		}
 
-		> mat-card-header {
-			background-color: var(--primary-color);
-			border-radius: 4px 4px 0 0;
-
-			mat-card-title,
-			mat-card-subtitle {
-				color: white;
-			}
-
-			mat-card-title {
-				margin: 16px 16px 16px 0;
-			}
-		}
-
 		mat-card-content {
-			margin: 16px;
 			gap: 10px;
 			@include flex-box(row, space-around, center, center);
 
