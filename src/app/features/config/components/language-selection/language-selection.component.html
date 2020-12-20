@@ -1,1 +1,32 @@
-<p>language-selection works!</p>
+<mat-card *ngIf="cultures">
+	<mat-card-header>
+		<mat-card-title translate>{{ getLocalizationPath('title') }}</mat-card-title>
+		<mat-card-subtitle translate>{{ getLocalizationPath('subtitle') }}</mat-card-subtitle>
+	</mat-card-header>
+
+	<mat-card-content>
+		<mat-form-field>
+			<mat-label translate>{{ getLocalizationPath('label') }}</mat-label>
+
+			<mat-select appearance="fill">
+				<mat-option *ngFor="let culture of cultures" [value]="culture.language">
+					<i class="flag-icon flag-icon-{{ culture.language }}"></i>
+
+					<span>{{ culture.label }}</span>
+				</mat-option>
+
+				<mat-select-trigger>
+					<ng-template>
+						<i class="flag-icon flag-icon-{{ selectedCuture.language }}"></i>
+
+						<span>{{ selectedCuture.label }}</span>
+					</ng-template>
+				</mat-select-trigger>
+			</mat-select>
+		</mat-form-field>
+
+		<button mat-raised-button color="accent" [disabled]="!selectedCuture">
+			<span translate>{{ getLocalizationPath('confirm') }}</span>
+		</button>
+	</mat-card-content>
+</mat-card>

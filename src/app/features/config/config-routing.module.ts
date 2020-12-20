@@ -4,7 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { LanguageSelectionComponent } from './components/language-selection/language-selection.component';
 
 const routes: Routes = [
-	{ path: '', component: LanguageSelectionComponent },
+	{
+		path: '',
+		component: LanguageSelectionComponent,
+		data: { localizationBasePath: 'config.languageSelection' },
+	},
 	{ path: 'config', redirectTo: '', pathMatch: 'full' },
 ];
 

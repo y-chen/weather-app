@@ -1,1 +1,10 @@
-{}
+{
+	"config": {
+		"languageSelection": {
+			"title": "Please, select your language",
+			"subtitle": "You can change it later",
+			"label": "Language",
+			"confirm": "Confirm"
+		}
+	}
+}

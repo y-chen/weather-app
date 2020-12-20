@@ -21,12 +21,12 @@
 	&.flag-icon-squared {
 		width: 1em;
 	}
-}
 
-.flag-icon-it {
-	background-image: url(./it.svg);
-}
+	&.flag-icon-it {
+		background-image: url(./it.svg);
+	}
 
-.flag-icon-en {
-	background-image: url(./gb.svg);
+	&.flag-icon-en {
+		background-image: url(./gb.svg);
+	}
 }

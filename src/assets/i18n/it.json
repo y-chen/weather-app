@@ -1,1 +1,9 @@
-{}
+{
+	"config": {
+		"languageSelection": {
+			"title": "Per favore, seleziona la tua lingua",
+			"subtitle": "È possibile cambiarla successivamente",
+			"dropdownLabel": "Seleziona..."
+		}
+	}
+}
