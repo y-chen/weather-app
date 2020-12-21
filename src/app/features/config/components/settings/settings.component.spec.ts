@@ -1,24 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 import { SettingsComponent } from './settings.component';
 
-describe('LanguageSelectionComponent', () => {
-	let component: SettingsComponent;
-	let fixture: ComponentFixture<SettingsComponent>;
+describe('SettingsComponent', () => {
+	let host: SpectatorHost<SettingsComponent>;
 
-	beforeEach(async () => {
-		await TestBed.configureTestingModule({
-			declarations: [SettingsComponent],
-		}).compileComponents();
-	});
-
-	beforeEach(() => {
-		fixture = TestBed.createComponent(SettingsComponent);
-		component = fixture.componentInstance;
-		fixture.detectChanges();
+	const createHost = createHostFactory({
+		component: SettingsComponent,
 	});
 
 	it('should create', () => {
-		expect(component).toBeTruthy();
+		host = createHost('<wa-settings></wa-settings>', {});
+
+		const settings = host.queryHost('wa-settings');
+
+		expect(host).toExist();
+		expect(settings).toExist();
 	});
 });
