@@ -6,6 +6,10 @@ const routes: Routes = [
 		path: 'config',
 		loadChildren: () => import('./features/config/config.module').then((m) => m.ConfigModule),
 	},
+	{
+		path: 'app',
+		loadChildren: () => import('./features/home/home.module').then((m) => m.HomeModule),
+	},
 	{ path: '', redirectTo: 'config', pathMatch: 'full' },
 ];
 

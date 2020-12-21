@@ -72,5 +72,8 @@ export class SettingsComponent implements IComponent, OnInit {
 		}
 	}
 
-	onConfirmClick() {}
+	onLanguageSelectionChange() {
+		const selectedCulture = this.form.get('culture').value;
+		this.cultureService.setCulture(selectedCulture);
+	}
 }
