@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material/material.module';
 import { TranslateModule } from '@ngx-translate/core';
+import { ValidationErrorsComponent } from './components/validation-errors/validation-errors.component';
 
 export const importModules = [
 	CommonModule,
@@ -24,7 +25,7 @@ export const exportModules = [
 ];
 
 @NgModule({
-	declarations: [],
+	declarations: [ValidationErrorsComponent],
 	imports: importModules,
 	exports: exportModules,
 	providers: [],
