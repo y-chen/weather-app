@@ -9,7 +9,7 @@
 			<mat-form-field>
 				<mat-label translate>{{ getLocalizationPath('form.language') }}</mat-label>
 
-				<mat-select appearance="fill" formControlName="culture">
+				<mat-select appearance="fill" formControlName="culture" required>
 					<mat-option *ngFor="let culture of cultures" [value]="culture">
 						<ng-container *ngTemplateOutlet="cultureTemplate; context: { culture: culture }">
 						</ng-container>
@@ -24,10 +24,15 @@
 						</ng-container>
 					</mat-select-trigger>
 				</mat-select>
+
+				<mat-error>
+					<wa-validation-errors [control]="form.get('culture')" [errors]="validationErrors.culture">
+					</wa-validation-errors>
+				</mat-error>
 			</mat-form-field>
 
-			<mat-checkbox formControlName="localization">
-				<span translate>{{ getLocalizationPath('form.localization') }}</span>
+			<mat-checkbox formControlName="allowLocalization" (change)="onAllowLocalizationChange()">
+				<span translate>{{ getLocalizationPath('form.allowLocalization') }}</span>
 			</mat-checkbox>
 		</div>
 	</mat-card-content>

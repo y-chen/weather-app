@@ -5,8 +5,13 @@
 			"subtitle": "You can change them later",
 			"form": {
 				"language": "Language",
-				"localization": "Allow localization",
+				"allowLocalization": "Allow localization",
 				"confirm": "Confirm"
+			},
+			"errors": {
+				"culture": {
+					"required": "Language selection is required"
+				}
 			}
 		}
 	}

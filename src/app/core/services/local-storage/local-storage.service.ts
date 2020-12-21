@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+export const StorageKeys = {
+	Position: 'position',
+};
+
 @Injectable()
 export class LocalStorageService {
 	set(key: string, value: string) {

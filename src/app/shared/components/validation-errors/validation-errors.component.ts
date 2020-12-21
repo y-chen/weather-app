@@ -1,10 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { ValidationError } from '@cvm/web/models';
+import { ValidationError } from '@wa/app/models';
 
 @Component({
-	selector: 'cvm-validation-errors',
+	selector: 'wa-validation-errors',
 	templateUrl: './validation-errors.component.html',
 	styleUrls: ['./validation-errors.component.scss'],
 })

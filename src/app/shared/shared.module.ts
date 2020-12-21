@@ -4,10 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from './material/material.module';
+
 import { TranslateModule } from '@ngx-translate/core';
+
 import { ValidationErrorsComponent } from './components/validation-errors/validation-errors.component';
 
-export const importModules = [
+export const moduleDeclarations = [ValidationErrorsComponent];
+
+export const moduleImports = [
 	CommonModule,
 	HttpClientModule,
 	FormsModule,
@@ -15,19 +19,22 @@ export const importModules = [
 	TranslateModule,
 	MaterialModule,
 ];
-export const exportModules = [
+export const moduleExports = [
 	CommonModule,
 	HttpClientModule,
 	FormsModule,
 	ReactiveFormsModule,
 	TranslateModule,
 	MaterialModule,
+	ValidationErrorsComponent,
 ];
 
+export const moduleProviders = [];
+
 @NgModule({
-	declarations: [ValidationErrorsComponent],
-	imports: importModules,
-	exports: exportModules,
-	providers: [],
+	declarations: moduleDeclarations,
+	imports: moduleImports,
+	exports: moduleExports,
+	providers: moduleProviders,
 })
 export class SharedModule {}
