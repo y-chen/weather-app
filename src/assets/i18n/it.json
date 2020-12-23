@@ -1,4 +1,19 @@
 {
+	"shell": {
+		"toolbar": {
+			"title": "Meteo App",
+			"search": "Cerca",
+			"languageSelector": "Cambia lingua"
+		},
+		"sidebar": {
+			"open": "Apri",
+			"close": "Chiudi",
+			"current": "(corrente)",
+			"navItems": {
+				"home": "Home"
+			}
+		}
+	},
 	"config": {
 		"settings": {
 			"title": "Seleziona le tue impostazioni",

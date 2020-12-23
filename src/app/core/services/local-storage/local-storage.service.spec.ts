@@ -1,6 +1,6 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 
-import { LocalStorageService } from './local-storage.service';
+import { LocalStorageService } from '@wa/app/core/services/local-storage/local-storage.service';
 
 describe('LocalStorageService', () => {
 	let spectator: SpectatorService<LocalStorageService>;

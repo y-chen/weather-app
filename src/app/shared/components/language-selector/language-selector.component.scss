@@ -1,0 +1,9 @@
+@import 'mixins.scss';
+
+:host {
+	cursor: pointer;
+
+	.menu-trigger {
+		@include flex-box(row, center, center);
+	}
+}

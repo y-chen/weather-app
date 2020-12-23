@@ -6,11 +6,10 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { SharedModule } from '@wa/app/shared';
-import { CoreModule } from '@wa/app/core';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { SharedModule } from '@wa/app/shared/shared.module';
+import { CoreModule } from '@wa/app/core/core.module';
+import { AppRoutingModule } from '@wa/app/app-routing.module';
+import { AppComponent } from '@wa/app/app.component';
 
 export const ConfiguredTranslateModule = TranslateModule.forRoot({
 	loader: {

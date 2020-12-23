@@ -10,3 +10,9 @@
 	align-items: $align-items;
 	align-content: $align-content;
 }
+
+@mixin mat-icon-size($size: 24px) {
+	width: $size;
+	height: $size;
+	font-size: $size;
+}

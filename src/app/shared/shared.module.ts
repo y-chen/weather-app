@@ -2,23 +2,26 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-import { MaterialModule } from './material/material.module';
+import { RouterModule } from '@angular/router';
 
 import { TranslateModule } from '@ngx-translate/core';
 
-import { ValidationErrorsComponent } from './components/validation-errors/validation-errors.component';
+import { MaterialModule } from '@wa/app/shared/material/material.module';
+import { ValidationErrorsComponent } from '@wa/app/shared/components/validation-errors/validation-errors.component';
+import { LanguageSelectorComponent } from '@wa/app/shared/components/language-selector/language-selector.component';
 
-export const moduleDeclarations = [ValidationErrorsComponent];
+export const moduleDeclarations = [ValidationErrorsComponent, LanguageSelectorComponent];
 
 export const moduleImports = [
 	CommonModule,
 	HttpClientModule,
 	FormsModule,
+	RouterModule,
 	ReactiveFormsModule,
 	TranslateModule,
 	MaterialModule,
 ];
+
 export const moduleExports = [
 	CommonModule,
 	HttpClientModule,

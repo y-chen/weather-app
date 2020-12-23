@@ -2,9 +2,8 @@ import { FormControl } from '@angular/forms';
 
 import { SpectatorHost, createHostFactory } from '@ngneat/spectator';
 
-import { ValidationError } from '@wa/app/models';
-
-import { ValidationErrorsComponent } from './validation-errors.component';
+import { ValidationError } from '@wa/app/models/validation-errors.model';
+import { ValidationErrorsComponent } from '@wa/app/shared/components/validation-errors/validation-errors.component';
 
 describe('ValidationErrorsComponent', () => {
 	let host: SpectatorHost<ValidationErrorsComponent>;

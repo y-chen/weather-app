@@ -1,4 +1,19 @@
 {
+	"shell": {
+		"toolbar": {
+			"title": "Weather App",
+			"search": "Search",
+			"languageSelector": "Change language"
+		},
+		"sidebar": {
+			"open": "Open",
+			"close": "Close",
+			"current": "(current)",
+			"navItems": {
+				"home": "Home"
+			}
+		}
+	},
 	"config": {
 		"settings": {
 			"title": "Select your settings",

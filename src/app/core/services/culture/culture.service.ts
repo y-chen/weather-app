@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+
 import { TranslateService } from '@ngx-translate/core';
 
-import { Culture } from '@wa/app/models';
+import { Culture } from '@wa/app/models/culture.model';
 
 @Injectable()
 export class CultureService {
 	private currentCulture: Culture = availableCultures[0];
 
-	constructor(private translate: TranslateService) {}
+	constructor(private readonly translate: TranslateService) {}
 
 	getAvailableCultures(): Culture[] {
 		return Object.assign([], availableCultures);

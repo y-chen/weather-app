@@ -1,0 +1,15 @@
+<div class="menu-trigger" [matMenuTriggerFor]="languageMenu">
+	<i class="flag-icon flag-icon-{{ currentLang || 'en' }}"></i>
+
+	<mat-icon>keyboard_arrow_down</mat-icon>
+</div>
+
+<mat-menu #languageMenu="matMenu" yPosition="below" overlapTrigger="false">
+	<div *ngFor="let culture of cultures">
+		<button mat-menu-item (click)="setCulture(culture)">
+			<i class="flag-icon flag-icon-{{ culture.language }}"></i>
+
+			<span>{{ culture.label }}</span>
+		</button>
+	</div>
+</mat-menu>

@@ -17,6 +17,7 @@ module.exports = {
 		},
 	},
 	testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$',
+	moduleDirectories: ['node_modules', 'src'],
 	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'html'],
 	modulePaths: ['<rootDir>', '<rootDir>/src/'],
 	moduleNameMapper: {
@@ -24,6 +25,8 @@ module.exports = {
 		'^app/(.*)$': '<rootDir>/src/app/$1',
 		'^assets/(.*)$': '<rootDir>/src/assets/$1',
 		'^environments/(.*)$': '<rootDir>/src/environments/$1',
+		'@wa/app/(.*)': '<rootDir>/src/app/$1',
+		'@wa/environments/(.*)': '<rootDir>/src/environments/$1',
 	},
 	transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
 	coverageDirectory: 'coverage',

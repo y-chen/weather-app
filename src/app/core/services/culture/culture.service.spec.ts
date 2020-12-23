@@ -1,12 +1,26 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { TranslateService } from '@ngx-translate/core';
 
-import { CultureService } from './culture.service';
+import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+
+import { CultureService } from '@wa/app/core/services/culture/culture.service';
 
 describe('CultureService', () => {
 	let spectator: SpectatorService<CultureService>;
-	const createService = createServiceFactory(CultureService);
+	let translateMock: MockProxy<TranslateService>;
 
-	beforeEach(() => (spectator = createService()));
+	const createService = createServiceFactory({
+		service: CultureService,
+		mocks: [TranslateService],
+	});
+
+	beforeEach(() => {
+		translateMock = mock<TranslateService>();
+
+		mockReset(translateMock);
+
+		spectator = createService();
+	});
 
 	it('should be created', () => {
 		expect(spectator.service).toBeTruthy();
