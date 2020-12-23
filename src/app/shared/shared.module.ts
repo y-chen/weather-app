@@ -9,8 +9,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MaterialModule } from '@wa/app/shared/material/material.module';
 import { ValidationErrorsComponent } from '@wa/app/shared/components/validation-errors/validation-errors.component';
 import { LanguageSelectorComponent } from '@wa/app/shared/components/language-selector/language-selector.component';
+import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
+import { ToolbarComponent } from '@wa/app/shared/components/shell/toolbar/toolbar.component';
 
-export const moduleDeclarations = [ValidationErrorsComponent, LanguageSelectorComponent];
+export const moduleDeclarations = [
+	ValidationErrorsComponent,
+	LanguageSelectorComponent,
+	ShellComponent,
+	ToolbarComponent,
+];
 
 export const moduleImports = [
 	CommonModule,
