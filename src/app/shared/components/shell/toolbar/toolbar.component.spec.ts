@@ -1,25 +1,35 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { TranslateService } from '@ngx-translate/core';
+import { MockComponent } from 'ng-mocks';
 
-import { ToolbarComponent } from './toolbar.component';
+import { ComponentService } from '@wa/app/core/services/component/component.service';
+import { ToolbarComponent } from '@wa/app/shared/components/shell/toolbar/toolbar.component';
+import { LanguageSelectorComponent } from '@wa/app/shared/components/language-selector/language-selector.component';
 
 describe('ToolbarComponent', () => {
-  let component: ToolbarComponent;
-  let fixture: ComponentFixture<ToolbarComponent>;
+	let host: SpectatorHost<ToolbarComponent>;
+	let translateMock: MockProxy<TranslateService>;
+	let componentServiceMock: MockProxy<ComponentService>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ToolbarComponent ]
-    })
-    .compileComponents();
-  });
+	const createHost = createHostFactory({
+		component: ToolbarComponent,
+	});
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ToolbarComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+	beforeEach(() => {
+		componentServiceMock = mock<ComponentService>();
+		translateMock = mock<TranslateService>();
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+		mockReset(componentServiceMock);
+		mockReset(translateMock);
+	});
+
+	it('should create', () => {
+		host = createHost('<wa-toolbar></wa-toolbar>');
+
+		const toolbar = host.queryHost('wa-toolbar');
+
+		expect(host).toExist();
+		expect(toolbar).toExist();
+	});
 });

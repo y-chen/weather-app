@@ -7,6 +7,7 @@ import { TranslateTestingModule } from 'ngx-translate-testing';
 
 import { moduleDeclarations, moduleImports } from '@wa/app/shared/shared.module';
 import { ConfiguredTranslateModule } from '@wa/app/app.module';
+import { CoreModule } from './app/core/core.module';
 
 const ENGLISH_LANGUAGE = 'en';
 const ENGLISH_TRANSLATIONS = {
@@ -34,6 +35,7 @@ defineGlobalsInjections({
 	imports: [
 		RouterTestingModule,
 		TranslateTestingModule.withTranslations(TRANSLATIONS),
+		CoreModule,
 		...moduleImports,
 	],
 	providers: [],

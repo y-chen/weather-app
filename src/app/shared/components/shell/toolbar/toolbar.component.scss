@@ -1,0 +1,20 @@
+@import 'mixins.scss';
+
+mat-toolbar {
+	height: var(--toolbar-height);
+
+	> mat-toolbar-row {
+		@include flex-box(row, space-between, center, center);
+		flex-wrap: wrap;
+		color: white;
+
+		> * {
+			margin: 5px;
+		}
+
+		> :first-child {
+			font-size: 1rem;
+			flex: 1 1 auto;
+		}
+	}
+}

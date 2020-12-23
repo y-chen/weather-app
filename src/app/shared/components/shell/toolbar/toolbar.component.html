@@ -1,1 +1,9 @@
-<p>toolbar works!</p>
+<mat-toolbar color="primary">
+	<mat-toolbar-row>
+		<span translate>
+			{{ getLocalizationPath('title') }}
+		</span>
+		<wa-language-selector matTooltip="{{ getLocalizationPath('languageSelector') | translate }}">
+		</wa-language-selector>
+	</mat-toolbar-row>
+</mat-toolbar>
