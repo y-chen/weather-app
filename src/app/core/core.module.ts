@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -12,6 +12,6 @@ import { PositionService } from '@wa/app/core/services/position/position.service
 	declarations: [],
 	imports: [CommonModule, BrowserModule, BrowserAnimationsModule],
 	exports: [],
-	providers: [CultureService, LocalStorageService, NotificationService, PositionService],
+	providers: [DatePipe, CultureService, LocalStorageService, NotificationService, PositionService],
 })
 export class CoreModule {}
