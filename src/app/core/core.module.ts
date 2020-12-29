@@ -9,6 +9,7 @@ import { NotificationService } from '@wa/app/core/services/notification/notifica
 import { PositionService } from '@wa/app/core/services/position/position.service';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
+import { GeoService } from '@wa/app/core/services/geo/geo.service';
 
 @NgModule({
 	declarations: [],
@@ -22,6 +23,7 @@ import { LoggerService } from '@wa/app/core/services/logger/logger.service';
 		PositionService,
 		ApiService,
 		LoggerService,
+		GeoService,
 	],
 })
 export class CoreModule {}
