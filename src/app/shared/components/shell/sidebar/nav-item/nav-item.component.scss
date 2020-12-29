@@ -1,0 +1,42 @@
+@import 'mixins.scss';
+@import 'media.scss';
+
+:host {
+	.nav-item {
+		width: 100%;
+
+		> .nav-link {
+			@include flex-box(row, unset, center);
+			@include media('>=0px', '<=phone') {
+				span {
+					display: none;
+				}
+			}
+			text-decoration: none;
+			font-weight: 500;
+			color: var(--sidebar-normal-color);
+
+			mat-icon {
+				@include mat-icon-size(var(--sidebar-icon-size));
+			}
+
+			&:hover {
+				color: var(--sidebar-hover-color) !important;
+			}
+
+			&.active {
+				color: var(--sidebar-active-color) !important;
+			}
+
+			&:not(.active) {
+				.current {
+					display: none;
+				}
+			}
+
+			> * {
+				margin-right: 4px;
+			}
+		}
+	}
+}

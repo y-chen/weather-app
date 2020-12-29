@@ -24,8 +24,6 @@ export class ShellComponent implements OnInit {
 	async ngOnInit(): Promise<void> {
 		this.navItems = await this.componentService.getRouteData('navItems');
 
-		console.log(this.navItems);
-
 		this.router.navigate(['/app', 'home']);
 	}
 }

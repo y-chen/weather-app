@@ -1,0 +1,68 @@
+@import 'mixins.scss';
+@import 'media.scss';
+
+:host {
+	mat-sidenav-container {
+		top: var(--toolbar-height) !important;
+
+		> mat-sidenav {
+			@include flex-box(column);
+			padding: 10px;
+			background-color: #f1efee;
+
+			wa-nav-item {
+				margin: 5px;
+			}
+
+			.sidebar-toggle {
+				cursor: pointer;
+				position: absolute;
+				bottom: 15px;
+
+				@include media('>=0', '<=phone') {
+					display: none;
+				}
+
+				mat-icon {
+					@include mat-icon-size(var(--sidebar-icon-size));
+				}
+			}
+		}
+
+		&.closed {
+			> mat-sidenav {
+				width: var(--sidebar-mobile-width) !important;
+			}
+
+			> mat-sidenav-content {
+				padding: 10px;
+				margin-left: var(--sidebar-mobile-width) !important;
+			}
+		}
+
+		&:not(.closed) {
+			> mat-sidenav {
+				width: var(--sidebar-desktop-width) !important;
+
+				@include media('>=0', '<=phone') {
+					width: var(--sidebar-mobile-width) !important;
+				}
+			}
+
+			> mat-sidenav-content {
+				padding: 10px;
+				margin-left: var(--sidebar-desktop-width) !important;
+				max-height: calc(100% - 20px);
+				@include flex-box(column);
+
+				> .content {
+					flex: 1;
+				}
+
+				@include media('>=0', '<=phone') {
+					margin-left: var(--sidebar-mobile-width) !important;
+				}
+			}
+		}
+	}
+}

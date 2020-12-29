@@ -11,12 +11,16 @@ import { ValidationErrorsComponent } from '@wa/app/shared/components/validation-
 import { LanguageSelectorComponent } from '@wa/app/shared/components/language-selector/language-selector.component';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 import { ToolbarComponent } from '@wa/app/shared/components/shell/toolbar/toolbar.component';
+import { SidebarComponent } from '@wa/app/shared/components/shell/sidebar/sidebar.component';
+import { NavItemComponent } from '@wa/app/shared/components/shell/sidebar/nav-item/nav-item.component';
 
 export const moduleDeclarations = [
 	ValidationErrorsComponent,
 	LanguageSelectorComponent,
 	ShellComponent,
 	ToolbarComponent,
+	SidebarComponent,
+	NavItemComponent,
 ];
 
 export const moduleImports = [
