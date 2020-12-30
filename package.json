@@ -31,6 +31,7 @@
     "@angular/router": "~11.0.5",
     "@ngx-translate/core": "^13.0.0",
     "@ngx-translate/http-loader": "^6.0.0",
+    "case": "^1.6.3",
     "compass-mixins": "^0.12.10",
     "crypto-js": "^4.0.0",
     "oauth-1.0a": "^2.2.6",

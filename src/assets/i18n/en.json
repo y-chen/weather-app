@@ -3,6 +3,9 @@
 		"search": {
 			"placeholder": "Search",
 			"currentLocation": "Current location"
+		},
+		"forecast": {
+			"time": "Weather at {{time}}"
 		}
 	},
 	"shell": {

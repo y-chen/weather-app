@@ -3,6 +3,9 @@
 		"search": {
 			"placeholder": "Cerca",
 			"currentLocation": "Posizione corrente"
+		},
+		"forecast": {
+			"time": "Meteo alle {{time}}"
 		}
 	},
 	"shell": {

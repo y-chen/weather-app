@@ -1,3 +1,10 @@
+export interface ViewForecast {
+	title: string;
+	description: string;
+	icon: string;
+	time: string;
+}
+
 export interface ForecastParams {
 	q?: string;
 	group?: number[];

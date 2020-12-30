@@ -1,1 +1,13 @@
-<p>forecast works!</p>
+<mat-card>
+	<mat-card-header>
+		<mat-card-title>{{ location || forecast.name }}</mat-card-title>
+
+		<mat-card-subtitle>
+			{{ getLocalizationPath('time') | translate: { time: viewData.time } }}
+		</mat-card-subtitle>
+	</mat-card-header>
+
+	<mat-card-content>
+		<img [src]="viewData.icon" [alt]="viewData.description" />
+	</mat-card-content>
+</mat-card>
