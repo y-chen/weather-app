@@ -1,6 +1,6 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 
-import { HereMapsAuthService } from '@wa/app/core/services/here-maps-auth/here-maps-auth.service';
+import { HereMapsAuthService } from '@wa/app/core/services/here-auth/here-auth.service';
 
 describe('HereMapsAuthService', () => {
 	let spectator: SpectatorService<HereMapsAuthService>;

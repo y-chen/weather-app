@@ -13,10 +13,10 @@ import { HttpOptions } from '@wa/app/models/http.model';
 import { OAuthToken } from '@wa/app/models/here-maps.mode';
 
 @Injectable()
-export class HereMapsAuthService {
+export class HereAuthService {
 	private readonly TOKEN_ENDPOINT_URL: string;
 
-	private readonly oauth;
+	private readonly oauth: OAuth;
 
 	constructor(
 		private readonly localStorageService: LocalStorageService,
