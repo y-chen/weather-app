@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+
+import { CultureService } from '@wa/app/core/services/culture/culture.service';
 
 @Component({
 	selector: 'wa-root',
@@ -9,7 +10,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class AppComponent {
 	title = 'weather-app';
 
-	constructor(private readonly translate: TranslateService) {
-		this.translate.setDefaultLang('en');
+	constructor(private readonly cultureService: CultureService) {
+		const availableCultures = this.cultureService.getAvailableCultures();
+		this.cultureService.setCulture(availableCultures[0]);
 	}
 }
