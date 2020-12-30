@@ -1,3 +1,14 @@
+export interface ForecastParams {
+	q?: string;
+	group?: number[];
+	units: 'standard' | 'metric' | 'imperial';
+}
+
+export interface ForecastGroup {
+	cnt: number;
+	list: Forecast[];
+}
+
 export interface Forecast {
 	id: number;
 	name: string;
