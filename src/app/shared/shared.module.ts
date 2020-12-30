@@ -45,6 +45,13 @@ export const moduleExports = [
 	TranslateModule,
 	MaterialModule,
 	ValidationErrorsComponent,
+	LanguageSelectorComponent,
+	ShellComponent,
+	ToolbarComponent,
+	SidebarComponent,
+	NavItemComponent,
+	SearchComponent,
+	ForecastComponent,
 ];
 
 export const moduleProviders = [];
