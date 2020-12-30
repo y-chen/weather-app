@@ -24,6 +24,14 @@ export class CultureService {
 	getCulture(): Culture {
 		return Object.assign({}, this.currentCulture);
 	}
+
+	convertUnixTimeToLocaleTime(unixTime: number): string {
+		const { code, timeZone, timeZoneCode } = this.getCulture();
+		const date = new Date(unixTime * 1000);
+		const time = date.toLocaleTimeString(code, { timeZone });
+
+		return `${time} ${timeZoneCode}`;
+	}
 }
 
 export const availableCultures: Culture[] = [
@@ -31,10 +39,14 @@ export const availableCultures: Culture[] = [
 		label: 'English',
 		language: 'en',
 		code: 'en-GB',
+		timeZone: 'Europe/London',
+		timeZoneCode: 'UTC',
 	},
 	{
 		label: 'Italiano',
 		language: 'it',
 		code: 'it-IT',
+		timeZone: 'Europe/Rome',
+		timeZoneCode: 'CET',
 	},
 ];
