@@ -9,24 +9,24 @@ import {
 } from '@wa/app/core/services/local-storage/local-storage.service';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { environment } from '@wa/environments/environment';
-import { Header, HttpOptions } from '@wa/app/models/http.model';
+import { HttpOptions, Param } from '@wa/app/models/http.model';
 import { OAuthToken } from '@wa/app/models/here-maps.mode';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { access } from 'fs';
 
 @Injectable()
 export class HereAuthService {
+	private readonly API_KEY: string;
 	private readonly TOKEN_ENDPOINT_URL: string;
+
 	private readonly oauth: OAuth;
 
 	constructor(
 		private readonly localStorageService: LocalStorageService,
-		private readonly http: HttpClient,
 		private readonly api: ApiService,
 	) {
 		const { accessKeyId, accessKeySecret, tokenEndpointUrl } = environment.mapAPI.auth;
 
 		this.TOKEN_ENDPOINT_URL = tokenEndpointUrl;
+		this.API_KEY = environment.mapAPI.apiKey;
 
 		this.oauth = new OAuth({
 			consumer: {
@@ -63,5 +63,12 @@ export class HereAuthService {
 		this.localStorageService.set(StorageKeys.HereOAuthToken, access_token);
 
 		return access_token;
+	}
+
+	appendAPIKeyParam(params?: Param[]): Param[] {
+		params = params || [];
+		params.push({ key: 'apiKey', value: this.API_KEY });
+
+		return params;
 	}
 }

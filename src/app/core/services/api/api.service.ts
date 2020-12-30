@@ -120,11 +120,6 @@ export class ApiService {
 
 		headers = headers.set('Accept-Language', this.cultureService.getCulture().code);
 
-		const hasContentType = headers.has('Content-Type');
-		if (!hasContentType) {
-			headers = headers.set('Content-Type', 'application/json');
-		}
-
 		return headers;
 	}
 
