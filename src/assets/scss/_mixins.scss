@@ -11,7 +11,7 @@
 	align-content: $align-content;
 }
 
-@mixin mat-icon-size($size: 24px) {
+@mixin mat-icon-size($size: 16px) {
 	width: $size;
 	height: $size;
 	font-size: $size;

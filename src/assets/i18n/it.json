@@ -1,7 +1,8 @@
 {
 	"shared": {
 		"search": {
-			"placeholder": "Cerca"
+			"placeholder": "Cerca",
+			"currentLocation": "Posizione corrente"
 		}
 	},
 	"shell": {

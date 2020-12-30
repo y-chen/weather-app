@@ -6,7 +6,9 @@ import { debounceTime } from 'rxjs/operators';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { IComponent } from '@wa/app/models/component.model';
-import { SearchResult } from '@wa/app/models/here-maps.mode';
+import { SearchResult } from '@wa/app/models/here-api.model';
+import { LocationService } from '@wa/app/core/services/location/location.service';
+import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
 
 @Component({
 	selector: 'wa-search',
@@ -17,10 +19,12 @@ import { SearchResult } from '@wa/app/models/here-maps.mode';
 export class SearchComponent implements IComponent, OnInit {
 	cities: Promise<SearchResult[]>;
 	searchInput: FormControl = new FormControl();
+	locating: boolean = false;
 
 	constructor(
 		private readonly geoService: GeoService,
 		private readonly componentService: ComponentService,
+		private readonly locationService: LocationService,
 	) {
 		this.componentService.init('shared.search');
 	}
@@ -31,6 +35,15 @@ export class SearchComponent implements IComponent, OnInit {
 				this.cities = this.geoService.findCities(term);
 			}
 		});
+	}
+
+	async onCurrentLocationClick(): Promise<void> {
+		this.locating = true;
+		const coords: GeolocationCoordinates = await this.locationService.getLocation();
+		const location: SearchResult = await this.geoService.findLocationByCoords(coords);
+		this.locating = false;
+
+		this.searchInput.setValue(location.title);
 	}
 
 	getLocalizationPath(end: string): string {

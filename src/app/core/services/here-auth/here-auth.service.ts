@@ -10,7 +10,7 @@ import {
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { environment } from '@wa/environments/environment';
 import { HttpOptions, Param } from '@wa/app/models/http.model';
-import { OAuthToken } from '@wa/app/models/here-maps.mode';
+import { OAuthToken } from '@wa/app/models/here-api.model';
 
 @Injectable()
 export class HereAuthService {
@@ -23,10 +23,10 @@ export class HereAuthService {
 		private readonly localStorageService: LocalStorageService,
 		private readonly api: ApiService,
 	) {
-		const { accessKeyId, accessKeySecret, tokenEndpointUrl } = environment.mapAPI.auth;
+		const { accessKeyId, accessKeySecret, tokenEndpointUrl } = environment.hereAPI.auth;
 
 		this.TOKEN_ENDPOINT_URL = tokenEndpointUrl;
-		this.API_KEY = environment.mapAPI.apiKey;
+		this.API_KEY = environment.hereAPI.apiKey;
 
 		this.oauth = new OAuth({
 			consumer: {

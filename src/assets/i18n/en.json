@@ -1,7 +1,8 @@
 {
 	"shared": {
 		"search": {
-			"placeholder": "Search"
+			"placeholder": "Search",
+			"currentLocation": "Current location"
 		}
 	},
 	"shell": {

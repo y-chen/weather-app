@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 
-import { GeolocationPosition, GeolocationPositionError } from '@wa/app/models/geolocation.model';
+import {
+	GeolocationPosition,
+	GeolocationCoordinates,
+	GeolocationPositionError,
+} from '@wa/app/models/geolocation.model';
+
 import {
 	LocalStorageService,
 	StorageKeys,
 } from '@wa/app/core/services/local-storage/local-storage.service';
+
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 
 @Injectable()
@@ -14,18 +20,28 @@ export class LocationService {
 		private readonly localStorageService: LocalStorageService,
 	) {}
 
-	getPosition() {
+	async getLocation(): Promise<GeolocationCoordinates> {
 		if (!navigator.geolocation) {
 			throw new Error('Geolocation not available');
 		}
 
-		navigator.geolocation.getCurrentPosition(
-			(position: GeolocationPosition) => this.storePosition(position),
-			(error: GeolocationPositionError) => this.handleGeolocationError(error),
+		return new Promise((resolve, reject) =>
+			navigator.geolocation.getCurrentPosition(
+				(position: GeolocationPosition) => {
+					this.storeLocation(position);
+
+					resolve(position.coords);
+				},
+				(error: GeolocationPositionError) => {
+					this.handleGeolocationError(error);
+
+					reject(error);
+				},
+			),
 		);
 	}
 
-	private storePosition(position: GeolocationPosition): void {
+	private storeLocation(position: GeolocationPosition): void {
 		const { latitude, longitude } = position.coords;
 		const stringifyCoords = JSON.stringify({ latitude, longitude });
 

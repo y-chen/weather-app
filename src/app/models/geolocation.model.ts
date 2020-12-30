@@ -3,7 +3,7 @@ export interface GeolocationPosition {
 	readonly timestamp: number;
 }
 
-interface GeolocationCoordinates {
+export interface GeolocationCoordinates {
 	readonly accuracy: number;
 	readonly altitude: number | null;
 	readonly altitudeAccuracy: number | null;

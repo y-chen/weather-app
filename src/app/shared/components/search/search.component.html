@@ -6,6 +6,16 @@
 		[formControl]="searchInput"
 		[matAutocomplete]="auto"
 	/>
+
+	<mat-icon
+		[ngClass]="{ spin: locating }"
+		matSuffix
+		matTooltip="{{ getLocalizationPath('currentLocation') | translate }}"
+		(click)="onCurrentLocationClick()"
+	>
+		my_location
+	</mat-icon>
+
 	<mat-autocomplete #auto="matAutocomplete">
 		<mat-option *ngFor="let city of cities | async" [value]="city.address.label">
 			{{ city.address.label }}
