@@ -8,7 +8,7 @@ import {
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 
 @Injectable()
-export class PositionService {
+export class LocationService {
 	constructor(
 		private readonly notificationService: NotificationService,
 		private readonly localStorageService: LocalStorageService,

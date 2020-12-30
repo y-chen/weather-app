@@ -3,15 +3,15 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { LocalStorageService } from '@wa/app/core/services/local-storage/local-storage.service';
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
-import { PositionService } from '@wa/app/core/services/position/position.service';
+import { LocationService } from '@wa/app/core/services/location/location.service';
 
-describe('PositionService', () => {
-	let spectator: SpectatorService<PositionService>;
+describe('LocationService', () => {
+	let spectator: SpectatorService<LocationService>;
 	let notificationServiceMock: MockProxy<NotificationService>;
 	let localStorageServiceMock: MockProxy<LocalStorageService>;
 
 	const createService = createServiceFactory({
-		service: PositionService,
+		service: LocationService,
 		mocks: [NotificationService, LocalStorageService],
 	});
 
