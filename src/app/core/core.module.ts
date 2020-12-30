@@ -10,6 +10,7 @@ import { PositionService } from '@wa/app/core/services/position/position.service
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
+import { HereMapsAuthService } from '@wa/app/core/services/here-maps-auth/here-maps-auth.service';
 
 @NgModule({
 	declarations: [],
@@ -24,6 +25,7 @@ import { GeoService } from '@wa/app/core/services/geo/geo.service';
 		ApiService,
 		LoggerService,
 		GeoService,
+		HereMapsAuthService,
 	],
 })
 export class CoreModule {}

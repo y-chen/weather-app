@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { CultureService } from '../culture/culture.service';
 import { LoggerService } from '../logger/logger.service';
 import { HttpOptions, Header, Param, HttpOption } from '@wa/app/models/http.model';
+import { resolve } from 'dns';
+import { rejects } from 'assert';
 
 @Injectable()
 export class ApiService {
@@ -23,15 +25,19 @@ export class ApiService {
 		});
 	}
 
-	post<T>(url: string, body?: any, options?: HttpOptions): Observable<T> {
+	post<T>(url: string, body?: any, options?: HttpOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
 		this.logger.debug(`ApiService: executing POST ${url}`, body);
 
-		return this.http.post<T>(url, body, opts).pipe((result) => {
-			this.logger.debug(`ApiService: executed POST ${url} result`, result);
-
-			return result;
+		return new Promise<T>((resolve) => {
+			this.http
+				.post<T>(url, body, opts)
+				.toPromise()
+				.then((result: T) => {
+					this.logger.debug(`ApiService: executed POST ${url} result`, result);
+					resolve(result);
+				});
 		});
 	}
 
