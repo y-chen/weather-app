@@ -39,11 +39,13 @@ export class SearchComponent implements IComponent, OnInit {
 
 	async onCurrentLocationClick(): Promise<void> {
 		this.locating = true;
+
+		this.searchInput.setValue('');
 		const coords: GeolocationCoordinates = await this.locationService.getLocation();
 		const location: SearchResult = await this.geoService.findLocationByCoords(coords);
-		this.locating = false;
-
 		this.searchInput.setValue(location.title);
+
+		this.locating = false;
 	}
 
 	getLocalizationPath(end: string): string {
