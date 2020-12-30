@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import OAuth from 'oauth-1.0a';
-import crypto from 'crypto';
+import CryptoJS from 'crypto-js';
 
 import {
 	LocalStorageService,
@@ -9,17 +9,19 @@ import {
 } from '@wa/app/core/services/local-storage/local-storage.service';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { environment } from '@wa/environments/environment';
-import { HttpOptions } from '@wa/app/models/http.model';
+import { Header, HttpOptions } from '@wa/app/models/http.model';
 import { OAuthToken } from '@wa/app/models/here-maps.mode';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { access } from 'fs';
 
 @Injectable()
 export class HereAuthService {
 	private readonly TOKEN_ENDPOINT_URL: string;
-
 	private readonly oauth: OAuth;
 
 	constructor(
 		private readonly localStorageService: LocalStorageService,
+		private readonly http: HttpClient,
 		private readonly api: ApiService,
 	) {
 		const { accessKeyId, accessKeySecret, tokenEndpointUrl } = environment.mapAPI.auth;
@@ -32,9 +34,8 @@ export class HereAuthService {
 				secret: accessKeySecret,
 			},
 			signature_method: 'HMAC-SHA256',
-			hash_function: (base_string: string, key: string) => {
-				return crypto.createHmac('sha256', key).update(base_string).digest('base64');
-			},
+			hash_function: (base_string, key) =>
+				CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64),
 		});
 	}
 
@@ -45,9 +46,12 @@ export class HereAuthService {
 			data: { grant_type: 'client_credentials' },
 		};
 		const auth: OAuth.Authorization = this.oauth.authorize(requestData);
-		const authHeaderValue: OAuth.Header = this.oauth.toHeader(auth);
+		const authorization: string = this.oauth.toHeader(auth).Authorization;
 		const options: HttpOptions = {
-			headers: [{ key: 'Authorization', value: authHeaderValue }],
+			headers: [
+				{ key: 'Authorization', value: authorization },
+				{ key: 'Content-Type', value: 'application/x-www-form-urlencoded' },
+			],
 		};
 
 		const { access_token } = await this.api.post<OAuthToken>(
@@ -56,7 +60,7 @@ export class HereAuthService {
 			options,
 		);
 
-		this.localStorageService.set(StorageKeys.HereMapsOAuthToken, access_token);
+		this.localStorageService.set(StorageKeys.HereOAuthToken, access_token);
 
 		return access_token;
 	}

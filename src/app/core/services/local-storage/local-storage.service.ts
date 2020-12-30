@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 export const StorageKeys = {
 	Position: 'position',
-	HereMapsOAuthToken: 'here-maps-oauth-token',
+	HereOAuthToken: 'here-oauth-token',
 };
 
 @Injectable()
