@@ -14,6 +14,7 @@ import { ToolbarComponent } from '@wa/app/shared/components/shell/toolbar/toolba
 import { SidebarComponent } from '@wa/app/shared/components/shell/sidebar/sidebar.component';
 import { NavItemComponent } from '@wa/app/shared/components/shell/sidebar/nav-item/nav-item.component';
 import { SearchComponent } from '@wa/app/shared/components/search/search.component';
+import { ForecastComponent } from '@wa/app/shared/components/forecast/forecast.component';
 
 export const moduleDeclarations = [
 	ValidationErrorsComponent,
@@ -23,6 +24,7 @@ export const moduleDeclarations = [
 	SidebarComponent,
 	NavItemComponent,
 	SearchComponent,
+	ForecastComponent,
 ];
 
 export const moduleImports = [
