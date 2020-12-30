@@ -40,7 +40,7 @@ export const availableCultures: Culture[] = [
 		language: 'en',
 		code: 'en-GB',
 		timeZone: 'Europe/London',
-		timeZoneCode: 'UTC',
+		timeZoneCode: 'GMT',
 	},
 	{
 		label: 'Italiano',
