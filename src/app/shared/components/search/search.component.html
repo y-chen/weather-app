@@ -5,6 +5,7 @@
 		placeholder="{{ getLocalizationPath('placeholder') | translate }}"
 		[formControl]="searchInput"
 		[matAutocomplete]="auto"
+		(focus)="onSearchInputFocus($event)"
 	/>
 
 	<mat-icon
