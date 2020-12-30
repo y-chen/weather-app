@@ -12,8 +12,8 @@ export interface ForecastGroup {
 export interface Forecast {
 	id: number;
 	name: string;
-	coords: Coords;
-	weather: Weather;
+	coord: Coords;
+	weather: Weather[];
 	base: string;
 	main: Temperature;
 	visibility: number;
@@ -22,7 +22,7 @@ export interface Forecast {
 	dt: number;
 	sys: DayTime;
 	timezone: number;
-	code: number;
+	cod: number;
 }
 
 export interface Coords {
