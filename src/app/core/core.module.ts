@@ -11,6 +11,7 @@ import { ApiService } from '@wa/app/core/services/api/api.service';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { HereAuthService } from '@wa/app/core/services/here-auth/here-auth.service';
+import { OpenWeatherMapService } from '@wa/app/core/services/open-weather-map/open-weather-map.service';
 
 @NgModule({
 	declarations: [],
@@ -26,6 +27,7 @@ import { HereAuthService } from '@wa/app/core/services/here-auth/here-auth.servi
 		LoggerService,
 		GeoService,
 		HereAuthService,
+		OpenWeatherMapService,
 	],
 })
 export class CoreModule {}
