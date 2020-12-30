@@ -1,4 +1,9 @@
 {
+	"shared": {
+		"search": {
+			"placeholder": "Cerca"
+		}
+	},
 	"shell": {
 		"toolbar": {
 			"title": "Meteo App",

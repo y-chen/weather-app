@@ -17,10 +17,10 @@ export class SidebarComponent implements IComponent {
 	closed = false;
 
 	constructor(
-		private readonly component: ComponentService,
+		private readonly componentService: ComponentService,
 		private readonly route: ActivatedRoute,
 	) {
-		this.component.init('shell.sidebar');
+		this.componentService.init('shell.sidebar');
 	}
 
 	toggle(): void {
@@ -28,6 +28,6 @@ export class SidebarComponent implements IComponent {
 	}
 
 	getLocalizationPath(end: string): string {
-		return this.component.getLocalizationPath(end);
+		return this.componentService.getLocalizationPath(end);
 	}
 }

@@ -1,4 +1,9 @@
 {
+	"shared": {
+		"search": {
+			"placeholder": "Search"
+		}
+	},
 	"shell": {
 		"toolbar": {
 			"title": "Weather App",

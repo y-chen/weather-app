@@ -14,11 +14,11 @@ export class NavItemComponent implements IComponent {
 	@Input() item: NavItem;
 	@Input() open: boolean;
 
-	constructor(private readonly component: ComponentService) {
-		this.component.init('shell.sidebar');
+	constructor(private readonly componentService: ComponentService) {
+		this.componentService.init('shell.sidebar');
 	}
 
 	getLocalizationPath(end: string): string {
-		return this.component.getLocalizationPath(end);
+		return this.componentService.getLocalizationPath(end);
 	}
 }
