@@ -31,9 +31,7 @@ export class OpenWeatherMapService {
 
 	async getForecast(searchParams: ForecastSearchParams): Promise<Forecast> {
 		const url = this.buildUrl('weather');
-		let params: Param[] = Object.keys(searchParams).map((key: string) => {
-			return { key, value: searchParams[key] };
-		});
+		let params: Param[] = [{ key: 'q', value: searchParams.q }];
 		params = this.appendParams(params);
 
 		return await this.api.get<Forecast>(url, { params });
