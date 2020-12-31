@@ -1,9 +1,9 @@
-import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { LocalStorageService } from '@wa/app/core/services/local-storage/local-storage.service';
-import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 import { LocationService } from '@wa/app/core/services/location/location.service';
+import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 
 describe('LocationService', () => {
 	let spectator: SpectatorService<LocationService>;
@@ -25,7 +25,7 @@ describe('LocationService', () => {
 		spectator = createService();
 	});
 
-	it('should be defined', () => {
-		expect(spectator.service).toBeDefined();
+	it('should be defined', async () => {
+		await expect(spectator.service).toBeDefined();
 	});
 });

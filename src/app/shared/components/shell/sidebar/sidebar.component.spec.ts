@@ -1,5 +1,4 @@
-import { SpectatorHost, createHostFactory } from '@ngneat/spectator';
-
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { SidebarComponent } from '@wa/app/shared/components/shell/sidebar/sidebar.component';
 
 describe('SidebarComponent', () => {

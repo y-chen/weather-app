@@ -1,11 +1,9 @@
-import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
-import { TranslateService } from '@ngx-translate/core';
-import { MockComponent } from 'ng-mocks';
 
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { TranslateService } from '@ngx-translate/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { ToolbarComponent } from '@wa/app/shared/components/shell/toolbar/toolbar.component';
-import { LanguageSelectorComponent } from '@wa/app/shared/components/language-selector/language-selector.component';
 
 describe('ToolbarComponent', () => {
 	let host: SpectatorHost<ToolbarComponent>;

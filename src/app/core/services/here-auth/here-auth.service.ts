@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
+/* eslint-disable @typescript-eslint/naming-convention */
 
-import OAuth from 'oauth-1.0a';
 import CryptoJS from 'crypto-js';
+import OAuth from 'oauth-1.0a';
 
-import {
-	LocalStorageService,
-	StorageKeys,
-} from '@wa/app/core/services/local-storage/local-storage.service';
+import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
-import { environment } from '@wa/environments/environment';
-import { HttpOptions, Param } from '@wa/app/models/http.model';
+import {
+	LocalStorageService, StorageKeys
+} from '@wa/app/core/services/local-storage/local-storage.service';
 import { OAuthToken } from '@wa/app/models/here-api.model';
+import { HttpOptions, Param } from '@wa/app/models/http.model';
+import { environment } from '@wa/environments/environment';
 
 @Injectable()
 export class HereAuthService {

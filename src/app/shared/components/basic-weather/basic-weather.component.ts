@@ -1,15 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-
 import Case from 'case';
 
+import { Component, Input, OnInit } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
+import {
+	LocalStorageService, StorageKeys
+} from '@wa/app/core/services/local-storage/local-storage.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { Forecast, ViewWeather } from '@wa/app/models/open-weather-map.model';
-import {
-	LocalStorageService,
-	StorageKeys,
-} from '@wa/app/core/services/local-storage/local-storage.service';
 
 @Component({
 	selector: 'wa-basic-weather',
@@ -34,6 +32,10 @@ export class BasicWeatherComponent implements IComponent, OnInit {
 
 	ngOnInit(): void {
 		this.viewData = this.parseForecastData();
+	}
+
+	getLocalizationPath(end: string): string {
+		return this.componentService.getLocalizationPath(end);
 	}
 
 	private parseForecastData(): ViewWeather {
@@ -63,9 +65,5 @@ export class BasicWeatherComponent implements IComponent, OnInit {
 			temperature: `${Math.round(this.forecast.main.temp)}° ${temperatureUnit}`,
 			icon: `http://openweathermap.org/img/wn/${icon}@${this.iconSize}x.png`,
 		};
-	}
-
-	getLocalizationPath(end: string): string {
-		return this.componentService.getLocalizationPath(end);
 	}
 }

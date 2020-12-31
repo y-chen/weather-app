@@ -1,9 +1,9 @@
 import { FormControl } from '@angular/forms';
-
-import { SpectatorHost, createHostFactory } from '@ngneat/spectator';
-
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ValidationError } from '@wa/app/models/validation-errors.model';
-import { ValidationErrorsComponent } from '@wa/app/shared/components/validation-errors/validation-errors.component';
+import {
+	ValidationErrorsComponent
+} from '@wa/app/shared/components/validation-errors/validation-errors.component';
 
 describe('ValidationErrorsComponent', () => {
 	let host: SpectatorHost<ValidationErrorsComponent>;
@@ -28,7 +28,7 @@ describe('ValidationErrorsComponent', () => {
 		expect(input).toExist();
 	});
 
-	it('should display error message when control has same error type', () => {
+	it('should display error message when control has same error type', async () => {
 		host = createHost('<wa-validation-errors [errors]="errors"></wa-validation-errors>', {
 			hostProps: { errors: errorMessages },
 			props: { control: new FormControl() },
@@ -38,12 +38,12 @@ describe('ValidationErrorsComponent', () => {
 		host.detectChanges();
 		const errors = host.queryAll('mat-error');
 
-		expect(errors.length).toEqual(2);
+		await expect(errors.length).toEqual(2);
 		expect(errors[0]).toContainText('REQUIRED');
 		expect(errors[1]).toContainText('PATTERN');
 	});
 
-	it('should not display error message when control has not it', () => {
+	it('should not display error message when control has not it', async () => {
 		host = createHost('<wa-validation-errors [errors]="errors"></wa-validation-errors>', {
 			hostProps: { errors: errorMessages },
 			props: { control: new FormControl() },
@@ -53,7 +53,7 @@ describe('ValidationErrorsComponent', () => {
 		host.detectChanges();
 		const errors = host.queryAll('mat-error');
 
-		expect(errors.length).toEqual(1);
+		await expect(errors.length).toEqual(1);
 		expect(errors[0]).not.toContainText('REQUIRED');
 		expect(errors[0]).toContainText('PATTERN');
 	});

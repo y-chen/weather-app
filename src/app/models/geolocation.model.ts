@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 export interface GeolocationPosition {
 	readonly coords: GeolocationCoordinates;
 	readonly timestamp: number;

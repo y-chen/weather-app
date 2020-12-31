@@ -1,5 +1,4 @@
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-
 import { HomeComponent } from '@wa/app/features/home/components/home/home.component';
 
 describe('HomeComponent', () => {

@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
 import { ValidationError } from '@wa/app/models/validation-errors.model';
 
 @Component({

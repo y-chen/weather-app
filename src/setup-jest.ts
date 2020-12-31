@@ -1,12 +1,12 @@
-import { RouterTestingModule } from '@angular/router/testing';
-
 import 'jest-preset-angular';
 import '@ngneat/spectator/jest';
-import { defineGlobalsInjections } from '@ngneat/spectator';
+
 import { TranslateTestingModule } from 'ngx-translate-testing';
 
+import { RouterTestingModule } from '@angular/router/testing';
+import { defineGlobalsInjections } from '@ngneat/spectator';
 import { moduleDeclarations, moduleImports } from '@wa/app/shared/shared.module';
-import { ConfiguredTranslateModule } from '@wa/app/app.module';
+
 import { CoreModule } from './app/core/core.module';
 
 const ENGLISH_LANGUAGE = 'en';

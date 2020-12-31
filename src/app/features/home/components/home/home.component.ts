@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import {
-	LocalStorageService,
-	StorageKeys,
-} from '@wa/app/core/services/local-storage/local-storage.service';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { OpenWeatherMapService } from '@wa/app/core/services/open-weather-map/open-weather-map.service';
+import {
+	LocalStorageService, StorageKeys
+} from '@wa/app/core/services/local-storage/local-storage.service';
+import {
+	OpenWeatherMapService
+} from '@wa/app/core/services/open-weather-map/open-weather-map.service';
 import { Forecast } from '@wa/app/models/open-weather-map.model';
 
 @Component({
@@ -38,9 +38,9 @@ export class HomeComponent implements OnInit {
 		);
 
 		if (localStorageFavouriteCities) {
-			group = JSON.parse(localStorageFavouriteCities);
+			group = JSON.parse(localStorageFavouriteCities) as number[];
 		} else {
-			group = await this.componentService.getRouteData('defaultCities');
+			group = (await this.componentService.getRouteData('defaultCities')) as number[];
 
 			this.localStorageService.set(StorageKeys.favouriteCities, JSON.stringify(group));
 		}

@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
-import { DatePipe } from '@angular/common';
+/* eslint-disable no-console */
 
+import { DatePipe } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { environment } from '@wa/environments/environment';
 
 @Injectable()
@@ -9,13 +10,11 @@ export class LoggerService {
 
 	debug(message: any, ...args: any[]): void {
 		if (!environment.production) {
-			// tslint:disable-next-line: no-console
 			this.log(console.debug, message, args);
 		}
 	}
 
 	info(message: any, ...args: any[]): void {
-		// tslint:disable-next-line: no-console
 		this.log(console.info, message, args);
 	}
 
@@ -27,7 +26,7 @@ export class LoggerService {
 		this.log(console.error, message, args);
 	}
 
-	private log(callbak: Function, message?: any, ...args: any[]) {
+	private log(callbak: (msg: any, ...params: any[]) => void, message?: any, ...args: any[]): void {
 		message = this.prefixMessage(message);
 
 		if (Array.isArray(args) && args.length > 0) {
@@ -37,7 +36,7 @@ export class LoggerService {
 		}
 	}
 
-	private prefixMessage(message): string {
+	private prefixMessage(message: string): string {
 		return `WA | ${this.datePipe.transform(new Date(), 'HH:mm:ss.SSS')} | ${message}`;
 	}
 }

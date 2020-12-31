@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { NavItem } from '@wa/app/models/navigation.model';
 
@@ -22,8 +21,8 @@ export class ShellComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		this.navItems = await this.componentService.getRouteData('navItems');
+		this.navItems = (await this.componentService.getRouteData('navItems')) as NavItem[];
 
-		this.router.navigate(['/app', 'home']);
+		await this.router.navigate(['/app', 'home']);
 	}
 }

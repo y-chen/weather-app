@@ -1,8 +1,8 @@
 export interface ValidationErrors {
-  [key: string]: ValidationError[];
+	[key: string]: ValidationError[];
 }
 
 export interface ValidationError {
-  type: string;
-  message: string;
+	type: string;
+	message: string;
 }

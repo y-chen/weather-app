@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 
 import { debounceTime } from 'rxjs/operators';
 
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
-import { IComponent } from '@wa/app/models/component.model';
-import { SearchResult } from '@wa/app/models/here-api.model';
 import { LocationService } from '@wa/app/core/services/location/location.service';
+import { IComponent } from '@wa/app/models/component.model';
 import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
+import { SearchResult } from '@wa/app/models/here-api.model';
 
 @Component({
 	selector: 'wa-search',
@@ -19,7 +21,7 @@ import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
 export class SearchComponent implements IComponent, OnInit {
 	cities: Promise<SearchResult[]>;
 	searchInput: FormControl = new FormControl();
-	locating: boolean = false;
+	locating = false;
 
 	constructor(
 		private readonly geoService: GeoService,
@@ -37,7 +39,7 @@ export class SearchComponent implements IComponent, OnInit {
 		});
 	}
 
-	onSearchInputFocus(event: any) {
+	onSearchInputFocus(event: any): void {
 		if (this.locating) {
 			event.target.blur();
 		}

@@ -1,14 +1,14 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { HereAuthService } from '@wa/app/core/services/here-auth/here-auth.service';
 
-import { HereMapsAuthService } from '@wa/app/core/services/here-auth/here-auth.service';
+describe('HereAuthService', () => {
+	let spectator: SpectatorService<HereAuthService>;
 
-describe('HereMapsAuthService', () => {
-	let spectator: SpectatorService<HereMapsAuthService>;
-	const createService = createServiceFactory(HereMapsAuthService);
+	const createService = createServiceFactory(HereAuthService);
 
 	beforeEach(() => (spectator = createService()));
 
-	it('should be created', () => {
-		expect(spectator.service).toBeTruthy();
+	it('should be created', async () => {
+		await expect(spectator.service).toBeTruthy();
 	});
 });

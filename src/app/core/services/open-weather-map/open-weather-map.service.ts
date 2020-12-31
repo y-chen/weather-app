@@ -1,18 +1,16 @@
-import { Injectable } from '@angular/core';
+/* eslint-disable @typescript-eslint/naming-convention */
 
+import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
+import {
+	LocalStorageService, StorageKeys
+} from '@wa/app/core/services/local-storage/local-storage.service';
 import { Param } from '@wa/app/models/http.model';
 import {
-	Forecast,
-	ForecastGroup,
-	ForecastSearchParams,
+	Forecast, ForecastGroup, ForecastSearchParams
 } from '@wa/app/models/open-weather-map.model';
 import { environment } from '@wa/environments/environment';
-import {
-	LocalStorageService,
-	StorageKeys,
-} from '@wa/app/core/services/local-storage/local-storage.service';
 
 @Injectable()
 export class OpenWeatherMapService {

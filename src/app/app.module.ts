@@ -1,16 +1,15 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClient } from '@angular/common/http';
-
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-
-import { SharedModule } from '@wa/app/shared/shared.module';
-import { CoreModule } from '@wa/app/core/core.module';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from '@wa/app/app-routing.module';
 import { AppComponent } from '@wa/app/app.component';
+import { CoreModule } from '@wa/app/core/core.module';
+import { SharedModule } from '@wa/app/shared/shared.module';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 export const ConfiguredTranslateModule = TranslateModule.forRoot({
 	loader: {
 		provide: TranslateLoader,

@@ -1,6 +1,7 @@
-import { SpectatorHost, createHostFactory } from '@ngneat/spectator';
-
-import { NavItemComponent } from './nav-item.component';
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import {
+	NavItemComponent
+} from '@wa/app/shared/components/shell/sidebar/nav-item/nav-item.component';
 
 describe('NavItemComponent', () => {
 	let host: SpectatorHost<NavItemComponent>;

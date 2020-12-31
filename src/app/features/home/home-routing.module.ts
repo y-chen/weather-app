@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '@wa/app/features/home/components/home/home.component';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 
-const navItemsLocalizationBasePath: string = 'shell.sidebar.navItems';
+const navItemsLocalizationBasePath = 'shell.sidebar.navItems';
 const defaultCities: number[] = [
 	2643743, // London
 	2950159, // Berlin

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 export interface SearchResult {
 	title: string;
 	id: string;

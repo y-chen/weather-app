@@ -1,8 +1,8 @@
 {
-	"root": true,
 	"env": {
 		"browser": true,
 		"es6": true,
+		"jest": true,
 		"node": true
 	},
 	"extends": [
@@ -15,7 +15,54 @@
 		"plugin:sonarjs/recommended",
 		"plugin:security/recommended"
 	],
-	"ignorePatterns": ["/node_modules", "/tmp", "/data", "/dist", "/documentation"],
+	"ignorePatterns": ["/node_modules", "/tmp", "/data", "/dist", "/documentation", "polyfills.ts"],
+	"overrides": [
+		{
+			"files": ["*.component.html"],
+			"parser": "@angular-eslint/template-parser",
+			"plugins": [
+				"@angular-eslint/template",
+				"@angular-eslint/eslint-plugin",
+				"@angular-eslint/eslint-plugin-template",
+				"@angular-eslint"
+			],
+			"rules": {
+				"@angular-eslint/component-class-suffix": "error",
+				"@angular-eslint/component-selector": [
+					"error",
+					{
+						"prefix": "app",
+						"style": "kebab-case",
+						"type": "element"
+					}
+				],
+				"@angular-eslint/contextual-lifecycle": "error",
+				"@angular-eslint/directive-class-suffix": "error",
+				"@angular-eslint/directive-selector": [
+					"error",
+					{
+						"prefix": "app",
+						"style": "camelCase",
+						"type": "attribute"
+					}
+				],
+				"@angular-eslint/no-conflicting-lifecycle": "error",
+				"@angular-eslint/no-host-metadata-property": "error",
+				"@angular-eslint/no-input-rename": "error",
+				"@angular-eslint/no-inputs-metadata-property": "error",
+				"@angular-eslint/no-output-native": "error",
+				"@angular-eslint/no-output-on-prefix": "error",
+				"@angular-eslint/no-output-rename": "error",
+				"@angular-eslint/no-outputs-metadata-property": "error",
+				"@angular-eslint/template/banana-in-box": "error",
+				"@angular-eslint/template/no-negated-async": "error",
+				"@angular-eslint/use-component-view-encapsulation": "error",
+				"@angular-eslint/use-lifecycle-interface": "error",
+				"@angular-eslint/use-pipe-decorator": "error",
+				"@angular-eslint/use-pipe-transform-interface": "error"
+			}
+		}
+	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"project": "tsconfig.json",
@@ -24,50 +71,15 @@
 	"plugins": [
 		"eslint-plugin-import",
 		"eslint-plugin-jsdoc",
-		"@angular-eslint/eslint-plugin",
-		"@angular-eslint/eslint-plugin-template",
 		"eslint-plugin-prefer-arrow",
-		"eslint-plugin-react",
 		"@typescript-eslint",
 		"@typescript-eslint/tslint",
 		"sonarjs",
 		"security",
 		"eslint-plugin-html"
 	],
+	"root": true,
 	"rules": {
-		"@angular-eslint/component-class-suffix": "error",
-		"@angular-eslint/component-selector": [
-			"error",
-			{
-				"type": "element",
-				"prefix": "app",
-				"style": "kebab-case"
-			}
-		],
-		"@angular-eslint/contextual-lifecycle": "error",
-		"@angular-eslint/directive-class-suffix": "error",
-		"@angular-eslint/directive-selector": [
-			"error",
-			{
-				"type": "attribute",
-				"prefix": "app",
-				"style": "camelCase"
-			}
-		],
-		"@angular-eslint/no-conflicting-lifecycle": "error",
-		"@angular-eslint/no-host-metadata-property": "error",
-		"@angular-eslint/no-input-rename": "error",
-		"@angular-eslint/no-inputs-metadata-property": "error",
-		"@angular-eslint/no-output-native": "error",
-		"@angular-eslint/no-output-on-prefix": "error",
-		"@angular-eslint/no-output-rename": "error",
-		"@angular-eslint/no-outputs-metadata-property": "error",
-		"@angular-eslint/template/banana-in-box": "error",
-		"@angular-eslint/template/no-negated-async": "error",
-		"@angular-eslint/use-component-view-encapsulation": "error",
-		"@angular-eslint/use-lifecycle-interface": "error",
-		"@angular-eslint/use-pipe-decorator": "error",
-		"@angular-eslint/use-pipe-transform-interface": "error",
 		"@typescript-eslint/adjacent-overload-signatures": "error",
 		"@typescript-eslint/array-type": "off",
 		"@typescript-eslint/ban-ts-comment": "error",
@@ -75,17 +87,17 @@
 			"error",
 			{
 				"types": {
-					"Object": {
-						"message": "Avoid using the `Object` type. Did you mean `object`?"
+					"Boolean": {
+						"message": "Avoid using the `Boolean` type. Did you mean `boolean`?"
 					},
 					"Function": {
 						"message": "Avoid using the `Function` type. Prefer a specific function type, like `() => void`."
 					},
-					"Boolean": {
-						"message": "Avoid using the `Boolean` type. Did you mean `boolean`?"
-					},
 					"Number": {
 						"message": "Avoid using the `Number` type. Did you mean `number`?"
+					},
+					"Object": {
+						"message": "Avoid using the `Object` type. Did you mean `object`?"
 					},
 					"String": {
 						"message": "Avoid using the `String` type. Did you mean `string`?"
@@ -111,18 +123,7 @@
 		],
 		"@typescript-eslint/explicit-module-boundary-types": "off",
 		"@typescript-eslint/func-call-spacing": "off",
-		"@typescript-eslint/indent": [
-			"error",
-			4,
-			{
-				"FunctionDeclaration": {
-					"parameters": "first"
-				},
-				"FunctionExpression": {
-					"parameters": "first"
-				}
-			}
-		],
+		"@typescript-eslint/indent": ["error", "tab"],
 		"@typescript-eslint/keyword-spacing": "off",
 		"@typescript-eslint/member-delimiter-style": [
 			"error",
@@ -173,9 +174,27 @@
 		"@typescript-eslint/triple-slash-reference": [
 			"error",
 			{
+				"lib": "always",
 				"path": "always",
-				"types": "prefer-import",
-				"lib": "always"
+				"types": "prefer-import"
+			}
+		],
+		"@typescript-eslint/tslint/config": [
+			"error",
+			{
+				"rules": {
+					"import-spacing": true,
+					"typedef": [true, "call-signature"],
+					"whitespace": [
+						true,
+						"check-branch",
+						"check-decl",
+						"check-operator",
+						"check-separator",
+						"check-type",
+						"check-typecast"
+					]
+				}
 			}
 		],
 		"@typescript-eslint/type-annotation-spacing": "error",
@@ -366,9 +385,6 @@
 		"quote-props": ["error", "as-needed"],
 		"quotes": "off",
 		"radix": "error",
-		"react/jsx-curly-spacing": "off",
-		"react/jsx-equals-spacing": "off",
-		"react/jsx-wrap-multilines": "off",
 		"require-yield": "error",
 		"rest-spread-spacing": "off",
 		"scss/dollar-variable-pattern": "off",
@@ -448,24 +464,6 @@
 		"valid-typeof": "off",
 		"wrap-iife": "off",
 		"wrap-regex": "off",
-		"yield-star-spacing": "off",
-		"@typescript-eslint/tslint/config": [
-			"error",
-			{
-				"rules": {
-					"import-spacing": true,
-					"typedef": [true, "call-signature"],
-					"whitespace": [
-						true,
-						"check-branch",
-						"check-decl",
-						"check-operator",
-						"check-separator",
-						"check-type",
-						"check-typecast"
-					]
-				}
-			}
-		]
+		"yield-star-spacing": "off"
 	}
 }

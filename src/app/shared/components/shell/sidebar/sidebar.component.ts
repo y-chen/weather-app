@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { NavItem } from '@wa/app/models/navigation.model';

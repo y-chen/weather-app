@@ -1,5 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { Culture } from '@wa/app/models/culture.model';
 

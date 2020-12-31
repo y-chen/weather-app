@@ -1,11 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
-import { Observable } from 'rxjs';
-
+import { Injectable } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
-import { HttpOptions, Header, Param, HttpOption } from '@wa/app/models/http.model';
+import { Header, HttpOption, HttpOptions, Param } from '@wa/app/models/http.model';
 
 @Injectable()
 export class ApiService {
@@ -21,48 +18,39 @@ export class ApiService {
 		this.logger.debug(`ApiService: executing GET ${url}`, { opts });
 
 		return new Promise<T>((resolve) => {
-			this.http
-				.get<T>(url, opts)
-				.toPromise()
-				.then((result: T) => {
-					this.logger.debug(`ApiService: executed GET ${url} result`, { result });
+			this.http.get<T>(url, opts).subscribe((result: T) => {
+				this.logger.debug(`ApiService: executed GET ${url} result`, { result });
 
-					resolve(result);
-				});
+				resolve(result);
+			});
 		});
 	}
 
-	post<T>(url: string, body?: any, options?: HttpOptions): Promise<T> {
+	post<T>(url: string, body?: unknown, options?: HttpOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
 		this.logger.debug(`ApiService: executing POST ${url}`, { body, opts });
 
 		return new Promise<T>((resolve) => {
-			this.http
-				.post<T>(url, body, opts)
-				.toPromise()
-				.then((result: T) => {
-					this.logger.debug(`ApiService: executed POST ${url} result`, { result });
+			this.http.post<T>(url, body, opts).subscribe((result: T) => {
+				this.logger.debug(`ApiService: executed POST ${url} result`, { result });
 
-					resolve(result);
-				});
+				resolve(result);
+			});
 		});
 	}
 
-	put<T>(url: string, body?: any, options?: HttpOptions): Promise<T> {
+	put<T>(url: string, body?: unknown, options?: HttpOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
 		this.logger.debug(`ApiService: executing PUT ${url}`, { body, opts });
 
 		return new Promise<T>((resolve) => {
-			this.http
-				.put<T>(url, body, opts)
-				.toPromise()
-				.then((result: T) => {
-					this.logger.debug(`ApiService: executed PUT ${url} result`, result);
+			this.http.put<T>(url, body, opts).subscribe((result: T) => {
+				this.logger.debug(`ApiService: executed PUT ${url} result`, result);
 
-					resolve(result);
-				});
+				resolve(result);
+			});
 		});
 	}
 
@@ -72,32 +60,26 @@ export class ApiService {
 		this.logger.debug(`ApiService: executing DELETE ${url}`, { opts });
 
 		return new Promise<T>((resolve) => {
-			this.http
-				.delete<T>(url, opts)
-				.toPromise()
-				.then((result: T) => {
-					this.logger.debug(`ApiService: executed DELETE ${url} result`, { result });
+			this.http.delete<T>(url, opts).subscribe((result: T) => {
+				this.logger.debug(`ApiService: executed DELETE ${url} result`, { result });
 
-					resolve(result);
-				});
+				resolve(result);
+			});
 		});
 	}
 
-	patch<T>(url: string, body?: any): Promise<T> {
+	patch<T>(url: string, body?: Body): Promise<T> {
 		const opts = { headers: new HttpHeaders() };
 		opts.headers = this.getHeaders([]);
 
 		this.logger.debug(`ApiService: executing PATCH ${url}`, { body, opts });
 
 		return new Promise<T>((resolve) => {
-			this.http
-				.patch<T>(url, body, opts)
-				.toPromise()
-				.then((result: T) => {
-					this.logger.debug(`ApiService: executed PATCH ${url} result`, { result });
+			this.http.patch<T>(url, body, opts).subscribe((result: T) => {
+				this.logger.debug(`ApiService: executed PATCH ${url} result`, { result });
 
-					resolve(result);
-				});
+				resolve(result);
+			});
 		});
 	}
 

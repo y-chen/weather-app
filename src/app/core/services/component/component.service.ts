@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
-import { Router, ActivatedRoute, RouterEvent, NavigationEnd, Data } from '@angular/router';
+/* eslint-disable security/detect-object-injection */
 
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+
+import { Injectable } from '@angular/core';
+import { ActivatedRoute, Data, NavigationEnd, Router, RouterEvent } from '@angular/router';
 
 @Injectable()
 export class ComponentService {
@@ -12,7 +14,7 @@ export class ComponentService {
 	private route: ActivatedRoute;
 	private router?: Router;
 
-	init(localizationBasePath: string, route?: ActivatedRoute, router?: Router) {
+	init(localizationBasePath: string, route?: ActivatedRoute, router?: Router): void {
 		this.localizationBasePath = localizationBasePath;
 		this.router = router;
 		this.route = route;
@@ -36,11 +38,11 @@ export class ComponentService {
 		this.subscriptions.forEach((s) => s.unsubscribe());
 	}
 
-	getResolverData(paramName: string): any {
+	getResolverData(paramName: string): unknown {
 		return this.route?.snapshot?.data[paramName];
 	}
 
-	getRouteData(paramName: string): Promise<any> {
+	getRouteData(paramName: string): Promise<unknown> {
 		return new Promise((resolve, reject) => {
 			try {
 				return this.route?.data?.subscribe((data: Data) => resolve(data[paramName]));

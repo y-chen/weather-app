@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-
 import { TranslateService } from '@ngx-translate/core';
-
 import { Culture } from '@wa/app/models/culture.model';
 
 @Injectable()

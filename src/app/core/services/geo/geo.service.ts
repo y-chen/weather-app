@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
+/* eslint-disable @typescript-eslint/naming-convention */
 
-import { environment } from '@wa/environments/environment';
+import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
-import { Param } from '@wa/app/models/http.model';
-import { HereAuthService } from '@wa/app/core/services/here-auth/here-auth.service';
-import { SearchResult } from '@wa/app/models/here-api.model';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
+import { SearchResult } from '@wa/app/models/here-api.model';
+import { Param } from '@wa/app/models/http.model';
+import { environment } from '@wa/environments/environment';
 
 @Injectable()
 export class GeoService {

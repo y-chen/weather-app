@@ -3,22 +3,22 @@
 	"compileOnSave": false,
 	"compilerOptions": {
 		"baseUrl": "./",
-		"outDir": "./dist/out-tsc",
-		"sourceMap": true,
 		"declaration": false,
 		"downlevelIteration": true,
-		"experimentalDecorators": true,
-		"esModuleInterop": true,
 		"emitDecoratorMetadata": true,
-		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"experimentalDecorators": true,
 		"importHelpers": true,
-		"target": "es2015",
-		"module": "es2020",
 		"lib": ["es2018", "dom"],
+		"module": "es2020",
+		"moduleResolution": "node",
+		"outDir": "./dist/out-tsc",
 		"paths": {
 			"@wa/app/*": ["src/app/*"],
 			"@wa/environments/*": ["src/environments/*"],
 			"crypto": ["node_modules/crypto-js"]
-		}
+		},
+		"sourceMap": true,
+		"target": "es2015"
 	}
 }

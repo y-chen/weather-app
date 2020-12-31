@@ -1,5 +1,4 @@
-import { SpectatorHost, createHostFactory } from '@ngneat/spectator';
-
+import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { SearchComponent } from '@wa/app/shared/components/search/search.component';
 
 describe('SearchComponent', () => {

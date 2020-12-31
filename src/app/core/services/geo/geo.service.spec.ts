@@ -1,5 +1,4 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 
 describe('GeoService', () => {
@@ -8,7 +7,7 @@ describe('GeoService', () => {
 
 	beforeEach(() => (spectator = createService()));
 
-	it('should be created', () => {
-		expect(spectator.service).toBeTruthy();
+	it('should be defined', async () => {
+		await expect(spectator.service).toBeDefined();
 	});
 });

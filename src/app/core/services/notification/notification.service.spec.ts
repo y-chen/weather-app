@@ -1,7 +1,7 @@
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 
 describe('NotificationService', () => {
@@ -21,7 +21,7 @@ describe('NotificationService', () => {
 		spectator = createService();
 	});
 
-	it('should be defined', () => {
-		expect(spectator.service).toBeDefined();
+	it('should be created', async () => {
+		await expect(spectator.service).toBeTruthy();
 	});
 });

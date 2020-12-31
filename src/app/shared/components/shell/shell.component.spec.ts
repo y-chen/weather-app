@@ -1,5 +1,4 @@
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 
 describe('ShellComponent', () => {
