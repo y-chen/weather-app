@@ -10,6 +10,9 @@ import {
 import {
 	LanguageSelectorComponent
 } from '@wa/app/shared/components/language-selector/language-selector.component';
+import {
+	OverlaySpinnerComponent
+} from '@wa/app/shared/components/overlay-spinner/overlay-spinner.component';
 import { SearchComponent } from '@wa/app/shared/components/search/search.component';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 import {
@@ -31,6 +34,7 @@ export const moduleDeclarations = [
 	NavItemComponent,
 	SearchComponent,
 	BasicWeatherComponent,
+	OverlaySpinnerComponent,
 ];
 
 export const moduleImports = [
