@@ -33,51 +33,10 @@ export class BasicWeatherComponent implements IComponent, OnInit {
 	}
 
 	ngOnInit(): void {
-		this.location = 'Vienna, Austria';
-		this.forecast = {
-			coord: {
-				lon: 16.37,
-				lat: 48.21,
-			},
-			weather: [
-				{
-					id: 800,
-					main: 'Clear',
-					description: 'clear sky',
-					icon: '01n',
-				},
-			],
-			base: 'stations',
-			main: {
-				temp: 2.48,
-				feels_like: -0.15,
-				temp_min: 0,
-				temp_max: 3.89,
-				pressure: 1008,
-				humidity: 86,
-			},
-			visibility: 10000,
-			wind: {
-				speed: 1,
-				deg: 50,
-			},
-			clouds: {
-				all: 0,
-			},
-			dt: 1609366726,
-			sys: {
-				type: 1,
-				id: 6878,
-				country: 'AT',
-				sunrise: 1609310710,
-				sunset: 1609340934,
-			},
-			timezone: 3600,
-			id: 2761369,
-			name: 'Vienna',
-			cod: 200,
-		};
+		this.viewData = this.parseForecastData();
+	}
 
+	private parseForecastData(): ViewWeather {
 		const unitsType: string = this.localStorageService.get(StorageKeys.Units);
 		let temperatureUnit: string;
 		switch (unitsType) {
@@ -94,12 +53,15 @@ export class BasicWeatherComponent implements IComponent, OnInit {
 				break;
 		}
 
-		this.viewData = {
-			title: this.location || this.forecast.name,
-			time: this.cultureService.convertUnixTimeToLocaleTime(this.forecast.dt),
-			description: Case.capital(this.forecast.weather[0].description),
+		const { name, dt } = this.forecast;
+		const { description, icon } = this.forecast.weather[0];
+
+		return {
+			title: this.location || name,
+			time: this.cultureService.convertUnixTimeToLocaleTime(dt),
+			description: Case.capital(description),
 			temperature: `${Math.round(this.forecast.main.temp)}° ${temperatureUnit}`,
-			icon: `http://openweathermap.org/img/wn/${this.forecast.weather[0].icon}@${this.iconSize}x.png`,
+			icon: `http://openweathermap.org/img/wn/${icon}@${this.iconSize}x.png`,
 		};
 	}
 
