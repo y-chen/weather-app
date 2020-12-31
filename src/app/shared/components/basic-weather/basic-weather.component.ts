@@ -31,7 +31,9 @@ export class BasicWeatherComponent implements IComponent, OnInit {
 	}
 
 	ngOnInit(): void {
-		this.viewData = this.parseForecastData();
+		if (this.forecast) {
+			this.viewData = this.parseForecastData();
+		}
 	}
 
 	getLocalizationPath(end: string): string {
