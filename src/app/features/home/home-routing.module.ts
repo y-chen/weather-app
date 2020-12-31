@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import {
+	GroupForecastResolver
+} from '@wa/app/core/resolvers/group-forecast/group-forecast.resolver';
 import { HomeComponent } from '@wa/app/features/home/components/home/home.component';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 
@@ -20,7 +23,14 @@ const routes: Routes = [
 		data: {
 			navItems: [{ icon: 'home', label: `${navItemsLocalizationBasePath}.home`, route: 'home' }],
 		},
-		children: [{ path: 'home', component: HomeComponent, data: { defaultCities } }],
+		children: [
+			{
+				path: 'home',
+				component: HomeComponent,
+				resolve: { favouriteCities: GroupForecastResolver },
+				data: { defaultCities },
+			},
+		],
 	},
 	{ path: 'app', redirectTo: '', pathMatch: 'full' },
 ];
