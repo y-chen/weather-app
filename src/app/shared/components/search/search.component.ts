@@ -50,7 +50,9 @@ export class SearchComponent implements IComponent, OnInit {
 
 		const coords: GeolocationCoordinates = await this.locationService.getLocation();
 		const location: SearchResult = await this.geoService.findLocationByCoords(coords);
-		this.searchInput.setValue(location.title);
+
+		const { city, county, countryName } = location.address;
+		this.searchInput.setValue(`${city}, ${county}, ${countryName}`);
 
 		this.locating = false;
 	}
