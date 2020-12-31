@@ -4,7 +4,7 @@
 			"placeholder": "Cerca",
 			"currentLocation": "Posizione corrente"
 		},
-		"forecast": {
+		"basicWeather": {
 			"time": "Meteo alle {{time}}"
 		}
 	},

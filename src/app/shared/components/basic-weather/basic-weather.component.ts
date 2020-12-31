@@ -5,31 +5,31 @@ import Case from 'case';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { IComponent } from '@wa/app/models/component.model';
-import { Forecast, ViewForecast } from '@wa/app/models/open-weather-map.model';
+import { Forecast, ViewWeather } from '@wa/app/models/open-weather-map.model';
 import {
 	LocalStorageService,
 	StorageKeys,
 } from '@wa/app/core/services/local-storage/local-storage.service';
 
 @Component({
-	selector: 'wa-forecast',
-	templateUrl: './forecast.component.html',
-	styleUrls: ['./forecast.component.scss'],
+	selector: 'wa-basic-weather',
+	templateUrl: './basic-weather.component.html',
+	styleUrls: ['./basic-weather.component.scss'],
 	providers: [ComponentService],
 })
-export class ForecastComponent implements IComponent, OnInit {
+export class BasicWeatherComponent implements IComponent, OnInit {
 	@Input() location?: string;
 	@Input() iconSize?: 2 | 4 = 4;
 	@Input() forecast: Forecast;
 
-	viewData: ViewForecast;
+	viewData: ViewWeather;
 
 	constructor(
 		private readonly cultureService: CultureService,
 		private readonly componentService: ComponentService,
 		private readonly localStorageService: LocalStorageService,
 	) {
-		this.componentService.init('shared.forecast');
+		this.componentService.init('shared.basicWeather');
 	}
 
 	ngOnInit(): void {

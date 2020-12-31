@@ -3,7 +3,11 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { Param } from '@wa/app/models/http.model';
-import { Forecast, ForecastGroup, ForecastParams } from '@wa/app/models/open-weather-map.model';
+import {
+	Forecast,
+	ForecastGroup,
+	ForecastSearchParams,
+} from '@wa/app/models/open-weather-map.model';
 import { environment } from '@wa/environments/environment';
 
 @Injectable()
@@ -17,21 +21,21 @@ export class OpenWeatherMapService {
 		this.API_KEY = apiKey;
 	}
 
-	async getForecast(forecastParams: ForecastParams): Promise<Forecast> {
+	async getForecast(searchParams: ForecastSearchParams): Promise<Forecast> {
 		const url = this.buildUrl('weather');
-		let params: Param[] = Object.keys(forecastParams).map((key: string) => {
-			return { key, value: forecastParams[key] };
+		let params: Param[] = Object.keys(searchParams).map((key: string) => {
+			return { key, value: searchParams[key] };
 		});
 		params = this.appendParams(params);
 
 		return await this.api.get<Forecast>(url, { params });
 	}
 
-	async getGroupForecast(forecastParams: ForecastParams): Promise<ForecastGroup> {
+	async getGroupForecast(searchParams: ForecastSearchParams): Promise<ForecastGroup> {
 		const url = this.buildUrl('group');
 		let params: Param[] = [
-			{ key: 'id', value: forecastParams.group.join(',') },
-			{ key: 'units', value: forecastParams.units },
+			{ key: 'id', value: searchParams.group.join(',') },
+			{ key: 'units', value: searchParams.units },
 		];
 		params = this.appendParams(params);
 

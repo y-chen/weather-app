@@ -4,7 +4,7 @@
 			"placeholder": "Search",
 			"currentLocation": "Current location"
 		},
-		"forecast": {
+		"basicWeather": {
 			"time": "Weather at {{time}}"
 		}
 	},

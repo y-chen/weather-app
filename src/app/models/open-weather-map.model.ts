@@ -1,4 +1,4 @@
-export interface ViewForecast {
+export interface ViewWeather {
 	title: string;
 	description: string;
 	temperature: string;
@@ -6,7 +6,7 @@ export interface ViewForecast {
 	time: string;
 }
 
-export interface ForecastParams {
+export interface ForecastSearchParams {
 	q?: string;
 	group?: number[];
 	units: 'standard' | 'metric' | 'imperial';
