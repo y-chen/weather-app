@@ -8,6 +8,8 @@ import { defineGlobalsInjections } from '@ngneat/spectator';
 import { moduleDeclarations, moduleImports } from '@wa/app/shared/shared.module';
 
 import { CoreModule } from './app/core/core.module';
+import { ErrorHandlersModule } from './app/error-handlers/error-handlers.module';
+import { InterceptorsModule } from './app/interceptors/interceptors.module';
 
 const ENGLISH_LANGUAGE = 'en';
 const ENGLISH_TRANSLATIONS = {
@@ -36,6 +38,8 @@ defineGlobalsInjections({
 		RouterTestingModule,
 		TranslateTestingModule.withTranslations(TRANSLATIONS),
 		CoreModule,
+		ErrorHandlersModule,
+		InterceptorsModule,
 		...moduleImports,
 	],
 	providers: [],
