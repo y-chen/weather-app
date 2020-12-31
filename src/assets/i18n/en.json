@@ -20,7 +20,8 @@
 			"close": "Close",
 			"current": "(current)",
 			"navItems": {
-				"home": "Home"
+				"home": "Home",
+				"forecast": "Forecast"
 			}
 		}
 	},

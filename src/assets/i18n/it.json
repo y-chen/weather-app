@@ -20,7 +20,8 @@
 			"close": "Chiudi",
 			"current": "(corrente)",
 			"navItems": {
-				"home": "Home"
+				"home": "Home",
+				"forecast": "Previsioni"
 			}
 		}
 	},
