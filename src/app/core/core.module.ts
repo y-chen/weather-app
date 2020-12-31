@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -30,4 +30,10 @@ import { OpenWeatherMapService } from '@wa/app/core/services/open-weather-map/op
 		OpenWeatherMapService,
 	],
 })
-export class CoreModule {}
+export class CoreModule {
+	constructor(@Optional() @SkipSelf() core: CoreModule) {
+		if (core) {
+			throw new Error('You should import core module only in the root module');
+		}
+	}
+}
