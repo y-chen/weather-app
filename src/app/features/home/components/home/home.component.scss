@@ -1,5 +1,14 @@
+@import 'mixins';
+
 :host {
-	.container {
-		padding: 15px;
+	.cities-container {
+		@include flex-box(row, space-around, center, center);
+		flex-wrap: wrap;
+		gap: 10px;
+
+		> wa-basic-weather {
+			@include set-all-media(min-width, 30%, 35%, 50%, 100%);
+			flex: 1 1 0;
+		}
 	}
 }

@@ -1,17 +1,41 @@
 @import 'mixins';
 
 :host {
+	width: 100%;
+	min-height: 100%;
+
 	mat-card-content {
-		@include flex-box(row, space-around, center, center);
+		width: 100%;
+		@include flex-box(row, center, center, center);
+
+		> * {
+			width: 50%;
+			flex: 1 1 0;
+		}
 
 		> .forecast-info {
 			@include flex-box(column, space-around, center, center);
 			gap: 15px;
 
-			> .temperature {
-				font-size: 4em;
+			> * {
+				min-height: 100%;
 				font-weight: bold;
 			}
+
+			> .temperature {
+				font-size: 3.5em;
+			}
+
+			> .weather-description {
+				text-align: center;
+			}
+		}
+
+		> img {
+			display: block;
+			margin: 0 auto;
+			max-width: 100%;
+			max-height: 100%;
 		}
 	}
 }

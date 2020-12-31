@@ -41,6 +41,8 @@ export class HomeComponent implements OnInit {
 			group = JSON.parse(localStorageFavouriteCities);
 		} else {
 			group = await this.componentService.getRouteData('defaultCities');
+
+			this.localStorageService.set(StorageKeys.favouriteCities, JSON.stringify(group));
 		}
 
 		return (await this.openWeatherMapService.getGroupForecast({ group })).list;
