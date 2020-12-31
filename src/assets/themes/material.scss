@@ -147,19 +147,19 @@ $mat-dark-theme-background: (
 // Theme Config
 
 body {
-	--primary-color: #112337;
-	--primary-lighter-color: #b8bdc3;
-	--primary-darker-color: #0a1523;
+	--primary-color: #076794;
+	--primary-lighter-color: #b5d1df;
+	--primary-darker-color: #044a77;
 	--text-primary-color: #{$light-primary-text};
 	--text-primary-lighter-color: #{$dark-primary-text};
 	--text-primary-darker-color: #{$light-primary-text};
 }
 
 $mat-primary: (
-	main: #112337,
-	lighter: #b8bdc3,
-	darker: #0a1523,
-	200: #112337,
+	main: #076794,
+	lighter: #b5d1df,
+	darker: #044a77,
+	200: #076794,
 	// For slide toggle,
 	contrast:
 		(
@@ -171,19 +171,19 @@ $mat-primary: (
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
 body {
-	--accent-color: #43a1dd;
-	--accent-lighter-color: #c7e3f5;
-	--accent-darker-color: #2c85cf;
+	--accent-color: #d0741b;
+	--accent-lighter-color: #f1d5bb;
+	--accent-darker-color: #be5710;
 	--text-accent-color: #{$dark-primary-text};
 	--text-accent-lighter-color: #{$dark-primary-text};
 	--text-accent-darker-color: #{$light-primary-text};
 }
 
 $mat-accent: (
-	main: #43a1dd,
-	lighter: #c7e3f5,
-	darker: #2c85cf,
-	200: #43a1dd,
+	main: #d0741b,
+	lighter: #f1d5bb,
+	darker: #be5710,
+	200: #d0741b,
 	// For slide toggle,
 	contrast:
 		(
