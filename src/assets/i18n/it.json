@@ -5,7 +5,8 @@
 			"currentLocation": "Posizione corrente"
 		},
 		"basicWeather": {
-			"time": "Meteo alle {{time}}"
+			"time": "Meteo alle {{time}}",
+			"viewForecast": "Vedi Previsioni"
 		}
 	},
 	"shell": {

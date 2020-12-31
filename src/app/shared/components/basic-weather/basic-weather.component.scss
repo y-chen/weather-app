@@ -28,6 +28,7 @@
 
 			> .weather-description {
 				text-align: center;
+				font-size: 1.3em;
 			}
 		}
 
@@ -36,6 +37,22 @@
 			margin: 0 auto;
 			max-width: 100%;
 			max-height: 100%;
+		}
+	}
+
+	mat-card-actions {
+		text-align: center;
+
+		> .view-forecast-link {
+			color: var(--primary-color);
+			text-decoration: none;
+			font-size: 1.1em;
+			font-weight: bold;
+
+			&:hover {
+				color: var(--accent-color);
+				text-decoration: none;
+			}
 		}
 	}
 }

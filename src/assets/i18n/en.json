@@ -5,7 +5,8 @@
 			"currentLocation": "Current location"
 		},
 		"basicWeather": {
-			"time": "Weather at {{time}}"
+			"time": "Weather at {{time}}",
+			"viewForecast": "View Forecast"
 		}
 	},
 	"shell": {

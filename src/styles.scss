@@ -24,7 +24,7 @@ body {
 	font-family: Roboto, 'Helvetica Neue', sans-serif;
 
 	mat-card {
-		padding: 0 !important;
+		padding: 0 0 16px 0 !important;
 
 		> mat-card-header {
 			background-color: var(--primary-color);
@@ -43,7 +43,7 @@ body {
 		mat-card-content,
 		mat-card-actions {
 			width: auto !important;
-			margin: 16px !important;
+			margin: 0 16px !important;
 		}
 
 		mat-card-content.form {
