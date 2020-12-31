@@ -1,6 +1,6 @@
-<mat-card *ngIf="forecast">
+<mat-card *ngIf="weather">
 	<mat-card-header>
-		<mat-card-title>{{ location || forecast.name }}</mat-card-title>
+		<mat-card-title>{{ location || weather.name }}</mat-card-title>
 
 		<mat-card-subtitle>
 			{{ getLocalizationPath('time') | translate: { time: viewData.time } }}
@@ -18,7 +18,7 @@
 	</mat-card-content>
 
 	<mat-card-actions>
-		<a class="view-forecast-link" [routerLink]="['/app', 'forecast', forecast.id]" translate>
+		<a class="view-forecast-link" [routerLink]="['/app', 'forecast', weather.id]" translate>
 			{{ getLocalizationPath('viewForecast') }}
 		</a>
 	</mat-card-actions>

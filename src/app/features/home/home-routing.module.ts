@@ -36,7 +36,7 @@ const routes: Routes = [
 			{
 				path: 'home',
 				component: HomeComponent,
-				resolve: { favouriteCities: GroupForecastResolver },
+				resolve: { favouriteCitiesWeather: GroupForecastResolver },
 				data: { defaultCities },
 			},
 			{

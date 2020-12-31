@@ -8,21 +8,41 @@ export interface ViewWeather {
 	time: string;
 }
 
-export interface ForecastSearchParams {
+export interface Forecast {
+	cod: string;
+	message: number;
+	cnt: number;
+	list: Weather[];
+	city: City;
+}
+
+export interface City {
+	id: number;
+	name: string;
+	cood: Coords;
+	country: string;
+	popuplation: number;
+	timezone: 3600;
+	sunrise: number;
+	sunset: number;
+}
+
+export interface OpenWeatherSearchParams {
 	q?: string;
 	group?: number[];
+	id?: number;
 }
 
-export interface ForecastGroup {
+export interface WeatherGroup {
 	cnt: number;
-	list: Forecast[];
+	list: Weather[];
 }
 
-export interface Forecast {
+export interface Weather {
 	id: number;
 	name: string;
 	coord: Coords;
-	weather: Weather[];
+	weather: WeatherDetails[];
 	base: string;
 	main: Temperature;
 	visibility: number;
@@ -32,14 +52,15 @@ export interface Forecast {
 	sys: DayTime;
 	timezone: number;
 	cod: number;
+	pop?: number;
+	dt_txt?: string;
 }
-
 export interface Coords {
 	lat: number;
 	lon: number;
 }
 
-export interface Weather {
+export interface WeatherDetails {
 	id: number;
 	main: string;
 	description: string;
@@ -53,6 +74,9 @@ export interface Temperature {
 	temp_max: number;
 	pressure: number;
 	humidity: number;
+	sea_level?: number;
+	grnd_level?: number;
+	temp_kf?: number;
 }
 
 export interface Wind {
@@ -70,4 +94,5 @@ export interface DayTime {
 	country: string;
 	sunrise: number;
 	sunset: number;
+	sys?: string;
 }

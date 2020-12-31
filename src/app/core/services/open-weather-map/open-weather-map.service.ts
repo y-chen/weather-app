@@ -8,7 +8,7 @@ import {
 } from '@wa/app/core/services/local-storage/local-storage.service';
 import { Param } from '@wa/app/models/http.model';
 import {
-	Forecast, ForecastGroup, ForecastSearchParams
+	OpenWeatherSearchParams, Weather, WeatherGroup
 } from '@wa/app/models/open-weather-map.model';
 import { environment } from '@wa/environments/environment';
 
@@ -27,20 +27,28 @@ export class OpenWeatherMapService {
 		this.API_KEY = apiKey;
 	}
 
-	async getForecast(searchParams: ForecastSearchParams): Promise<Forecast> {
+	async getWeather(searchParams: OpenWeatherSearchParams): Promise<Weather> {
 		const url = this.buildUrl('weather');
 		let params: Param[] = [{ key: 'q', value: searchParams.q }];
 		params = this.appendParams(params);
 
-		return await this.api.get<Forecast>(url, { params });
+		return await this.api.get<Weather>(url, { params });
 	}
 
-	async getGroupForecast(searchParams: ForecastSearchParams): Promise<ForecastGroup> {
+	async getWeatherGroup(searchParams: OpenWeatherSearchParams): Promise<WeatherGroup> {
 		const url = this.buildUrl('group');
 		let params: Param[] = [{ key: 'id', value: searchParams.group.join(',') }];
 		params = this.appendParams(params);
 
-		return await this.api.get<ForecastGroup>(url, { params });
+		return await this.api.get<WeatherGroup>(url, { params });
+	}
+
+	async getForecast(searchParams: OpenWeatherSearchParams): Promise<Weather> {
+		const url = this.buildUrl('forecast');
+		let params: Param[] = [{ key: 'id', value: searchParams.id }];
+		params = this.appendParams(params);
+
+		return await this.api.get<Weather>(url, { params });
 	}
 
 	private appendParams(params?: Param[]): Param[] {

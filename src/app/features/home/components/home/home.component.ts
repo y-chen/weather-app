@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { Forecast } from '@wa/app/models/open-weather-map.model';
+import { Weather } from '@wa/app/models/open-weather-map.model';
 
 @Component({
 	selector: 'wa-home',
@@ -10,7 +10,7 @@ import { Forecast } from '@wa/app/models/open-weather-map.model';
 	providers: [ComponentService],
 })
 export class HomeComponent implements OnInit {
-	favouriteCities: Forecast[];
+	favouriteCitiesWeather: Weather[];
 
 	constructor(
 		private readonly componentService: ComponentService,
@@ -20,8 +20,8 @@ export class HomeComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		this.favouriteCities = (await this.componentService.getResolverData(
-			'favouriteCities',
-		)) as Forecast[];
+		this.favouriteCitiesWeather = (await this.componentService.getResolverData(
+			'favouriteCitiesWeather',
+		)) as Weather[];
 	}
 }

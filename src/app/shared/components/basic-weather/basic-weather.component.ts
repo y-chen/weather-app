@@ -7,7 +7,7 @@ import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
 import { IComponent } from '@wa/app/models/component.model';
-import { Forecast, ViewWeather } from '@wa/app/models/open-weather-map.model';
+import { ViewWeather, Weather } from '@wa/app/models/open-weather-map.model';
 
 @Component({
 	selector: 'wa-basic-weather',
@@ -18,7 +18,7 @@ import { Forecast, ViewWeather } from '@wa/app/models/open-weather-map.model';
 export class BasicWeatherComponent implements IComponent, OnInit {
 	@Input() location?: string;
 	@Input() iconSize?: 2 | 4 = 4;
-	@Input() forecast: Forecast;
+	@Input() weather: Weather;
 
 	viewData: ViewWeather;
 
@@ -31,7 +31,7 @@ export class BasicWeatherComponent implements IComponent, OnInit {
 	}
 
 	ngOnInit(): void {
-		if (this.forecast) {
+		if (this.weather) {
 			this.viewData = this.parseForecastData();
 		}
 	}
@@ -57,14 +57,14 @@ export class BasicWeatherComponent implements IComponent, OnInit {
 				break;
 		}
 
-		const { name, dt } = this.forecast;
-		const { description, icon } = this.forecast.weather[0];
+		const { name, dt } = this.weather;
+		const { description, icon } = this.weather.weather[0];
 
 		return {
 			title: this.location || name,
 			time: this.cultureService.convertUnixTimeToLocaleTime(dt),
 			description: Case.capital(description),
-			temperature: `${Math.round(this.forecast.main.temp)}° ${temperatureUnit}`,
+			temperature: `${Math.round(this.weather.main.temp)}° ${temperatureUnit}`,
 			icon: `http://openweathermap.org/img/wn/${icon}@${this.iconSize}x.png`,
 		};
 	}
