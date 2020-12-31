@@ -29,7 +29,7 @@ module.exports = {
 		'@wa/environments/(.*)': '<rootDir>/src/environments/$1',
 	},
 	transformIgnorePatterns: ['node_modules/(?!@ngrx)'],
-	coverageDirectory: 'coverage',
+	coverageDirectory: '.coverage',
 	snapshotSerializers: [
 		'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
 		'jest-preset-angular/build/AngularSnapshotSerializer.js',

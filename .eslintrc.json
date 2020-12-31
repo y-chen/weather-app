@@ -15,7 +15,14 @@
 		"plugin:sonarjs/recommended",
 		"plugin:security/recommended"
 	],
-	"ignorePatterns": ["/node_modules", "/tmp", "/data", "/dist", "/documentation", "polyfills.ts"],
+	"ignorePatterns": [
+		"/node_modules",
+		"/.tmp",
+		"/.data",
+		"/.dist",
+		"/.documentation",
+		"polyfills.ts"
+	],
 	"overrides": [
 		{
 			"files": ["*.component.html"],

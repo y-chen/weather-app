@@ -1,5 +1,5 @@
 /node_modules
-/tmp
-/data
-/dist
-/documentation
+/.tmp
+/.data
+/.dist
+/.documentation
