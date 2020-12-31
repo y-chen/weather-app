@@ -4,6 +4,7 @@ export const StorageKeys = {
 	Position: 'position',
 	HereOAuthToken: 'here-oauth-token',
 	Units: 'units',
+	favouriteCities: 'favourite-cities',
 };
 
 @Injectable()

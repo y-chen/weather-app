@@ -9,7 +9,6 @@ export interface ViewWeather {
 export interface ForecastSearchParams {
 	q?: string;
 	group?: number[];
-	units: 'standard' | 'metric' | 'imperial';
 }
 
 export interface ForecastGroup {
