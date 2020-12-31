@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export const StorageKeys = {
 	Position: 'position',
 	HereOAuthToken: 'here-oauth-token',
+	Units: 'units',
 };
 
 @Injectable()

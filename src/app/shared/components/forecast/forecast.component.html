@@ -8,6 +8,12 @@
 	</mat-card-header>
 
 	<mat-card-content>
+		<div class="forecast-info">
+			<span class="temperature">{{ viewData.temperature }}</span>
+
+			<b>{{ viewData.description }}</b>
+		</div>
+
 		<img [src]="viewData.icon" [alt]="viewData.description" />
 	</mat-card-content>
 </mat-card>

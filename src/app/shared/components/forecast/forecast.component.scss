@@ -1,0 +1,17 @@
+@import 'mixins';
+
+:host {
+	mat-card-content {
+		@include flex-box(row, space-around, center, center);
+
+		> .forecast-info {
+			@include flex-box(column, space-around, center, center);
+			gap: 15px;
+
+			> .temperature {
+				font-size: 4em;
+				font-weight: bold;
+			}
+		}
+	}
+}

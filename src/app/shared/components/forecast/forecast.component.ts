@@ -6,6 +6,10 @@ import { ComponentService } from '@wa/app/core/services/component/component.serv
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { Forecast, ViewForecast } from '@wa/app/models/open-weather-map.model';
+import {
+	LocalStorageService,
+	StorageKeys,
+} from '@wa/app/core/services/local-storage/local-storage.service';
 
 @Component({
 	selector: 'wa-forecast',
@@ -15,7 +19,7 @@ import { Forecast, ViewForecast } from '@wa/app/models/open-weather-map.model';
 })
 export class ForecastComponent implements IComponent, OnInit {
 	@Input() location?: string;
-	@Input() iconSize?: 2 | 4 = 2;
+	@Input() iconSize?: 2 | 4 = 4;
 	@Input() forecast: Forecast;
 
 	viewData: ViewForecast;
@@ -23,6 +27,7 @@ export class ForecastComponent implements IComponent, OnInit {
 	constructor(
 		private readonly cultureService: CultureService,
 		private readonly componentService: ComponentService,
+		private readonly localStorageService: LocalStorageService,
 	) {
 		this.componentService.init('shared.forecast');
 	}
@@ -73,10 +78,27 @@ export class ForecastComponent implements IComponent, OnInit {
 			cod: 200,
 		};
 
+		const unitsType: string = this.localStorageService.get(StorageKeys.Units);
+		let temperatureUnit: string;
+		switch (unitsType) {
+			case 'standard':
+				temperatureUnit = 'K';
+				break;
+			case 'metric':
+				temperatureUnit = 'C';
+				break;
+			case 'imperial':
+				temperatureUnit = 'F';
+				break;
+			default:
+				break;
+		}
+
 		this.viewData = {
 			title: this.location || this.forecast.name,
 			time: this.cultureService.convertUnixTimeToLocaleTime(this.forecast.dt),
-			description: Case.pascal(this.forecast.weather[0].description),
+			description: Case.capital(this.forecast.weather[0].description),
+			temperature: `${Math.round(this.forecast.main.temp)}° ${temperatureUnit}`,
 			icon: `http://openweathermap.org/img/wn/${this.forecast.weather[0].icon}@${this.iconSize}x.png`,
 		};
 	}

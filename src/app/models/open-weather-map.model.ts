@@ -1,6 +1,7 @@
 export interface ViewForecast {
 	title: string;
 	description: string;
+	temperature: string;
 	icon: string;
 	time: string;
 }
