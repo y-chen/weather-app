@@ -17,7 +17,7 @@ export class ShellComponent implements OnInit {
 		private readonly router: Router,
 		private readonly route: ActivatedRoute,
 	) {
-		this.componentService.init('shell', this.route);
+		this.componentService.init({ localizationBasePath: 'shell', route: this.route });
 	}
 
 	async ngOnInit(): Promise<void> {

@@ -5,16 +5,18 @@ import { filter } from 'rxjs/operators';
 
 import { Injectable } from '@angular/core';
 import { ActivatedRoute, Data, NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { ComponentParams } from '@wa/app/models/component.model';
 
 @Injectable()
 export class ComponentService {
 	private readonly subscriptions: Subscription[] = [];
 
-	private localizationBasePath: string;
-	private route: ActivatedRoute;
+	private localizationBasePath?: string;
+	private route?: ActivatedRoute;
 	private router?: Router;
 
-	init(localizationBasePath: string, route?: ActivatedRoute, router?: Router): void {
+	init(params: ComponentParams): void {
+		const { localizationBasePath, router, route } = params;
 		this.localizationBasePath = localizationBasePath;
 		this.router = router;
 		this.route = route;

@@ -28,7 +28,7 @@ export class SearchComponent implements IComponent, OnInit {
 		private readonly componentService: ComponentService,
 		private readonly locationService: LocationService,
 	) {
-		this.componentService.init('shared.search');
+		this.componentService.init({ localizationBasePath: 'shared.search' });
 	}
 
 	ngOnInit(): void {

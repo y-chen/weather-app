@@ -27,7 +27,7 @@ export class BasicWeatherComponent implements IComponent, OnInit {
 		private readonly componentService: ComponentService,
 		private readonly localStorageService: LocalStorageService,
 	) {
-		this.componentService.init('shared.basicWeather');
+		this.componentService.init({ localizationBasePath: 'shared.basicWeather' });
 	}
 
 	ngOnInit(): void {

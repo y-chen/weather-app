@@ -14,7 +14,7 @@ export class NavItemComponent implements IComponent {
 	@Input() open: boolean;
 
 	constructor(private readonly componentService: ComponentService) {
-		this.componentService.init('shell.sidebar');
+		this.componentService.init({ localizationBasePath: 'shell.sidebar' });
 	}
 
 	getLocalizationPath(end: string): string {

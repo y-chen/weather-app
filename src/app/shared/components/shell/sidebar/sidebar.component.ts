@@ -19,7 +19,7 @@ export class SidebarComponent implements IComponent {
 		private readonly componentService: ComponentService,
 		private readonly route: ActivatedRoute,
 	) {
-		this.componentService.init('shell.sidebar');
+		this.componentService.init({ localizationBasePath: 'shell.sidebar' });
 	}
 
 	toggle(): void {

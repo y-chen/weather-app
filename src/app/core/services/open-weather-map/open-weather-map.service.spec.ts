@@ -4,6 +4,7 @@ import { OpenWeatherMapService } from './open-weather-map.service';
 
 describe('OpenWeatherMapService', () => {
 	let spectator: SpectatorService<OpenWeatherMapService>;
+
 	const createService = createServiceFactory(OpenWeatherMapService);
 
 	beforeEach(() => (spectator = createService()));
