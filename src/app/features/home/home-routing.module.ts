@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resolver';
 import {
 	GroupForecastResolver
 } from '@wa/app/core/resolvers/group-forecast/group-forecast.resolver';
@@ -45,6 +46,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'forecast/:id',
+				resolve: { forecast: ForecastResolver },
 				component: ForecastComponent,
 			},
 		],

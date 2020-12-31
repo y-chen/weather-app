@@ -2,6 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NgModule, Optional, SkipSelf } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resolver';
 import {
 	GroupForecastResolver
 } from '@wa/app/core/resolvers/group-forecast/group-forecast.resolver';
@@ -35,6 +36,7 @@ import {
 		HereAuthService,
 		OpenWeatherMapService,
 		GroupForecastResolver,
+		ForecastResolver,
 		ErrorService,
 		EventService,
 	],
