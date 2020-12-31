@@ -7,6 +7,8 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppRoutingModule } from '@wa/app/app-routing.module';
 import { AppComponent } from '@wa/app/app.component';
 import { CoreModule } from '@wa/app/core/core.module';
+import { ErrorHandlersModule } from '@wa/app/error-handlers/error-handlers.module';
+import { InterceptorsModule } from '@wa/app/interceptors/interceptors.module';
 import { SharedModule } from '@wa/app/shared/shared.module';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -23,11 +25,11 @@ export const ConfiguredTranslateModule = TranslateModule.forRoot({
 	imports: [
 		BrowserModule,
 		BrowserAnimationsModule,
-
 		ConfiguredTranslateModule,
-
 		AppRoutingModule,
 		CoreModule,
+		ErrorHandlersModule,
+		InterceptorsModule,
 		SharedModule,
 	],
 	providers: [],
