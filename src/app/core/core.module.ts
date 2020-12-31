@@ -8,6 +8,7 @@ import {
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { ErrorService } from '@wa/app/core/services/error/error.service';
+import { EventService } from '@wa/app/core/services/event/event.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { HereAuthService } from '@wa/app/core/services/here-auth/here-auth.service';
 import { LocalStorageService } from '@wa/app/core/services/local-storage/local-storage.service';
@@ -35,6 +36,7 @@ import {
 		OpenWeatherMapService,
 		GroupForecastResolver,
 		ErrorService,
+		EventService,
 	],
 })
 export class CoreModule {
