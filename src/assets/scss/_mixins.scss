@@ -1,3 +1,5 @@
+@import 'media';
+
 @mixin flex-box(
 	$flex-direction: row,
 	$justify-content: unset,
@@ -15,4 +17,20 @@
 	width: $size;
 	height: $size;
 	font-size: $size;
+}
+
+@mixin set-all-media($property, $default-value, $small-desktop-value, $tablet-value, $phone-value) {
+	#{$property}: $default-value;
+
+	@include media('>tablet', '<=smalldesktop') {
+		#{$property}: $small-desktop-value;
+	}
+
+	@include media('>phone', '<=tablet') {
+		#{$property}: $tablet-value;
+	}
+
+	@include media('>=0', '<=phone') {
+		#{$property}: $phone-value;
+	}
 }

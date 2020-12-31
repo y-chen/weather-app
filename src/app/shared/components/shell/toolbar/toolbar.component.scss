@@ -5,7 +5,7 @@ mat-toolbar {
 	height: var(--toolbar-height);
 
 	> mat-toolbar-row {
-		@include flex-box(row, space-between, center, center);
+		@include flex-box(row, space-between, center, space-between);
 		flex-wrap: wrap;
 		color: white;
 
@@ -28,17 +28,7 @@ mat-toolbar {
 				background-color: var(--accent-color);
 			}
 
-			@include media('>tablet', '<=smalldesktop') {
-				width: 40%;
-			}
-
-			@include media('>phone', '<=tablet') {
-				width: 45%;
-			}
-
-			@include media('>=0', '<=phone') {
-				width: 50%;
-			}
+			@include set-all-media(width, 35%, 40%, 45%, 50%);
 		}
 	}
 }
