@@ -27,9 +27,14 @@ export const environment = {
 			revGeocode: 'https://revgeocode.search.hereapi.com/v1',
 		},
 	},
-	timeZoneAPI: {
+	timeZoneDBAPI: {
 		apiKey: 'UV42KZW70JVB',
 		url: 'https://api.timezonedb.com/v2.1',
+	},
+	askGeoAPI: {
+		accountId: 2632,
+		apiKey: 'e1f7f23eef9173a65e3921e1fa1bdf5f6dcc9579fafecd287e2e7d96ebc77b5b',
+		url: 'https://api.askgeo.com/v1',
 	},
 };
 
