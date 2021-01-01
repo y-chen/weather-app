@@ -1,0 +1,6 @@
+{
+	"/v2.1": {
+		"target": "https://api.timezonedb.com",
+		"secure": false
+	}
+}

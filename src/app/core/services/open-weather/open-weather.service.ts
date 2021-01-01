@@ -9,6 +9,7 @@ import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
+import { TimeZoneService } from '@wa/app/core/services/time-zone/time-zone.service';
 import { SearchResult } from '@wa/app/models/here-api.model';
 import { Param } from '@wa/app/models/http.model';
 import {
@@ -26,6 +27,7 @@ export class OpenWeatherService {
 		private readonly cultureService: CultureService,
 		private readonly localStorageService: LocalStorageService,
 		private readonly geoService: GeoService,
+		private readonly timeZoneService: TimeZoneService,
 	) {
 		const { url, apiKey } = environment.openWeatherMapAPI;
 		this.URL = url;
@@ -48,7 +50,10 @@ export class OpenWeatherService {
 		const weatherGroup = await this.api.get<WeatherGroup>(url, { params });
 		await this.translateLocationNames(weatherGroup);
 
-		return weatherGroup.list.map((weather: Weather) => this.parseWeatherData(weather));
+		const promises: Promise<ViewWeather>[] = weatherGroup.list.map((weather: Weather) =>
+			this.parseWeatherData(weather),
+		);
+		return await Promise.all(promises);
 	}
 
 	async getForecastById(searchParams: OpenWeatherSearchParams): Promise<ViewForecast> {
@@ -85,7 +90,11 @@ export class OpenWeatherService {
 		return { name, viewData, coord: { lat, lon } };
 	}
 
-	private parseWeatherData(weather: Weather, location?: string, iconSize?: 2 | 4): ViewWeather {
+	private async parseWeatherData(
+		weather: Weather,
+		location?: string,
+		iconSize?: 2 | 4,
+	): Promise<ViewWeather> {
 		iconSize = iconSize ? iconSize : 4;
 		const unitsType: string = this.localStorageService.get(StorageKeys.Units);
 		let temperatureUnit: string;
@@ -105,12 +114,13 @@ export class OpenWeatherService {
 		}
 
 		const { id, name, dt } = weather;
+		const { lat, lon } = weather.coord;
 		const { description, icon } = weather.weather[0];
 
 		return {
 			id,
 			title: location || name,
-			time: this.cultureService.convertUnixTimeToLocaleTime(dt),
+			time: await this.timeZoneService.convertUnixTimeToPositionLocaleDate(dt, lat, lon),
 			description: Case.capital(description),
 			temperature: `${Math.round(weather.main.temp)}° ${temperatureUnit}`,
 			icon: `http://openweathermap.org/img/wn/${icon}@${iconSize}x.png`,
