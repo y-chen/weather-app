@@ -1,3 +1,5 @@
-<ng-container *ngFor="let viewWeather of viewWeathers">
-	<wa-weather-card [viewData]="viewWeather"></wa-weather-card>
-</ng-container>
+<div class="weather-container">
+	<ng-container *ngFor="let viewWeather of viewWeathers">
+		<wa-weather-card [viewData]="viewWeather"></wa-weather-card>
+	</ng-container>
+</div>

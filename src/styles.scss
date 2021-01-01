@@ -78,4 +78,15 @@ body {
 		background-color: var(--primary-color);
 		color: var(--accent-color);
 	}
+
+	.weather-container {
+		@include flex-box(row, space-around, center, center);
+		flex-wrap: wrap;
+		gap: 10px;
+
+		> wa-weather-card {
+			@include set-all-media(min-width, 30%, 35%, 50%, 100%);
+			flex: 1 1 0;
+		}
+	}
 }
