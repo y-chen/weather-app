@@ -14,7 +14,6 @@ export class ShellComponent implements OnInit {
 
 	constructor(
 		private readonly componentService: ComponentService,
-		private readonly router: Router,
 		private readonly route: ActivatedRoute,
 	) {
 		this.componentService.init({ localizationBasePath: 'shell', route: this.route });
@@ -22,7 +21,5 @@ export class ShellComponent implements OnInit {
 
 	async ngOnInit(): Promise<void> {
 		this.navItems = (await this.componentService.getRouteData('navItems')) as NavItem[];
-
-		await this.router.navigate(['/app', 'home']);
 	}
 }
