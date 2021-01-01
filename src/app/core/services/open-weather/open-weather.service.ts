@@ -11,11 +11,11 @@ import {
 import { Param } from '@wa/app/models/http.model';
 import {
 	OpenWeatherSearchParams, ViewWeather, Weather, WeatherGroup
-} from '@wa/app/models/open-weather-map.model';
+} from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
 @Injectable()
-export class OpenWeatherMapService {
+export class OpenWeatherService {
 	private readonly URL: string;
 	private readonly API_KEY: string;
 

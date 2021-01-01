@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { ViewWeather } from '@wa/app/models/open-weather-map.model';
+import { ViewWeather } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-basic-weather',

@@ -14,9 +14,7 @@ import { LocalStorageService } from '@wa/app/core/services/local-storage/local-s
 import { LocationService } from '@wa/app/core/services/location/location.service';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
-import {
-	OpenWeatherMapService
-} from '@wa/app/core/services/open-weather-map/open-weather-map.service';
+import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 
 @NgModule({
 	declarations: [],
@@ -32,7 +30,7 @@ import {
 		LoggerService,
 		GeoService,
 		HereAuthService,
-		OpenWeatherMapService,
+		OpenWeatherService,
 		WeatherGroupResolver,
 		ForecastResolver,
 		ErrorService,

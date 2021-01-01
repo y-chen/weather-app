@@ -5,16 +5,14 @@ import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/r
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
-import {
-	OpenWeatherMapService
-} from '@wa/app/core/services/open-weather-map/open-weather-map.service';
-import { Weather } from '@wa/app/models/open-weather-map.model';
+import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
+import { Weather } from '@wa/app/models/open-weather.model';
 
 @Injectable()
 export class WeatherGroupResolver implements Resolve<Weather[]> {
 	constructor(
 		private readonly localStorageService: LocalStorageService,
-		private readonly openWeatherMapService: OpenWeatherMapService,
+		private readonly openWeatherService: OpenWeatherService,
 	) {}
 
 	async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Weather[]> {
@@ -25,6 +23,6 @@ export class WeatherGroupResolver implements Resolve<Weather[]> {
 
 		this.localStorageService.set(StorageKeys.favouriteCities, JSON.stringify(group));
 
-		return (await this.openWeatherMapService.getWeatherGroup({ group })).list;
+		return (await this.openWeatherService.getWeatherGroup({ group })).list;
 	}
 }

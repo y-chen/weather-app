@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import {
-	OpenWeatherMapService
-} from '@wa/app/core/services/open-weather-map/open-weather-map.service';
-import { ViewWeather, Weather } from '@wa/app/models/open-weather-map.model';
+import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
+import { ViewWeather, Weather } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-home',
@@ -18,7 +16,7 @@ export class HomeComponent implements OnInit {
 	constructor(
 		private readonly componentService: ComponentService,
 		private readonly route: ActivatedRoute,
-		private readonly openWeatherMapService: OpenWeatherMapService,
+		private readonly openWeatherService: OpenWeatherService,
 	) {
 		this.componentService.init({ route: this.route });
 	}
@@ -28,7 +26,7 @@ export class HomeComponent implements OnInit {
 			'favouriteCitiesWeather',
 		)) as Weather[];
 		this.favouriteCitiesViewData = favouriteCitiesWeather.map((weather: Weather) =>
-			this.openWeatherMapService.parseWeatherData(weather),
+			this.openWeatherService.parseWeatherData(weather),
 		);
 	}
 }
