@@ -27,7 +27,7 @@ export class OpenWeatherService {
 		private readonly cultureService: CultureService,
 		private readonly localStorageService: LocalStorageService,
 		private readonly geoService: GeoService,
-		private readonly timeZoneService: TimeZoneDBService,
+		private readonly timeZoneDBService: TimeZoneDBService,
 	) {
 		const { url, apiKey } = environment.openWeatherMapAPI;
 		this.URL = url;
@@ -120,7 +120,7 @@ export class OpenWeatherService {
 		return {
 			id,
 			title: location || name,
-			time: await this.timeZoneService.convertUnixTimeToPositionLocaleDate(dt, lat, lon),
+			time: await this.timeZoneDBService.convertUnixTimeToPositionLocaleDate(dt, lat, lon),
 			description: Case.capital(description),
 			temperature: `${Math.round(weather.main.temp)}° ${temperatureUnit}`,
 			icon: `http://openweathermap.org/img/wn/${icon}@${iconSize}x.png`,
