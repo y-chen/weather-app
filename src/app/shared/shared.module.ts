@@ -23,6 +23,9 @@ import { ToolbarComponent } from '@wa/app/shared/components/shell/toolbar/toolba
 import {
 	ValidationErrorsComponent
 } from '@wa/app/shared/components/validation-errors/validation-errors.component';
+import {
+	WeatherCardComponent
+} from '@wa/app/shared/components/weather-card/weather-card.component';
 import { MaterialModule } from '@wa/app/shared/material/material.module';
 
 export const moduleDeclarations = [
@@ -35,6 +38,7 @@ export const moduleDeclarations = [
 	SearchComponent,
 	BasicWeatherComponent,
 	OverlaySpinnerComponent,
+	WeatherCardComponent,
 ];
 
 export const moduleImports = [
@@ -62,6 +66,8 @@ export const moduleExports = [
 	NavItemComponent,
 	SearchComponent,
 	BasicWeatherComponent,
+	OverlaySpinnerComponent,
+	WeatherCardComponent,
 ];
 
 export const moduleProviders: Provider[] = [];
