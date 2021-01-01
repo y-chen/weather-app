@@ -43,12 +43,7 @@ export class TimeZoneDBService {
 		];
 		params = this.appendParams(params);
 
-		const headers: Header[] = [
-			{ key: 'Connection', value: 'Keep-Alive' },
-			{ key: 'Keep-Alive', value: 'timeout=5000, max=1000' },
-		];
-
-		return await this.api.get<TimeZoneDB>(url, { params, headers });
+		return await this.api.get<TimeZoneDB>(url, { params });
 	}
 
 	private appendParams(params?: Param[]): Param[] {

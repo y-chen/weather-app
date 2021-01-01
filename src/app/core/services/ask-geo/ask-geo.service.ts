@@ -39,16 +39,12 @@ export class AskGeoService {
 	async getTimeZoneByPosition(lat: number, lon: number): Promise<TimeZone> {
 		const url = this.buildUrl();
 
-		const params: Param[] = [{ key: 'points', value: `${lat},${lon}` }];
-		const headers: Header[] = [
-			{ key: 'Connection', value: 'Keep-Alive' },
-			{ key: 'Access-Control-Allow-Origin', value: 'http://localhost:4200' },
-		];
+		let params: Param[] = [{ key: 'points', value: `${lat},${lon}` }];
+		params = this.appendParams(params);
 
 		const askGeoResult: AskGeo = await this.api.get<AskGeo>(url, {
 			params,
-			headers,
-			withCredentials: true,
+			headers: [{ key: 'Content-Type', value: 'application/json' }],
 		});
 		return askGeoResult.data[0].TimeZone;
 	}
@@ -56,12 +52,10 @@ export class AskGeoService {
 	private appendParams(params?: Param[]): Param[] {
 		params = params || [];
 
-		return params.concat([{ key: 'lang', value: this.cultureService.getCulture().language }]);
+		return params.concat([{ key: 'databases', value: 'TimeZone' }]);
 	}
 
 	private buildUrl(): string {
-		return encodeURI(
-			`${this.URL}/${this.ACCOUNT_ID}/${this.API_KEY}/query.json?databases=TimeZone`,
-		);
+		return `${this.URL}/${this.ACCOUNT_ID}/${this.API_KEY}/query.json`;
 	}
 }

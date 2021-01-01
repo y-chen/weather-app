@@ -4,6 +4,7 @@ import Case from 'case';
 
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
+import { AskGeoService } from '@wa/app/core/services/ask-geo/ask-geo.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import {
@@ -28,6 +29,7 @@ export class OpenWeatherService {
 		private readonly localStorageService: LocalStorageService,
 		private readonly geoService: GeoService,
 		private readonly timeZoneDBService: TimeZoneDBService,
+		private readonly askGeoService: AskGeoService,
 	) {
 		const { url, apiKey } = environment.openWeatherMapAPI;
 		this.URL = url;
@@ -50,10 +52,12 @@ export class OpenWeatherService {
 		const weatherGroup = await this.api.get<WeatherGroup>(url, { params });
 		await this.translateLocationNames(weatherGroup);
 
-		const promises: Promise<ViewWeather>[] = weatherGroup.list.map((weather: Weather) =>
-			this.parseWeatherData(weather),
-		);
-		return await Promise.all(promises);
+		// const promises: Promise<ViewWeather>[] = weatherGroup.list.map((weather: Weather) =>
+		// 	this.parseWeatherData(weather),
+		// );
+		// return await Promise.all(promises);
+
+		return weatherGroup.list.map((weather: Weather) => this.parseWeatherData(weather));
 	}
 
 	async getForecastById(searchParams: OpenWeatherSearchParams): Promise<ViewForecast> {
@@ -63,9 +67,11 @@ export class OpenWeatherService {
 
 		const forecast: Forecast = await this.api.get<Forecast>(url, { params });
 		const coord: Coord = forecast.city.coord;
+
 		const location: SearchResult = await this.geoService.findLocationByCoords(coord);
 		const { city, countryCode } = location.address;
 		const name = `${city}, ${countryCode}`;
+
 		const viewData = await this.parseForecastData(forecast);
 
 		return { name, viewData, coord };
@@ -90,11 +96,7 @@ export class OpenWeatherService {
 		return { name, viewData, coord: { lat, lon } };
 	}
 
-	private async parseWeatherData(
-		weather: Weather,
-		location?: string,
-		iconSize?: 2 | 4,
-	): Promise<ViewWeather> {
+	private parseWeatherData(weather: Weather, location?: string, iconSize?: 2 | 4): ViewWeather {
 		iconSize = iconSize ? iconSize : 4;
 		const unitsType: string = this.localStorageService.get(StorageKeys.Units);
 		let temperatureUnit: string;
@@ -114,13 +116,13 @@ export class OpenWeatherService {
 		}
 
 		const { id, name, dt } = weather;
-		const { lat, lon } = weather.coord;
+		// const { lat, lon } = weather.coord;
 		const { description, icon } = weather.weather[0];
 
 		return {
 			id,
 			title: location || name,
-			time: await this.timeZoneDBService.convertUnixTimeToPositionLocaleDate(dt, lat, lon),
+			time: '', // await this.askGeoService.convertUnixTimeToPositionLocaleDate(dt, lat, lon),
 			description: Case.capital(description),
 			temperature: `${Math.round(weather.main.temp)}° ${temperatureUnit}`,
 			icon: `http://openweathermap.org/img/wn/${icon}@${iconSize}x.png`,
