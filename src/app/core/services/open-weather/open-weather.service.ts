@@ -39,23 +39,25 @@ export class OpenWeatherService {
 		return await this.api.get<Weather>(url, { params });
 	}
 
-	async getWeatherGroup(searchParams: OpenWeatherSearchParams): Promise<WeatherGroup> {
+	async getWeatherGroup(searchParams: OpenWeatherSearchParams): Promise<ViewWeather[]> {
 		const url = this.buildUrl('group');
 		let params: Param[] = [{ key: 'id', value: searchParams.group.join(',') }];
 		params = this.appendParams(params);
 
-		return await this.api.get<WeatherGroup>(url, { params });
+		const weatherGroup = await this.api.get<WeatherGroup>(url, { params });
+		return weatherGroup.list.map((weather: Weather) => this.parseWeatherData(weather));
 	}
 
-	async getForecast(searchParams: OpenWeatherSearchParams): Promise<Weather> {
+	async getForecast(searchParams: OpenWeatherSearchParams): Promise<ViewWeather[]> {
 		const url = this.buildUrl('forecast');
 		let params: Param[] = [{ key: 'id', value: searchParams.id }];
 		params = this.appendParams(params);
 
-		return await this.api.get<Weather>(url, { params });
+		const forecast = await this.api.get<Forecast>(url, { params });
+		return await this.parseForecastData(forecast);
 	}
 
-	parseWeatherData(weather: Weather, location?: string, iconSize?: 2 | 4): ViewWeather {
+	private parseWeatherData(weather: Weather, location?: string, iconSize?: 2 | 4): ViewWeather {
 		iconSize = iconSize ? iconSize : 4;
 		const unitsType: string = this.localStorageService.get(StorageKeys.Units);
 		let temperatureUnit: string;
@@ -86,7 +88,7 @@ export class OpenWeatherService {
 		};
 	}
 
-	async parseForecastData(forecast: Forecast): Promise<ViewWeather[]> {
+	private async parseForecastData(forecast: Forecast): Promise<ViewWeather[]> {
 		const promises = forecast.list.map(async (weather: Weather) => {
 			const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt);
 
