@@ -15,6 +15,7 @@ import { LocationService } from '@wa/app/core/services/location/location.service
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
+import { TimeZoneService } from '@wa/app/core/services/time-zone/time-zone.service';
 
 @NgModule({
 	declarations: [],
@@ -35,6 +36,7 @@ import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weat
 		ForecastResolver,
 		ErrorService,
 		EventService,
+		TimeZoneService,
 	],
 })
 export class CoreModule {

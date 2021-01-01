@@ -23,4 +23,8 @@ export const environment = {
 			revGeocode: 'https://revgeocode.search.hereapi.com/v1',
 		},
 	},
+	timeZoneAPI: {
+		apiKey: 'UV42KZW70JVB',
+		url: 'https://api.timezonedb.com/v2.1',
+	},
 };
