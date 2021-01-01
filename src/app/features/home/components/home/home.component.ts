@@ -28,12 +28,14 @@ export class HomeComponent implements OnInit {
 			'favouriteCitiesWeather',
 		)) as ViewWeather[];
 
-		this.cultureService.onLangChange.subscribe(async () => {
+		const refreshViewData = async () => {
 			const group: number[] = this.favouriteCitiesViewData.map(
 				(viewData: ViewWeather) => viewData.id,
 			);
 
 			this.favouriteCitiesViewData = await this.openWeatherService.getWeatherGroup({ group });
-		});
+		};
+
+		await this.cultureService.onLangChange(refreshViewData);
 	}
 }

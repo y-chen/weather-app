@@ -8,6 +8,7 @@ import { ViewWeather } from '@wa/app/models/open-weather.model';
 	selector: 'wa-weather-card',
 	templateUrl: './weather-card.component.html',
 	styleUrls: ['./weather-card.component.scss'],
+	providers: [ComponentService],
 })
 export class WeatherCardComponent implements IComponent, OnInit {
 	@Input() viewData: ViewWeather;
@@ -34,11 +35,12 @@ export class WeatherCardComponent implements IComponent, OnInit {
 	private async getTranslatedTimeText(): Promise<string> | null {
 		if (this.viewData.time) {
 			const params = { time: this.viewData.time };
-			const translationPromise = this.cultureService
-				.get('shared.basicWeather.time', params)
-				.toPromise();
+			const translationPromise = this.cultureService.getTranslation(
+				'shared.basicWeather.time',
+				params,
+			);
 
-			return (await translationPromise) as string;
+			return await translationPromise;
 		}
 
 		return null;

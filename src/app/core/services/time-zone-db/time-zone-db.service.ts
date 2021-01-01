@@ -6,16 +6,16 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { Header, Param } from '@wa/app/models/http.model';
-import { TimeZone } from '@wa/app/models/time-zone.model';
+import { TimeZoneDB } from '@wa/app/models/time-zone-db.model';
 import { environment } from '@wa/environments/environment';
 
 @Injectable()
-export class TimeZoneService {
+export class TimeZoneDBService {
 	private readonly URL: string;
 	private readonly API_KEY: string;
 
 	constructor(private readonly api: ApiService, private readonly cultureService: CultureService) {
-		const { url, apiKey } = environment.timeZoneAPI;
+		const { url, apiKey } = environment.timeZoneDBAPI;
 		this.URL = url;
 		this.API_KEY = apiKey;
 	}
@@ -25,15 +25,15 @@ export class TimeZoneService {
 		lat: number,
 		lng: number,
 	): Promise<string> {
-		const positionTimeZone = await this.getTimeZoneByPosition(lat, lng);
-		const positionLocaleDate = moment
+		const positionTimeZone: TimeZoneDB = await this.getTimeZoneByPosition(lat, lng);
+		const positionLocaleDate: string = moment
 			.tz(unixTime, positionTimeZone.zoneName)
 			.format('DD/MM/YYYY - H:mm:ss');
 
 		return `${positionLocaleDate} ${positionTimeZone.nextAbbreviation}`;
 	}
 
-	async getTimeZoneByPosition(lat: number, lng: number): Promise<TimeZone> {
+	async getTimeZoneByPosition(lat: number, lng: number): Promise<TimeZoneDB> {
 		const url = this.buildUrl('get-time-zone');
 
 		let params: Param[] = [
@@ -48,7 +48,7 @@ export class TimeZoneService {
 			{ key: 'Keep-Alive', value: 'timeout=5000, max=1000' },
 		];
 
-		return await this.api.get<TimeZone>(url, { params, headers });
+		return await this.api.get<TimeZoneDB>(url, { params, headers });
 	}
 
 	private appendParams(params?: Param[]): Param[] {

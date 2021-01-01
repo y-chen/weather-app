@@ -26,10 +26,12 @@ export class ForecastComponent implements OnInit {
 	async ngOnInit(): Promise<void> {
 		this.viewForecast = (await this.componentService.getResolverData('forecast')) as ViewForecast;
 
-		this.cultureService.onLangChange.subscribe(async () => {
+		const refreshViewData: () => Promise<void> = async (): Promise<void> => {
 			this.viewForecast = await this.openWeatherService.getForecastByCoord({
 				coord: this.viewForecast.coord,
 			});
-		});
+		};
+
+		await this.cultureService.onLangChange(refreshViewData);
 	}
 }

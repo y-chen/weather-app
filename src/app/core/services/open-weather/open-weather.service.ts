@@ -9,7 +9,7 @@ import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
-import { TimeZoneService } from '@wa/app/core/services/time-zone/time-zone.service';
+import { TimeZoneDBService } from '@wa/app/core/services/time-zone-db/time-zone-db.service';
 import { SearchResult } from '@wa/app/models/here-api.model';
 import { Param } from '@wa/app/models/http.model';
 import {
@@ -27,7 +27,7 @@ export class OpenWeatherService {
 		private readonly cultureService: CultureService,
 		private readonly localStorageService: LocalStorageService,
 		private readonly geoService: GeoService,
-		private readonly timeZoneService: TimeZoneService,
+		private readonly timeZoneService: TimeZoneDBService,
 	) {
 		const { url, apiKey } = environment.openWeatherMapAPI;
 		this.URL = url;
@@ -131,9 +131,10 @@ export class OpenWeatherService {
 		const promises = forecast.list.map(async (weather: Weather) => {
 			const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt);
 
-			const titleOverride: string = (await this.cultureService
-				.get('shared.basicWeather.date', { date })
-				.toPromise()) as string;
+			const titleOverride: string = await this.cultureService.getTranslation(
+				'shared.basicWeather.date',
+				{ date },
+			);
 
 			return this.parseWeatherData(weather, titleOverride);
 		});

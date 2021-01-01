@@ -11,7 +11,15 @@ describe('BasicWeatherComponent', () => {
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-basic-weather></wa-basic-weather>', {});
+		host = createHost('<wa-basic-weather [viewData]="viewData"></wa-basic-weather>', {
+			hostProps: {
+				viewData: {
+					temperature: 'temperature',
+					description: 'description',
+					icon: 'icon',
+				},
+			},
+		});
 
 		const forecast = host.queryHost('wa-basic-weather');
 

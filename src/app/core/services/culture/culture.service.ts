@@ -5,16 +5,18 @@ import { TranslateService } from '@ngx-translate/core';
 import { Culture } from '@wa/app/models/culture.model';
 
 @Injectable()
-export class CultureService extends TranslateService {
+export class CultureService {
 	private currentCulture: Culture = availableCultures[0];
+
+	constructor(private readonly translate: TranslateService) {}
 
 	getAvailableCultures(): Culture[] {
 		return Object.assign([], availableCultures);
 	}
 
 	setCulture(culture: Culture): void {
-		if (this.currentLang !== culture.language) {
-			this.use(culture.language);
+		if (this.translate.currentLang !== culture.language) {
+			this.translate.use(culture.language);
 			this.currentCulture = culture;
 		}
 	}
@@ -35,6 +37,21 @@ export class CultureService extends TranslateService {
 		const date = new Date(unixTime * 1000);
 
 		return moment(date).format('DD/MM/YYYY - H:mm:ss');
+	}
+
+	async getTranslation(localizationPath, data: { [key: string]: any }): Promise<string> {
+		return new Promise<string>((resolve, reject) => {
+			this.translate.get(localizationPath, data).subscribe(
+				(translation) => resolve(translation),
+				(error) => reject(error),
+			);
+		});
+	}
+
+	async onLangChange(callback: () => Promise<void>): Promise<void> {
+		return new Promise<void>((resolve) => {
+			resolve(callback());
+		});
 	}
 }
 

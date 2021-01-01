@@ -1,4 +1,4 @@
-export interface TimeZone {
+export interface TimeZoneDB {
 	status: string;
 	message: string;
 	countryCode: string;
