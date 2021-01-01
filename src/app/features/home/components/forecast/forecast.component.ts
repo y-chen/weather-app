@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
-import { Forecast, ViewWeather, Weather } from '@wa/app/models/open-weather.model';
+import { Forecast, ViewWeather } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-forecast',
@@ -12,7 +12,6 @@ import { Forecast, ViewWeather, Weather } from '@wa/app/models/open-weather.mode
 })
 export class ForecastComponent implements OnInit {
 	viewWeathers: ViewWeather[];
-	title: string;
 
 	constructor(
 		private readonly componentService: ComponentService,
@@ -27,11 +26,6 @@ export class ForecastComponent implements OnInit {
 			'forecast',
 		)) as Forecast;
 
-		this.viewWeathers = forecast.list.map((forecastItem: Weather) =>
-			this.openWeatherService.parseWeatherData(forecastItem),
-		);
-
-		const { name, country } = forecast.city;
-		this.title = `${name}, ${country}`;
+		this.viewWeathers = await this.openWeatherService.parseForecastData(forecast);
 	}
 }

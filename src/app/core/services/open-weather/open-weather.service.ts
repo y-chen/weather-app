@@ -3,6 +3,7 @@
 import Case from 'case';
 
 import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import {
@@ -10,7 +11,7 @@ import {
 } from '@wa/app/core/services/local-storage/local-storage.service';
 import { Param } from '@wa/app/models/http.model';
 import {
-	OpenWeatherSearchParams, ViewWeather, Weather, WeatherGroup
+	Forecast, OpenWeatherSearchParams, ViewWeather, Weather, WeatherGroup
 } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
@@ -23,6 +24,7 @@ export class OpenWeatherService {
 		private readonly api: ApiService,
 		private readonly cultureService: CultureService,
 		private readonly localStorageService: LocalStorageService,
+		private readonly translate: TranslateService,
 	) {
 		const { url, apiKey } = environment.openWeatherMapPI;
 		this.URL = url;
@@ -82,6 +84,20 @@ export class OpenWeatherService {
 			temperature: `${Math.round(weather.main.temp)}° ${temperatureUnit}`,
 			icon: `http://openweathermap.org/img/wn/${icon}@${iconSize}x.png`,
 		};
+	}
+
+	async parseForecastData(forecast: Forecast): Promise<ViewWeather[]> {
+		const promises = forecast.list.map(async (weather: Weather) => {
+			const time: string = this.cultureService.convertUnixTimeToLocaleTime(weather.dt);
+
+			const titleOverride: string = (await this.translate
+				.get('shared.basicWeather.time', { time })
+				.toPromise()) as string;
+
+			return this.parseWeatherData(weather, titleOverride);
+		});
+
+		return await Promise.all(promises);
 	}
 
 	private appendParams(params?: Param[]): Param[] {
