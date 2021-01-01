@@ -66,6 +66,14 @@ export class SearchComponent implements IComponent, OnInit {
 		await this.router.navigate(['/app', 'forecast'], { queryParams });
 	}
 
+	async onAutocompleteOptionClick(selection: SearchResult): Promise<void> {
+		const geocoded = await this.geoService.findLocationByQuery(selection.address.label);
+		const { lat, lng } = geocoded.position;
+		const queryParams = { lat, lon: lng };
+
+		await this.router.navigate(['/app', 'forecast'], { queryParams });
+	}
+
 	getLocalizationPath(end: string): string {
 		return this.componentService.getLocalizationPath(end);
 	}

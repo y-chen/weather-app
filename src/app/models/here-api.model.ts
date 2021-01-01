@@ -6,6 +6,13 @@ export interface SearchResult {
 	resultType: string;
 	localityType: string;
 	address: Address;
+	mapView?: MapView;
+	position?: Coord;
+}
+
+export interface Coord {
+	lat: number;
+	lng: number;
 }
 
 export interface Address {
@@ -13,10 +20,17 @@ export interface Address {
 	countryCode: string;
 	countryName: string;
 	state: string;
-	countyCode: string;
+	countyCode?: string;
 	county: string;
 	city: string;
 	postalCode: number;
+}
+
+export interface MapView {
+	north: number;
+	south: number;
+	east: number;
+	west: number;
 }
 
 export interface OAuthToken {
