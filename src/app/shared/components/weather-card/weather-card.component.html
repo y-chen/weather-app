@@ -1,10 +1,8 @@
 <mat-card *ngIf="viewData">
 	<mat-card-header>
-		<mat-card-title>{{ title || viewData.title }}</mat-card-title>
+		<mat-card-title *ngIf="title">{{ title }}</mat-card-title>
 
-		<mat-card-subtitle>
-			{{ subtitle || getLocalizationPath('time') | translate: { time: viewData.time } }}
-		</mat-card-subtitle>
+		<mat-card-subtitle *ngIf="subtitle">{{ subtitle }}</mat-card-subtitle>
 	</mat-card-header>
 
 	<mat-card-content>

@@ -27,5 +27,13 @@ export class ForecastComponent implements OnInit {
 		)) as Forecast;
 
 		this.viewWeathers = await this.openWeatherService.parseForecastData(forecast);
+
+		if (this.viewWeathers) {
+			this.viewWeathers = this.viewWeathers.map<ViewWeather>((viewWeather: ViewWeather) => {
+				viewWeather.time = null;
+
+				return viewWeather;
+			});
+		}
 	}
 }
