@@ -8,13 +8,7 @@
 	</mat-card-header>
 
 	<mat-card-content>
-		<div class="forecast-info">
-			<span class="temperature">{{ viewData.temperature }}</span>
-
-			<span class="weather-description">{{ viewData.description }}</span>
-		</div>
-
-		<img [src]="viewData.icon" [alt]="viewData.description" />
+		<wa-basic-weather [viewData]="viewData"></wa-basic-weather>
 	</mat-card-content>
 
 	<mat-card-actions>
