@@ -11,7 +11,7 @@ import {
 import { Weather } from '@wa/app/models/open-weather-map.model';
 
 @Injectable()
-export class GroupForecastResolver implements Resolve<Weather[]> {
+export class WeatherGroupResolver implements Resolve<Weather[]> {
 	constructor(
 		private readonly localStorageService: LocalStorageService,
 		private readonly openWeatherMapService: OpenWeatherMapService,

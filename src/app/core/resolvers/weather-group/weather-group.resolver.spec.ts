@@ -1,12 +1,10 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import {
-	GroupForecastResolver
-} from '@wa/app/core/resolvers/group-forecast/group-forecast.resolver';
+import { WeatherGroupResolver } from '@wa/app/core/resolvers/weather-group/weather-group.resolver';
 
 describe('GroupForecastResolver', () => {
-	let spectator: SpectatorService<GroupForecastResolver>;
+	let spectator: SpectatorService<WeatherGroupResolver>;
 
-	const createService = createServiceFactory(GroupForecastResolver);
+	const createService = createServiceFactory(WeatherGroupResolver);
 
 	beforeEach(() => (spectator = createService()));
 

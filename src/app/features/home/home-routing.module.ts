@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resolver';
-import {
-	GroupForecastResolver
-} from '@wa/app/core/resolvers/group-forecast/group-forecast.resolver';
+import { WeatherGroupResolver } from '@wa/app/core/resolvers/weather-group/weather-group.resolver';
 import { HomeComponent } from '@wa/app/features/home/components/home/home.component';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 
@@ -37,7 +35,7 @@ const routes: Routes = [
 			{
 				path: 'home',
 				component: HomeComponent,
-				resolve: { favouriteCitiesWeather: GroupForecastResolver },
+				resolve: { favouriteCitiesWeather: WeatherGroupResolver },
 				data: { defaultCities },
 			},
 			{
