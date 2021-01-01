@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { ViewWeather } from '@wa/app/models/open-weather.model';
+import { ViewForecast } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-forecast',
@@ -10,7 +10,7 @@ import { ViewWeather } from '@wa/app/models/open-weather.model';
 	providers: [ComponentService],
 })
 export class ForecastComponent implements OnInit {
-	viewWeathers: ViewWeather[];
+	viewForecast: ViewForecast;
 
 	constructor(
 		private readonly componentService: ComponentService,
@@ -20,14 +20,6 @@ export class ForecastComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		this.viewWeathers = (await this.componentService.getResolverData('forecast')) as ViewWeather[];
-
-		if (this.viewWeathers) {
-			this.viewWeathers = this.viewWeathers.map<ViewWeather>((viewWeather: ViewWeather) => {
-				viewWeather.time = null;
-
-				return viewWeather;
-			});
-		}
+		this.viewForecast = (await this.componentService.getResolverData('forecast')) as ViewForecast;
 	}
 }

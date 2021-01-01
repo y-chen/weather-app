@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+export interface ViewForecast {
+	name: string;
+	coord: Coord;
+	viewData: ViewWeather[];
+}
+
 export interface ViewWeather {
 	id: number;
 	title: string;
@@ -20,7 +26,7 @@ export interface Forecast {
 export interface City {
 	id: number;
 	name: string;
-	cood: Coord;
+	coord: Coord;
 	country: string;
 	popuplation: number;
 	timezone: 3600;

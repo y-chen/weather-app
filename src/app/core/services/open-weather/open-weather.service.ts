@@ -10,9 +10,10 @@ import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
+import { SearchResult } from '@wa/app/models/here-api.model';
 import { Param } from '@wa/app/models/http.model';
 import {
-	Forecast, OpenWeatherSearchParams, ViewWeather, Weather, WeatherGroup
+	Coord, Forecast, OpenWeatherSearchParams, ViewForecast, ViewWeather, Weather, WeatherGroup
 } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
@@ -52,16 +53,22 @@ export class OpenWeatherService {
 		return weatherGroup.list.map((weather: Weather) => this.parseWeatherData(weather));
 	}
 
-	async getForecastById(searchParams: OpenWeatherSearchParams): Promise<ViewWeather[]> {
+	async getForecastById(searchParams: OpenWeatherSearchParams): Promise<ViewForecast> {
 		const url = this.buildUrl('forecast');
 		let params: Param[] = [{ key: 'id', value: searchParams.id }];
 		params = this.appendParams(params);
 
-		const forecast = await this.api.get<Forecast>(url, { params });
-		return await this.parseForecastData(forecast);
+		const forecast: Forecast = await this.api.get<Forecast>(url, { params });
+		const coord: Coord = forecast.city.coord;
+		const location: SearchResult = await this.geoService.findLocationByCoords(coord);
+		const { city, countryCode } = location.address;
+		const name = `${city}, ${countryCode}`;
+		const viewData = await this.parseForecastData(forecast);
+
+		return { name, viewData, coord };
 	}
 
-	async getForecastByCoord(searchParams: OpenWeatherSearchParams): Promise<ViewWeather[]> {
+	async getForecastByCoord(searchParams: OpenWeatherSearchParams): Promise<ViewForecast> {
 		const url = this.buildUrl('forecast');
 		const { lat, lon } = searchParams.coord;
 		let params: Param[] = [
@@ -71,13 +78,20 @@ export class OpenWeatherService {
 		params = this.appendParams(params);
 
 		const forecast = await this.api.get<Forecast>(url, { params });
-		return await this.parseForecastData(forecast);
+
+		const location: SearchResult = await this.geoService.findLocationByCoords(forecast.city.coord);
+		const { city, countryCode } = location.address;
+		const name = `${city}, ${countryCode}`;
+		const viewData = await this.parseForecastData(forecast);
+
+		return { name, viewData, coord: { lat, lon } };
 	}
 
 	private parseWeatherData(weather: Weather, location?: string, iconSize?: 2 | 4): ViewWeather {
 		iconSize = iconSize ? iconSize : 4;
 		const unitsType: string = this.localStorageService.get(StorageKeys.Units);
 		let temperatureUnit: string;
+
 		switch (unitsType) {
 			case 'standard':
 				temperatureUnit = 'K';
