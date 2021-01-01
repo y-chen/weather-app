@@ -3,7 +3,6 @@
 import Case from 'case';
 
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
@@ -26,7 +25,6 @@ export class OpenWeatherService {
 		private readonly api: ApiService,
 		private readonly cultureService: CultureService,
 		private readonly localStorageService: LocalStorageService,
-		private readonly translate: TranslateService,
 		private readonly geoService: GeoService,
 	) {
 		const { url, apiKey } = environment.openWeatherMapPI;
@@ -123,7 +121,7 @@ export class OpenWeatherService {
 		const promises = forecast.list.map(async (weather: Weather) => {
 			const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt);
 
-			const titleOverride: string = (await this.translate
+			const titleOverride: string = (await this.cultureService
 				.get('shared.basicWeather.date', { date })
 				.toPromise()) as string;
 

@@ -5,18 +5,16 @@ import { TranslateService } from '@ngx-translate/core';
 import { Culture } from '@wa/app/models/culture.model';
 
 @Injectable()
-export class CultureService {
+export class CultureService extends TranslateService {
 	private currentCulture: Culture = availableCultures[0];
-
-	constructor(private readonly translate: TranslateService) {}
 
 	getAvailableCultures(): Culture[] {
 		return Object.assign([], availableCultures);
 	}
 
 	setCulture(culture: Culture): void {
-		if (this.translate.currentLang !== culture.language) {
-			this.translate.use(culture.language);
+		if (this.currentLang !== culture.language) {
+			this.use(culture.language);
 			this.currentCulture = culture;
 		}
 	}

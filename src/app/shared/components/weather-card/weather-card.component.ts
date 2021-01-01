@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
+import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { ViewWeather } from '@wa/app/models/open-weather.model';
 
@@ -17,7 +17,7 @@ export class WeatherCardComponent implements IComponent, OnInit {
 
 	constructor(
 		private readonly componentService: ComponentService,
-		private readonly translate: TranslateService,
+		private readonly cultureService: CultureService,
 	) {
 		this.componentService.init({ localizationBasePath: 'shared.basicWeather' });
 	}
@@ -34,7 +34,9 @@ export class WeatherCardComponent implements IComponent, OnInit {
 	private async getTranslatedTimeText(): Promise<string> | null {
 		if (this.viewData.time) {
 			const params = { time: this.viewData.time };
-			const translationPromise = this.translate.get('shared.basicWeather.time', params).toPromise();
+			const translationPromise = this.cultureService
+				.get('shared.basicWeather.time', params)
+				.toPromise();
 
 			return (await translationPromise) as string;
 		}
