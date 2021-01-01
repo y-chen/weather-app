@@ -6,6 +6,7 @@
 		},
 		"basicWeather": {
 			"time": "Meteo alle {{time}}",
+			"date": "Meteo il {{date}}",
 			"viewForecast": "Vedi Previsioni"
 		}
 	},

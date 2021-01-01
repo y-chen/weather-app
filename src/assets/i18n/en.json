@@ -6,6 +6,7 @@
 		},
 		"basicWeather": {
 			"time": "Weather at {{time}}",
+			"date": "Weather on {{date}}",
 			"viewForecast": "View Forecast"
 		}
 	},

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Culture } from '@wa/app/models/culture.model';
@@ -29,6 +31,12 @@ export class CultureService {
 		const time = date.toLocaleTimeString(code, { timeZone });
 
 		return `${time} ${timeZoneCode}`;
+	}
+
+	convertUnixTimeToLocaleDate(unixTime: number): string {
+		const date = new Date(unixTime * 1000);
+
+		return moment(date).format('DD/MM/YYYY - H:mm:ss');
 	}
 }
 

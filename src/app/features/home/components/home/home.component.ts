@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
 		const favouriteCitiesWeather = (await this.componentService.getResolverData(
 			'favouriteCitiesWeather',
 		)) as Weather[];
+
 		this.favouriteCitiesViewData = favouriteCitiesWeather.map((weather: Weather) =>
 			this.openWeatherService.parseWeatherData(weather),
 		);

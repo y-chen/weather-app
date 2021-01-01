@@ -88,10 +88,10 @@ export class OpenWeatherService {
 
 	async parseForecastData(forecast: Forecast): Promise<ViewWeather[]> {
 		const promises = forecast.list.map(async (weather: Weather) => {
-			const time: string = this.cultureService.convertUnixTimeToLocaleTime(weather.dt);
+			const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt);
 
 			const titleOverride: string = (await this.translate
-				.get('shared.basicWeather.time', { time })
+				.get('shared.basicWeather.date', { date })
 				.toPromise()) as string;
 
 			return this.parseWeatherData(weather, titleOverride);
