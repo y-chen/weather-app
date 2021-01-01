@@ -1,5 +1,5 @@
-import { Observable, timer } from 'rxjs';
-import { catchError, delay, map, switchMap, tap } from 'rxjs/operators';
+import { from, Observable } from 'rxjs';
+import { delay, switchMap } from 'rxjs/operators';
 
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -11,17 +11,13 @@ export class DelayInterceptor implements HttpInterceptor {
 	constructor(private readonly loggerService: LoggerService) {}
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		const isCallingTimeZoneDB: boolean = request.url.startsWith(environment.timeZoneDBAPI.url);
-		const isCallingAskGeo: boolean = request.url.startsWith(environment.askGeoAPI.url);
-		const ms = isCallingTimeZoneDB || isCallingAskGeo ? 10000 : 0;
+		const ms = request.url.startsWith(environment.timeZoneDBAPI.url) ? 1500 : 0;
 
 		this.loggerService.debug(`Request url: ${request.url}, applying delay of ${ms} ms`);
 
-		return next.handle(request).pipe(
+		return from(new Promise((resolve) => setTimeout(resolve, ms))).pipe(
 			delay(ms),
-			map((res) => res),
+			switchMap(() => next.handle(request)),
 		);
-		// return next.handle(request).pipe(tap((response) => console.log(response)));
-		// return timer(ms).pipe(switchMap(() => next.handle(request)));
 	}
 }

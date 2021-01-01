@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { AskGeo, TimeZone } from '@wa/app/models/ask-geo.model';
-import { Header, Param } from '@wa/app/models/http.model';
+import { Param } from '@wa/app/models/http.model';
 import { environment } from '@wa/environments/environment';
 
 @Injectable()
@@ -27,7 +27,6 @@ export class AskGeoService {
 		lng: number,
 	): Promise<string> {
 		const positionTimeZone: TimeZone = await this.getTimeZoneByPosition(lat, lng);
-		console.log({ positionTimeZone });
 
 		const positionLocaleDate = moment
 			.tz(unixTime, positionTimeZone.TimeZoneId)

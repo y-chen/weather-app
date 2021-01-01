@@ -122,7 +122,7 @@ export class OpenWeatherService {
 		return {
 			id,
 			title: location || name,
-			time: '', // await this.askGeoService.convertUnixTimeToPositionLocaleDate(dt, lat, lon),
+			time: '', // await this.timeZoneDBService.convertUnixTimeToPositionLocaleDate(dt, lat, lon),
 			description: Case.capital(description),
 			temperature: `${Math.round(weather.main.temp)}° ${temperatureUnit}`,
 			icon: `http://openweathermap.org/img/wn/${icon}@${iconSize}x.png`,
