@@ -9,7 +9,7 @@
 		<wa-basic-weather [viewData]="viewData"></wa-basic-weather>
 	</mat-card-content>
 
-	<mat-card-actions>
+	<mat-card-actions *ngIf="viewData.id">
 		<a class="view-forecast-link" [routerLink]="['/app', 'forecast', viewData.id]" translate>
 			{{ getLocalizationPath('viewForecast') }}
 		</a>
