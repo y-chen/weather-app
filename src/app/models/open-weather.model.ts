@@ -32,6 +32,7 @@ export interface OpenWeatherSearchParams {
 	q?: string;
 	group?: number[];
 	id?: number;
+	coord?: Coord;
 }
 
 export interface WeatherGroup {

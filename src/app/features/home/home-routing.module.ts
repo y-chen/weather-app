@@ -40,6 +40,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'forecast',
+				resolve: { forecast: ForecastResolver },
 				component: ForecastComponent,
 			},
 			{

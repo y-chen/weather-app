@@ -61,6 +61,19 @@ export class OpenWeatherService {
 		return await this.parseForecastData(forecast);
 	}
 
+	async getForecastByCoord(searchParams: OpenWeatherSearchParams): Promise<ViewWeather[]> {
+		const url = this.buildUrl('forecast');
+		const { lat, lon } = searchParams.coord;
+		let params: Param[] = [
+			{ key: 'lat', value: lat },
+			{ key: 'lon', value: lon },
+		];
+		params = this.appendParams(params);
+
+		const forecast = await this.api.get<Forecast>(url, { params });
+		return await this.parseForecastData(forecast);
+	}
+
 	private parseWeatherData(weather: Weather, location?: string, iconSize?: 2 | 4): ViewWeather {
 		iconSize = iconSize ? iconSize : 4;
 		const unitsType: string = this.localStorageService.get(StorageKeys.Units);
