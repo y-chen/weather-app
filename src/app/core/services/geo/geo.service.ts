@@ -3,9 +3,9 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
 import { SearchResult } from '@wa/app/models/here-api.model';
 import { Param } from '@wa/app/models/http.model';
+import { Coord } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class GeoService {
 	async findCities(query: string): Promise<SearchResult[]> {
 		const url = `${this.GEOCODE_URL}/autocomplete`;
 		let params: Param[] = [
-			{ key: 'q', value: query },
+			{ key: 'q', value: query.replace(' ', '+') },
 			{ key: 'limit', value: 20 },
 		];
 		params = this.appendParams(params);
@@ -32,9 +32,17 @@ export class GeoService {
 		return (await this.api.get<{ items: SearchResult[] }>(url, { params })).items;
 	}
 
-	async findLocationByCoords(coords: GeolocationCoordinates): Promise<SearchResult> {
+	async findLocationByCoords(coord: Coord): Promise<SearchResult> {
 		const url = `${this.REV_GEOCODE_URL}/revgeocode`;
-		let params: Param[] = [{ key: 'at', value: `${coords.latitude},${coords.longitude}` }];
+		let params: Param[] = [{ key: 'at', value: `${coord.lat},${coord.lon}` }];
+		params = this.appendParams(params);
+
+		return (await this.api.get<{ items: SearchResult[] }>(url, { params })).items[0];
+	}
+
+	async findLocationByQuery(query: string): Promise<SearchResult> {
+		const url = `${this.REV_GEOCODE_URL}/geocode`;
+		let params: Param[] = [{ key: 'q', value: query.replace(' ', '+') }];
 		params = this.appendParams(params);
 
 		return (await this.api.get<{ items: SearchResult[] }>(url, { params })).items[0];

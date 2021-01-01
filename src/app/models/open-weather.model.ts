@@ -20,7 +20,7 @@ export interface Forecast {
 export interface City {
 	id: number;
 	name: string;
-	cood: Coords;
+	cood: Coord;
 	country: string;
 	popuplation: number;
 	timezone: 3600;
@@ -42,7 +42,7 @@ export interface WeatherGroup {
 export interface Weather {
 	id: number;
 	name: string;
-	coord: Coords;
+	coord: Coord;
 	weather: WeatherDetails[];
 	base: string;
 	main: Temperature;
@@ -56,7 +56,7 @@ export interface Weather {
 	pop?: number;
 	dt_txt?: string;
 }
-export interface Coords {
+export interface Coord {
 	lat: number;
 	lon: number;
 }

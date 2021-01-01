@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
+import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
@@ -25,6 +26,7 @@ export class OpenWeatherService {
 		private readonly cultureService: CultureService,
 		private readonly localStorageService: LocalStorageService,
 		private readonly translate: TranslateService,
+		private readonly geoService: GeoService,
 	) {
 		const { url, apiKey } = environment.openWeatherMapPI;
 		this.URL = url;
@@ -45,6 +47,8 @@ export class OpenWeatherService {
 		params = this.appendParams(params);
 
 		const weatherGroup = await this.api.get<WeatherGroup>(url, { params });
+		await this.translateLocationNames(weatherGroup);
+
 		return weatherGroup.list.map((weather: Weather) => this.parseWeatherData(weather));
 	}
 
@@ -116,5 +120,14 @@ export class OpenWeatherService {
 
 	private buildUrl(endpoint: string): string {
 		return `${this.URL}/${endpoint}`;
+	}
+
+	private async translateLocationNames(weatherGroup: WeatherGroup): Promise<void> {
+		for (const weather of weatherGroup.list) {
+			const location = await this.geoService.findLocationByQuery(weather.name);
+			const { city, countryCode } = location.address;
+
+			weather.name = `${city}, ${countryCode}`;
+		}
 	}
 }
