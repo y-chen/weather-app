@@ -6,7 +6,7 @@ const routes: Routes = [
 		path: 'app',
 		loadChildren: () => import('./features/home/home.module').then((m) => m.HomeModule),
 	},
-	{ path: '', redirectTo: 'app', pathMatch: 'full' },
+	{ path: '', redirectTo: 'app/home', pathMatch: 'full' },
 ];
 
 @NgModule({

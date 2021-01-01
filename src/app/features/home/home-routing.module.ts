@@ -47,6 +47,7 @@ const routes: Routes = [
 				resolve: { forecast: ForecastResolver },
 				component: ForecastComponent,
 			},
+			{ path: '', redirectTo: 'home', pathMatch: 'full' },
 		],
 	},
 	{ path: 'app', redirectTo: '', pathMatch: 'full' },
