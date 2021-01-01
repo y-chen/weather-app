@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resolver';
 import { WeatherGroupResolver } from '@wa/app/core/resolvers/weather-group/weather-group.resolver';
 import { ApiService } from '@wa/app/core/services/api/api.service';
+import { AskGeoService } from '@wa/app/core/services/ask-geo/ask-geo.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { ErrorService } from '@wa/app/core/services/error/error.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
@@ -37,6 +38,7 @@ import { TimeZoneService } from '@wa/app/core/services/time-zone/time-zone.servi
 		ErrorService,
 		EventService,
 		TimeZoneService,
+		AskGeoService,
 	],
 })
 export class CoreModule {
