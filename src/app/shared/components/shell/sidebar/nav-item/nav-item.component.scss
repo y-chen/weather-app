@@ -21,11 +21,11 @@
 			}
 
 			&:hover {
-				color: var(--sidebar-hover-color) !important;
+				color: var(--primary-color) !important;
 			}
 
 			&.active {
-				color: var(--sidebar-active-color) !important;
+				color: var(--accent-color) !important;
 			}
 
 			&:not(.active) {

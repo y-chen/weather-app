@@ -25,6 +25,10 @@
 
 				mat-icon {
 					@include mat-icon-size(var(--sidebar-icon-size));
+
+					&:hover {
+						color: var(--accent-color);
+					}
 				}
 			}
 		}
