@@ -73,4 +73,9 @@ body {
 			@include flex-box(row, center);
 		}
 	}
+
+	.mat-tooltip {
+		background-color: var(--primary-color);
+		color: var(--accent-color);
+	}
 }
