@@ -5,6 +5,7 @@ import { debounceTime } from 'rxjs/operators';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { LocationService } from '@wa/app/core/services/location/location.service';
@@ -27,6 +28,7 @@ export class SearchComponent implements IComponent, OnInit {
 		private readonly geoService: GeoService,
 		private readonly componentService: ComponentService,
 		private readonly locationService: LocationService,
+		private readonly router: Router,
 	) {
 		this.componentService.init({ localizationBasePath: 'shared.search' });
 	}
@@ -49,15 +51,19 @@ export class SearchComponent implements IComponent, OnInit {
 		this.locating = true;
 
 		const coord: GeolocationCoordinates = await this.locationService.getLocation();
+		const { latitude, longitude } = coord;
 		const location: SearchResult = await this.geoService.findLocationByCoords({
-			lat: coord.latitude,
-			lon: coord.longitude,
+			lat: latitude,
+			lon: longitude,
 		});
 
 		const { city, county, countryName } = location.address;
 		this.searchInput.setValue(`${city}, ${county}, ${countryName}`);
 
 		this.locating = false;
+
+		const queryParams = { lat: latitude, lon: longitude };
+		await this.router.navigate(['/app', 'forecast'], { queryParams });
 	}
 
 	getLocalizationPath(end: string): string {
