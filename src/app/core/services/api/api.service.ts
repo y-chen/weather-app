@@ -83,12 +83,15 @@ export class ApiService {
 		});
 	}
 
-	private getOptions(options?: HttpOptions): { headers: HttpHeaders; params: HttpParams } {
+	private getOptions(
+		options?: HttpOptions,
+	): { headers: HttpHeaders; params: HttpParams; withCredentials: boolean } {
 		options = options || { headers: [], params: [] };
 
 		return {
 			headers: this.getHeaders(options.headers),
 			params: this.getParams(options.params),
+			withCredentials: options.withCredentials,
 		};
 	}
 

@@ -3,6 +3,7 @@ import { HttpHeaders, HttpParams } from '@angular/common/http';
 export interface HttpOptions {
 	headers?: Header[];
 	params?: Param[];
+	withCredentials?: boolean;
 }
 
 export type Header = KeyValuePair;
