@@ -33,7 +33,7 @@ export class OpenWeatherService {
 		this.API_KEY = apiKey;
 	}
 
-	async getWeather(searchParams: OpenWeatherSearchParams): Promise<Weather> {
+	async getWeatherByQuery(searchParams: OpenWeatherSearchParams): Promise<Weather> {
 		const url = this.buildUrl('weather');
 		let params: Param[] = [{ key: 'q', value: searchParams.q }];
 		params = this.appendParams(params);
@@ -52,7 +52,7 @@ export class OpenWeatherService {
 		return weatherGroup.list.map((weather: Weather) => this.parseWeatherData(weather));
 	}
 
-	async getForecast(searchParams: OpenWeatherSearchParams): Promise<ViewWeather[]> {
+	async getForecastById(searchParams: OpenWeatherSearchParams): Promise<ViewWeather[]> {
 		const url = this.buildUrl('forecast');
 		let params: Param[] = [{ key: 'id', value: searchParams.id }];
 		params = this.appendParams(params);

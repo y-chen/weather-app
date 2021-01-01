@@ -16,7 +16,7 @@ export class ForecastResolver implements Resolve<ViewWeather[]> {
 		const id: number = route.params.id as number;
 
 		if (id) {
-			return await this.openWeatherService.getForecast({ id });
+			return await this.openWeatherService.getForecastById({ id });
 		}
 
 		return null;

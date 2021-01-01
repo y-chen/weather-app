@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { ViewWeather } from '@wa/app/models/open-weather.model';
 
