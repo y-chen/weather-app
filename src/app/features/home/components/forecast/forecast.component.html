@@ -1,5 +1,11 @@
-<div class="weather-container">
-	<ng-container *ngFor="let viewWeather of viewWeathers">
-		<wa-weather-card [viewData]="viewWeather"></wa-weather-card>
-	</ng-container>
+<div class="forecast-container">
+	<mat-toolbar-row>
+		<span>Custom Toolbar</span>
+	</mat-toolbar-row>
+
+	<div class="weather-container">
+		<ng-container *ngFor="let viewWeather of viewWeathers">
+			<wa-weather-card [viewData]="viewWeather"></wa-weather-card>
+		</ng-container>
+	</div>
 </div>

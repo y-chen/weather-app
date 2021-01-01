@@ -1,0 +1,19 @@
+@import 'mixins';
+
+:host {
+	.forecast-container {
+		@include flex-box(column, center, center, center);
+		gap: 10px;
+		> mat-toolbar-row {
+			@include flex-box(row, center, center, center);
+			background-color: var(--accent-color);
+			border-radius: 4px;
+
+			> span {
+				font-size: 3em;
+				font-weight: bold;
+				color: white;
+			}
+		}
+	}
+}
