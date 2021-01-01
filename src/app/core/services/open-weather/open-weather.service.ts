@@ -27,7 +27,7 @@ export class OpenWeatherService {
 		private readonly localStorageService: LocalStorageService,
 		private readonly geoService: GeoService,
 	) {
-		const { url, apiKey } = environment.openWeatherMapPI;
+		const { url, apiKey } = environment.openWeatherMapAPI;
 		this.URL = url;
 		this.API_KEY = apiKey;
 	}

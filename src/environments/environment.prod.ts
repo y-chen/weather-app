@@ -4,7 +4,7 @@ export const environment = {
 		apiKey: '33028dc9bamshc7a6a58130988b9p1e08c0jsnf8cb9fa80510',
 		url: 'https://community-open-weather-map.p.rapidapi.com/weather',
 	},
-	openWeatherMapPI: {
+	openWeatherMapAPI: {
 		apiKey: '1163bbcaa4b45487719cbc8319620fa5',
 		url: 'https://api.openweathermap.org/data/2.5',
 	},
