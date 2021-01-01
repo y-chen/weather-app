@@ -25,7 +25,7 @@ export class OverlaySpinnerComponent {
 			this.checkRouterEvent(routerEvent);
 		});
 
-		this.eventService.loading.subscribe((info: LoadingInfo) => {
+		this.eventService.onLoading.subscribe((info: LoadingInfo) => {
 			this.loggerService.info('Loading info received', info);
 
 			this.loading = info.command;

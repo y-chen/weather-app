@@ -3,5 +3,5 @@ import { LoadingInfo } from '@wa/app/models/loading-info.model';
 
 @Injectable()
 export class EventService {
-	loading: EventEmitter<LoadingInfo> = new EventEmitter<LoadingInfo>();
+	onLoading: EventEmitter<LoadingInfo> = new EventEmitter<LoadingInfo>();
 }
