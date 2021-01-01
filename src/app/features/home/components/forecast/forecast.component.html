@@ -1,2 +1,3 @@
-<p>forecast works!</p>
-<wa-weather-card></wa-weather-card>
+<ng-container *ngFor="let viewWeather of viewWeathers">
+	<wa-weather-card [title]="title" [viewData]="viewWeather"></wa-weather-card>
+</ng-container>

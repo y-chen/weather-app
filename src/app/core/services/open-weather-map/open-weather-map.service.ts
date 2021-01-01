@@ -71,10 +71,11 @@ export class OpenWeatherMapService {
 				break;
 		}
 
-		const { name, dt } = weather;
+		const { id, name, dt } = weather;
 		const { description, icon } = weather.weather[0];
 
 		return {
+			id,
 			title: location || name,
 			time: this.cultureService.convertUnixTimeToLocaleTime(dt),
 			description: Case.capital(description),

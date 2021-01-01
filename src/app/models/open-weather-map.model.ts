@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 export interface ViewWeather {
+	id: number;
 	title: string;
 	description: string;
 	temperature: string;
