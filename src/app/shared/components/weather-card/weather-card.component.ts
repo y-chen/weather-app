@@ -1,15 +1,41 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ComponentService } from '@wa/app/core/services/component/component.service';
+import {
+	OpenWeatherMapService
+} from '@wa/app/core/services/open-weather-map/open-weather-map.service';
+import { IComponent } from '@wa/app/models/component.model';
+import { ViewWeather, Weather } from '@wa/app/models/open-weather-map.model';
 
 @Component({
-  selector: 'wa-weather-card',
-  templateUrl: './weather-card.component.html',
-  styleUrls: ['./weather-card.component.scss']
+	selector: 'wa-weather-card',
+	templateUrl: './weather-card.component.html',
+	styleUrls: ['./weather-card.component.scss'],
 })
-export class WeatherCardComponent implements OnInit {
+export class WeatherCardComponent implements IComponent, OnInit {
+	@Input() weather: Weather;
+	@Input() location?: string;
+	@Input() iconSize?: 2 | 4;
 
-  constructor() { }
+	viewData: ViewWeather;
 
-  ngOnInit(): void {
-  }
+	constructor(
+		private readonly componentService: ComponentService,
+		private readonly openWeatherMap: OpenWeatherMapService,
+	) {
+		this.componentService.init({ localizationBasePath: 'shared.basicWeather' });
+	}
 
+	ngOnInit(): void {
+		if (this.weather) {
+			this.viewData = this.openWeatherMap.parseWeatherData(
+				this.weather,
+				this.location,
+				this.iconSize,
+			);
+		}
+	}
+
+	getLocalizationPath(end: string): string {
+		return this.componentService.getLocalizationPath(end);
+	}
 }

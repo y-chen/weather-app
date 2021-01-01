@@ -13,9 +13,9 @@ import { ViewWeather, Weather } from '@wa/app/models/open-weather-map.model';
 	providers: [ComponentService],
 })
 export class BasicWeatherComponent implements IComponent, OnInit {
+	@Input() weather: Weather;
 	@Input() location?: string;
 	@Input() iconSize?: 2 | 4;
-	@Input() weather: Weather;
 
 	viewData: ViewWeather;
 

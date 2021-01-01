@@ -1,0 +1,61 @@
+@import 'mixins';
+
+:host {
+	width: 100%;
+	min-height: 100%;
+
+	mat-card-content {
+		height: 100%;
+		@include flex-box(row, center, center, center);
+
+		> * {
+			width: 50%;
+			flex: 1 1 0;
+		}
+
+		> .forecast-info {
+			@include flex-box(column, space-around, center, center);
+			gap: 15px;
+			line-height: normal;
+
+			> * {
+				min-height: 100%;
+				font-weight: bold;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+
+			> .temperature {
+				font-size: 3.5em;
+			}
+
+			> .weather-description {
+				text-align: center;
+				font-size: 1.3em;
+			}
+		}
+
+		> img {
+			display: block;
+			margin: 0 auto;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	}
+
+	mat-card-actions {
+		text-align: center;
+
+		> .view-forecast-link {
+			color: var(--primary-color);
+			text-decoration: none;
+			font-size: 1.1em;
+			font-weight: bold;
+
+			&:hover {
+				color: var(--accent-color);
+				text-decoration: none;
+			}
+		}
+	}
+}
