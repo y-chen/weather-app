@@ -127,11 +127,7 @@ export class OpenWeatherService {
 
 		const promises = forecast.list.map(async (weather: Weather) => {
 			const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt);
-
-			const titleOverride: string = await this.cultureService.getTranslation(
-				'shared.basicWeather.date',
-				{ date },
-			);
+			const titleOverride: string = await this.cultureService.getTranslation('shared.basicWeather.date', { date });
 
 			return this.parseWeatherData(weather, titleOverride);
 		});

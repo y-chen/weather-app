@@ -14,8 +14,7 @@ export const environment = {
 			userId: 'HERE-cc58963f-3bcc-46bd-a806-9a43a4497a23',
 			clientId: 'Fy2P8YQXnkWuw0R4Z93R',
 			accessKeyId: 'r97ANmQItB8vvPcWz9b3hg',
-			accessKeySecret:
-				'PD6VVvoi-A1rpfcMESJ0i4qkgD4zZLf4JIRblHh0sxuZaIfF9IE75nVO1AKQkclfMcRFOuYtlCk5klQmVMZ6-Q',
+			accessKeySecret: 'PD6VVvoi-A1rpfcMESJ0i4qkgD4zZLf4JIRblHh0sxuZaIfF9IE75nVO1AKQkclfMcRFOuYtlCk5klQmVMZ6-Q',
 			tokenEndpointUrl: 'https://account.api.here.com/oauth2/token',
 		},
 		urls: {

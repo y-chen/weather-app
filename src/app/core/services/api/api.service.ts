@@ -83,9 +83,7 @@ export class ApiService {
 		});
 	}
 
-	private getOptions(
-		options?: HttpOptions,
-	): { headers: HttpHeaders; params: HttpParams; withCredentials: boolean } {
+	private getOptions(options?: HttpOptions): { headers: HttpHeaders; params: HttpParams; withCredentials: boolean } {
 		options = options || { headers: [], params: [] };
 
 		return {
@@ -99,9 +97,7 @@ export class ApiService {
 		let headers = new HttpHeaders();
 		customHeaders = customHeaders || [];
 
-		customHeaders.forEach(
-			(header: Header) => (headers = this.handleOption(headers, header) as HttpHeaders),
-		);
+		customHeaders.forEach((header: Header) => (headers = this.handleOption(headers, header) as HttpHeaders));
 
 		headers = headers.set('Accept-Language', this.cultureService.getCulture().code);
 
@@ -112,9 +108,7 @@ export class ApiService {
 		let params = new HttpParams();
 		customParams = customParams || [];
 
-		customParams.forEach(
-			(param: Param) => (params = this.handleOption(params, param) as HttpParams),
-		);
+		customParams.forEach((param: Param) => (params = this.handleOption(params, param) as HttpParams));
 
 		return params;
 	}

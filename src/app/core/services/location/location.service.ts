@@ -1,18 +1,11 @@
 import { Injectable } from '@angular/core';
-import {
-	LocalStorageService, StorageKeys
-} from '@wa/app/core/services/local-storage/local-storage.service';
+import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
-import {
-	GeolocationCoordinates, GeolocationPosition, GeolocationPositionError
-} from '@wa/app/models/geolocation.model';
+import { GeolocationCoordinates, GeolocationPosition, GeolocationPositionError } from '@wa/app/models/geolocation.model';
 
 @Injectable()
 export class LocationService {
-	constructor(
-		private readonly notificationService: NotificationService,
-		private readonly localStorageService: LocalStorageService,
-	) {}
+	constructor(private readonly notificationService: NotificationService, private readonly localStorageService: LocalStorageService) {}
 
 	async getLocation(): Promise<GeolocationCoordinates> {
 		if (!navigator.geolocation) {

@@ -19,10 +19,7 @@ export class HereAuthService {
 
 	private readonly oauth: OAuth;
 
-	constructor(
-		private readonly localStorageService: LocalStorageService,
-		private readonly api: ApiService,
-	) {
+	constructor(private readonly localStorageService: LocalStorageService, private readonly api: ApiService) {
 		const { accessKeyId, accessKeySecret, tokenEndpointUrl } = environment.hereAPI.auth;
 
 		this.TOKEN_ENDPOINT_URL = tokenEndpointUrl;
@@ -34,8 +31,7 @@ export class HereAuthService {
 				secret: accessKeySecret,
 			},
 			signature_method: 'HMAC-SHA256',
-			hash_function: (base_string, key) =>
-				CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64),
+			hash_function: (base_string, key) => CryptoJS.HmacSHA256(base_string, key).toString(CryptoJS.enc.Base64),
 		});
 	}
 
@@ -54,12 +50,7 @@ export class HereAuthService {
 			],
 		};
 
-		const { access_token } = await this.api.post<OAuthToken>(
-			requestData.url,
-			requestData.data,
-			options,
-		);
-
+		const { access_token } = await this.api.post<OAuthToken>(requestData.url, requestData.data, options);
 		this.localStorageService.set(StorageKeys.HereOAuthToken, access_token);
 
 		return access_token;

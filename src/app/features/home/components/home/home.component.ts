@@ -24,14 +24,10 @@ export class HomeComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		this.favouriteCitiesViewData = (await this.componentService.getResolverData(
-			'favouriteCitiesWeather',
-		)) as ViewWeather[];
+		this.favouriteCitiesViewData = (await this.componentService.getResolverData('favouriteCitiesWeather')) as ViewWeather[];
 
 		const refreshViewData = async () => {
-			const group: number[] = this.favouriteCitiesViewData.map(
-				(viewData: ViewWeather) => viewData.id,
-			);
+			const group: number[] = this.favouriteCitiesViewData.map((viewData: ViewWeather) => viewData.id);
 
 			this.favouriteCitiesViewData = await this.openWeatherService.getWeatherGroup({ group });
 		};

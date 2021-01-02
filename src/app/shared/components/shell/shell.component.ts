@@ -12,10 +12,7 @@ import { NavItem } from '@wa/app/models/navigation.model';
 export class ShellComponent implements OnInit {
 	navItems: NavItem[];
 
-	constructor(
-		private readonly componentService: ComponentService,
-		private readonly route: ActivatedRoute,
-	) {
+	constructor(private readonly componentService: ComponentService, private readonly route: ActivatedRoute) {
 		this.componentService.init({ localizationBasePath: 'shell', route: this.route });
 	}
 

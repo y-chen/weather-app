@@ -15,10 +15,7 @@ export class SidebarComponent implements IComponent {
 
 	closed = false;
 
-	constructor(
-		private readonly componentService: ComponentService,
-		private readonly route: ActivatedRoute,
-	) {
+	constructor(private readonly componentService: ComponentService, private readonly route: ActivatedRoute) {
 		this.componentService.init({ localizationBasePath: 'shell.sidebar' });
 	}
 

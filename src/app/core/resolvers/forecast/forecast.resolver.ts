@@ -9,10 +9,7 @@ import { Coord, ViewForecast } from '@wa/app/models/open-weather.model';
 export class ForecastResolver implements Resolve<ViewForecast | null> {
 	constructor(private readonly openWeatherService: OpenWeatherService) {}
 
-	async resolve(
-		route: ActivatedRouteSnapshot,
-		state: RouterStateSnapshot,
-	): Promise<ViewForecast> | null {
+	async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<ViewForecast> | null {
 		const id: number = route.params.id as number;
 		if (id) {
 			return await this.openWeatherService.getForecastById({ id });

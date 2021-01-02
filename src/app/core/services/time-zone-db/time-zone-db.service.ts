@@ -20,15 +20,9 @@ export class TimeZoneDBService {
 		this.API_KEY = apiKey;
 	}
 
-	async convertUnixTimeToPositionLocaleDate(
-		unixTime: number,
-		lat: number,
-		lng: number,
-	): Promise<string> {
+	async convertUnixTimeToPositionLocaleDate(unixTime: number, lat: number, lng: number): Promise<string> {
 		const positionTimeZone: TimeZoneDB = await this.getTimeZoneByPosition(lat, lng);
-		const positionLocaleDate: string = moment
-			.tz(unixTime, positionTimeZone.zoneName)
-			.format('DD/MM/YYYY - H:mm:ss');
+		const positionLocaleDate: string = moment.tz(unixTime, positionTimeZone.zoneName).format('DD/MM/YYYY - H:mm:ss');
 
 		return `${positionLocaleDate} ${positionTimeZone.nextAbbreviation}`;
 	}

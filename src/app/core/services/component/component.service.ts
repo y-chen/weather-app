@@ -22,13 +22,11 @@ export class ComponentService {
 		this.route = route;
 
 		if (this.router) {
-			this.router.events
-				.pipe(filter((e): e is RouterEvent => e instanceof RouterEvent))
-				.subscribe((e: RouterEvent) => {
-					if (e instanceof NavigationEnd) {
-						this.unsubscribe();
-					}
-				});
+			this.router.events.pipe(filter((e): e is RouterEvent => e instanceof RouterEvent)).subscribe((e: RouterEvent) => {
+				if (e instanceof NavigationEnd) {
+					this.unsubscribe();
+				}
+			});
 		}
 	}
 

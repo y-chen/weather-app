@@ -16,10 +16,7 @@ export class WeatherCardComponent implements IComponent, OnInit {
 	@Input() subtitle?: string;
 	@Input() iconSize?: 2 | 4;
 
-	constructor(
-		private readonly componentService: ComponentService,
-		private readonly cultureService: CultureService,
-	) {
+	constructor(private readonly componentService: ComponentService, private readonly cultureService: CultureService) {
 		this.componentService.init({ localizationBasePath: 'shared.basicWeather' });
 	}
 
@@ -35,10 +32,7 @@ export class WeatherCardComponent implements IComponent, OnInit {
 	private async getTranslatedTimeText(): Promise<string> | null {
 		if (this.viewData.time) {
 			const params = { time: this.viewData.time };
-			const translationPromise = this.cultureService.getTranslation(
-				'shared.basicWeather.time',
-				params,
-			);
+			const translationPromise = this.cultureService.getTranslation('shared.basicWeather.time', params);
 
 			return await translationPromise;
 		}

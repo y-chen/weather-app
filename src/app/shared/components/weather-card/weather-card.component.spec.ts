@@ -1,7 +1,5 @@
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import {
-	WeatherCardComponent
-} from '@wa/app/shared/components/weather-card/weather-card.component';
+import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
 
 describe('WeatherCardComponent', () => {
 	let host: SpectatorHost<WeatherCardComponent>;
