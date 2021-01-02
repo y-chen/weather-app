@@ -33,10 +33,12 @@ export class CultureService {
 		return `${time} ${timeZoneCode}`;
 	}
 
-	convertUnixTimeToLocaleDate(unixTime: number): string {
-		const date = new Date(unixTime * 1000);
+	convertUnixTimeToLocaleDate(unixTime: number, offset: number = 0): string {
+		const momentDate = moment((unixTime + offset) * 1000);
+		const timeZoneSign = offset !== 0 ? (offset > 0 ? '+' : '') : '';
+		const hoursOffset = offset / 3600;
 
-		return moment(date).format('DD/MM/YYYY - H:mm:ss');
+		return `${momentDate.format('DD/MM/YYYY - H:mm')} GMT${timeZoneSign}${hoursOffset !== 0 ? hoursOffset : ''}`;
 	}
 
 	async getTranslation(localizationPath, data: { [key: string]: any }): Promise<string> {

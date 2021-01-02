@@ -1,9 +1,28 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+export interface ViewParserOptions {
+	iconSize?: IconSize;
+	titleOverride?: string;
+	timezone?: number;
+}
+
 export interface ViewForecast {
 	name: string;
 	coord: Coord;
-	viewData: ViewWeather[];
+	days: DayWeather[];
+}
+export interface DayWeather {
+	day: string;
+	night?: DayChunkWeather;
+	morning?: DayChunkWeather;
+	afternoon?: DayChunkWeather;
+	evening?: DayChunkWeather;
+	viewWeathers: ViewWeather[];
+}
+
+interface DayChunkWeather {
+	0?: ViewWeather;
+	1?: ViewWeather;
 }
 
 export interface ViewWeather {
@@ -29,7 +48,7 @@ export interface City {
 	coord: Coord;
 	country: string;
 	popuplation: number;
-	timezone: 3600;
+	timezone: number;
 	sunrise: number;
 	sunset: number;
 }
@@ -39,6 +58,7 @@ export interface OpenWeatherSearchParams {
 	group?: number[];
 	id?: number;
 	coord?: Coord;
+	iconSize?: IconSize;
 }
 
 export interface WeatherGroup {
@@ -58,7 +78,6 @@ export interface Weather {
 	clouds: Clouds;
 	dt: number;
 	sys: DayTime;
-	timezone: number;
 	cod: number;
 	pop?: number;
 	dt_txt?: string;
@@ -97,10 +116,13 @@ export interface Clouds {
 }
 
 export interface DayTime {
-	id: number;
-	type: number;
-	country: string;
-	sunrise: number;
-	sunset: number;
+	id?: number;
+	type?: number;
+	country?: string;
+	sunrise?: number;
+	sunset?: number;
+	timezone?: number;
 	sys?: string;
 }
+
+export type IconSize = 2 | 4;

@@ -14,7 +14,8 @@ import { TimeZoneDBService } from '@wa/app/core/services/time-zone-db/time-zone-
 import { SearchResult } from '@wa/app/models/here-api.model';
 import { Param } from '@wa/app/models/http.model';
 import {
-	Coord, Forecast, OpenWeatherSearchParams, ViewForecast, ViewWeather, Weather, WeatherGroup
+	DayWeather, Forecast, IconSize, OpenWeatherSearchParams, ViewForecast, ViewParserOptions,
+	ViewWeather, Weather, WeatherGroup
 } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
@@ -67,7 +68,7 @@ export class OpenWeatherService {
 
 		const forecast: Forecast = await this.api.get<Forecast>(url, { params });
 
-		return await this.parseForecastData(forecast);
+		return await this.parseForecastData(forecast, searchParams.iconSize);
 	}
 
 	async getForecastByCoord(searchParams: OpenWeatherSearchParams): Promise<ViewForecast> {
@@ -81,11 +82,12 @@ export class OpenWeatherService {
 
 		const forecast = await this.api.get<Forecast>(url, { params });
 
-		return await this.parseForecastData(forecast);
+		return await this.parseForecastData(forecast, searchParams.iconSize);
 	}
 
-	private parseWeatherData(weather: Weather, location?: string, iconSize?: 2 | 4): ViewWeather {
-		iconSize = iconSize ? iconSize : 4;
+	private parseWeatherData(weather: Weather, options?: ViewParserOptions): ViewWeather {
+		options = options || {};
+		const { iconSize, titleOverride, timezone } = options;
 		const unitsType: string = this.localStorageService.get(StorageKeys.Units);
 		let temperatureUnit: string;
 
@@ -109,32 +111,49 @@ export class OpenWeatherService {
 
 		return {
 			id,
-			title: location || name,
-			time: '', // await this.timeZoneDBService.convertUnixTimeToPositionLocaleDate(dt, lat, lon),
+			title: titleOverride || name,
+			time: this.cultureService.convertUnixTimeToLocaleDate(dt, timezone || weather.sys.timezone),
+
 			description: Case.capital(description),
 			temperature: `${Math.round(weather.main.temp)}° ${temperatureUnit}`,
-			icon: `http://openweathermap.org/img/wn/${icon}@${iconSize}x.png`,
+			icon: `http://openweathermap.org/img/wn/${icon}@${iconSize || 4}x.png`,
 		};
 	}
 
-	private async parseForecastData(forecast: Forecast): Promise<ViewForecast> {
-		console.log({ forecast });
+	private async parseForecastData(forecast: Forecast, iconSize?: IconSize): Promise<ViewForecast> {
+		// 00:00 - 6 / 6 - 12 / 12 - 18 / > 18
+		const allDays: string[] = forecast.list.map((weather: Weather) => weather.dt_txt.split(' ')[0]);
+		const distinctDays: string[] = Array.from(new Set(allDays.map((day: string) => day)));
+		const dayGroups = distinctDays.map((day: string) => {
+			const currentDayWather = forecast.list.filter((chunk: Weather) => chunk.dt_txt.startsWith(day));
 
-		const coord = forecast.city.coord;
+			return {
+				day,
+				chuncks: forecast.list.filter((chunk: Weather) => chunk.dt_txt.startsWith(day)),
+			};
+		});
+
+		const { coord, timezone } = forecast.city;
 		const location: SearchResult = await this.geoService.findLocationByCoords(coord);
 		const { city, countryCode } = location.address;
 		const name = `${city}, ${countryCode}`;
 
-		const promises = forecast.list.map(async (weather: Weather) => {
-			const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt);
-			const titleOverride: string = await this.cultureService.getTranslation('shared.basicWeather.date', { date });
+		const promises: Promise<DayWeather>[] = dayGroups.map(async (group: { day: string; chuncks: Weather[] }) => {
+			const weatherPromises: Promise<ViewWeather>[] = group.chuncks.map(async (weather: Weather) => {
+				const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt, timezone);
+				const titleOverride: string = await this.cultureService.getTranslation('shared.basicWeather.date', { date });
 
-			return this.parseWeatherData(weather, titleOverride);
+				return this.parseWeatherData(weather, { iconSize, titleOverride, timezone });
+			});
+
+			const viewWeathers = await Promise.all(weatherPromises);
+
+			return { day: group.day, viewWeathers };
 		});
 
-		const viewData = await Promise.all(promises);
+		const days = await Promise.all(promises);
 
-		return { name, viewData, coord };
+		return { name, coord, days };
 	}
 
 	private appendParams(params?: Param[]): Param[] {

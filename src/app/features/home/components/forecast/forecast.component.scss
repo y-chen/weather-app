@@ -4,6 +4,7 @@
 	.forecast-container {
 		@include flex-box(column, center, center, center);
 		gap: 10px;
+
 		> mat-toolbar-row {
 			@include flex-box(row, center, center, center);
 			background-color: var(--accent-color);
@@ -13,6 +14,17 @@
 				font-size: 3em;
 				font-weight: bold;
 				color: white;
+			}
+		}
+
+		mat-card {
+			mat-card-content {
+				@include flex-box(row, space-around, center, center);
+				flex-wrap: wrap;
+
+				wa-basic-weather {
+					flex: 1 0 40%;
+				}
 			}
 		}
 	}

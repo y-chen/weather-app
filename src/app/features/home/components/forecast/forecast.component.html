@@ -3,9 +3,20 @@
 		<span>{{ viewForecast.name }}</span>
 	</mat-toolbar-row>
 
-	<div class="weather-container">
-		<ng-container *ngFor="let viewWeather of viewForecast.viewData">
-			<wa-weather-card [viewData]="viewWeather"></wa-weather-card>
-		</ng-container>
-	</div>
+	<ng-container *ngFor="let day of viewForecast.days">
+		<mat-card class="day-forecast">
+			<mat-card-header>
+				<mat-card-title>
+					{{ day.day }}
+				</mat-card-title>
+			</mat-card-header>
+
+			<mat-card-content>
+				<ng-container *ngFor="let weather of day.viewWeathers">
+					{{ weather.time }}
+					<wa-basic-weather [viewData]="weather"></wa-basic-weather>
+				</ng-container>
+			</mat-card-content>
+		</mat-card>
+	</ng-container>
 </div>

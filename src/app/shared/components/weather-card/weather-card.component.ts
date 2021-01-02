@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { IComponent } from '@wa/app/models/component.model';
-import { ViewWeather } from '@wa/app/models/open-weather.model';
+import { IconSize, ViewWeather } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-weather-card',
@@ -14,7 +14,7 @@ export class WeatherCardComponent implements IComponent, OnInit {
 	@Input() viewData: ViewWeather;
 	@Input() title?: string;
 	@Input() subtitle?: string;
-	@Input() iconSize?: 2 | 4;
+	@Input() iconSize?: IconSize;
 
 	constructor(private readonly componentService: ComponentService, private readonly cultureService: CultureService) {
 		this.componentService.init({ localizationBasePath: 'shared.basicWeather' });
