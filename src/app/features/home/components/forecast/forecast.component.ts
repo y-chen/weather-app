@@ -32,6 +32,6 @@ export class ForecastComponent implements OnInit {
 			});
 		};
 
-		await this.cultureService.onLangChange(refreshViewData);
+		this.cultureService.onLangChange(refreshViewData);
 	}
 }

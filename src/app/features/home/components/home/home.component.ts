@@ -36,6 +36,6 @@ export class HomeComponent implements OnInit {
 			this.favouriteCitiesViewData = await this.openWeatherService.getWeatherGroup({ group });
 		};
 
-		await this.cultureService.onLangChange(refreshViewData);
+		this.cultureService.onLangChange(refreshViewData);
 	}
 }

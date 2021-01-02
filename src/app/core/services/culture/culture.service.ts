@@ -48,10 +48,8 @@ export class CultureService {
 		});
 	}
 
-	async onLangChange(callback: () => Promise<void>): Promise<void> {
-		return new Promise<void>((resolve) => {
-			resolve(callback());
-		});
+	onLangChange(callback: () => Promise<void>): void {
+		this.translate.onLangChange.subscribe(async () => await callback());
 	}
 }
 
