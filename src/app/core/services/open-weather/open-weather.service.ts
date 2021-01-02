@@ -66,15 +66,8 @@ export class OpenWeatherService {
 		params = this.appendParams(params);
 
 		const forecast: Forecast = await this.api.get<Forecast>(url, { params });
-		const coord: Coord = forecast.city.coord;
 
-		const location: SearchResult = await this.geoService.findLocationByCoords(coord);
-		const { city, countryCode } = location.address;
-		const name = `${city}, ${countryCode}`;
-
-		const viewData = await this.parseForecastData(forecast);
-
-		return { name, viewData, coord };
+		return await this.parseForecastData(forecast);
 	}
 
 	async getForecastByCoord(searchParams: OpenWeatherSearchParams): Promise<ViewForecast> {
@@ -88,12 +81,7 @@ export class OpenWeatherService {
 
 		const forecast = await this.api.get<Forecast>(url, { params });
 
-		const location: SearchResult = await this.geoService.findLocationByCoords(forecast.city.coord);
-		const { city, countryCode } = location.address;
-		const name = `${city}, ${countryCode}`;
-		const viewData = await this.parseForecastData(forecast);
-
-		return { name, viewData, coord: { lat, lon } };
+		return await this.parseForecastData(forecast);
 	}
 
 	private parseWeatherData(weather: Weather, location?: string, iconSize?: 2 | 4): ViewWeather {
@@ -129,7 +117,14 @@ export class OpenWeatherService {
 		};
 	}
 
-	private async parseForecastData(forecast: Forecast): Promise<ViewWeather[]> {
+	private async parseForecastData(forecast: Forecast): Promise<ViewForecast> {
+		console.log({ forecast });
+
+		const coord = forecast.city.coord;
+		const location: SearchResult = await this.geoService.findLocationByCoords(coord);
+		const { city, countryCode } = location.address;
+		const name = `${city}, ${countryCode}`;
+
 		const promises = forecast.list.map(async (weather: Weather) => {
 			const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt);
 
@@ -141,7 +136,9 @@ export class OpenWeatherService {
 			return this.parseWeatherData(weather, titleOverride);
 		});
 
-		return await Promise.all(promises);
+		const viewData = await Promise.all(promises);
+
+		return { name, viewData, coord };
 	}
 
 	private appendParams(params?: Param[]): Param[] {
