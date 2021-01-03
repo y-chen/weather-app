@@ -2,8 +2,17 @@
 	mat-card {
 		min-height: 100%;
 
-		mat-card-header.unavailable {
+		> mat-card-header.unavailable {
 			background-color: var(--disabled-color);
+		}
+
+		> mat-card-content {
+			padding-top: 16px;
+
+			> h1 {
+				font-weight: bold;
+				font-size: 1em;
+			}
 		}
 	}
 }

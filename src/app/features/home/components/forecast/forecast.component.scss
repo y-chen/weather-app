@@ -21,7 +21,7 @@
 			width: 100%;
 
 			mat-card-content {
-				@include flex-box(row, flex-start, center, center);
+				@include flex-box(row, flex-start, flex-start center);
 				flex-wrap: wrap;
 				gap: 10px;
 				padding-top: 16px;
