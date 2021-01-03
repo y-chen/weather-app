@@ -11,16 +11,24 @@ export interface ViewForecast {
 	coord: Coord;
 	days: DayWeather[];
 }
-export interface DayWeather {
+
+export interface DayWeatherPromise {
 	day: string;
-	night?: DayChunkWeather;
-	morning?: DayChunkWeather;
-	afternoon?: DayChunkWeather;
-	evening?: DayChunkWeather;
-	viewWeathers: ViewWeather[];
+	night?: Promise<DayTimeWeather>;
+	morning?: Promise<DayTimeWeather>;
+	afternoon?: Promise<DayTimeWeather>;
+	evening?: Promise<DayTimeWeather>;
 }
 
-interface DayChunkWeather {
+export interface DayWeather {
+	day: string;
+	night?: DayTimeWeather;
+	morning?: DayTimeWeather;
+	afternoon?: DayTimeWeather;
+	evening?: DayTimeWeather;
+}
+
+interface DayTimeWeather {
 	0?: ViewWeather;
 	1?: ViewWeather;
 }
@@ -77,7 +85,7 @@ export interface Weather {
 	wind: Wind;
 	clouds: Clouds;
 	dt: number;
-	sys: DayTime;
+	sys: DayInfo;
 	cod: number;
 	pop?: number;
 	dt_txt?: string;
@@ -115,7 +123,7 @@ export interface Clouds {
 	all: number;
 }
 
-export interface DayTime {
+export interface DayInfo {
 	id?: number;
 	type?: number;
 	country?: string;
@@ -126,3 +134,4 @@ export interface DayTime {
 }
 
 export type IconSize = 2 | 4;
+export type DayTime = 'night' | 'morning' | 'afternoon' | 'evening';

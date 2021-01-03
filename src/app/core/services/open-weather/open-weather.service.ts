@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import Case from 'case';
+import * as lodash from 'lodash';
+import moment, { Moment } from 'moment';
 
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
@@ -14,8 +16,8 @@ import { TimeZoneDBService } from '@wa/app/core/services/time-zone-db/time-zone-
 import { SearchResult } from '@wa/app/models/here-api.model';
 import { Param } from '@wa/app/models/http.model';
 import {
-	DayWeather, Forecast, IconSize, OpenWeatherSearchParams, ViewForecast, ViewParserOptions,
-	ViewWeather, Weather, WeatherGroup
+	DayWeather, DayWeatherPromise, Forecast, IconSize, OpenWeatherSearchParams, ViewForecast,
+	ViewParserOptions, ViewWeather, Weather, WeatherGroup
 } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
@@ -121,35 +123,59 @@ export class OpenWeatherService {
 	}
 
 	private async parseForecastData(forecast: Forecast, iconSize?: IconSize): Promise<ViewForecast> {
-		// 00:00 - 6 / 6 - 12 / 12 - 18 / > 18
-		const allDays: string[] = forecast.list.map((weather: Weather) => weather.dt_txt.split(' ')[0]);
-		const distinctDays: string[] = Array.from(new Set(allDays.map((day: string) => day)));
-		const dayGroups = distinctDays.map((day: string) => {
-			const currentDayWather = forecast.list.filter((chunk: Weather) => chunk.dt_txt.startsWith(day));
-
-			return {
-				day,
-				chuncks: forecast.list.filter((chunk: Weather) => chunk.dt_txt.startsWith(day)),
-			};
-		});
-
 		const { coord, timezone } = forecast.city;
 		const location: SearchResult = await this.geoService.findLocationByCoords(coord);
 		const { city, countryCode } = location.address;
 		const name = `${city}, ${countryCode}`;
 
-		const promises: Promise<DayWeather>[] = dayGroups.map(async (group: { day: string; chuncks: Weather[] }) => {
-			const weatherPromises: Promise<ViewWeather>[] = group.chuncks.map(async (weather: Weather) => {
-				const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt, timezone);
-				const titleOverride: string = await this.cultureService.getTranslation('shared.basicWeather.date', { date });
+		const startOfDay = (weather: Weather): Moment => moment((weather.dt + timezone || 0) * 1000).startOf('day');
+		const groupByDayTime = (weather: Weather): string => {
+			const hour = moment((weather.dt + timezone || 0) * 1000).hour();
 
-				return this.parseWeatherData(weather, { iconSize, titleOverride, timezone });
-			});
+			if (hour < 6) {
+				return 'night';
+			}
+			if (hour >= 6 && hour < 12) {
+				return 'morning';
+			}
+			if (hour >= 12 && hour < 18) {
+				return 'afternoon';
+			}
+			if (hour >= 18) {
+				return 'evening';
+			}
+		};
 
-			const viewWeathers = await Promise.all(weatherPromises);
+		const promises = lodash
+			.chain(forecast.list)
+			.groupBy(startOfDay)
+			.mapValues((dayWeathers: Weather[], day: string) => {
+				const datyTimes = lodash
+					.chain(dayWeathers)
+					.groupBy(groupByDayTime)
+					.mapValues(async (dayTimeWeathers: Weather[]) => {
+						const dayTimeWeatherPromises = lodash.map(dayTimeWeathers, async (weather: Weather) => {
+							const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt, timezone);
+							const titleOverride: string = await this.cultureService.getTranslation('shared.basicWeather.date', { date });
 
-			return { day: group.day, viewWeathers };
-		});
+							return this.parseWeatherData(weather, { iconSize, titleOverride, timezone });
+						});
+
+						return await Promise.all(dayTimeWeatherPromises);
+					})
+					.value();
+
+				return { day, ...datyTimes };
+			})
+			.map((value) => value)
+			.map(async (value: DayWeatherPromise) => ({
+				day: value.day,
+				night: await value.night,
+				morning: await value.morning,
+				afternoon: await value.afternoon,
+				evening: await value.evening,
+			}))
+			.value();
 
 		const days = await Promise.all(promises);
 

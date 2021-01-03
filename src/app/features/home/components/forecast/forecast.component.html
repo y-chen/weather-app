@@ -12,8 +12,16 @@
 			</mat-card-header>
 
 			<mat-card-content>
-				<ng-container *ngFor="let weather of day.viewWeathers">
-					{{ weather.time }}
+				<ng-container *ngFor="let weather of day.night">
+					<wa-basic-weather [viewData]="weather"></wa-basic-weather>
+				</ng-container>
+				<ng-container *ngFor="let weather of day.morning">
+					<wa-basic-weather [viewData]="weather"></wa-basic-weather>
+				</ng-container>
+				<ng-container *ngFor="let weather of day.afternoon">
+					<wa-basic-weather [viewData]="weather"></wa-basic-weather>
+				</ng-container>
+				<ng-container *ngFor="let weather of day.evening">
 					<wa-basic-weather [viewData]="weather"></wa-basic-weather>
 				</ng-container>
 			</mat-card-content>
