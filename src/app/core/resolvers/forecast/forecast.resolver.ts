@@ -10,7 +10,7 @@ import { Coord, IconSize } from '@wa/app/models/open-weather.model';
 export class ForecastResolver implements Resolve<ViewForecast | null> {
 	constructor(private readonly openWeatherService: OpenWeatherService) {}
 
-	async resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<ViewForecast> | null {
+	async resolve(route: ActivatedRouteSnapshot): Promise<ViewForecast> | null {
 		const iconSize = route.data.iconSize as IconSize;
 		const id: number = route.params.id as number;
 		if (id) {
