@@ -3,7 +3,6 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
@@ -26,7 +25,6 @@ export class OpenWeatherService {
 		private readonly api: ApiService,
 		private readonly cultureService: CultureService,
 		private readonly localStorageService: LocalStorageService,
-		private readonly geoService: GeoService,
 		private readonly openWeatherParserService: OpenWeatherParserService,
 	) {
 		const { url, apiKey } = environment.openWeatherMapAPI;

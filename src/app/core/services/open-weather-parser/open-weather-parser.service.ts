@@ -89,7 +89,7 @@ export class OpenWeatherParserService {
 
 	async translateLocationNames(weatherGroup: WeatherGroup): Promise<void> {
 		for (const weather of weatherGroup.list) {
-			const location = await this.geoService.findLocationByQuery(weather.name);
+			const location = await this.geoService.findLocationByCoords(weather.coord);
 			const { city, countryCode } = location.address;
 
 			weather.name = `${city}, ${countryCode}`;
