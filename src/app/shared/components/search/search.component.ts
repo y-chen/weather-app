@@ -41,6 +41,15 @@ export class SearchComponent implements IComponent, OnInit {
 		});
 	}
 
+	async onSearchInputKeydown(event: KeyboardEvent): Promise<void> {
+		if (event.key === 'Enter') {
+			const location: SearchResult = await this.geoService.findLocationByQuery(this.searchInput.value);
+			const { lat, lng } = location.position;
+
+			await this.navigateToForecast(location, lat, lng);
+		}
+	}
+
 	onSearchInputFocus(event: any): void {
 		if (this.locating) {
 			event.target.blur();
@@ -57,13 +66,9 @@ export class SearchComponent implements IComponent, OnInit {
 			lon: longitude,
 		});
 
-		const { city, county, countryName } = location.address;
-		this.searchInput.setValue(`${city}, ${county}, ${countryName}`);
-
 		this.locating = false;
 
-		const queryParams = { lat: latitude, lon: longitude };
-		await this.router.navigate(['/app', 'forecast'], { queryParams });
+		await this.navigateToForecast(location, latitude, longitude);
 	}
 
 	async onAutocompleteOptionClick(selection: SearchResult): Promise<void> {
@@ -76,5 +81,13 @@ export class SearchComponent implements IComponent, OnInit {
 
 	getLocalizationPath(end: string): string {
 		return this.componentService.getLocalizationPath(end);
+	}
+
+	private async navigateToForecast(location: SearchResult, lat: number, lng: number): Promise<void> {
+		const { city, county, countryName } = location.address;
+		this.searchInput.setValue(`${city}, ${county}, ${countryName}`);
+
+		const queryParams = { lat, lon: lng };
+		await this.router.navigate(['/app', 'forecast'], { queryParams });
 	}
 }
