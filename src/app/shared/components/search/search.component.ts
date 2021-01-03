@@ -22,7 +22,7 @@ import { SearchResult } from '@wa/app/models/here-api.model';
 export class SearchComponent implements IComponent, OnInit {
 	cities: Promise<SearchResult[]>;
 	searchInput: FormControl = new FormControl();
-	locating = false;
+	isLocating = false;
 
 	constructor(
 		private readonly geoService: GeoService,
@@ -53,13 +53,13 @@ export class SearchComponent implements IComponent, OnInit {
 	}
 
 	onSearchInputFocus(event: any): void {
-		if (this.locating) {
+		if (this.isLocating) {
 			event.target.blur();
 		}
 	}
 
 	async onCurrentLocationClick(): Promise<void> {
-		this.locating = true;
+		this.isLocating = true;
 
 		const coord: GeolocationCoordinates = await this.locationService.getLocation();
 		const { latitude, longitude } = coord;
@@ -68,7 +68,7 @@ export class SearchComponent implements IComponent, OnInit {
 			lon: longitude,
 		});
 
-		this.locating = false;
+		this.isLocating = false;
 
 		await this.navigateToForecast(location, latitude, longitude);
 	}

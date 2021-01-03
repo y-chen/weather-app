@@ -10,7 +10,7 @@
 	/>
 
 	<mat-icon
-		[ngClass]="{ spin: locating }"
+		[ngClass]="{ spin: isLocating }"
 		matSuffix
 		matTooltip="{{ getLocalizationPath('currentLocation') | translate }}"
 		(click)="onCurrentLocationClick()"
