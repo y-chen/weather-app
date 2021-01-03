@@ -1,1 +1,19 @@
-<p>day-time-weather works!</p>
+<mat-card>
+	<mat-card-header [ngClass]="{ unavailable: !dayTimeWeather }">
+		<mat-card-title translate>
+			{{ getLocalizationPath(dayTimeName) }}
+		</mat-card-title>
+	</mat-card-header>
+
+	<mat-card-content>
+		<ng-container *ngIf="dayTimeWeather; else unavailableTemplete">
+			<ng-container *ngFor="let weather of dayTimeWeather">
+				<wa-basic-weather [viewData]="weather"></wa-basic-weather>
+			</ng-container>
+		</ng-container>
+	</mat-card-content>
+</mat-card>
+
+<ng-template #unavailableTemplete>
+	<h1 translate>{{ getLocalizationPath('unavailable') }}</h1>
+</ng-template>

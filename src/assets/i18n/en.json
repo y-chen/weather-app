@@ -8,6 +8,13 @@
 			"time": "Weather at {{time}}",
 			"date": "Weather on {{date}}",
 			"viewForecast": "View Forecast"
+		},
+		"dayTimeWeather": {
+			"night": "Night",
+			"morning": "Morning",
+			"afternoon": "Afternoon",
+			"evening": "Evening",
+			"unavailable": "Unavailable"
 		}
 	},
 	"shell": {

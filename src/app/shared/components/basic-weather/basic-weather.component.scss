@@ -26,12 +26,18 @@
 			}
 
 			> .temperature {
-				font-size: 3.5em;
+				font-size: 3em;
+				@include media('>0', '<=phone') {
+					font-size: 3.5em;
+				}
 			}
 
 			> .weather-description {
 				text-align: center;
-				font-size: 1.3em;
+				font-size: 1em;
+				@include media('>0', '<=phone') {
+					font-size: 1.3em;
+				}
 			}
 		}
 

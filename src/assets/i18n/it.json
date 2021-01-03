@@ -8,6 +8,13 @@
 			"time": "Meteo alle {{time}}",
 			"date": "Meteo il {{date}}",
 			"viewForecast": "Vedi Previsioni"
+		},
+		"dayTimeWeather": {
+			"night": "Notte",
+			"morning": "Mattino",
+			"afternoon": "Pomeriggio",
+			"evening": "Sera",
+			"unavailable": "Non disponibile"
 		}
 	},
 	"shell": {

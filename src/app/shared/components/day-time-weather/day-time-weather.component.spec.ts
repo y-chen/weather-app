@@ -10,7 +10,7 @@ describe('DayTimeWeatherComponent', () => {
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-day-time-weather></wa-day-time-weather>', {});
+		host = createHost('<wa-day-time-weather></wa-day-time-weather>');
 
 		const dayTimeWeather = host.queryHost('wa-day-time-weather');
 

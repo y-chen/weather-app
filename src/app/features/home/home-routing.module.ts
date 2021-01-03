@@ -41,13 +41,11 @@ const routes: Routes = [
 			{
 				path: 'forecast',
 				resolve: { forecast: ForecastResolver },
-				data: { iconSize: 2 },
 				component: ForecastComponent,
 			},
 			{
 				path: 'forecast/:id',
 				resolve: { forecast: ForecastResolver },
-				data: { iconSize: 2 },
 				component: ForecastComponent,
 			},
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },

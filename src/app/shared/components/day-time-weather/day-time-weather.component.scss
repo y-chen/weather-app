@@ -1,0 +1,9 @@
+:host {
+	mat-card {
+		min-height: 100%;
+
+		mat-card-header.unavailable {
+			background-color: var(--disabled-color);
+		}
+	}
+}

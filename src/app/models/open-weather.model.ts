@@ -28,7 +28,7 @@ export interface DayForecast {
 	evening?: DayTimeWeather;
 }
 
-interface DayTimeWeather {
+export interface DayTimeWeather {
 	0?: ViewWeather;
 	1?: ViewWeather;
 }

@@ -14,7 +14,7 @@
 			}
 			text-decoration: none;
 			font-weight: 500;
-			color: var(--sidebar-normal-color);
+			color: var(--disabled-color);
 
 			mat-icon {
 				@include mat-icon-size(var(--sidebar-icon-size));

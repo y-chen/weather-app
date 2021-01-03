@@ -4,7 +4,7 @@
 	</mat-toolbar-row>
 
 	<ng-container *ngFor="let day of viewForecast.days">
-		<mat-card class="day-forecast">
+		<mat-card>
 			<mat-card-header>
 				<mat-card-title>
 					{{ day.day }}
@@ -12,18 +12,10 @@
 			</mat-card-header>
 
 			<mat-card-content>
-				<ng-container *ngFor="let weather of day.night">
-					<wa-basic-weather [viewData]="weather"></wa-basic-weather>
-				</ng-container>
-				<ng-container *ngFor="let weather of day.morning">
-					<wa-basic-weather [viewData]="weather"></wa-basic-weather>
-				</ng-container>
-				<ng-container *ngFor="let weather of day.afternoon">
-					<wa-basic-weather [viewData]="weather"></wa-basic-weather>
-				</ng-container>
-				<ng-container *ngFor="let weather of day.evening">
-					<wa-basic-weather [viewData]="weather"></wa-basic-weather>
-				</ng-container>
+				<wa-day-time-weather dayTimeName="night" [dayTimeWeather]="day.night"></wa-day-time-weather>
+				<wa-day-time-weather dayTimeName="morning" [dayTimeWeather]="day.morning"></wa-day-time-weather>
+				<wa-day-time-weather dayTimeName="afternoon" [dayTimeWeather]="day.afternoon"></wa-day-time-weather>
+				<wa-day-time-weather dayTimeName="evening" [dayTimeWeather]="day.evening"></wa-day-time-weather>
 			</mat-card-content>
 		</mat-card>
 	</ng-container>

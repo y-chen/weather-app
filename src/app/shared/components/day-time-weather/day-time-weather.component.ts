@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ComponentService } from '@wa/app/core/services/component/component.service';
+import { IComponent } from '@wa/app/models/component.model';
+import { DayTime, DayTimeWeather } from '@wa/app/models/open-weather.model';
 
 @Component({
-  selector: 'wa-day-time-weather',
-  templateUrl: './day-time-weather.component.html',
-  styleUrls: ['./day-time-weather.component.scss']
+	selector: 'wa-day-time-weather',
+	templateUrl: './day-time-weather.component.html',
+	styleUrls: ['./day-time-weather.component.scss'],
+	providers: [ComponentService],
 })
-export class DayTimeWeatherComponent implements OnInit {
+export class DayTimeWeatherComponent implements IComponent {
+	@Input() dayTimeName: DayTime;
+	@Input() dayTimeWeather: DayTimeWeather;
 
-  constructor() { }
+	constructor(private readonly componentService: ComponentService) {
+		this.componentService.init({ localizationBasePath: 'shared.dayTimeWeather' });
+	}
 
-  ngOnInit(): void {
-  }
-
+	getLocalizationPath(end: string): string {
+		return this.componentService.getLocalizationPath(end);
+	}
 }
