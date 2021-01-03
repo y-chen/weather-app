@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
+import {
+	NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent
+} from '@angular/router';
 import { EventService } from '@wa/app/core/services/event/event.service';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
 import { LoaderService } from '@wa/app/interceptors/services/loader/loader.service';

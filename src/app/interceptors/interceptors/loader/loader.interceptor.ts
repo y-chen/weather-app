@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
 
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import {
+	HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoaderService } from '@wa/app/interceptors/services/loader/loader.service';
 

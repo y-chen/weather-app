@@ -2,7 +2,9 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { availableCultures, CultureService } from '@wa/app/core/services/culture/culture.service';
-import { LanguageSelectorComponent } from '@wa/app/shared/components/language-selector/language-selector.component';
+import {
+	LanguageSelectorComponent
+} from '@wa/app/shared/components/language-selector/language-selector.component';
 
 describe('LanguageSelectorComponent', () => {
 	let host: SpectatorHost<LanguageSelectorComponent>;
