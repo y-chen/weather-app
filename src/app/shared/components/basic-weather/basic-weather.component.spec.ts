@@ -1,5 +1,7 @@
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
+import {
+	BasicWeatherComponent
+} from '@wa/app/shared/components/basic-weather/basic-weather.component';
 
 describe('BasicWeatherComponent', () => {
 	let host: SpectatorHost<BasicWeatherComponent>;
@@ -19,9 +21,9 @@ describe('BasicWeatherComponent', () => {
 			},
 		});
 
-		const forecast = host.queryHost('wa-basic-weather');
+		const basicWeather = host.queryHost('wa-basic-weather');
 
 		expect(host).toExist();
-		expect(forecast).toExist();
+		expect(basicWeather).toExist();
 	});
 });
