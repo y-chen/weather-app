@@ -10,6 +10,7 @@ import {
 import {
 	DayTimeWeatherComponent
 } from '@wa/app/shared/components/day-time-weather/day-time-weather.component';
+import { FavouriteComponent } from '@wa/app/shared/components/favourite/favourite.component';
 import {
 	LanguageSelectorComponent
 } from '@wa/app/shared/components/language-selector/language-selector.component';
@@ -46,6 +47,7 @@ export const moduleDeclarations = [
 	OverlaySpinnerComponent,
 	WeatherCardComponent,
 	DayTimeWeatherComponent,
+	FavouriteComponent,
 	LocalizedDatePipe,
 	CasePipe,
 	TimePipe,
@@ -82,6 +84,7 @@ export const moduleExports = [
 	LocalizedDatePipe,
 	CasePipe,
 	TimePipe,
+	FavouriteComponent,
 ];
 
 export const moduleProviders: Provider[] = [];
