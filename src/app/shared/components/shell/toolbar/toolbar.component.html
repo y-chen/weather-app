@@ -1,14 +1,15 @@
 <mat-toolbar color="primary">
 	<mat-toolbar-row>
-		<span translate>
-			{{ getLocalizationPath('title') }}
-		</span>
+		<a [routerLink]="['/app']">
+			<span translate>
+				{{ getLocalizationPath('title') }}
+			</span>
+		</a>
 
 		<div class="search-container">
 			<wa-search></wa-search>
 		</div>
 
-		<wa-language-selector matTooltip="{{ getLocalizationPath('languageSelector') | translate }}">
-		</wa-language-selector>
+		<wa-language-selector matTooltip="{{ getLocalizationPath('languageSelector') | translate }}"> </wa-language-selector>
 	</mat-toolbar-row>
 </mat-toolbar>
