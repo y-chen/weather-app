@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
@@ -28,15 +30,8 @@ export class ForecastComponent implements IComponent, OnInit {
 
 	async ngOnInit(): Promise<void> {
 		this.viewForecast = (await this.componentService.getResolverData('forecast')) as ViewForecast;
-		console.log(this.viewForecast);
 
-		const subscription = this.route.params.subscribe((params: Coord) => {
-			const coord = { lat: params.lat, lon: params.lon };
-
-			if (coord.lat && coord.lon) {
-				void (async () => (this.viewForecast = await this.openWeatherService.getForecastByCoord({ coord })))();
-			}
-		});
+		const subscription: Subscription = this.route.queryParams.subscribe((queryParams: Coord) => this.updateForecast(queryParams));
 		this.componentService.subscribe(subscription);
 
 		const refreshViewData: () => Promise<void> = async (): Promise<void> => {
@@ -50,5 +45,11 @@ export class ForecastComponent implements IComponent, OnInit {
 
 	getLocalizationPath(end: string): string {
 		return this.componentService.getLocalizationPath(end);
+	}
+
+	private updateForecast(coord: Coord): void {
+		if (coord.lat && coord.lon) {
+			void (async () => (this.viewForecast = await this.openWeatherService.getForecastByCoord({ coord })))();
+		}
 	}
 }
