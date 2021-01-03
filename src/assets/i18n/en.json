@@ -13,7 +13,7 @@
 	},
 	"shared": {
 		"search": {
-			"placeholder": "Search",
+			"placeholder": "Search by city name",
 			"currentLocation": "Current location"
 		},
 		"basicWeather": {
