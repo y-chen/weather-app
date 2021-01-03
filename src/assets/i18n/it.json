@@ -1,4 +1,12 @@
 {
+	"features": {
+		"main": {
+			"home": {
+				"missingFavouritesTitle": "Nessun preferito trovato",
+				"missingFavouritesContent": "Fai una ricerca e aggiungi una città tra in tuoi preferiti"
+			}
+		}
+	},
 	"shared": {
 		"search": {
 			"placeholder": "Cerca",

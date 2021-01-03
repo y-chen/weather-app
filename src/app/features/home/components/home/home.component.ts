@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
+import { IComponent } from '@wa/app/models/component.model';
 import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
 
 @Component({
@@ -11,7 +12,7 @@ import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
 	styleUrls: ['./home.component.scss'],
 	providers: [ComponentService],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements IComponent, OnInit {
 	favouriteCitiesViewData: ViewWeather[];
 
 	constructor(
@@ -20,7 +21,7 @@ export class HomeComponent implements OnInit {
 		private readonly openWeatherService: OpenWeatherService,
 		private readonly cultureService: CultureService,
 	) {
-		this.componentService.init({ route: this.route });
+		this.componentService.init({ localizationBasePath: 'features.main.home', route: this.route });
 	}
 
 	async ngOnInit(): Promise<void> {
@@ -29,9 +30,15 @@ export class HomeComponent implements OnInit {
 		const refreshViewData = async () => {
 			const group: number[] = this.favouriteCitiesViewData.map((viewData: ViewWeather) => viewData.id);
 
-			this.favouriteCitiesViewData = await this.openWeatherService.getWeatherGroup({ group });
+			if (group.length > 0) {
+				this.favouriteCitiesViewData = await this.openWeatherService.getWeatherGroup({ group });
+			}
 		};
 
 		this.cultureService.onLangChange(refreshViewData);
+	}
+
+	getLocalizationPath(end: string): string {
+		return this.componentService.getLocalizationPath(end);
 	}
 }

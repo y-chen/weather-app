@@ -18,6 +18,10 @@ export class WeatherGroupResolver implements Resolve<ViewWeather[]> {
 
 		this.localStorageService.set(StorageKeys.favouriteCities, JSON.stringify(group));
 
-		return await this.openWeatherService.getWeatherGroup({ group });
+		if (group.length > 0) {
+			return await this.openWeatherService.getWeatherGroup({ group });
+		}
+
+		return [];
 	}
 }
