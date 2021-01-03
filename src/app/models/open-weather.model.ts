@@ -9,10 +9,10 @@ export interface ViewParserOptions {
 export interface ViewForecast {
 	name: string;
 	coord: Coord;
-	days: DayWeather[];
+	days: DayForecast[];
 }
 
-export interface DayWeatherPromise {
+export interface DayForecastPromise {
 	day: string;
 	night?: Promise<DayTimeWeather>;
 	morning?: Promise<DayTimeWeather>;
@@ -20,7 +20,7 @@ export interface DayWeatherPromise {
 	evening?: Promise<DayTimeWeather>;
 }
 
-export interface DayWeather {
+export interface DayForecast {
 	day: string;
 	night?: DayTimeWeather;
 	morning?: DayTimeWeather;

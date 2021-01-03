@@ -16,7 +16,7 @@ import { TimeZoneDBService } from '@wa/app/core/services/time-zone-db/time-zone-
 import { SearchResult } from '@wa/app/models/here-api.model';
 import { Param } from '@wa/app/models/http.model';
 import {
-	DayWeather, DayWeatherPromise, Forecast, IconSize, OpenWeatherSearchParams, ViewForecast,
+	DayForecast, DayForecastPromise, Forecast, IconSize, OpenWeatherSearchParams, ViewForecast,
 	ViewParserOptions, ViewWeather, Weather, WeatherGroup
 } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
@@ -146,7 +146,7 @@ export class OpenWeatherService {
 			}
 		};
 
-		const promises = lodash
+		const promises: Promise<DayForecast>[] = lodash
 			.chain(forecast.list)
 			.groupBy(startOfDay)
 			.mapValues((dayWeathers: Weather[], day: string) => {
@@ -168,7 +168,7 @@ export class OpenWeatherService {
 				return { day, ...datyTimes };
 			})
 			.map((value) => value)
-			.map(async (value: DayWeatherPromise) => ({
+			.map(async (value: DayForecastPromise) => ({
 				day: value.day,
 				night: await value.night,
 				morning: await value.morning,
