@@ -1,20 +1,15 @@
-<ng-container *ngIf="favouriteCitiesViewData && favouriteCitiesViewData.length > 0; else missingFavouriteTemplate">
+<ng-container *ngIf="favouriteCitiesViewData && favouriteCitiesViewData.length > 0; else missingDataTemplate">
 	<div class="weather-container">
 		<ng-container *ngFor="let viewData of favouriteCitiesViewData">
 			<wa-weather-card [viewData]="viewData"></wa-weather-card>
 		</ng-container>
 	</div>
 </ng-container>
-<ng-template #missingFavouriteTemplate>
-	<mat-card>
-		<mat-card-header>
-			<mat-card-title translate>
-				{{ getLocalizationPath('missingFavouritesTitle') }}
-			</mat-card-title>
-		</mat-card-header>
 
-		<mat-card-content translate>
-			{{ getLocalizationPath('missingFavouritesContent') }}
-		</mat-card-content>
-	</mat-card>
+<ng-template #missingDataTemplate>
+	<wa-missing-data
+		title="{{ getLocalizationPath('missingDataTitle') | translate }}"
+		message="{{ getLocalizationPath('missingDataMessage') | translate }}"
+	>
+	</wa-missing-data>
 </ng-template>

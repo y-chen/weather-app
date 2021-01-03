@@ -2,8 +2,12 @@
 	"features": {
 		"main": {
 			"home": {
-				"missingFavouritesTitle": "No favourite found",
-				"missingFavouritesContent": "Make a search and add a city to your favourites"
+				"missingDataTitle": "No favourite found",
+				"missingDataMessage": "Make a search and add a city to your favourites"
+			},
+			"forecast": {
+				"missingDataTitle": "No forecast data found",
+				"missingDataMessage": "Use the search function or click on a favourite city details link"
 			}
 		}
 	},

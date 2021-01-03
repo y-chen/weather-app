@@ -2,8 +2,12 @@
 	"features": {
 		"main": {
 			"home": {
-				"missingFavouritesTitle": "Nessun preferito trovato",
-				"missingFavouritesContent": "Fai una ricerca e aggiungi una città tra in tuoi preferiti"
+				"missingDataTitle": "Nessun preferito trovato",
+				"missingDataMessage": "Fai una ricerca e aggiungi una città tra in tuoi preferiti"
+			},
+			"forecast": {
+				"missingDataTitle": "Nessuna prevision trovata",
+				"missingDataMessage": "Usa funzione di ricerca o clicca sul link dei dettagli di una città dei preferiti"
 			}
 		}
 	},

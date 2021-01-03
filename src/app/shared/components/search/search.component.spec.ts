@@ -9,7 +9,7 @@ describe('SearchComponent', () => {
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-search></wa-search>', {});
+		host = createHost('<wa-search></wa-search>');
 
 		const search = host.queryHost('wa-search');
 

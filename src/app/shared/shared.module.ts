@@ -15,6 +15,9 @@ import {
 	LanguageSelectorComponent
 } from '@wa/app/shared/components/language-selector/language-selector.component';
 import {
+	MissingDataComponent
+} from '@wa/app/shared/components/missing-data/missing-data.component';
+import {
 	OverlaySpinnerComponent
 } from '@wa/app/shared/components/overlay-spinner/overlay-spinner.component';
 import { SearchComponent } from '@wa/app/shared/components/search/search.component';
@@ -49,6 +52,7 @@ export const moduleDeclarations = [
 	DayTimeWeatherComponent,
 	FavouriteComponent,
 	LocalizedDatePipe,
+	MissingDataComponent,
 	CasePipe,
 	TimePipe,
 ];
@@ -85,6 +89,7 @@ export const moduleExports = [
 	CasePipe,
 	TimePipe,
 	FavouriteComponent,
+	MissingDataComponent,
 ];
 
 export const moduleProviders: Provider[] = [];
