@@ -23,6 +23,10 @@
 			"afternoon": "Pomeriggio",
 			"evening": "Sera",
 			"unavailable": "Non disponibile"
+		},
+		"favourite": {
+			"add": "Aggiungi",
+			"remove": "Rimuovi"
 		}
 	},
 	"shell": {

@@ -1,20 +1,23 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { EventService } from '@wa/app/core/services/event/event.service';
+import { Component, Input } from '@angular/core';
+import { ComponentService } from '@wa/app/core/services/component/component.service';
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
+import { IComponent } from '@wa/app/models/component.model';
 
 @Component({
 	selector: 'wa-favourite',
 	templateUrl: './favourite.component.html',
 	styleUrls: ['./favourite.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	providers: [ComponentService],
 })
-export class FavouriteComponent {
+export class FavouriteComponent implements IComponent {
 	@Input() cityId: number;
 	@Input() color: 'primary' | 'accent';
 
-	constructor(private readonly localStorageService: LocalStorageService) {}
+	constructor(private readonly localStorageService: LocalStorageService, private readonly componentService: ComponentService) {
+		this.componentService.init({ localizationBasePath: 'shared.favourite' });
+	}
 
 	isFavourite(): boolean {
 		const favouriteCitieStorageValue: string = this.localStorageService.get(StorageKeys.favouriteCities);
@@ -35,5 +38,9 @@ export class FavouriteComponent {
 		}
 
 		this.localStorageService.set(StorageKeys.favouriteCities, JSON.stringify(favouriteCities));
+	}
+
+	getLocalizationPath(end: string): string {
+		return this.componentService.getLocalizationPath(end);
 	}
 }

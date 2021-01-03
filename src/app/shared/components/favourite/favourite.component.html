@@ -1,3 +1,7 @@
-<mat-icon [ngClass]="color" (click)="onFavouriteChanged()">
+<mat-icon
+	[ngClass]="color"
+	matTooltip="{{ (isFavourite() ? getLocalizationPath('remove') : getLocalizationPath('add')) | translate }}"
+	(click)="onFavouriteChanged()"
+>
 	{{ isFavourite() ? 'star' : 'star_border' }}
 </mat-icon>
