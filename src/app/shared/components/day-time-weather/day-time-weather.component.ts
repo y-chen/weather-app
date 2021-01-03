@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { IComponent } from '@wa/app/models/component.model';
-import { DayTime, DayTimeWeather } from '@wa/app/models/open-weather.model';
+import { DayTimeWeather } from '@wa/app/models/open-weather-parser.model';
+import { DayTime } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-day-time-weather',

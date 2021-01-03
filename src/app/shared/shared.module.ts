@@ -32,6 +32,7 @@ import {
 import { MaterialModule } from '@wa/app/shared/material/material.module';
 import { CasePipe } from '@wa/app/shared/pipes/case/case.pipe';
 import { LocalizedDatePipe } from '@wa/app/shared/pipes/localized-date/localized-date.pipe';
+import { TimePipe } from '@wa/app/shared/pipes/time/time.pipe';
 
 export const moduleDeclarations = [
 	ValidationErrorsComponent,
@@ -47,6 +48,7 @@ export const moduleDeclarations = [
 	DayTimeWeatherComponent,
 	LocalizedDatePipe,
 	CasePipe,
+	TimePipe,
 ];
 
 export const moduleImports = [
@@ -79,6 +81,7 @@ export const moduleExports = [
 	DayTimeWeatherComponent,
 	LocalizedDatePipe,
 	CasePipe,
+	TimePipe,
 ];
 
 export const moduleProviders: Provider[] = [];

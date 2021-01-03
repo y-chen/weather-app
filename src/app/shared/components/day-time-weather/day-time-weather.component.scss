@@ -9,6 +9,13 @@
 		> mat-card-content {
 			padding-top: 16px;
 
+			> span {
+				display: table;
+				margin-left: auto;
+				margin-right: auto;
+				font-weight: bold;
+			}
+
 			> h1 {
 				font-weight: bold;
 				font-size: 1em;
