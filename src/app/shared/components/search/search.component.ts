@@ -41,10 +41,12 @@ export class SearchComponent implements IComponent, OnInit {
 		});
 	}
 
-	async onSearchInputKeydown(event: KeyboardEvent): Promise<void> {
+	async onSearchInputKeydown(event: any): Promise<void> {
 		if (event.key === 'Enter') {
 			const location: SearchResult = await this.geoService.findLocationByQuery(this.searchInput.value);
 			const { lat, lng } = location.position;
+
+			event.target.blur();
 
 			await this.navigateToForecast(location, lat, lng);
 		}
