@@ -1,6 +1,8 @@
 <div class="forecast-container" *ngIf="viewForecast">
 	<mat-toolbar-row>
 		<span>{{ viewForecast.name }}</span>
+
+		<wa-favourite [cityId]="viewForecast.id" color="primary"></wa-favourite>
 	</mat-toolbar-row>
 
 	<ng-container *ngFor="let day of viewForecast.days">

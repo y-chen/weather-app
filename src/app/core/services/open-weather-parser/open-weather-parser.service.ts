@@ -43,7 +43,7 @@ export class OpenWeatherParserService {
 	}
 
 	async parseForecastData(forecast: Forecast, iconSize?: IconSize): Promise<ViewForecast> {
-		const { coord, timezone } = forecast.city;
+		const { id, coord, timezone } = forecast.city;
 		const location: SearchResult = await this.geoService.findLocationByCoords(coord);
 		const { city, countryCode } = location.address;
 		const name = `${city}, ${countryCode}`;
@@ -84,7 +84,7 @@ export class OpenWeatherParserService {
 
 		const days = await Promise.all(promises);
 
-		return { name, coord, days };
+		return { id, name, coord, days };
 	}
 
 	async translateLocationNames(weatherGroup: WeatherGroup): Promise<void> {

@@ -7,6 +7,7 @@ export interface ViewParserOptions {
 }
 
 export interface ViewForecast {
+	id: number;
 	name: string;
 	coord: Coord;
 	days: DayForecast[];

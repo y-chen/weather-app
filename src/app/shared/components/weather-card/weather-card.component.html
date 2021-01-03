@@ -3,6 +3,8 @@
 		<mat-card-title *ngIf="title">{{ title }}</mat-card-title>
 
 		<mat-card-subtitle *ngIf="subtitle">{{ subtitle }}</mat-card-subtitle>
+
+		<wa-favourite [cityId]="viewData.id" color="accent"></wa-favourite>
 	</mat-card-header>
 
 	<mat-card-content>

@@ -4,6 +4,16 @@
 	width: 100%;
 	min-height: 100%;
 
+	mat-card-header {
+		@include flex-box(column, center, flex-start, center);
+		position: relative;
+
+		wa-favourite {
+			position: absolute;
+			right: 2%;
+		}
+	}
+
 	mat-card-content {
 		height: 100%;
 		@include flex-box(row, center, center, center);
