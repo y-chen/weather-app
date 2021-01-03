@@ -30,8 +30,8 @@ import {
 	WeatherCardComponent
 } from '@wa/app/shared/components/weather-card/weather-card.component';
 import { MaterialModule } from '@wa/app/shared/material/material.module';
-
-import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
+import { CasePipe } from '@wa/app/shared/pipes/case/case.pipe';
+import { LocalizedDatePipe } from '@wa/app/shared/pipes/localized-date/localized-date.pipe';
 
 export const moduleDeclarations = [
 	ValidationErrorsComponent,
@@ -46,6 +46,7 @@ export const moduleDeclarations = [
 	WeatherCardComponent,
 	DayTimeWeatherComponent,
 	LocalizedDatePipe,
+	CasePipe,
 ];
 
 export const moduleImports = [
@@ -77,6 +78,7 @@ export const moduleExports = [
 	WeatherCardComponent,
 	DayTimeWeatherComponent,
 	LocalizedDatePipe,
+	CasePipe,
 ];
 
 export const moduleProviders: Provider[] = [];
