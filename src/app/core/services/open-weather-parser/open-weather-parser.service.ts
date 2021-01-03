@@ -12,7 +12,9 @@ import { SearchResult } from '@wa/app/models/here-api.model';
 import {
 	DayForecast, DayForecastPromise, ViewForecast, ViewParserOptions, ViewWeather
 } from '@wa/app/models/open-weather-parser.model';
-import { DayTime, Forecast, IconSize, Weather } from '@wa/app/models/open-weather.model';
+import {
+	DayTime, Forecast, IconSize, Weather, WeatherGroup
+} from '@wa/app/models/open-weather.model';
 
 @Injectable()
 export class OpenWeatherParserService {
@@ -83,6 +85,15 @@ export class OpenWeatherParserService {
 		const days = await Promise.all(promises);
 
 		return { name, coord, days };
+	}
+
+	async translateLocationNames(weatherGroup: WeatherGroup): Promise<void> {
+		for (const weather of weatherGroup.list) {
+			const location = await this.geoService.findLocationByQuery(weather.name);
+			const { city, countryCode } = location.address;
+
+			weather.name = `${city}, ${countryCode}`;
+		}
 	}
 
 	private groupByDayTimeFunction(timezone: number): (weather: Weather) => DayTime {

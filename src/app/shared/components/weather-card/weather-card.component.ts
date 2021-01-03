@@ -2,7 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { IComponent } from '@wa/app/models/component.model';
-import { IconSize, ViewWeather } from '@wa/app/models/open-weather.model';
+import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
+import { IconSize } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-weather-card',
@@ -20,23 +21,12 @@ export class WeatherCardComponent implements IComponent, OnInit {
 		this.componentService.init({ localizationBasePath: 'shared.basicWeather' });
 	}
 
-	async ngOnInit(): Promise<void> {
+	ngOnInit(): void {
 		this.title = this.title || this.viewData.title;
-		this.subtitle = await this.getTranslatedTimeText();
+		this.subtitle = this.subtitle || this.viewData.time;
 	}
 
 	getLocalizationPath(end: string): string {
 		return this.componentService.getLocalizationPath(end);
-	}
-
-	private async getTranslatedTimeText(): Promise<string> | null {
-		if (this.viewData.time) {
-			const params = { time: this.viewData.time };
-			const translationPromise = this.cultureService.getTranslation('shared.basicWeather.time', params);
-
-			return await translationPromise;
-		}
-
-		return null;
 	}
 }

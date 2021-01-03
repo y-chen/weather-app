@@ -40,7 +40,7 @@ export class OpenWeatherService {
 		params = this.appendParams(params);
 
 		const weatherGroup = await this.api.get<WeatherGroup>(url, { params });
-		await this.translateLocationNames(weatherGroup);
+		await this.openWeatherParserService.translateLocationNames(weatherGroup);
 
 		return weatherGroup.list.map((weather: Weather) => this.openWeatherParserService.parseWeatherData(weather));
 	}
@@ -83,14 +83,5 @@ export class OpenWeatherService {
 
 	private buildUrl(endpoint: string): string {
 		return `${this.URL}/${endpoint}`;
-	}
-
-	private async translateLocationNames(weatherGroup: WeatherGroup): Promise<void> {
-		for (const weather of weatherGroup.list) {
-			const location = await this.geoService.findLocationByQuery(weather.name);
-			const { city, countryCode } = location.address;
-
-			weather.name = `${city}, ${countryCode}`;
-		}
 	}
 }

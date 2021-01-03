@@ -31,6 +31,8 @@ import {
 } from '@wa/app/shared/components/weather-card/weather-card.component';
 import { MaterialModule } from '@wa/app/shared/material/material.module';
 
+import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
+
 export const moduleDeclarations = [
 	ValidationErrorsComponent,
 	LanguageSelectorComponent,
@@ -43,6 +45,7 @@ export const moduleDeclarations = [
 	OverlaySpinnerComponent,
 	WeatherCardComponent,
 	DayTimeWeatherComponent,
+	LocalizedDatePipe,
 ];
 
 export const moduleImports = [
@@ -73,6 +76,7 @@ export const moduleExports = [
 	OverlaySpinnerComponent,
 	WeatherCardComponent,
 	DayTimeWeatherComponent,
+	LocalizedDatePipe,
 ];
 
 export const moduleProviders: Provider[] = [];

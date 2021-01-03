@@ -2,7 +2,7 @@
 	<a class="nav-link" [routerLink]="['/app', item.route]" routerLinkActive="active">
 		<mat-icon>{{ item.icon }}</mat-icon>
 
-		<span *ngIf="open">{{ item.label | translate }}</span>
+		<span *ngIf="open" translate>{{ item.label }}</span>
 
 		<div class="current">
 			<span translate>{{ getLocalizationPath('current') }}</span>
