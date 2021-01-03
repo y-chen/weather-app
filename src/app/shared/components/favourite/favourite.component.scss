@@ -1,6 +1,8 @@
 @import 'mixins';
 
 :host {
+	cursor: pointer;
+
 	mat-icon {
 		@include mat-icon-size(32px);
 

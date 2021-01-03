@@ -71,7 +71,7 @@ export class OpenWeatherService {
 
 	private appendParams(params?: Param[]): Param[] {
 		let units = this.localStorageService.get(StorageKeys.Units);
-		units = units ? units : 'standard';
+		units = units ? units : 'metric';
 		params = params || [];
 
 		return params.concat([

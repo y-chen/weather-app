@@ -3,7 +3,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
-import { Coord, IconSize, ViewForecast } from '@wa/app/models/open-weather.model';
+import { ViewForecast } from '@wa/app/models/open-weather-parser.model';
+import { Coord, IconSize } from '@wa/app/models/open-weather.model';
 
 @Injectable()
 export class ForecastResolver implements Resolve<ViewForecast | null> {

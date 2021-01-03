@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
 import { IconSize } from '@wa/app/models/open-weather.model';
@@ -17,7 +16,7 @@ export class WeatherCardComponent implements IComponent, OnInit {
 	@Input() subtitle?: string;
 	@Input() iconSize?: IconSize;
 
-	constructor(private readonly componentService: ComponentService, private readonly cultureService: CultureService) {
+	constructor(private readonly componentService: ComponentService) {
 		this.componentService.init({ localizationBasePath: 'shared.basicWeather' });
 	}
 
