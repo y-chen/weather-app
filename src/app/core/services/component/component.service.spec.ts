@@ -14,17 +14,17 @@ describe('ComponentService', () => {
 		spectator.service.init({ localizationBasePath });
 	});
 
-	it('should be defined', async () => {
-		await expect(spectator.service).toBeDefined();
+	it('should be defined', () => {
+		expect(spectator.service).toBeDefined();
 	});
 
 	describe('getLocalizationPath', () => {
-		it('should compose expected localization path ',  () => {
+		it('should compose expected localization path ', () => {
 			const end = 'foo';
 
 			const localizationPath = spectator.service.getLocalizationPath(end);
 
-			 void expect(localizationPath).toEqual(`${localizationBasePath}.${end}`);
+			void expect(localizationPath).toEqual(`${localizationBasePath}.${end}`);
 		});
 	});
 });
