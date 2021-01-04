@@ -19,12 +19,12 @@ describe('ComponentService', () => {
 	});
 
 	describe('getLocalizationPath', () => {
-		it('should compose expected localization path ', async () => {
+		it('should compose expected localization path ',  () => {
 			const end = 'foo';
 
 			const localizationPath = spectator.service.getLocalizationPath(end);
 
-			await expect(localizationPath).toEqual(`${localizationBasePath}.${end}`);
+			 void expect(localizationPath).toEqual(`${localizationBasePath}.${end}`);
 		});
 	});
 });

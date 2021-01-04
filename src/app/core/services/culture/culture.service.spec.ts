@@ -23,40 +23,40 @@ describe('CultureService', () => {
 		});
 	});
 
-	it('should be defined', async () => {
-		await expect(spectator.service).toBeDefined();
+	it('should be defined', () => {
+		void expect(spectator.service).toBeDefined();
 	});
 
 	describe('getAvailableCultures', () => {
-		it('should return an array of type Culture', async () => {
+		it('should return an array of type Culture', () => {
 			const cultures = spectator.service.getAvailableCultures();
 
 			for (const culture of cultures) {
-				await expect('label' in culture).toBeTruthy();
-				await expect('language' in culture).toBeTruthy();
-				await expect('code' in culture).toBeTruthy();
+				void expect('label' in culture).toBeTruthy();
+				void expect('language' in culture).toBeTruthy();
+				void expect('code' in culture).toBeTruthy();
 			}
 		});
 	});
 
 	describe('getCulture', () => {
-		it('should return an object of type Culture', async () => {
+		it('should return an object of type Culture', () => {
 			const culture = spectator.service.getCulture();
 
-			await expect('label' in culture).toBeTruthy();
-			await expect('language' in culture).toBeTruthy();
-			await expect('code' in culture).toBeTruthy();
+			void expect('label' in culture).toBeTruthy();
+			void expect('language' in culture).toBeTruthy();
+			void expect('code' in culture).toBeTruthy();
 		});
 	});
 
 	describe('setCulture', () => {
-		it('should set the received culture as current one', async () => {
+		it('should set the received culture as current one', () => {
 			const en = { label: 'English', language: 'en', code: 'en-GB' };
 
 			spectator.service.setCulture(en);
 			const currentCulture = spectator.service.getCulture();
 
-			await expect(currentCulture).toEqual(en);
+			void expect(currentCulture).toEqual(en);
 		});
 
 		it('should call TranslateService.use with expected language when called with different culture from current one', () => {
@@ -69,14 +69,14 @@ describe('CultureService', () => {
 			expect(translateMock.use).toHaveBeenCalledWith(it.language);
 		});
 
-		it('should not call TranslateService.use when called with same culture of the current one', async () => {
+		it('should not call TranslateService.use when called with same culture of the current one', () => {
 			const it = { label: 'Italiano', language: 'it', code: 'it-IT' };
 
 			spectator.service.setCulture(it);
 			spectator.service.setCulture(it);
 
 			expect(translateMock.use).toHaveBeenCalledWith(it.language);
-			await expect(translateMock.use).toHaveBeenCalledTimes(1);
+			void expect(translateMock.use).toHaveBeenCalledTimes(1);
 		});
 	});
 

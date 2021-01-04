@@ -21,6 +21,6 @@ describe('ApiService', () => {
 	});
 
 	it('should be created', async () => {
-		await expect(spectator.service).toBeTruthy();
+		 void expect(spectator.service).toBeTruthy();
 	});
 });
