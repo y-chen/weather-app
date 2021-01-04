@@ -11,7 +11,7 @@ describe('SettingsMenuComponent', () => {
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-settings-menu"></wa-basic-weather>');
+		host = createHost('<wa-settings-menu></wa-settings-menu>');
 
 		const settingsMenu = host.queryHost('wa-settings-menu');
 
