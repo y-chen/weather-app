@@ -5,5 +5,9 @@
 
 	.menu-trigger {
 		@include flex-box(row, center, center);
+
+		mat-icon {
+			color: white;
+		}
 	}
 }

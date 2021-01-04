@@ -14,22 +14,18 @@ export class ErrorPageComponent implements OnInit {
 	firstLineMessage: string;
 	secondLineMessage: string;
 
-	constructor(
-		private readonly componentService: ComponentService,
-		private readonly route: ActivatedRoute,
-		private readonly cultureService: CultureService,
-	) {
+	firstLineMessagePath: string;
+	secondLineMessagePath: string;
+
+	constructor(private readonly componentService: ComponentService, private readonly route: ActivatedRoute) {
 		this.componentService.init({ localizationBasePath: 'shared.errorPage', route: this.route });
 	}
 
 	async ngOnInit(): Promise<void> {
 		this.errorCode = (await this.componentService.getRouteData('errorCode')) as number;
 
-		const firstLineMessagePath = this.getLocalizationPath('firstLineMessage');
-		const secondLineMessagePath = this.getLocalizationPath('secondLineMessage');
-
-		this.firstLineMessage = await this.cultureService.getTranslation(firstLineMessagePath);
-		this.secondLineMessage = await this.cultureService.getTranslation(secondLineMessagePath);
+		this.firstLineMessagePath = this.getLocalizationPath('firstLineMessage');
+		this.secondLineMessagePath = this.getLocalizationPath('secondLineMessage');
 	}
 
 	getLocalizationPath(end: string): string {

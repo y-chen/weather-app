@@ -1,6 +1,14 @@
 @import 'mixins';
 
 :host {
+	wa-language-selector {
+		// z-index: 10 !important;
+
+		position: absolute;
+		top: 2%;
+		right: 2%;
+	}
+
 	.container {
 		background: var(--primary-color);
 		color: #fff;
