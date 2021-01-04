@@ -22,7 +22,7 @@
 
 		<mat-button-toggle-group [value]="currentUnit">
 			<mat-button-toggle *ngFor="let unit of units | keys" [value]="unit.value" (click)="setUnits($event, unit.value)">
-				{{ getLocalizationPath('units.' + unit.value) | translate }}
+				{{ getUnitsTranslationPath(unit.value) | translate }}
 			</mat-button-toggle>
 		</mat-button-toggle-group>
 	</div>

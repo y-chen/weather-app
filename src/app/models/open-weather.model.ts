@@ -96,6 +96,6 @@ export type DayTime = 'night' | 'morning' | 'afternoon' | 'evening';
 
 // eslint-disable-next-line no-shadow
 export enum Units {
-	Metric = 'metric',
-	Imperial = 'imperial',
+	Metric = 'Metric',
+	Imperial = 'Imperial',
 }

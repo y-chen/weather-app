@@ -4,6 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
+import { EventService } from '@wa/app/core/services/event/event.service';
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
@@ -28,6 +29,7 @@ export class SettingsMenuComponent implements IComponent, OnInit {
 		private readonly cultureService: CultureService,
 		private readonly localStorageService: LocalStorageService,
 		private readonly componentService: ComponentService,
+		private readonly eventService: EventService,
 	) {
 		this.componentService.init({ localizationBasePath: 'shared.settingsMenu' });
 	}
@@ -51,6 +53,8 @@ export class SettingsMenuComponent implements IComponent, OnInit {
 			this.cultureService.setCulture(culture);
 			this.currentLang = culture.language;
 		}
+
+		this.eventService.onSettingsChange.emit();
 	}
 
 	setUnits(event: MouseEvent, unit: Units): void {
@@ -60,6 +64,12 @@ export class SettingsMenuComponent implements IComponent, OnInit {
 			this.localStorageService.set(StorageKeys.Units, unit);
 			this.currentUnit = unit;
 		}
+
+		this.eventService.onSettingsChange.emit();
+	}
+
+	getUnitsTranslationPath(unit: string): string {
+		return this.getLocalizationPath(`units.${unit.toLocaleLowerCase()}`);
 	}
 
 	getLocalizationPath(end: string): string {

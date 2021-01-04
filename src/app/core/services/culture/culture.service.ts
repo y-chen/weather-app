@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Subscription } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
@@ -42,8 +43,8 @@ export class CultureService {
 		});
 	}
 
-	onLangChange(callback: () => Promise<void>): void {
-		this.translate.onLangChange.subscribe(async () => await callback());
+	onLangChange(callback: () => Promise<void>): Subscription {
+		return this.translate.onLangChange.subscribe(async () => await callback());
 	}
 }
 

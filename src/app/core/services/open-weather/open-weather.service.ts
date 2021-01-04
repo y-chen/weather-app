@@ -80,7 +80,7 @@ export class OpenWeatherService {
 		return params.concat([
 			{ key: 'lang', value: this.cultureService.getCulture().language },
 			{ key: 'appid', value: this.API_KEY },
-			{ key: 'units', value: unit },
+			{ key: 'units', value: unit.toLocaleLowerCase() },
 		]);
 	}
 

@@ -1,7 +1,10 @@
+import { Subscription } from 'rxjs';
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
+import { EventService } from '@wa/app/core/services/event/event.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
@@ -20,6 +23,7 @@ export class HomeComponent implements IComponent, OnInit {
 		private readonly route: ActivatedRoute,
 		private readonly openWeatherService: OpenWeatherService,
 		private readonly cultureService: CultureService,
+		private readonly eventService: EventService,
 	) {
 		this.componentService.init({ localizationBasePath: 'features.main.home', route: this.route });
 	}
@@ -35,7 +39,11 @@ export class HomeComponent implements IComponent, OnInit {
 			}
 		};
 
-		this.cultureService.onLangChange(refreshViewData);
+		const onLangChangeSub: Subscription = this.cultureService.onLangChange(refreshViewData);
+		const onSettingsChangeSub: Subscription = this.eventService.onSettingsChange.subscribe(async () => await refreshViewData());
+
+		this.componentService.subscribe(onLangChangeSub);
+		this.componentService.subscribe(onSettingsChangeSub);
 	}
 
 	getLocalizationPath(end: string): string {
