@@ -21,6 +21,9 @@ import {
 	OverlaySpinnerComponent
 } from '@wa/app/shared/components/overlay-spinner/overlay-spinner.component';
 import { SearchComponent } from '@wa/app/shared/components/search/search.component';
+import {
+	SettingsMenuComponent
+} from '@wa/app/shared/components/settings-menu/settings-menu.component';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 import {
 	NavItemComponent
@@ -53,6 +56,7 @@ export const moduleDeclarations = [
 	FavouriteComponent,
 	LocalizedDatePipe,
 	MissingDataComponent,
+	SettingsMenuComponent,
 	CasePipe,
 	TimePipe,
 ];
