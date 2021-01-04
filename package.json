@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"scripts": {
 		"ng": "ng",
-		"start": "ng serve",
+		"start": "node server.js",
 		"build": "ng build",
 		"test": "jest --config ./jest.config.js --no-cache",
 		"coverage": "rimraf ./.coverage && jest --config ./jest.config.js --no-cache --coverage",
@@ -16,7 +16,7 @@
 		"prettier:write": "npm run prettier --write",
 		"check-up": "npm run prettier:write && npm run eslint:fix && npm run coverage && npm run build",
 		"clean": "rimraf ./.coverage &&  rimraf ./.dist && rimraf ./.tmp && rimraf ./node_modules && npm ci",
-		"heroku-postbuild": "ng build --prod"
+		"postinstall": "ng build --aot --prod"
 	},
 	"private": true,
 	"dependencies": {
