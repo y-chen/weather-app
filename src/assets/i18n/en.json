@@ -24,6 +24,19 @@
 			"night": "Night",
 			"unavailable": "Unavailable"
 		},
+		"errorPage": {
+			"404": {
+				"errorCode": "404",
+				"firstLineMessage": "THE PAGE",
+				"secondLineMessage": "WAS NOT FOUND"
+			},
+			"500": {
+				"errorCode": "500",
+				"firstLineMessage": "SOMETHING",
+				"secondLineMessage": "WENT WRONG"
+			},
+			"button": "GO BACK TO HOME"
+		},
 		"favourite": {
 			"add": "Add",
 			"remove": "Remove"

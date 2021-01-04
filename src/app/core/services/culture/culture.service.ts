@@ -34,7 +34,7 @@ export class CultureService {
 		return `${momentDate.format('DD/MM/YYYY - H:mm')} GMT${timeZoneSign}${hoursOffset !== 0 ? hoursOffset : ''}`;
 	}
 
-	async getTranslation(localizationPath, data: { [key: string]: any }): Promise<string> {
+	async getTranslation(localizationPath, data?: { [key: string]: any }): Promise<string> {
 		return new Promise<string>((resolve, reject) => {
 			this.translate.get(localizationPath, data).subscribe(
 				(translation) => resolve(translation),

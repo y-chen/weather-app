@@ -150,7 +150,11 @@
 			width: 80%;
 			margin: 300px auto;
 
-			> ._404 {
+			* > {
+				text-transform: uppercase;
+			}
+
+			> ._CODE {
 				font-size: 220px;
 				position: relative;
 				display: inline-block;

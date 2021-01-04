@@ -24,6 +24,19 @@
 			"night": "Notte",
 			"unavailable": "Non disponibile"
 		},
+		"errorPage": {
+			"404": {
+				"errorCode": "404",
+				"firstLineMessage": "LA PAGINA",
+				"secondLineMessage": "NON È STATA TROVATA"
+			},
+			"500": {
+				"errorCode": "500",
+				"firstLineMessage": "QUALCOSA",
+				"secondLineMessage": "È ANDATO STORTO"
+			},
+			"button": "TORNA ALLA HOME"
+		},
 		"favourite": {
 			"add": "Aggiungi",
 			"remove": "Rimuovi"

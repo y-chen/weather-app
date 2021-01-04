@@ -10,6 +10,7 @@ import {
 import {
 	DayTimeWeatherComponent
 } from '@wa/app/shared/components/day-time-weather/day-time-weather.component';
+import { ErrorPageComponent } from '@wa/app/shared/components/error-page/error-page.component';
 import { FavouriteComponent } from '@wa/app/shared/components/favourite/favourite.component';
 import {
 	LanguageSelectorComponent
@@ -58,6 +59,7 @@ export const moduleDeclarations = [
 	LocalizedDatePipe,
 	MissingDataComponent,
 	SettingsMenuComponent,
+	ErrorPageComponent,
 	CasePipe,
 	TimePipe,
 	KeysPipe,
@@ -96,6 +98,7 @@ export const moduleExports = [
 	TimePipe,
 	KeysPipe,
 	FavouriteComponent,
+	ErrorPageComponent,
 	MissingDataComponent,
 ];
 
