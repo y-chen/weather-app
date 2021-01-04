@@ -104,9 +104,8 @@ export class ApiService {
 		return headers;
 	}
 
-	private getParams(customParams?: Param[]): HttpParams {
+	private getParams(customParams: Param[] = []): HttpParams {
 		let params = new HttpParams();
-		customParams = customParams || [];
 
 		customParams.forEach((param: Param) => (params = this.handleOption(params, param) as HttpParams));
 

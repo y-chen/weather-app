@@ -93,4 +93,9 @@ export interface DayInfo {
 
 export type IconSize = 2 | 4;
 export type DayTime = 'night' | 'morning' | 'afternoon' | 'evening';
-export type Units = 'standard' | 'metric' | 'imperial';
+
+// eslint-disable-next-line no-shadow
+export enum Units {
+	Metric = 'metric',
+	Imperial = 'imperial',
+}

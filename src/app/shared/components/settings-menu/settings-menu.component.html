@@ -21,8 +21,9 @@
 		<span>Units</span>
 
 		<mat-button-toggle-group [value]="currentUnit">
-			<mat-button-toggle value="metric" (click)="setUnits($event, 'metric')"> Metric </mat-button-toggle>
-			<mat-button-toggle value="imperial" (click)="setUnits($event, 'imperial')"> Imperial </mat-button-toggle>
+			<mat-button-toggle *ngFor="let unit of units | keys" [value]="unit.value" (click)="setUnits($event, unit.value)">
+				{{ unit.key }}
+			</mat-button-toggle>
 		</mat-button-toggle-group>
 	</div>
 

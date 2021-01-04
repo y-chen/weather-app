@@ -1,3 +1,5 @@
+/* eslint-disable security/detect-object-injection */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Injectable } from '@angular/core';
@@ -12,7 +14,7 @@ import {
 import { Param } from '@wa/app/models/http.model';
 import { ViewForecast, ViewWeather } from '@wa/app/models/open-weather-parser.model';
 import {
-	Forecast, OpenWeatherSearchParams, Weather, WeatherGroup
+	Forecast, OpenWeatherSearchParams, Units, Weather, WeatherGroup
 } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
@@ -67,15 +69,18 @@ export class OpenWeatherService {
 		return await this.openWeatherParserService.parseForecastData(forecast, searchParams.iconSize);
 	}
 
-	private appendParams(params?: Param[]): Param[] {
-		let units = this.localStorageService.get(StorageKeys.Units);
-		units = units ? units : 'metric';
-		params = params || [];
+	private appendParams(params: Param[] = []): Param[] {
+		const storedUnit = this.localStorageService.get(StorageKeys.Units);
+		let unit: Units = storedUnit ? Units[storedUnit] : Units.Metric;
+
+		if (!unit) {
+			unit = Units.Metric;
+		}
 
 		return params.concat([
 			{ key: 'lang', value: this.cultureService.getCulture().language },
 			{ key: 'appid', value: this.API_KEY },
-			{ key: 'units', value: units },
+			{ key: 'units', value: unit },
 		]);
 	}
 

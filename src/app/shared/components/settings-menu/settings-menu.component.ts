@@ -1,9 +1,13 @@
+/* eslint-disable security/detect-object-injection */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { Component, OnInit } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
 import { Culture } from '@wa/app/models/culture.model';
+import { Units } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-settings-menu',
@@ -13,7 +17,9 @@ import { Culture } from '@wa/app/models/culture.model';
 export class SettingsMenuComponent implements OnInit {
 	cultures: Culture[];
 	currentLang: string;
-	currentUnit: string;
+
+	units = Units;
+	currentUnit: Units;
 
 	constructor(private readonly cultureService: CultureService, private readonly localStorageService: LocalStorageService) {}
 
@@ -21,8 +27,12 @@ export class SettingsMenuComponent implements OnInit {
 		this.cultures = this.cultureService.getAvailableCultures();
 		this.currentLang = this.cultureService.getCulture().language;
 
-		const storedUnit = this.localStorageService.get(StorageKeys.Units);
-		this.currentUnit = storedUnit ? storedUnit : 'metric';
+		const storedUnit: string = this.localStorageService.get(StorageKeys.Units);
+		this.currentUnit = storedUnit ? Units[storedUnit] : Units.Metric;
+
+		if (!this.currentUnit) {
+			this.currentUnit = Units.Metric;
+		}
 	}
 
 	setCulture(event: MouseEvent, culture: Culture): void {
@@ -34,7 +44,7 @@ export class SettingsMenuComponent implements OnInit {
 		}
 	}
 
-	setUnits(event: MouseEvent, unit: string): void {
+	setUnits(event: MouseEvent, unit: Units): void {
 		event.stopPropagation();
 
 		if (unit !== this.currentUnit) {

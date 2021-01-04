@@ -40,9 +40,7 @@ export class TimeZoneDBService {
 		return await this.api.get<TimeZoneDB>(url, { params });
 	}
 
-	private appendParams(params?: Param[]): Param[] {
-		params = params || [];
-
+	private appendParams(params: Param[] = []): Param[] {
 		return params.concat([
 			{ key: 'lang', value: this.cultureService.getCulture().language },
 			{ key: 'key', value: this.API_KEY },

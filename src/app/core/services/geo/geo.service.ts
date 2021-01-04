@@ -75,9 +75,7 @@ export class GeoService {
 		return await this.api.get<SearchResult>(url, { params });
 	}
 
-	private appendParams(params?: Param[]): Param[] {
-		params = params || [];
-
+	private appendParams(params: Param[] = []): Param[] {
 		return params.concat([
 			{ key: 'apiKey', value: this.API_KEY },
 			{ key: 'types', value: 'city' },

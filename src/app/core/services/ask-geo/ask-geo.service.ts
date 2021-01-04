@@ -41,9 +41,7 @@ export class AskGeoService {
 		return askGeoResult.data[0].TimeZone;
 	}
 
-	private appendParams(params?: Param[]): Param[] {
-		params = params || [];
-
+	private appendParams(params: Param[] = []): Param[] {
 		return params.concat([{ key: 'databases', value: 'TimeZone' }]);
 	}
 

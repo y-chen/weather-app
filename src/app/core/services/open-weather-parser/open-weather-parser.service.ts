@@ -1,3 +1,6 @@
+/* eslint-disable security/detect-object-injection */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import Case from 'case';
 import * as lodash from 'lodash';
 import moment, { Moment } from 'moment';
@@ -13,7 +16,7 @@ import {
 	DayForecast, DayForecastPromise, ViewForecast, ViewParserOptions, ViewWeather
 } from '@wa/app/models/open-weather-parser.model';
 import {
-	DayTime, Forecast, IconSize, Weather, WeatherGroup
+	DayTime, Forecast, IconSize, Units, Weather, WeatherGroup
 } from '@wa/app/models/open-weather.model';
 
 @Injectable()
@@ -120,14 +123,17 @@ export class OpenWeatherParserService {
 	}
 
 	private getTemperatureUnit(): string {
-		const unitsType: string = this.localStorageService.get(StorageKeys.Units);
+		const storedUnit: string = this.localStorageService.get(StorageKeys.Units);
+		let unit: Units = storedUnit ? Units[storedUnit] : Units.Metric;
 
-		switch (unitsType) {
-			case 'standard':
-				return 'K';
-			case 'metric':
+		if (!unit) {
+			unit = Units.Metric;
+		}
+
+		switch (unit) {
+			case Units.Metric:
 				return 'C';
-			case 'imperial':
+			case Units.Imperial:
 				return 'F';
 			default:
 				break;

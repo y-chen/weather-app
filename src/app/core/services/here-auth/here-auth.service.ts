@@ -56,8 +56,7 @@ export class HereAuthService {
 		return access_token;
 	}
 
-	appendAPIKeyParam(params?: Param[]): Param[] {
-		params = params || [];
+	appendAPIKeyParam(params: Param[] = []): Param[] {
 		params.push({ key: 'apiKey', value: this.API_KEY });
 
 		return params;
