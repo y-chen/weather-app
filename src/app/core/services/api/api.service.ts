@@ -83,9 +83,9 @@ export class ApiService {
 		});
 	}
 
-	private getOptions(options?: HttpOptions): { headers: HttpHeaders; params: HttpParams; withCredentials: boolean } {
-		options = options || { headers: [], params: [] };
-
+	private getOptions(
+		options: HttpOptions = { headers: [], params: [] },
+	): { headers: HttpHeaders; params: HttpParams; withCredentials: boolean } {
 		return {
 			headers: this.getHeaders(options.headers),
 			params: this.getParams(options.params),
@@ -93,9 +93,8 @@ export class ApiService {
 		};
 	}
 
-	private getHeaders(customHeaders?: Header[]): HttpHeaders {
+	private getHeaders(customHeaders: Header[] = []): HttpHeaders {
 		let headers = new HttpHeaders();
-		customHeaders = customHeaders || [];
 
 		customHeaders.forEach((header: Header) => (headers = this.handleOption(headers, header) as HttpHeaders));
 
