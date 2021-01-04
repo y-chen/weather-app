@@ -10,7 +10,7 @@ import { IComponent } from '@wa/app/models/component.model';
 })
 export class ToolbarComponent implements IComponent {
 	constructor(private readonly componentService: ComponentService) {
-		this.componentService.init({ localizationBasePath: 'shell.toolbar' });
+		this.componentService.init({ localizationBasePath: 'shared.shell.toolbar' });
 	}
 
 	getLocalizationPath(end: string): string {

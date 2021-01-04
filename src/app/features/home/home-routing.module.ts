@@ -7,7 +7,7 @@ import { ShellComponent } from '@wa/app/shared/components/shell/shell.component'
 
 import { ForecastComponent } from './components/forecast/forecast.component';
 
-const navItemsLocalizationBasePath = 'shell.sidebar.navItems';
+const navItemsLocalizationBasePath = 'shared.shell.sidebar.navItems';
 const defaultCities: number[] = [
 	2643743, // London
 	2950159, // Berlin
