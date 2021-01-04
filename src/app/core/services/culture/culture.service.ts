@@ -15,15 +15,23 @@ export class CultureService {
 		return Object.assign([], availableCultures);
 	}
 
+	getCulture(): Culture {
+		return Object.assign({}, this.currentCulture);
+	}
+
 	setCulture(culture: Culture): void {
-		if (this.translate.currentLang !== culture.language) {
+		if (this.currentCulture.language !== culture.language) {
 			this.translate.use(culture.language);
 			this.currentCulture = culture;
 		}
 	}
 
-	getCulture(): Culture {
-		return Object.assign({}, this.currentCulture);
+	async getTranslation(localizationPath, data?: { [key: string]: any }): Promise<string> {
+		return (await this.translate.get(localizationPath, data).toPromise()) as string;
+	}
+
+	onLangChange(callback: () => Promise<void>): Subscription {
+		return this.translate.onLangChange.subscribe(async () => await callback());
 	}
 
 	convertUnixTimeToLocaleDate(unixTime: number, offset: number = 0): string {
@@ -32,19 +40,6 @@ export class CultureService {
 		const hoursOffset = offset / 3600;
 
 		return `${momentDate.format('DD/MM/YYYY - H:mm')} GMT${timeZoneSign}${hoursOffset !== 0 ? hoursOffset : ''}`;
-	}
-
-	async getTranslation(localizationPath, data?: { [key: string]: any }): Promise<string> {
-		return new Promise<string>((resolve, reject) => {
-			this.translate.get(localizationPath, data).subscribe(
-				(translation) => resolve(translation),
-				(error) => reject(error),
-			);
-		});
-	}
-
-	onLangChange(callback: () => Promise<void>): Subscription {
-		return this.translate.onLangChange.subscribe(async () => await callback());
 	}
 }
 
