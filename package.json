@@ -15,7 +15,8 @@
 		"prettier": "prettier \"**/*.{ts, js, json, html, scss}\"",
 		"prettier:write": "npm run prettier --write",
 		"check-up": "npm run prettier:write && npm run eslint:fix && npm run coverage && npm run build",
-		"clean": "rimraf ./.coverage &&  rimraf ./.dist && rimraf ./.tmp && rimraf ./node_modules && npm ci"
+		"clean": "rimraf ./.coverage &&  rimraf ./.dist && rimraf ./.tmp && rimraf ./node_modules && npm ci",
+		"heroku-postbuild": "ng build --prod"
 	},
 	"private": true,
 	"dependencies": {
