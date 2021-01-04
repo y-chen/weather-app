@@ -18,9 +18,9 @@ export const defaultOptionsMock: HttpOptions = {
 };
 
 export const searchParamsMock: SearchParams = {
-	id: 'Id',
+	id: 'LocationId',
 	coord: { lat: 0, lon: 0 },
-	query: 'Query',
+	query: 'Search Query',
 };
 
 export const locationMock: SearchResult = {

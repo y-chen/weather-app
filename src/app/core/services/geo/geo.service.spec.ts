@@ -55,13 +55,12 @@ describe('GeoService', () => {
 		it('should call findLocationById, not findLocationByCoords or findLocationByQuery when param id has value', () => {
 			apiMock.get.mockResolvedValue(location);
 
-			options.params.unshift({ key: 'id', value: searchParams.id });
 			searchParams.coord = null;
 			searchParams.query = null;
 
 			void spectator.service.locationLookup(searchParams);
 
-			expect(apiMock.get).toHaveBeenNthCalledWith(1, lookupUrl, options);
+			expect(apiMock.get).toHaveBeenNthCalledWith(1, lookupUrl, anyObject());
 			expect(apiMock.get).not.toHaveBeenCalledWith(revGeocodeUrl, anyObject());
 			expect(apiMock.get).not.toHaveBeenCalledWith(geocodeUrl, anyObject());
 			expect(apiMock.get).toHaveBeenCalledTimes(1);
@@ -70,14 +69,12 @@ describe('GeoService', () => {
 		it('should call findLocationByCoords, not findLocationById or findLocationByQuery when param coord has value', () => {
 			apiMock.get.mockResolvedValue([location]);
 
-			const { lat, lon } = searchParams.coord;
-			options.params.unshift({ key: 'at', value: `${lat},${lon}` });
 			searchParams.id = null;
 			searchParams.query = null;
 
 			void spectator.service.locationLookup(searchParams);
 
-			expect(apiMock.get).toHaveBeenNthCalledWith(1, revGeocodeUrl, options);
+			expect(apiMock.get).toHaveBeenNthCalledWith(1, revGeocodeUrl, anyObject());
 			expect(apiMock.get).not.toHaveBeenCalledWith(lookupUrl, anyObject());
 			expect(apiMock.get).not.toHaveBeenCalledWith(geocodeUrl, anyObject());
 			expect(apiMock.get).toHaveBeenCalledTimes(1);
@@ -86,16 +83,64 @@ describe('GeoService', () => {
 		it('should call findLocationByQuery, not findLocationById or findLocationByCoords when param query has value', () => {
 			apiMock.get.mockResolvedValue(location);
 
-			options.params.unshift({ key: 'q', value: searchParams.query.replace(' ', '+') });
 			searchParams.id = null;
 			searchParams.coord = null;
 
 			void spectator.service.locationLookup(searchParams);
 
-			expect(apiMock.get).toHaveBeenNthCalledWith(1, geocodeUrl, options);
+			expect(apiMock.get).toHaveBeenNthCalledWith(1, geocodeUrl, anyObject());
 			expect(apiMock.get).not.toHaveBeenCalledWith(lookupUrl, anyObject());
 			expect(apiMock.get).not.toHaveBeenCalledWith(revGeocodeUrl, anyObject());
 			expect(apiMock.get).toHaveBeenCalledTimes(1);
+		});
+	});
+
+	describe('findCities', () => {
+		it('should format query and call ApiService.get with expected arguments', () => {
+			apiMock.get.mockResolvedValue([location]);
+
+			options.params.unshift({ key: 'q', value: searchParams.query.replace(' ', '+') }, { key: 'limit', value: 20 });
+
+			void spectator.service.findCities(searchParams.query);
+
+			expect(apiMock.get).toHaveBeenCalledWith(autocompleteUrl, options);
+		});
+	});
+
+	describe('findLocationById', () => {
+		it('should format id and call ApiService.get with expected arguments', () => {
+			apiMock.get.mockResolvedValue(location);
+
+			options.params.unshift({ key: 'id', value: searchParams.id });
+
+			void spectator.service.findLocationById(searchParams.id);
+
+			expect(apiMock.get).toHaveBeenCalledWith(lookupUrl, options);
+		});
+	});
+
+	describe('findLocationByCoords', () => {
+		it('should format coords and call ApiService.get with expected arguments', () => {
+			apiMock.get.mockResolvedValue(location);
+
+			const { lat, lon } = searchParams.coord;
+			options.params.unshift({ key: 'at', value: `${lat},${lon}` });
+
+			void spectator.service.findLocationByCoords(searchParams.coord);
+
+			expect(apiMock.get).toHaveBeenCalledWith(revGeocodeUrl, options);
+		});
+	});
+
+	describe('findLocationByQuery', () => {
+		it('should format query and call ApiService.get with expected arguments', () => {
+			apiMock.get.mockResolvedValue(location);
+
+			options.params.unshift({ key: 'q', value: searchParams.query.replace(' ', '+') });
+
+			void spectator.service.findLocationByQuery(searchParams.query);
+
+			expect(apiMock.get).toHaveBeenCalledWith(geocodeUrl, options);
 		});
 	});
 });
