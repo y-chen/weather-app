@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
 
 @Component({
 	selector: 'wa-error-page',
