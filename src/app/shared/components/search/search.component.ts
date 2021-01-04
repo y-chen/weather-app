@@ -74,13 +74,10 @@ export class SearchComponent implements IComponent, OnInit {
 	}
 
 	async onAutocompleteOptionClick(selection: SearchResult): Promise<void> {
-		const geocoded = await this.geoService.findLocationByQuery(selection.address.label);
-		const { lat, lng } = geocoded.position;
-		// const queryParams = { lat, lon: lng };
+		const location: SearchResult = await this.geoService.findLocationById(selection.id);
+		const { lat, lng } = location.position;
 
-		// await this.router.navigate(['/app', 'forecast'], { queryParams });
-
-		await this.navigateToForecast(geocoded, lat, lng);
+		await this.navigateToForecast(location, lat, lng);
 	}
 
 	getLocalizationPath(end: string): string {
@@ -88,9 +85,7 @@ export class SearchComponent implements IComponent, OnInit {
 	}
 
 	private async navigateToForecast(location: SearchResult, lat: number, lng: number): Promise<void> {
-		const { city, county, countryName } = location.address;
-		const nameParts = [city || '', county || '', countryName || ''];
-		this.searchInput.setValue(nameParts.join(', '));
+		this.searchInput.setValue(location.title);
 
 		const queryParams = { lat, lon: lng };
 		await this.router.navigate(['/app', 'forecast'], { queryParams });

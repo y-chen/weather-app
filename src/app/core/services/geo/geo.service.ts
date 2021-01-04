@@ -3,7 +3,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import { SearchResult } from '@wa/app/models/here-api.model';
+import { SearchParams, SearchResult } from '@wa/app/models/here-api.model';
 import { Param } from '@wa/app/models/http.model';
 import { Coord } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
@@ -32,6 +32,25 @@ export class GeoService {
 		return (await this.api.get<{ items: SearchResult[] }>(url, { params })).items;
 	}
 
+	async locationLookup(searchParams: SearchParams): Promise<SearchResult> {
+		const { id, coord, query } = searchParams;
+		let location: SearchResult;
+
+		if (id) {
+			location = await this.findLocationById(id);
+		}
+
+		if (coord && !location) {
+			location = await this.findLocationByCoords(coord);
+		}
+
+		if (query && !location) {
+			location = await this.findLocationByQuery(query);
+		}
+
+		return location;
+	}
+
 	async findLocationByCoords(coord: Coord): Promise<SearchResult> {
 		const url = `${this.REV_GEOCODE_URL}/revgeocode`;
 		let params: Param[] = [{ key: 'at', value: `${coord.lat},${coord.lon}` }];
@@ -46,6 +65,14 @@ export class GeoService {
 		params = this.appendParams(params);
 
 		return (await this.api.get<{ items: SearchResult[] }>(url, { params })).items[0];
+	}
+
+	async findLocationById(id: string): Promise<SearchResult> {
+		const url = `${this.REV_GEOCODE_URL}/lookup`;
+		let params: Param[] = [{ key: 'id', value: id }];
+		params = this.appendParams(params);
+
+		return await this.api.get<SearchResult>(url, { params });
 	}
 
 	private appendParams(params?: Param[]): Param[] {

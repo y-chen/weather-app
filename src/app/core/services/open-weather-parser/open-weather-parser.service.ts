@@ -44,7 +44,7 @@ export class OpenWeatherParserService {
 
 	async parseForecastData(forecast: Forecast, iconSize?: IconSize): Promise<ViewForecast> {
 		const { id, coord, timezone } = forecast.city;
-		const location: SearchResult = await this.geoService.findLocationByCoords(coord);
+		const location: SearchResult = await this.geoService.locationLookup({ coord, query: forecast.city.name });
 		const { city, countryCode } = location.address;
 		const name = `${city}, ${countryCode}`;
 

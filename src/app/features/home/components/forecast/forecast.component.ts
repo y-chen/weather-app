@@ -34,13 +34,7 @@ export class ForecastComponent implements IComponent, OnInit {
 		const subscription: Subscription = this.route.queryParams.subscribe((queryParams: Coord) => this.updateForecast(queryParams));
 		this.componentService.subscribe(subscription);
 
-		const refreshViewData: () => Promise<void> = async (): Promise<void> => {
-			this.viewForecast = await this.openWeatherService.getForecastByCoord({
-				coord: this.viewForecast.coord,
-			});
-		};
-
-		this.cultureService.onLangChange(refreshViewData);
+		this.refreshTranslations();
 	}
 
 	getLocalizationPath(end: string): string {
@@ -51,5 +45,15 @@ export class ForecastComponent implements IComponent, OnInit {
 		if (coord.lat && coord.lon) {
 			void (async () => (this.viewForecast = await this.openWeatherService.getForecastByCoord({ coord })))();
 		}
+	}
+
+	private refreshTranslations(): void {
+		const refreshViewData: () => Promise<void> = async (): Promise<void> => {
+			this.viewForecast = await this.openWeatherService.getForecastByCoord({
+				coord: this.viewForecast.coord,
+			});
+		};
+
+		this.cultureService.onLangChange(refreshViewData);
 	}
 }

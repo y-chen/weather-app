@@ -1,5 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { Coord as OpenCoord } from '@wa/app/models/open-weather.model';
+
+export interface SearchParams {
+	id?: string;
+	coord?: OpenCoord;
+	query?: string;
+}
+
 export interface SearchResult {
 	title: string;
 	id: string;
