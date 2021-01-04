@@ -16,10 +16,10 @@ export class ComponentService {
 	private router?: Router;
 
 	init(params: ComponentParams): void {
-		const { localizationBasePath, router, route } = params;
+		const { localizationBasePath, route, router } = params;
 		this.localizationBasePath = localizationBasePath;
-		this.router = router;
 		this.route = route;
+		this.router = router;
 
 		if (this.router) {
 			this.router.events.pipe(filter((e): e is RouterEvent => e instanceof RouterEvent)).subscribe((e: RouterEvent) => {
@@ -30,26 +30,12 @@ export class ComponentService {
 		}
 	}
 
-	subscribe(subscription: Subscription): void {
-		this.subscriptions.push(subscription);
-	}
-
-	unsubscribe(): void {
-		this.subscriptions.forEach((s) => s.unsubscribe());
+	getLocalizationPath(end: string): string {
+		return `${this.localizationBasePath}.${end}`;
 	}
 
 	getResolverData(paramName: string): unknown {
 		return this.route?.snapshot?.data[paramName];
-	}
-
-	getRouteParam(paramName: string): Promise<unknown> {
-		return new Promise((resolve, reject) => {
-			try {
-				return this.route?.params?.subscribe((data: Data) => resolve(data[paramName]));
-			} catch (error) {
-				reject(error);
-			}
-		});
 	}
 
 	getRouteData(paramName: string): Promise<unknown> {
@@ -62,7 +48,21 @@ export class ComponentService {
 		});
 	}
 
-	getLocalizationPath(end: string): string {
-		return `${this.localizationBasePath}.${end}`;
+	getRouteParam(paramName: string): Promise<unknown> {
+		return new Promise((resolve, reject) => {
+			try {
+				return this.route?.params?.subscribe((data: Data) => resolve(data[paramName]));
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
+
+	subscribe(subscription: Subscription): void {
+		this.subscriptions.push(subscription);
+	}
+
+	unsubscribe(): void {
+		this.subscriptions.forEach((s) => s.unsubscribe());
 	}
 }
