@@ -2,7 +2,7 @@
 {
 	"compilerOptions": {
 		"outDir": "./out-tsc/spec",
-		"types": ["jest", "node"]
+		"types": ["node", "jest", "jest-extended", "jest-mock-extended"]
 	},
 	"extends": "./tsconfig.json",
 	"files": ["src/polyfills.ts"],

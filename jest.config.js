@@ -1,6 +1,6 @@
 module.exports = {
 	displayName: 'weather-app',
-	setupFilesAfterEnv: ['<rootDir>/src/setup-jest.ts'],
+	setupFilesAfterEnv: ['<rootDir>/src/setup-jest.ts', 'jest-extended'],
 	transform: {
 		'^.+\\.(ts|js|html)$': 'ts-jest',
 	},
@@ -9,10 +9,7 @@ module.exports = {
 			tsconfig: '<rootDir>/tsconfig.spec.json',
 			stringifyContentPathRegex: '\\.(html|svg)$',
 			astTransformers: {
-				before: [
-					'jest-preset-angular/build/InlineFilesTransformer',
-					'jest-preset-angular/build/StripStylesTransformer',
-				],
+				before: ['jest-preset-angular/build/InlineFilesTransformer', 'jest-preset-angular/build/StripStylesTransformer'],
 			},
 		},
 	},
