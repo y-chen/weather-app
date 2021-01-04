@@ -25,17 +25,25 @@
 			"unavailable": "Non disponibile"
 		},
 		"errorPage": {
+			"400": {
+				"firstLineMessage": "richiesta sbagliata",
+				"secondLineMessage": "riprova più gentilmente"
+			},
 			"404": {
 				"errorCode": "404",
-				"firstLineMessage": "LA PAGINA",
-				"secondLineMessage": "NON È STATA TROVATA"
+				"firstLineMessage": "pagina",
+				"secondLineMessage": "non trovata"
 			},
 			"500": {
 				"errorCode": "500",
-				"firstLineMessage": "QUALCOSA",
-				"secondLineMessage": "È ANDATO STORTO"
+				"firstLineMessage": "qualcosa",
+				"secondLineMessage": "è andato storto"
 			},
-			"button": "TORNA ALLA HOME"
+			"button": "torna alla home",
+			"unknown": {
+				"firstLineMessage": "sconosciuto",
+				"secondLineMessage": "perfetto..."
+			}
 		},
 		"favourite": {
 			"add": "Aggiungi",
@@ -70,5 +78,6 @@
 				"title": "Meteo App"
 			}
 		}
-	}
+	},
+	"unknown": "errore"
 }

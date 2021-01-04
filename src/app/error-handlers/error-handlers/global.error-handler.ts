@@ -23,11 +23,14 @@ export class GlobalErrorHandler implements ErrorHandler {
 		if (error instanceof HttpErrorResponse || error.message.startsWith('Http')) {
 			// Server Error
 
+			const regex = /(\d+)(?!.*\d)/g;
+			const serverErrorCode = error.message.match(regex).toString();
+
 			message = this.errorService.getServerMessage(error);
 			stackTrace = this.errorService.getServerStack(error);
 			this.notificationService.showError(message);
 
-			await this.router.navigate(['error', 'server-error']);
+			await this.router.navigate(['error', serverErrorCode]);
 		} else {
 			// Client Error
 

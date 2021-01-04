@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ErrorPageComponent } from '@wa/app/shared/components/error-page/error-page.component';
 
 const routes: Routes = [
 	{ path: 'app', loadChildren: () => import('./features/home/home.module').then((m) => m.HomeModule) },
-	{ path: 'error', loadChildren: () => import('./features/error-pages/error-pages.module').then((m) => m.ErrorPagesModule) },
+	{ path: 'error/:errorCode', component: ErrorPageComponent },
 	{ path: '', redirectTo: 'app/home', pathMatch: 'full' },
-	{ path: '**', redirectTo: '/error/page-not-found' },
+	{ path: '**', redirectTo: '/error/404' },
 ];
 
 @NgModule({

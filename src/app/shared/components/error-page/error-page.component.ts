@@ -9,7 +9,9 @@ import { ComponentService } from '@wa/app/core/services/component/component.serv
 	providers: [ComponentService],
 })
 export class ErrorPageComponent implements OnInit {
-	errorCode: number;
+	case = 'upper';
+
+	errorCode: string;
 	firstLineMessage: string;
 	secondLineMessage: string;
 
@@ -21,13 +23,27 @@ export class ErrorPageComponent implements OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		this.errorCode = (await this.componentService.getRouteData('errorCode')) as number;
-
-		this.firstLineMessagePath = this.getLocalizationPath('firstLineMessage');
-		this.secondLineMessagePath = this.getLocalizationPath('secondLineMessage');
+		await this.initializeErrorInfo();
 	}
 
 	getLocalizationPath(end: string): string {
 		return this.componentService.getLocalizationPath(`${this.errorCode}.${end}`);
+	}
+
+	private async initializeErrorInfo(): Promise<void> {
+		this.errorCode = (await this.componentService.getRouteParam('errorCode')) as string;
+
+		switch (this.errorCode) {
+			case '400':
+			case '404':
+			case '500':
+				break;
+			default:
+				this.errorCode = 'unknown';
+				break;
+		}
+
+		this.firstLineMessagePath = this.getLocalizationPath('firstLineMessage');
+		this.secondLineMessagePath = this.getLocalizationPath('secondLineMessage');
 	}
 }

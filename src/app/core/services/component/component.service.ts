@@ -42,6 +42,16 @@ export class ComponentService {
 		return this.route?.snapshot?.data[paramName];
 	}
 
+	getRouteParam(paramName: string): Promise<unknown> {
+		return new Promise((resolve, reject) => {
+			try {
+				return this.route?.params?.subscribe((data: Data) => resolve(data[paramName]));
+			} catch (error) {
+				reject(error);
+			}
+		});
+	}
+
 	getRouteData(paramName: string): Promise<unknown> {
 		return new Promise((resolve, reject) => {
 			try {

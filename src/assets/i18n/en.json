@@ -25,17 +25,23 @@
 			"unavailable": "Unavailable"
 		},
 		"errorPage": {
+			"400": {
+				"firstLineMessage": "bad request",
+				"secondLineMessage": "try again more gently"
+			},
 			"404": {
-				"errorCode": "404",
-				"firstLineMessage": "THE PAGE",
-				"secondLineMessage": "WAS NOT FOUND"
+				"firstLineMessage": "page",
+				"secondLineMessage": "not found"
 			},
 			"500": {
-				"errorCode": "500",
-				"firstLineMessage": "SOMETHING",
-				"secondLineMessage": "WENT WRONG"
+				"firstLineMessage": "something",
+				"secondLineMessage": "went wrong"
 			},
-			"button": "GO BACK TO HOME"
+			"button": "go back to home",
+			"unknown": {
+				"firstLineMessage": "error",
+				"secondLineMessage": "perfect..."
+			}
 		},
 		"favourite": {
 			"add": "Add",
@@ -70,5 +76,6 @@
 				"title": "Weather App"
 			}
 		}
-	}
+	},
+	"unknown": "unknown"
 }
