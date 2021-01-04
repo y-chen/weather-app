@@ -11,7 +11,11 @@ describe('WeatherCardComponent', () => {
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-weather-card></wa-weather-card>', {});
+		host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
+			hostProps: {
+				viewData: {},
+			},
+		});
 
 		const forecast = host.queryHost('wa-weather-card');
 
