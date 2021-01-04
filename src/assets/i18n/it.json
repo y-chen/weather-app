@@ -32,6 +32,15 @@
 			"currentLocation": "Posizione corrente",
 			"placeholder": "Cerca per nome città"
 		},
+		"settingsMenu": {
+			"close": "Chiudi",
+			"language": "Lingua",
+			"units": {
+				"imperial": "Imperiale",
+				"metric": "Metrico",
+				"settingName": "Unità"
+			}
+		},
 		"shell": {
 			"sidebar": {
 				"close": "Chiudi",

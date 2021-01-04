@@ -2,10 +2,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { Component, OnInit } from '@angular/core';
+import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import {
 	LocalStorageService, StorageKeys
 } from '@wa/app/core/services/local-storage/local-storage.service';
+import { IComponent } from '@wa/app/models/component.model';
 import { Culture } from '@wa/app/models/culture.model';
 import { Units } from '@wa/app/models/open-weather.model';
 
@@ -13,15 +15,22 @@ import { Units } from '@wa/app/models/open-weather.model';
 	selector: 'wa-settings-menu',
 	templateUrl: './settings-menu.component.html',
 	styleUrls: ['./settings-menu.component.scss'],
+	providers: [ComponentService],
 })
-export class SettingsMenuComponent implements OnInit {
+export class SettingsMenuComponent implements IComponent, OnInit {
 	cultures: Culture[];
 	currentLang: string;
 
 	units = Units;
 	currentUnit: Units;
 
-	constructor(private readonly cultureService: CultureService, private readonly localStorageService: LocalStorageService) {}
+	constructor(
+		private readonly cultureService: CultureService,
+		private readonly localStorageService: LocalStorageService,
+		private readonly componentService: ComponentService,
+	) {
+		this.componentService.init({ localizationBasePath: 'shared.settingsMenu' });
+	}
 
 	ngOnInit(): void {
 		this.cultures = this.cultureService.getAvailableCultures();
@@ -51,5 +60,9 @@ export class SettingsMenuComponent implements OnInit {
 			this.localStorageService.set(StorageKeys.Units, unit);
 			this.currentUnit = unit;
 		}
+	}
+
+	getLocalizationPath(end: string): string {
+		return this.componentService.getLocalizationPath(end);
 	}
 }
