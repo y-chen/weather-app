@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
@@ -8,79 +11,69 @@ import { Header, HttpOption, HttpOptions, Param } from '@wa/app/models/http.mode
 export class ApiService {
 	constructor(
 		private readonly http: HttpClient,
-		private readonly logger: LoggerService,
 		private readonly cultureService: CultureService,
+		private readonly loggerService: LoggerService,
 	) {}
 
-	get<T>(url: string, options?: HttpOptions): Promise<T> {
+	async get<T>(url: string, options?: HttpOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
-		this.logger.debug(`ApiService: executing GET ${url}`, { opts });
+		this.loggerService.debug(`ApiService: executing GET ${url}`, { opts });
 
-		return new Promise<T>((resolve) => {
-			this.http.get<T>(url, opts).subscribe((result: T) => {
-				this.logger.debug(`ApiService: executed GET ${url} result`, { result });
+		const result = await this.http.get<T>(url, opts).toPromise();
 
-				resolve(result);
-			});
-		});
+		this.loggerService.debug(`ApiService: executed GET ${url} result`, { result });
+
+		return result;
 	}
 
-	post<T>(url: string, body?: unknown, options?: HttpOptions): Promise<T> {
+	async post<T>(url: string, body?: unknown, options?: HttpOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
-		this.logger.debug(`ApiService: executing POST ${url}`, { body, opts });
+		this.loggerService.debug(`ApiService: executing POST ${url}`, { body, opts });
 
-		return new Promise<T>((resolve) => {
-			this.http.post<T>(url, body, opts).subscribe((result: T) => {
-				this.logger.debug(`ApiService: executed POST ${url} result`, { result });
+		const result = await this.http.post<T>(url, body, opts).toPromise();
 
-				resolve(result);
-			});
-		});
+		this.loggerService.debug(`ApiService: executed POST ${url} result`, { result });
+
+		return result;
 	}
 
-	put<T>(url: string, body?: unknown, options?: HttpOptions): Promise<T> {
+	async put<T>(url: string, body?: unknown, options?: HttpOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
-		this.logger.debug(`ApiService: executing PUT ${url}`, { body, opts });
+		this.loggerService.debug(`ApiService: executing PUT ${url}`, { body, opts });
 
-		return new Promise<T>((resolve) => {
-			this.http.put<T>(url, body, opts).subscribe((result: T) => {
-				this.logger.debug(`ApiService: executed PUT ${url} result`, result);
+		const result = await this.http.put<T>(url, body, opts).toPromise();
 
-				resolve(result);
-			});
-		});
+		this.loggerService.debug(`ApiService: executed PUT ${url} result`, result);
+
+		return result;
 	}
 
-	delete<T>(url: string, options?: HttpOptions): Promise<T> {
+	async delete<T>(url: string, options?: HttpOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
-		this.logger.debug(`ApiService: executing DELETE ${url}`, { opts });
+		this.loggerService.debug(`ApiService: executing DELETE ${url}`, { opts });
 
-		return new Promise<T>((resolve) => {
-			this.http.delete<T>(url, opts).subscribe((result: T) => {
-				this.logger.debug(`ApiService: executed DELETE ${url} result`, { result });
+		const result = await this.http.delete<T>(url, opts).toPromise();
 
-				resolve(result);
-			});
-		});
+		this.loggerService.debug(`ApiService: executed DELETE ${url} result`, { result });
+
+		return result;
 	}
 
-	patch<T>(url: string, body?: Body): Promise<T> {
+	async patch<T>(url: string, body?: Body): Promise<T> {
 		const opts = { headers: new HttpHeaders() };
 		opts.headers = this.getHeaders([]);
 
-		this.logger.debug(`ApiService: executing PATCH ${url}`, { body, opts });
+		this.loggerService.debug(`ApiService: executing PATCH ${url}`, { body, opts });
 
-		return new Promise<T>((resolve) => {
-			this.http.patch<T>(url, body, opts).subscribe((result: T) => {
-				this.logger.debug(`ApiService: executed PATCH ${url} result`, { result });
+		const result = await this.http.patch<T>(url, body, opts).toPromise();
 
-				resolve(result);
-			});
-		});
+		this.loggerService.debug(`ApiService: executed PATCH ${url} result`, { result });
+
+		return result;
 	}
 
 	private getOptions(
