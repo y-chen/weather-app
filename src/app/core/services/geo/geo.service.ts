@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import * as lodash from 'lodash';
+
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
@@ -21,17 +23,6 @@ export class GeoService {
 		this.API_KEY = environment.hereAPI.apiKey;
 	}
 
-	async findCities(query: string): Promise<SearchResult[]> {
-		const url = `${this.GEOCODE_URL}/autocomplete`;
-		let params: Param[] = [
-			{ key: 'q', value: query.replace(' ', '+') },
-			{ key: 'limit', value: 20 },
-		];
-		params = this.appendParams(params);
-
-		return (await this.api.get<{ items: SearchResult[] }>(url, { params })).items;
-	}
-
 	async locationLookup(searchParams: SearchParams): Promise<SearchResult> {
 		const { id, coord, query } = searchParams;
 		let location: SearchResult;
@@ -51,20 +42,15 @@ export class GeoService {
 		return location;
 	}
 
-	async findLocationByCoords(coord: Coord): Promise<SearchResult> {
-		const url = `${this.REV_GEOCODE_URL}/revgeocode`;
-		let params: Param[] = [{ key: 'at', value: `${coord.lat},${coord.lon}` }];
+	async findCities(query: string): Promise<SearchResult[]> {
+		const url = `${this.GEOCODE_URL}/autocomplete`;
+		let params: Param[] = [
+			{ key: 'q', value: query.replace(' ', '+') },
+			{ key: 'limit', value: 20 },
+		];
 		params = this.appendParams(params);
 
-		return (await this.api.get<{ items: SearchResult[] }>(url, { params })).items[0];
-	}
-
-	async findLocationByQuery(query: string): Promise<SearchResult> {
-		const url = `${this.REV_GEOCODE_URL}/geocode`;
-		let params: Param[] = [{ key: 'q', value: query.replace(' ', '+') }];
-		params = this.appendParams(params);
-
-		return (await this.api.get<{ items: SearchResult[] }>(url, { params })).items[0];
+		return (await this.api.get<{ items: SearchResult[] }>(url, { params })).items;
 	}
 
 	async findLocationById(id: string): Promise<SearchResult> {
@@ -73,6 +59,24 @@ export class GeoService {
 		params = this.appendParams(params);
 
 		return await this.api.get<SearchResult>(url, { params });
+	}
+
+	async findLocationByCoords(coord: Coord): Promise<SearchResult> {
+		const url = `${this.REV_GEOCODE_URL}/revgeocode`;
+		let params: Param[] = [{ key: 'at', value: `${coord.lat},${coord.lon}` }];
+		params = this.appendParams(params);
+
+		const result = await this.api.get<{ items: SearchResult[] }>(url, { params });
+		return lodash.head(result.items);
+	}
+
+	async findLocationByQuery(query: string): Promise<SearchResult> {
+		const url = `${this.REV_GEOCODE_URL}/geocode`;
+		let params: Param[] = [{ key: 'q', value: query.replace(' ', '+') }];
+		params = this.appendParams(params);
+
+		const result = await this.api.get<{ items: SearchResult[] }>(url, { params });
+		return lodash.head(result.items);
 	}
 
 	private appendParams(params: Param[] = []): Param[] {
