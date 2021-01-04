@@ -14,11 +14,11 @@ export class ErrorService {
 		return error.stack;
 	}
 
-	getServerMessage(error: HttpErrorResponse): string {
+	getServerMessage(error: HttpErrorResponse | Error): string {
 		return error.message;
 	}
 
-	getServerStack(error: HttpErrorResponse): string {
+	getServerStack(error: HttpErrorResponse | Error): string {
 		// handle stack trace
 		return 'stack';
 	}
