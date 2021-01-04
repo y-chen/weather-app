@@ -1,1 +1,30 @@
-<p>settings-menu works!</p>
+<div class="menu-trigger" [matMenuTriggerFor]="settingsMenu">
+	<mat-icon>settings</mat-icon>
+</div>
+
+<mat-menu #settingsMenu="matMenu" yPosition="below" overlapTrigger="false" class="settings-menu" (click)="$event.stopPropagation()">
+	<div class="setting culture-setting">
+		<span>Language</span>
+
+		<mat-button-toggle-group [value]="currentLang">
+			<ng-container *ngFor="let culture of cultures">
+				<mat-button-toggle [value]="culture.language" (click)="setCulture($event, culture)">
+					<i class="flag-icon flag-icon-{{ culture.language }}"></i>
+				</mat-button-toggle>
+			</ng-container>
+		</mat-button-toggle-group>
+	</div>
+
+	<mat-divider></mat-divider>
+
+	<div class="setting units-setting">
+		<span>Units</span>
+
+		<mat-button-toggle-group [value]="currentUnit">
+			<mat-button-toggle value="metric" (click)="setUnits($event, 'metric')"> Metric </mat-button-toggle>
+			<mat-button-toggle value="imperial" (click)="setUnits($event, 'imperial')"> Imperial </mat-button-toggle>
+		</mat-button-toggle-group>
+	</div>
+
+	<button mat-raised-button color="primary" class="close-button">Close</button>
+</mat-menu>

@@ -1,0 +1,61 @@
+@import 'mixins';
+
+:host {
+	cursor: pointer;
+}
+
+::ng-deep .mat-menu-panel.settings-menu {
+	.mat-menu-content {
+		padding: 16px !important;
+
+		mat-divider {
+			margin-top: 7.5px;
+			margin-bottom: 7.5px;
+		}
+
+		.setting {
+			@include flex-box(column);
+			gap: 3px;
+
+			mat-button-toggle-group {
+				height: 24px;
+
+				mat-button-toggle {
+					&:hover {
+						background-color: var(--accent-color);
+						color: white;
+					}
+
+					> .mat-button-toggle-button {
+						padding-top: 2px;
+					}
+				}
+
+				> .mat-button-toggle-checked {
+					background-color: var(--primary-color);
+					color: white;
+				}
+
+				.mat-button-toggle-label-content {
+					line-height: unset;
+				}
+			}
+		}
+
+		.culture-setting,
+		.units-setting {
+			mat-button-toggle {
+				width: 50%;
+			}
+		}
+	}
+
+	.close-button {
+		display: block;
+		margin: 12px auto 0 auto;
+
+		&:hover {
+			background-color: var(--accent-color);
+		}
+	}
+}
