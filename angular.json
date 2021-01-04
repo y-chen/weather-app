@@ -24,11 +24,7 @@
 						"tsConfig": "tsconfig.app.json",
 						"aot": true,
 						"assets": ["src/favicon.ico", "src/assets"],
-						"styles": [
-							"src/styles.scss",
-							"src/assets/themes/material.scss",
-							"src/assets/flags/flag-icon.scss"
-						],
+						"styles": ["src/styles.scss", "src/assets/themes/material.scss", "src/assets/flags/flag-icon.scss"],
 						"stylePreprocessorOptions": {
 							"includePaths": ["src/assets/scss"]
 						},
@@ -100,6 +96,10 @@
 							"devServerTarget": "weather-app:serve:production"
 						}
 					}
+				},
+				"deploy": {
+					"builder": "@angular/fire:deploy",
+					"options": {}
 				}
 			}
 		}

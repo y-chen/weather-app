@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "ng-weather-app-eaf49"
+  },
+  "targets": {
+    "ng-weather-app-eaf49": {
+      "hosting": {
+        "weather-app": [
+          "ng-weather-app-eaf49"
+        ]
+      }
+    }
+  }
+}
