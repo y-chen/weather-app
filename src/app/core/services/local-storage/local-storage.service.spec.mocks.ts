@@ -6,7 +6,6 @@ export const mockLocalStorage = () => {
 	beforeEach(() => {
 		Storage.prototype.getItem = getItemMock;
 		Storage.prototype.setItem = setItemMock;
-
 		Storage.prototype.removeItem = removeItemMock;
 	});
 
