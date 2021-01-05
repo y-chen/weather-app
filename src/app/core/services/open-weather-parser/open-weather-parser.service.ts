@@ -27,8 +27,7 @@ export class OpenWeatherParserService {
 		private readonly geoService: GeoService,
 	) {}
 
-	parseWeatherData(weather: Weather, options?: ViewParserOptions): ViewWeather {
-		options = options || {};
+	parseWeatherData(weather: Weather, options: ViewParserOptions = {}): ViewWeather {
 		const { iconSize, titleOverride, timezone } = options;
 		const temperatureUnit: string = this.getTemperatureUnit();
 
@@ -45,7 +44,7 @@ export class OpenWeatherParserService {
 		};
 	}
 
-	async parseForecastData(forecast: Forecast, iconSize?: IconSize): Promise<ViewForecast> {
+	async parseForecastData(forecast: Forecast, iconSize: IconSize = 4): Promise<ViewForecast> {
 		const { id, coord, timezone } = forecast.city;
 		const location: SearchResult = await this.geoService.locationLookup({ coord, query: forecast.city.name });
 		const { city, countryCode } = location.address;
