@@ -5,9 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
-import {
-	LocalStorageService, StorageKeys
-} from '@wa/app/core/services/local-storage/local-storage.service';
+import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { Culture } from '@wa/app/models/culture.model';
 import { Units } from '@wa/app/models/open-weather.model';

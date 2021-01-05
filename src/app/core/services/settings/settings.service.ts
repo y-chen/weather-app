@@ -2,9 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { Injectable } from '@angular/core';
-import {
-	LocalStorageService, StorageKeys
-} from '@wa/app/core/services/local-storage/local-storage.service';
+import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
 import { Units } from '@wa/app/models/open-weather.model';
 
 @Injectable()

@@ -1,7 +1,5 @@
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import {
-	MissingDataComponent
-} from '@wa/app/shared/components/missing-data/missing-data.component';
+import { MissingDataComponent } from '@wa/app/shared/components/missing-data/missing-data.component';
 
 describe('MissingDataComponent', () => {
 	let host: SpectatorHost<MissingDataComponent>;

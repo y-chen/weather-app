@@ -5,18 +5,13 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import {
-	LocalStorageService, StorageKeys
-} from '@wa/app/core/services/local-storage/local-storage.service';
-import {
-	OpenWeatherParserService
-} from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
+import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { Param } from '@wa/app/models/http.model';
 import { ViewForecast, ViewWeather } from '@wa/app/models/open-weather-parser.model';
-import {
-	Forecast, OpenWeatherSearchParams, Units, Weather, WeatherGroup
-} from '@wa/app/models/open-weather.model';
+import { Forecast, OpenWeatherSearchParams, Units, Weather, WeatherGroup } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
+
+import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class OpenWeatherService {
@@ -26,8 +21,9 @@ export class OpenWeatherService {
 	constructor(
 		private readonly api: ApiService,
 		private readonly cultureService: CultureService,
-		private readonly localStorageService: LocalStorageService,
+
 		private readonly openWeatherParserService: OpenWeatherParserService,
+		private readonly settingsService: SettingsService,
 	) {
 		const { url, apiKey } = environment.openWeatherMapAPI;
 		this.URL = url;
@@ -70,12 +66,7 @@ export class OpenWeatherService {
 	}
 
 	private appendParams(params: Param[] = []): Param[] {
-		const storedUnit = this.localStorageService.get(StorageKeys.Units);
-		let unit: Units = storedUnit ? Units[storedUnit] : Units.Metric;
-
-		if (!unit) {
-			unit = Units.Metric;
-		}
+		const unit: Units = this.settingsService.getUnit();
 
 		return params.concat([
 			{ key: 'lang', value: this.cultureService.getCulture().language },

@@ -5,8 +5,7 @@ import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import {
-	autocompleteUrlMock, defaultOptionsMock, geocodeUrlMock, locationMock, lookupUrlMock,
-	revGeocodeUrlMock, searchParamsMock
+	autocompleteUrlMock, defaultOptionsMock, geocodeUrlMock, locationMock, lookupUrlMock, revGeocodeUrlMock, searchParamsMock
 } from '@wa/app/core/services/geo/geo.service.spec.mocks';
 import { SearchParams, SearchResult } from '@wa/app/models/here-api.model';
 import { HttpOptions } from '@wa/app/models/http.model';

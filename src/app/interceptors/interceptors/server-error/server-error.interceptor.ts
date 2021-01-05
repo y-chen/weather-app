@@ -1,13 +1,9 @@
 import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 
-import {
-	HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
-} from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-	BadRequestError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError
-} from '@wa/app/models/error.model';
+import { BadRequestError, ForbiddenError, InternalServerError, NotFoundError, UnauthorizedError } from '@wa/app/models/error.model';
 
 @Injectable()
 export class ServerErrorInterceptor implements HttpInterceptor {

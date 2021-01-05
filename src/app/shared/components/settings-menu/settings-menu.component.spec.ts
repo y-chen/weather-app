@@ -1,7 +1,5 @@
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import {
-	SettingsMenuComponent
-} from '@wa/app/shared/components/settings-menu/settings-menu.component';
+import { SettingsMenuComponent } from '@wa/app/shared/components/settings-menu/settings-menu.component';
 
 describe('SettingsMenuComponent', () => {
 	let host: SpectatorHost<SettingsMenuComponent>;

@@ -9,9 +9,7 @@ import { SearchResult } from '@wa/app/models/here-api.model';
 import {
 	DayForecast, DayForecastPromise, ViewForecast, ViewParserOptions, ViewWeather
 } from '@wa/app/models/open-weather-parser.model';
-import {
-	DayTime, Forecast, IconSize, Units, Weather, WeatherGroup
-} from '@wa/app/models/open-weather.model';
+import { DayTime, Forecast, IconSize, Units, Weather, WeatherGroup } from '@wa/app/models/open-weather.model';
 
 import { SettingsService } from '../settings/settings.service';
 

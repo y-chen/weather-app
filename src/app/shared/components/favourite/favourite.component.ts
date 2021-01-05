@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import {
-	LocalStorageService, StorageKeys
-} from '@wa/app/core/services/local-storage/local-storage.service';
+import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
 import { IComponent } from '@wa/app/models/component.model';
 
 @Component({

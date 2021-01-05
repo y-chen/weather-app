@@ -1,7 +1,5 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import {
-	OpenWeatherParserService
-} from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
+import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 
 describe('OpenWeatherParserService', () => {
 	let spectator: SpectatorService<OpenWeatherParserService>;
