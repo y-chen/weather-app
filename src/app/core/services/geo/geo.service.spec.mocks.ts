@@ -4,37 +4,51 @@ import { environment } from '@wa/environments/environment';
 
 const { revGeocode, geocode } = environment.hereAPI.urls;
 
-export const geocodeUrlMock = `${revGeocode}/geocode`;
-export const revGeocodeUrlMock = `${revGeocode}/revgeocode`;
-export const autocompleteUrlMock = `${geocode}/autocomplete`;
-export const lookupUrlMock = `${revGeocode}/lookup`;
+export interface GeoServiceMocks {
+	geocodeUrl: string;
+	revGeocodeUrl: string;
+	autocompleteUrl: string;
+	lookupUrl: string;
+	options: HttpOptions;
+	searchParams: SearchParams;
+	location: SearchResult;
+}
 
-export const defaultOptionsMock: HttpOptions = {
-	params: [
-		{ key: 'apiKey', value: environment.hereAPI.apiKey },
-		{ key: 'types', value: 'city' },
-		{ key: 'lang', value: 'en' },
-	],
-};
+export const getMocksData = (): GeoServiceMocks => {
+	const geocodeUrl = `${revGeocode}/geocode`;
+	const revGeocodeUrl = `${revGeocode}/revgeocode`;
+	const autocompleteUrl = `${geocode}/autocomplete`;
+	const lookupUrl = `${revGeocode}/lookup`;
 
-export const searchParamsMock: SearchParams = {
-	id: 'LocationId',
-	coord: { lat: 0, lon: 0 },
-	query: 'Search Query',
-};
+	const options: HttpOptions = {
+		params: [
+			{ key: 'apiKey', value: environment.hereAPI.apiKey },
+			{ key: 'types', value: 'city' },
+			{ key: 'lang', value: 'en' },
+		],
+	};
 
-export const locationMock: SearchResult = {
-	title: 'Title',
-	id: 'Id',
-	resultType: 'Resource Type',
-	localityType: 'Locality Type',
-	address: {
-		label: 'Label',
-		countryCode: 'Country Code',
-		countryName: 'Country Name',
-		state: 'State',
-		county: 'County',
-		city: 'City',
-		postalCode: 0,
-	},
+	const searchParams: SearchParams = {
+		id: 'LocationId',
+		coord: { lat: 0, lon: 0 },
+		query: 'Search Query',
+	};
+
+	const location: SearchResult = {
+		title: 'Title',
+		id: 'Id',
+		resultType: 'Resource Type',
+		localityType: 'Locality Type',
+		address: {
+			label: 'Label',
+			countryCode: 'Country Code',
+			countryName: 'Country Name',
+			state: 'State',
+			county: 'County',
+			city: 'City',
+			postalCode: 0,
+		},
+	};
+
+	return { geocodeUrl, revGeocodeUrl, autocompleteUrl, lookupUrl, options, searchParams, location };
 };
