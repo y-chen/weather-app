@@ -9,7 +9,7 @@ describe('ForecastResolver', () => {
 
 	beforeEach(() => (spectator = createService()));
 
-	it('should be created', async () => {
-		await expect(spectator.service).toBeTruthy();
+	it('should be created', () => {
+		expect(spectator.service).toBeTruthy();
 	});
 });

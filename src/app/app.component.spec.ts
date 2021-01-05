@@ -6,19 +6,19 @@ describe('AppComponent', () => {
 
 	const createHost = createHostFactory({ component: AppComponent });
 
-	it('should create the app', async () => {
+	it('should create the app', () => {
 		host = createHost('<wa-root></wa-root>');
 
 		const element = host.queryHost('wa-root');
 
-		await expect(element).toBeDefined();
+		expect(element).toBeDefined();
 	});
 
-	it('should have as title weather-app', async () => {
+	it('should have as title weather-app', () => {
 		host = createHost('<wa-root></wa-root>');
 
 		const title = host.component.title;
 
-		await expect(title).toEqual('weather-app');
+		expect(title).toEqual('weather-app');
 	});
 });

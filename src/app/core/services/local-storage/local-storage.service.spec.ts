@@ -1,6 +1,8 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { LocalStorageService } from '@wa/app/core/services/local-storage/local-storage.service';
-import { mockLocalStorage } from '@wa/app/core/services/local-storage/local-storage.spec.mocks';
+import {
+	mockLocalStorage
+} from '@wa/app/core/services/local-storage/local-storage.service.spec.mocks';
 
 describe('LocalStorageService', () => {
 	let spectator: SpectatorService<LocalStorageService>;
