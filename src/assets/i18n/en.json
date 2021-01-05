@@ -14,7 +14,7 @@
 	"shared": {
 		"basicWeather": {
 			"date": "Weather on {{date}}",
-			"time": "Weather on {{time}}",
+			"time": "Weather at {{time}}",
 			"viewForecast": "View Forecast"
 		},
 		"dayTimeWeather": {
