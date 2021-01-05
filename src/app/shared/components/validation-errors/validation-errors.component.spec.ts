@@ -28,7 +28,7 @@ describe('ValidationErrorsComponent', () => {
 		expect(input).toExist();
 	});
 
-	it('should display error message when control has same error type', async () => {
+	it('should display error message when control has same error type', () => {
 		host = createHost('<wa-validation-errors [errors]="errors"></wa-validation-errors>', {
 			hostProps: { errors: errorMessages },
 			props: { control: new FormControl() },
@@ -38,12 +38,12 @@ describe('ValidationErrorsComponent', () => {
 		host.detectChanges();
 		const errors = host.queryAll('mat-error');
 
-		await expect(errors.length).toEqual(2);
+		expect(errors.length).toEqual(2);
 		expect(errors[0]).toContainText('REQUIRED');
 		expect(errors[1]).toContainText('PATTERN');
 	});
 
-	it('should not display error message when control has not it', async () => {
+	it('should not display error message when control has not it', () => {
 		host = createHost('<wa-validation-errors [errors]="errors"></wa-validation-errors>', {
 			hostProps: { errors: errorMessages },
 			props: { control: new FormControl() },
@@ -53,7 +53,7 @@ describe('ValidationErrorsComponent', () => {
 		host.detectChanges();
 		const errors = host.queryAll('mat-error');
 
-		await expect(errors.length).toEqual(1);
+		expect(errors.length).toEqual(1);
 		expect(errors[0]).not.toContainText('REQUIRED');
 		expect(errors[0]).toContainText('PATTERN');
 	});

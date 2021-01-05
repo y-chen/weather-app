@@ -8,7 +8,7 @@ describe('EventService', () => {
 
 	beforeEach(() => (spectator = createService()));
 
-	it('should be defined', async () => {
-		await expect(spectator.service).toBeDefined();
+	it('should be defined', () => {
+		expect(spectator.service).toBeDefined();
 	});
 });
