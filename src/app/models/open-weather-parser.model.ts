@@ -2,8 +2,8 @@ import { Coord, IconSize } from '@wa/app/models/open-weather.model';
 
 export interface ViewParserOptions {
 	iconSize?: IconSize;
-	titleOverride?: string;
 	timezone?: number;
+	titleOverride?: string;
 }
 
 export interface ViewForecast {

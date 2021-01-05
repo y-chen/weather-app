@@ -37,14 +37,14 @@ export interface Weather {
 	name: string;
 	coord: Coord;
 	weather: WeatherDetails[];
-	base: string;
+	base?: string;
 	main: Temperature;
 	visibility: number;
-	wind: Wind;
+	wind?: Wind;
 	clouds: Clouds;
 	dt: number;
 	sys: DayInfo;
-	cod: number;
+	cod?: number;
 	pop?: number;
 	dt_txt?: string;
 }
