@@ -19,6 +19,7 @@ import {
 	OpenWeatherParserService
 } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { TimeZoneDBService } from '@wa/app/core/services/time-zone-db/time-zone-db.service';
 
 @NgModule({
@@ -43,6 +44,7 @@ import { TimeZoneDBService } from '@wa/app/core/services/time-zone-db/time-zone-
 		TimeZoneDBService,
 		AskGeoService,
 		OpenWeatherParserService,
+		SettingsService,
 	],
 })
 export class CoreModule {

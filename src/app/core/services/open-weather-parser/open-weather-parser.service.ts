@@ -1,6 +1,3 @@
-/* eslint-disable security/detect-object-injection */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-
 import Case from 'case';
 import * as lodash from 'lodash';
 import moment, { Moment } from 'moment';
@@ -8,9 +5,6 @@ import moment, { Moment } from 'moment';
 import { Injectable } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
-import {
-	LocalStorageService, StorageKeys
-} from '@wa/app/core/services/local-storage/local-storage.service';
 import { SearchResult } from '@wa/app/models/here-api.model';
 import {
 	DayForecast, DayForecastPromise, ViewForecast, ViewParserOptions, ViewWeather
@@ -19,12 +13,14 @@ import {
 	DayTime, Forecast, IconSize, Units, Weather, WeatherGroup
 } from '@wa/app/models/open-weather.model';
 
+import { SettingsService } from '../settings/settings.service';
+
 @Injectable()
 export class OpenWeatherParserService {
 	constructor(
-		private readonly localStorageService: LocalStorageService,
 		private readonly cultureService: CultureService,
 		private readonly geoService: GeoService,
+		private readonly settingsService: SettingsService,
 	) {}
 
 	parseWeatherData(weather: Weather, options: ViewParserOptions = {}): ViewWeather {
@@ -122,12 +118,7 @@ export class OpenWeatherParserService {
 	}
 
 	private getTemperatureUnit(): string {
-		const storedUnit: string = this.localStorageService.get(StorageKeys.Units);
-		let unit: Units = storedUnit ? Units[storedUnit] : Units.Metric;
-
-		if (!unit) {
-			unit = Units.Metric;
-		}
+		const unit: Units = this.settingsService.getUnit();
 
 		switch (unit) {
 			case Units.Metric:
