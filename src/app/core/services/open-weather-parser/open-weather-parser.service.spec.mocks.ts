@@ -5,7 +5,7 @@ import { SearchResult } from '@wa/app/models/here-api.model';
 import { ViewParserOptions } from '@wa/app/models/open-weather-parser.model';
 import { Forecast, Weather, WeatherGroup } from '@wa/app/models/open-weather.model';
 
-export interface OpenWeatherParserServiceMocks {
+export interface OpenWeatherParserMocks {
 	options: ViewParserOptions;
 	weather: Weather;
 	forecast: Forecast;
@@ -13,7 +13,7 @@ export interface OpenWeatherParserServiceMocks {
 	group: WeatherGroup;
 }
 
-export const getMocksData = (): OpenWeatherParserServiceMocks => {
+export const getOpenWeatherParserMocks = (): OpenWeatherParserMocks => {
 	const options: ViewParserOptions = {
 		iconSize: 2,
 		timezone: 7200,

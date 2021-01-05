@@ -21,7 +21,6 @@ export class OpenWeatherService {
 	constructor(
 		private readonly api: ApiService,
 		private readonly cultureService: CultureService,
-
 		private readonly openWeatherParserService: OpenWeatherParserService,
 		private readonly settingsService: SettingsService,
 	) {

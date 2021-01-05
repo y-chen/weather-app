@@ -14,7 +14,7 @@ export interface GeoServiceMocks {
 	location: SearchResult;
 }
 
-export const getMocksData = (): GeoServiceMocks => {
+export const getGeoServiceMocks = (): GeoServiceMocks => {
 	const geocodeUrl = `${revGeocode}/geocode`;
 	const revGeocodeUrl = `${revGeocode}/revgeocode`;
 	const autocompleteUrl = `${geocode}/autocomplete`;
