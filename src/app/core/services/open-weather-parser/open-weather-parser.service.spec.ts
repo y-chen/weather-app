@@ -5,7 +5,7 @@ import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import {
-	getMocksData, OpenWeatherParserServiceMocks
+	getOpenWeatherParserMocks, OpenWeatherParserMocks
 } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service.spec.mocks';
 import { Weather } from '@wa/app/models/open-weather.model';
 
@@ -19,7 +19,7 @@ describe('OpenWeatherParserService', () => {
 		mocks: [CultureService, GeoService],
 	});
 
-	let mocks: OpenWeatherParserServiceMocks;
+	let mocks: OpenWeatherParserMocks;
 
 	beforeEach(() => {
 		cultureServiceMock = mock<CultureService>();
@@ -32,7 +32,7 @@ describe('OpenWeatherParserService', () => {
 			],
 		});
 
-		mocks = { ...getMocksData() };
+		mocks = getOpenWeatherParserMocks();
 	});
 
 	afterEach(() => {
