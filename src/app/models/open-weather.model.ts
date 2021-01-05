@@ -13,7 +13,7 @@ export interface City {
 	name: string;
 	coord: Coord;
 	country: string;
-	popuplation: number;
+	population: number;
 	timezone: number;
 	sunrise: number;
 	sunset: number;
@@ -33,9 +33,9 @@ export interface WeatherGroup {
 }
 
 export interface Weather {
-	id: number;
-	name: string;
-	coord: Coord;
+	id?: number;
+	name?: string;
+	coord?: Coord;
 	weather: WeatherDetails[];
 	base?: string;
 	main: Temperature;
@@ -46,8 +46,11 @@ export interface Weather {
 	sys: DayInfo;
 	cod?: number;
 	pop?: number;
+	snow?: Snow;
+	rain?: Rain;
 	dt_txt?: string;
 }
+
 export interface Coord {
 	lat: number;
 	lon: number;
@@ -81,6 +84,14 @@ export interface Clouds {
 	all: number;
 }
 
+export interface Snow {
+	[key: string]: number;
+}
+
+export interface Rain {
+	[key: string]: number;
+}
+
 export interface DayInfo {
 	id?: number;
 	type?: number;
@@ -89,6 +100,8 @@ export interface DayInfo {
 	sunset?: number;
 	timezone?: number;
 	sys?: string;
+	// pod?: string;
+	pod?: string;
 }
 
 export type IconSize = 2 | 4;

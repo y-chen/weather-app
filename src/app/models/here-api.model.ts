@@ -12,10 +12,13 @@ export interface SearchResult {
 	title: string;
 	id: string;
 	resultType: string;
-	localityType: string;
+	localityType?: string;
 	address: Address;
 	mapView?: MapView;
 	position?: Coord;
+	houseNumberType?: string;
+	access?: Coord[];
+	distance?: number;
 }
 
 export interface Coord {
@@ -31,7 +34,10 @@ export interface Address {
 	countyCode?: string;
 	county: string;
 	city: string;
-	postalCode: number;
+	postalCode: string;
+	district?: string;
+	street?: string;
+	houseNumber?: string;
 }
 
 export interface MapView {

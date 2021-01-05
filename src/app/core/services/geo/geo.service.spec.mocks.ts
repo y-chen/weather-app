@@ -38,7 +38,6 @@ export const getMocksData = (): GeoServiceMocks => {
 		title: 'Title',
 		id: 'Id',
 		resultType: 'Resource Type',
-		localityType: 'Locality Type',
 		address: {
 			label: 'Label',
 			countryCode: 'Country Code',
@@ -46,7 +45,7 @@ export const getMocksData = (): GeoServiceMocks => {
 			state: 'State',
 			county: 'County',
 			city: 'City',
-			postalCode: 0,
+			postalCode: '0',
 		},
 	};
 
