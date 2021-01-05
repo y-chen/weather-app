@@ -24,7 +24,7 @@ describe('ComponentService', () => {
 
 			const localizationPath = spectator.service.getLocalizationPath(end);
 
-			void expect(localizationPath).toEqual(`${localizationBasePath}.${end}`);
+			expect(localizationPath).toEqual(`${localizationBasePath}.${end}`);
 		});
 	});
 });

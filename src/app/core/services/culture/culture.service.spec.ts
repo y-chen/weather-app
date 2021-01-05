@@ -24,7 +24,7 @@ describe('CultureService', () => {
 	});
 
 	it('should be defined', () => {
-		void expect(spectator.service).toBeDefined();
+		expect(spectator.service).toBeDefined();
 	});
 
 	describe('getAvailableCultures', () => {
@@ -32,9 +32,9 @@ describe('CultureService', () => {
 			const cultures = spectator.service.getAvailableCultures();
 
 			for (const culture of cultures) {
-				void expect('label' in culture).toBeTruthy();
-				void expect('language' in culture).toBeTruthy();
-				void expect('code' in culture).toBeTruthy();
+				expect('label' in culture).toBeTruthy();
+				expect('language' in culture).toBeTruthy();
+				expect('code' in culture).toBeTruthy();
 			}
 		});
 	});
@@ -43,9 +43,9 @@ describe('CultureService', () => {
 		it('should return an object of type Culture', () => {
 			const culture = spectator.service.getCulture();
 
-			void expect('label' in culture).toBeTruthy();
-			void expect('language' in culture).toBeTruthy();
-			void expect('code' in culture).toBeTruthy();
+			expect('label' in culture).toBeTruthy();
+			expect('language' in culture).toBeTruthy();
+			expect('code' in culture).toBeTruthy();
 		});
 	});
 
@@ -56,7 +56,7 @@ describe('CultureService', () => {
 			spectator.service.setCulture(en);
 			const currentCulture = spectator.service.getCulture();
 
-			void expect(currentCulture).toEqual(en);
+			expect(currentCulture).toEqual(en);
 		});
 
 		it('should call TranslateService.use with expected language when called with different culture from current one', () => {
@@ -76,7 +76,7 @@ describe('CultureService', () => {
 			spectator.service.setCulture(it);
 
 			expect(translateMock.use).toHaveBeenCalledWith(it.language);
-			void expect(translateMock.use).toHaveBeenCalledTimes(1);
+			expect(translateMock.use).toHaveBeenCalledTimes(1);
 		});
 	});
 
@@ -87,7 +87,7 @@ describe('CultureService', () => {
 
 			const date = spectator.service.convertUnixTimeToLocaleDate(unixTime, offset);
 
-			void expect(date).toEqual('01/01/2020 - 2:00 GMT+1');
+			expect(date).toEqual('01/01/2020 - 2:00 GMT+1');
 		});
 	});
 });
