@@ -14,7 +14,6 @@ export class WeatherCardComponent implements IComponent, OnInit {
 	@Input() viewData: ViewWeather;
 	@Input() title?: string;
 	@Input() subtitle?: string;
-	@Input() iconSize?: IconSize;
 
 	constructor(private readonly componentService: ComponentService) {
 		this.componentService.init({ localizationBasePath: 'shared.basicWeather' });
