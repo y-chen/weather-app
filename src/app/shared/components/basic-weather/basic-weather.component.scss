@@ -32,7 +32,7 @@
 				}
 			}
 
-			> .weather-description {
+			> .description {
 				text-align: center;
 				font-size: 1em;
 				@include media('>0', '<=phone') {

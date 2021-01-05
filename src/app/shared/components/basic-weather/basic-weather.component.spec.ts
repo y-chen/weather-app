@@ -1,4 +1,5 @@
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
 import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
 
 describe('BasicWeatherComponent', () => {
@@ -8,20 +9,37 @@ describe('BasicWeatherComponent', () => {
 		component: BasicWeatherComponent,
 	});
 
+	const viewData: ViewWeather = {
+		id: 0,
+		title: 'title',
+		temperature: 'temperature',
+		description: 'description',
+		icon: 'icon',
+		time: 'time',
+	};
+
 	it('should create', () => {
 		host = createHost('<wa-basic-weather [viewData]="viewData"></wa-basic-weather>', {
-			hostProps: {
-				viewData: {
-					temperature: 'temperature',
-					description: 'description',
-					icon: 'icon',
-				},
-			},
+			hostProps: { viewData },
 		});
 
 		const basicWeather = host.queryHost('wa-basic-weather');
 
 		expect(host).toExist();
 		expect(basicWeather).toExist();
+	});
+
+	it('should display ViewWeather as expected', () => {
+		host = createHost('<wa-basic-weather [viewData]="viewData"></wa-basic-weather>', {
+			hostProps: { viewData },
+		});
+
+		const temperature: HTMLSpanElement = host.query('.temperature');
+		const description: HTMLSpanElement = host.query('.description');
+		const image: HTMLImageElement = host.query('img');
+
+		expect(temperature).toHaveText(viewData.temperature);
+		expect(description).toHaveText(viewData.description);
+		expect(image.src).toEqual(`http://localhost/${viewData.icon}`);
 	});
 });
