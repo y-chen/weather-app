@@ -1,9 +1,12 @@
+/* eslint-disable sonarjs/no-duplicate-string */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { anyObject, mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { GeoServiceMocks, getGeoServiceMocks } from '@wa/app/core/services/geo/geo.service.spec.mocks';
+import { Param } from '@wa/app/models/http.model';
 
 describe('GeoService', () => {
 	let spectator: SpectatorService<GeoService>;
@@ -19,13 +22,15 @@ describe('GeoService', () => {
 	beforeEach(() => {
 		apiMock = mock<ApiService>();
 
-		mockReset(apiMock);
-
 		spectator = createService({
 			providers: [{ provide: ApiService, useValue: apiMock }],
 		});
 
 		mocks = getGeoServiceMocks();
+	});
+
+	afterEach(() => {
+		mockReset(apiMock);
 	});
 
 	it('should be defined', () => {
@@ -41,9 +46,9 @@ describe('GeoService', () => {
 
 			await spectator.service.locationLookup(mocks.searchParams);
 
-			expect(apiMock.get).toHaveBeenNthCalledWith(1, mocks.lookupUrl, anyObject());
-			expect(apiMock.get).not.toHaveBeenCalledWith(mocks.revGeocodeUrl, anyObject());
-			expect(apiMock.get).not.toHaveBeenCalledWith(mocks.geocodeUrl, anyObject());
+			expect(apiMock.get).toHaveBeenNthCalledWith(1, expect.toEndWith('/lookup'), anyObject());
+			expect(apiMock.get).not.toHaveBeenCalledWith(expect.toEndWith('/revgeocode'), anyObject());
+			expect(apiMock.get).not.toHaveBeenCalledWith(expect.toEndWith('/geocode'), anyObject());
 			expect(apiMock.get).toHaveBeenCalledTimes(1);
 		});
 
@@ -55,9 +60,9 @@ describe('GeoService', () => {
 
 			await spectator.service.locationLookup(mocks.searchParams);
 
-			expect(apiMock.get).toHaveBeenNthCalledWith(1, mocks.revGeocodeUrl, anyObject());
-			expect(apiMock.get).not.toHaveBeenCalledWith(mocks.lookupUrl, anyObject());
-			expect(apiMock.get).not.toHaveBeenCalledWith(mocks.geocodeUrl, anyObject());
+			expect(apiMock.get).toHaveBeenNthCalledWith(1, expect.toEndWith('/revgeocode'), anyObject());
+			expect(apiMock.get).not.toHaveBeenCalledWith(expect.toEndWith('/lookup'), anyObject());
+			expect(apiMock.get).not.toHaveBeenCalledWith(expect.toEndWith('/geocode'), anyObject());
 			expect(apiMock.get).toHaveBeenCalledTimes(1);
 		});
 
@@ -69,59 +74,74 @@ describe('GeoService', () => {
 
 			await spectator.service.locationLookup(mocks.searchParams);
 
-			expect(apiMock.get).toHaveBeenNthCalledWith(1, mocks.geocodeUrl, anyObject());
-			expect(apiMock.get).not.toHaveBeenCalledWith(mocks.lookupUrl, anyObject());
-			expect(apiMock.get).not.toHaveBeenCalledWith(mocks.revGeocodeUrl, anyObject());
+			expect(apiMock.get).toHaveBeenNthCalledWith(1, expect.toEndWith('/geocode'), anyObject());
+			expect(apiMock.get).not.toHaveBeenCalledWith(expect.toEndWith('/lookup'), anyObject());
+			expect(apiMock.get).not.toHaveBeenCalledWith(expect.toEndWith('/revGeocode'), anyObject());
 			expect(apiMock.get).toHaveBeenCalledTimes(1);
 		});
 	});
 
 	describe('findCities', () => {
 		it('should format query and call ApiService.get with expected arguments', async () => {
+			const { location, searchParams } = mocks;
+			const partialParams: Param[] = [
+				{ key: 'q', value: searchParams.query.replace(' ', '+') },
+				{ key: 'limit', value: 20 },
+			];
+
 			apiMock.get.mockResolvedValue([location]);
 
-			mocks.options.params.unshift({ key: 'q', value: mocks.searchParams.query.replace(' ', '+') }, { key: 'limit', value: 20 });
+			await spectator.service.findCities(searchParams.query);
 
-			await spectator.service.findCities(mocks.searchParams.query);
-
-			expect(apiMock.get).toHaveBeenCalledWith(mocks.autocompleteUrl, mocks.options);
+			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/autocomplete'), {
+				params: expect.arrayContaining(partialParams),
+			});
 		});
 	});
 
 	describe('findLocationById', () => {
 		it('should format id and call ApiService.get with expected arguments', async () => {
-			apiMock.get.mockResolvedValue(location);
+			const { location, searchParams } = mocks;
+			const partialParams = [{ key: 'id', value: searchParams.id }];
 
-			mocks.options.params.unshift({ key: 'id', value: mocks.searchParams.id });
+			apiMock.get.mockResolvedValue(location);
 
 			await spectator.service.findLocationById(mocks.searchParams.id);
 
-			expect(apiMock.get).toHaveBeenCalledWith(mocks.lookupUrl, mocks.options);
+			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/lookup'), {
+				params: expect.arrayContaining(partialParams),
+			});
 		});
 	});
 
 	describe('findLocationByCoords', () => {
 		it('should format coords and call ApiService.get with expected arguments', async () => {
-			apiMock.get.mockResolvedValue(location);
+			const { location, searchParams } = mocks;
+			const { lat, lon } = searchParams.coord;
+			const partialParams = [{ key: 'at', value: `${lat},${lon}` }];
 
-			const { lat, lon } = mocks.searchParams.coord;
-			mocks.options.params.unshift({ key: 'at', value: `${lat},${lon}` });
+			apiMock.get.mockResolvedValue(location);
 
 			await spectator.service.findLocationByCoords(mocks.searchParams.coord);
 
-			expect(apiMock.get).toHaveBeenCalledWith(mocks.revGeocodeUrl, mocks.options);
+			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/revgeocode'), {
+				params: expect.arrayContaining(partialParams),
+			});
 		});
 	});
 
 	describe('findLocationByQuery', () => {
 		it('should format query and call ApiService.get with expected arguments', async () => {
-			apiMock.get.mockResolvedValue(mocks.location);
+			const { location, searchParams } = mocks;
+			const partialParams = [{ key: 'q', value: searchParams.query.replace(' ', '+') }];
 
-			mocks.options.params.unshift({ key: 'q', value: mocks.searchParams.query.replace(' ', '+') });
+			apiMock.get.mockResolvedValue(location);
 
 			await spectator.service.findLocationByQuery(mocks.searchParams.query);
 
-			expect(apiMock.get).toHaveBeenCalledWith(mocks.geocodeUrl, mocks.options);
+			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/geocode'), {
+				params: expect.arrayContaining(partialParams),
+			});
 		});
 	});
 });

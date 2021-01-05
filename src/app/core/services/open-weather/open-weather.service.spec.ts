@@ -54,7 +54,7 @@ describe('OpenWeatherService', () => {
 
 			await spectator.service.getWeatherGroup(searchParams);
 
-			expect(apiServiceMock.get).toHaveBeenCalledWith(expect.stringContaining('group'), {
+			expect(apiServiceMock.get).toHaveBeenCalledWith(expect.toEndWith('group'), {
 				params: expect.arrayContaining(partialParams),
 			});
 		});
@@ -91,7 +91,7 @@ describe('OpenWeatherService', () => {
 
 			await spectator.service.getForecastById(searchParams);
 
-			expect(apiServiceMock.get).toHaveBeenCalledWith(expect.stringContaining('forecast'), {
+			expect(apiServiceMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
 				params: expect.arrayContaining(partialParams),
 			});
 		});
@@ -121,7 +121,7 @@ describe('OpenWeatherService', () => {
 
 			await spectator.service.getForecastByCoord(searchParams);
 
-			expect(apiServiceMock.get).toHaveBeenCalledWith(expect.stringContaining('forecast'), {
+			expect(apiServiceMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
 				params: expect.arrayContaining(partialParams),
 			});
 		});
