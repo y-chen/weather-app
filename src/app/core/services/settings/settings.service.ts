@@ -2,21 +2,43 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { Injectable } from '@angular/core';
+import { availableCultures } from '@wa/app/core/services/culture/culture.service';
 import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
+import { Culture } from '@wa/app/models/culture.model';
 import { Units } from '@wa/app/models/open-weather.model';
 
 @Injectable()
 export class SettingsService {
-	constructor(private readonly localStorageService: LocalStorageService) {}
+	private readonly defaultCulture: Culture;
+	private readonly defaultUnit: Units;
+
+	constructor(private readonly localStorageService: LocalStorageService) {
+		this.defaultCulture = availableCultures[0];
+		this.defaultUnit = Units.Metric;
+	}
+
+	getCulture(): Culture {
+		const storedCulture: string = this.localStorageService.get(StorageKeys.Culture);
+
+		try {
+			return JSON.parse(storedCulture) as Culture;
+		} catch (e) {
+			return this.defaultCulture;
+		}
+	}
+
+	setCulture(culture: Culture): void {
+		this.localStorageService.set(StorageKeys.Culture, JSON.stringify(culture));
+	}
 
 	getUnit(): Units {
 		const storedUnit: string = this.localStorageService.get(StorageKeys.Units);
-		let unit: Units = storedUnit ? Units[storedUnit] : Units.Metric;
+		const unit: Units = Units[storedUnit];
 
-		if (!unit) {
-			unit = Units.Metric;
-		}
+		return unit ? unit : this.defaultUnit;
+	}
 
-		return unit;
+	setUnit(unit: Units): void {
+		this.localStorageService.set(StorageKeys.Units, JSON.stringify(unit));
 	}
 }

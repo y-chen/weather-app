@@ -7,6 +7,7 @@ import { LoggerService } from '@wa/app/core/services/logger/logger.service';
 describe('ApiService', () => {
 	let spectator: SpectatorService<ApiService>;
 	let loggerServiceMock: MockProxy<LoggerService>;
+
 	const createService = createServiceFactory({
 		service: ApiService,
 		mocks: [LoggerService],
@@ -15,9 +16,13 @@ describe('ApiService', () => {
 	beforeEach(() => {
 		loggerServiceMock = mock<LoggerService>();
 
-		mockReset(loggerServiceMock);
+		spectator = createService({
+			providers: [{ provide: LoggerService, useValue: loggerServiceMock }],
+		});
+	});
 
-		spectator = createService();
+	afterEach(() => {
+		mockReset(loggerServiceMock);
 	});
 
 	it('should be created', () => {

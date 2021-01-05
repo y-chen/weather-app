@@ -3,16 +3,16 @@
 
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Header, HttpOption, HttpOptions, Param } from '@wa/app/models/http.model';
 
 @Injectable()
 export class ApiService {
 	constructor(
 		private readonly http: HttpClient,
-		private readonly cultureService: CultureService,
 		private readonly loggerService: LoggerService,
+		private readonly settingsService: SettingsService,
 	) {}
 
 	async get<T>(url: string, options?: HttpOptions): Promise<T> {
@@ -91,7 +91,7 @@ export class ApiService {
 
 		customHeaders.forEach((header: Header) => (headers = this.handleOption(headers, header) as HttpHeaders));
 
-		headers = headers.set('Accept-Language', this.cultureService.getCulture().code);
+		headers = headers.set('Accept-Language', this.settingsService.getCulture().code);
 
 		return headers;
 	}

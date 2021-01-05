@@ -4,7 +4,7 @@ import * as lodash from 'lodash';
 
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { SearchParams, SearchResult } from '@wa/app/models/here-api.model';
 import { Param } from '@wa/app/models/http.model';
 import { Coord } from '@wa/app/models/open-weather.model';
@@ -16,7 +16,7 @@ export class GeoService {
 	private readonly GEOCODE_URL: string;
 	private readonly REV_GEOCODE_URL: string;
 
-	constructor(private readonly api: ApiService, private readonly cultureService: CultureService) {
+	constructor(private readonly api: ApiService, private readonly settingsService: SettingsService) {
 		const { geocode, revGeocode } = environment.hereAPI.urls;
 		this.GEOCODE_URL = geocode;
 		this.REV_GEOCODE_URL = revGeocode;
@@ -83,7 +83,7 @@ export class GeoService {
 		return params.concat([
 			{ key: 'apiKey', value: this.API_KEY },
 			{ key: 'types', value: 'city' },
-			{ key: 'lang', value: this.cultureService.getCulture().language },
+			{ key: 'lang', value: this.settingsService.getCulture().language },
 		]);
 	}
 }

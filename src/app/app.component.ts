@@ -10,7 +10,6 @@ export class AppComponent {
 	title = 'weather-app';
 
 	constructor(private readonly cultureService: CultureService) {
-		const availableCultures = this.cultureService.getAvailableCultures();
-		this.cultureService.setCulture(availableCultures[0]);
+		this.cultureService.init();
 	}
 }

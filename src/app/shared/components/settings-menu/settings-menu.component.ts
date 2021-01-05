@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
-import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { Culture } from '@wa/app/models/culture.model';
 import { Units } from '@wa/app/models/open-weather.model';
@@ -24,24 +24,19 @@ export class SettingsMenuComponent implements IComponent, OnInit {
 	currentUnit: Units;
 
 	constructor(
-		private readonly cultureService: CultureService,
-		private readonly localStorageService: LocalStorageService,
 		private readonly componentService: ComponentService,
+		private readonly cultureService: CultureService,
 		private readonly eventService: EventService,
+		private readonly settingsService: SettingsService,
 	) {
 		this.componentService.init({ localizationBasePath: 'shared.settingsMenu' });
 	}
 
 	ngOnInit(): void {
 		this.cultures = this.cultureService.getAvailableCultures();
-		this.currentLang = this.cultureService.getCulture().language;
+		this.currentLang = this.settingsService.getCulture().language;
 
-		const storedUnit: string = this.localStorageService.get(StorageKeys.Units);
-		this.currentUnit = storedUnit ? Units[storedUnit] : Units.Metric;
-
-		if (!this.currentUnit) {
-			this.currentUnit = Units.Metric;
-		}
+		this.currentUnit = this.settingsService.getUnit();
 	}
 
 	setCulture(event: MouseEvent, culture: Culture): void {
@@ -59,7 +54,7 @@ export class SettingsMenuComponent implements IComponent, OnInit {
 		event.stopPropagation();
 
 		if (unit !== this.currentUnit) {
-			this.localStorageService.set(StorageKeys.Units, unit);
+			this.settingsService.setUnit(unit);
 			this.currentUnit = unit;
 		}
 

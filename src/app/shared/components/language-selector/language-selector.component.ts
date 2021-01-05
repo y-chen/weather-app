@@ -3,6 +3,7 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Culture } from '@wa/app/models/culture.model';
 
 @Component({
@@ -16,11 +17,11 @@ export class LanguageSelectorComponent implements OnInit {
 	cultures: Culture[];
 	currentLang: string;
 
-	constructor(private readonly cultureService: CultureService) {}
+	constructor(private readonly cultureService: CultureService, private readonly settingsService: SettingsService) {}
 
 	ngOnInit(): void {
-		this.currentLang = this.cultureService.getCulture().language;
 		this.cultures = this.cultureService.getAvailableCultures();
+		this.currentLang = this.settingsService.getCulture().language;
 	}
 
 	setCulture(culture: Culture): void {

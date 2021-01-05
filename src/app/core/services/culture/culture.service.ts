@@ -3,26 +3,29 @@ import { Subscription } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Culture } from '@wa/app/models/culture.model';
 
 @Injectable()
 export class CultureService {
-	private currentCulture: Culture = availableCultures[0];
+	constructor(private readonly settingsService: SettingsService, private readonly translate: TranslateService) {}
 
-	constructor(private readonly translate: TranslateService) {}
+	init(): void {
+		const defaultCulture: Culture = this.getAvailableCultures()[0];
+		this.translate.setDefaultLang(defaultCulture.language);
+		this.settingsService.setCulture(defaultCulture);
+	}
 
 	getAvailableCultures(): Culture[] {
 		return Object.assign([], availableCultures);
 	}
 
-	getCulture(): Culture {
-		return Object.assign({}, this.currentCulture);
-	}
-
 	setCulture(culture: Culture): void {
-		if (this.currentCulture.language !== culture.language) {
+		const storedCulture: Culture = this.settingsService.getCulture();
+
+		if (storedCulture !== culture) {
 			this.translate.use(culture.language);
-			this.currentCulture = culture;
+			this.settingsService.setCulture(culture);
 		}
 	}
 

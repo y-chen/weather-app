@@ -4,14 +4,12 @@
 
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Param } from '@wa/app/models/http.model';
 import { ViewForecast, ViewWeather } from '@wa/app/models/open-weather-parser.model';
 import { Forecast, OpenWeatherSearchParams, Units, Weather, WeatherGroup } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
-
-import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class OpenWeatherService {
@@ -20,7 +18,6 @@ export class OpenWeatherService {
 
 	constructor(
 		private readonly api: ApiService,
-		private readonly cultureService: CultureService,
 		private readonly openWeatherParserService: OpenWeatherParserService,
 		private readonly settingsService: SettingsService,
 	) {
@@ -68,7 +65,7 @@ export class OpenWeatherService {
 		const unit: Units = this.settingsService.getUnit();
 
 		return params.concat([
-			{ key: 'lang', value: this.cultureService.getCulture().language },
+			{ key: 'lang', value: this.settingsService.getCulture().language },
 			{ key: 'appid', value: this.API_KEY },
 			{ key: 'units', value: unit.toLocaleLowerCase() },
 		]);
