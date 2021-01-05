@@ -11,7 +11,7 @@ import { NavItem } from '@wa/app/models/navigation.model';
 })
 export class NavItemComponent implements IComponent {
 	@Input() item: NavItem;
-	@Input() open: boolean;
+	@Input() open?: boolean = true;
 
 	constructor(private readonly componentService: ComponentService) {
 		this.componentService.init({ localizationBasePath: 'shared.shell.sidebar' });
