@@ -9,22 +9,27 @@ import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
 import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
 import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
 
+import { FavouriteComponent } from '../favourite/favourite.component';
+
 describe('WeatherCardComponent', () => {
 	let host: SpectatorHost<WeatherCardComponent>;
 	let componentServiceMock: MockProxy<ComponentService>;
 
 	const createHost = createHostFactory(WeatherCardComponent);
-	const viewData: ViewWeather = {
-		id: 0,
-		title: 'title',
-		temperature: 'temperature',
-		description: 'description',
-		icon: 'icon',
-		time: 'time',
-	};
+
+	let viewData: ViewWeather;
 
 	beforeEach(() => {
 		componentServiceMock = mock<ComponentService>();
+
+		viewData = {
+			id: 1,
+			title: 'title',
+			temperature: 'temperature',
+			description: 'description',
+			icon: 'icon',
+			time: 'time',
+		};
 	});
 
 	afterEach(() => {
@@ -75,6 +80,16 @@ describe('WeatherCardComponent', () => {
 			expect(subtitle).toHaveText(subtitleOverride);
 			expect(subtitle).not.toHaveText(viewData.time);
 		});
+
+		it('should have a wa-favourite component with input id from ViewWeather', () => {
+			host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
+				hostProps: { viewData },
+			});
+
+			const favouriteComponent = ngMocks.findInstance(FavouriteComponent);
+
+			expect(favouriteComponent.cityId).toBe(viewData.id);
+		});
 	});
 
 	describe('content', () => {
@@ -83,9 +98,31 @@ describe('WeatherCardComponent', () => {
 				hostProps: { viewData },
 			});
 
-			const basicWeatherComponentMock = ngMocks.findInstance(BasicWeatherComponent);
+			const basicWeatherComponent = ngMocks.findInstance(BasicWeatherComponent);
 
-			expect(basicWeatherComponentMock.viewData).toBe(viewData);
+			expect(basicWeatherComponent.viewData).toBe(viewData);
+		});
+
+		describe('actions', () => {
+			it('should have a link to details when ViewWeather.id is defined', () => {
+				host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
+					hostProps: { viewData },
+				});
+
+				const link: HTMLAnchorElement = host.query('.view-forecast-link');
+
+				expect(link.href).toEndWith(viewData.id.toString());
+			});
+
+			it('should not have a mat-card-action element when ViewWeather.id is not defined', () => {
+				host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
+					hostProps: { viewData },
+				});
+
+				const matCardAction: Element = host.query('mat-card-action');
+
+				expect(matCardAction).toBeNull();
+			});
 		});
 	});
 });
