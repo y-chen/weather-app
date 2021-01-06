@@ -21,11 +21,11 @@ export class ForecastComponent implements IComponent, OnInit {
 
 	constructor(
 		private readonly componentService: ComponentService,
+		private readonly cultureService: CultureService,
+		private readonly openWeatherService: OpenWeatherService,
+		private readonly eventService: EventService,
 		private readonly route: ActivatedRoute,
 		private readonly router: Router,
-		private readonly openWeatherService: OpenWeatherService,
-		private readonly cultureService: CultureService,
-		private readonly eventService: EventService,
 	) {
 		this.componentService.init({ localizationBasePath: 'features.main.forecast', route: this.route, router: this.router });
 	}
