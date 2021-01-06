@@ -60,8 +60,6 @@ export class SearchComponent implements IComponent, OnInit {
 		this.isLocating = true;
 
 		const coord: GeolocationCoordinates = await this.locationService.getLocation();
-		console.log(coord);
-
 		const { latitude, longitude } = coord;
 		const location: SearchResult = await this.geoService.findLocationByCoords({
 			lat: latitude,
@@ -69,13 +67,12 @@ export class SearchComponent implements IComponent, OnInit {
 		});
 
 		this.isLocating = false;
-		console.log('coord');
+
 		await this.navigateToForecast(location, latitude, longitude);
 	}
 
 	async onAutocompleteOptionClick(selection: SearchResult): Promise<void> {
 		const location: SearchResult = await this.geoService.findLocationById(selection.id);
-		console.log(location);
 		const { lat, lng } = location.position;
 
 		await this.navigateToForecast(location, lat, lng);
