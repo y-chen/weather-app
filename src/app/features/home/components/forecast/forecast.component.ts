@@ -17,7 +17,7 @@ import { OpenCoord } from '@wa/app/models/open-weather.model';
 	providers: [ComponentService],
 })
 export class ForecastComponent implements IComponent, OnInit {
-	viewForecast: Forecast;
+	forecast: Forecast;
 
 	constructor(
 		private readonly componentService: ComponentService,
@@ -31,7 +31,7 @@ export class ForecastComponent implements IComponent, OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		this.viewForecast = (await this.componentService.getResolverData('forecast')) as Forecast;
+		this.forecast = (await this.componentService.getResolverData('forecast')) as Forecast;
 
 		const queryParamsSub: Subscription = this.route.queryParams.subscribe((queryParams: OpenCoord) =>
 			this.updateForecast(queryParams),
@@ -49,17 +49,17 @@ export class ForecastComponent implements IComponent, OnInit {
 	}
 
 	private updateForecast(coord?: OpenCoord): void {
-		coord = coord ? coord : this.viewForecast.coord;
+		coord = coord ? coord : this.forecast.coord;
 
 		if (coord.lat && coord.lon) {
-			void (async () => (this.viewForecast = await this.openWeatherService.getForecastByCoord({ coord })))();
+			void (async () => (this.forecast = await this.openWeatherService.getForecastByCoord({ coord })))();
 		}
 	}
 
 	private refreshTranslations(): void {
 		const refreshViewData: () => Promise<void> = async (): Promise<void> => {
-			this.viewForecast = await this.openWeatherService.getForecastByCoord({
-				coord: this.viewForecast.coord,
+			this.forecast = await this.openWeatherService.getForecastByCoord({
+				coord: this.forecast.coord,
 			});
 		};
 

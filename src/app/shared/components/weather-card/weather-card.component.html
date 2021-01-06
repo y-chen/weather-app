@@ -1,18 +1,18 @@
-<mat-card *ngIf="viewData">
+<mat-card *ngIf="weather">
 	<mat-card-header>
 		<mat-card-title *ngIf="title">{{ title }}</mat-card-title>
 
 		<mat-card-subtitle *ngIf="subtitle">{{ subtitle }}</mat-card-subtitle>
 
-		<wa-favourite [cityId]="viewData.id" color="accent"></wa-favourite>
+		<wa-favourite [cityId]="weather.id" color="accent"></wa-favourite>
 	</mat-card-header>
 
 	<mat-card-content>
-		<wa-basic-weather [viewData]="viewData"></wa-basic-weather>
+		<wa-basic-weather [weather]="weather"></wa-basic-weather>
 	</mat-card-content>
 
-	<mat-card-actions *ngIf="viewData.id">
-		<a class="view-forecast-link" [routerLink]="['/app', 'forecast', viewData.id]" translate>
+	<mat-card-actions *ngIf="weather.id">
+		<a class="view-forecast-link" [routerLink]="['/app', 'forecast', weather.id]" translate>
 			{{ getLocalizationPath('viewForecast') }}
 		</a>
 	</mat-card-actions>

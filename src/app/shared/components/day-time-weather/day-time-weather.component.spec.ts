@@ -67,7 +67,7 @@ describe('DayTimeWeatherComponent', () => {
 		const basicWeathers: BasicWeatherComponent[] = ngMocks.findInstances(BasicWeatherComponent);
 
 		basicWeathers.forEach((basicWeather: BasicWeatherComponent, index: number) =>
-			expect(basicWeather.viewData).toBe(dayTimeWeather[index]),
+			expect(basicWeather.weather).toBe(dayTimeWeather[index]),
 		);
 	});
 

@@ -7,5 +7,5 @@ import { Weather } from '@wa/app/models/open-weather-parser.model';
 	styleUrls: ['./basic-weather.component.scss'],
 })
 export class BasicWeatherComponent {
-	@Input() viewData: Weather;
+	@Input() weather: Weather;
 }

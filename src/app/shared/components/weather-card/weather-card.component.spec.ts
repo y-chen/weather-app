@@ -17,12 +17,12 @@ describe('WeatherCardComponent', () => {
 
 	const createHost = createHostFactory(WeatherCardComponent);
 
-	let viewData: Weather;
+	let weather: Weather;
 
 	beforeEach(() => {
 		componentServiceMock = mock<ComponentService>();
 
-		viewData = {
+		weather = {
 			id: 1,
 			title: 'title',
 			temperature: 'temperature',
@@ -37,8 +37,8 @@ describe('WeatherCardComponent', () => {
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
-			hostProps: { viewData },
+		host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
+			hostProps: { weather },
 		});
 
 		const weatherCard = host.queryHost('wa-weather-card');
@@ -48,8 +48,8 @@ describe('WeatherCardComponent', () => {
 	});
 
 	it('should init ComponentService', () => {
-		host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
-			hostProps: { viewData },
+		host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
+			hostProps: { weather },
 			providers: [{ provide: ComponentService, useValue: componentServiceMock }],
 		});
 
@@ -63,12 +63,12 @@ describe('WeatherCardComponent', () => {
 
 			host = createHost(
 				`<wa-weather-card
-          [viewData]="viewData"
+          [weather]="weather"
           [title]="titleOverride"
           [subtitle]="subtitleOverride">
         </wa-weather-card>`,
 				{
-					hostProps: { viewData, titleOverride, subtitleOverride },
+					hostProps: { weather, titleOverride, subtitleOverride },
 				},
 			);
 
@@ -76,47 +76,47 @@ describe('WeatherCardComponent', () => {
 			const subtitle = host.query('mat-card-subtitle');
 
 			expect(title).toHaveText(titleOverride);
-			expect(title).not.toHaveText(viewData.title);
+			expect(title).not.toHaveText(weather.title);
 			expect(subtitle).toHaveText(subtitleOverride);
-			expect(subtitle).not.toHaveText(viewData.time);
+			expect(subtitle).not.toHaveText(weather.time);
 		});
 
 		it('should have a wa-favourite component with input id from Weather', () => {
-			host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
-				hostProps: { viewData },
+			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
+				hostProps: { weather },
 			});
 
 			const favouriteComponent = ngMocks.findInstance(FavouriteComponent);
 
-			expect(favouriteComponent.cityId).toBe(viewData.id);
+			expect(favouriteComponent.cityId).toBe(weather.id);
 		});
 	});
 
 	describe('content', () => {
 		it('should have a wa-basic-weather component with input Weather data', () => {
-			host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
-				hostProps: { viewData },
+			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
+				hostProps: { weather },
 			});
 
 			const basicWeatherComponent = ngMocks.findInstance(BasicWeatherComponent);
 
-			expect(basicWeatherComponent.viewData).toBe(viewData);
+			expect(basicWeatherComponent.weather).toBe(weather);
 		});
 
 		describe('actions', () => {
 			it('should have a link to details when Weather.id is defined', () => {
-				host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
-					hostProps: { viewData },
+				host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
+					hostProps: { weather },
 				});
 
 				const link: HTMLAnchorElement = host.query('.view-forecast-link');
 
-				expect(link.href).toEndWith(viewData.id.toString());
+				expect(link.href).toEndWith(weather.id.toString());
 			});
 
 			it('should not have a mat-card-action element when Weather.id is not defined', () => {
-				host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
-					hostProps: { viewData },
+				host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
+					hostProps: { weather },
 				});
 
 				const matCardAction: Element = host.query('mat-card-action');

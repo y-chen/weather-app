@@ -52,19 +52,19 @@ describe('HomeComponent', () => {
 			providers: [{ provide: ComponentService, useValue: componentServiceMock }],
 		});
 
-		expect(componentServiceMock.getResolverData).toHaveBeenCalledWith('favouriteCitiesWeather');
+		expect(componentServiceMock.getResolverData).toHaveBeenCalledWith('favouritesWeather');
 	});
 
 	it('should have many wa-weather-card components with expected Weather input as returned from resolver', () => {
 		const viewWeathers: Weather[] = mocks.viewWeathers;
 
-		componentServiceMock.getResolverData.calledWith('favouriteCitiesWeather').mockResolvedValue(viewWeathers as never);
+		componentServiceMock.getResolverData.calledWith('favouritesWeather').mockResolvedValue(viewWeathers as never);
 
 		host = createHost('<wa-home></wa-home>');
 
 		const weatherCards: WeatherCardComponent[] = ngMocks.findInstances(WeatherCardComponent);
 
-		weatherCards.forEach((weatherCard: WeatherCardComponent, index: number) => expect(weatherCard.viewData).toBe(viewWeathers[index]));
+		weatherCards.forEach((weatherCard: WeatherCardComponent, index: number) => expect(weatherCard.weather).toBe(viewWeathers[index]));
 	});
 
 	it('should display wa-missing-data component when ComponentService.getResolverData return not defined result', () => {

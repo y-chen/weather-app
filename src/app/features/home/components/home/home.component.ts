@@ -16,7 +16,7 @@ import { Weather } from '@wa/app/models/open-weather-parser.model';
 	providers: [ComponentService],
 })
 export class HomeComponent implements IComponent, OnInit {
-	favouriteCitiesViewData: Weather[];
+	favouritesWeather: Weather[];
 
 	constructor(
 		private readonly componentService: ComponentService,
@@ -29,13 +29,13 @@ export class HomeComponent implements IComponent, OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		this.favouriteCitiesViewData = (await this.componentService.getResolverData('favouriteCitiesWeather')) as Weather[];
+		this.favouritesWeather = (await this.componentService.getResolverData('favouritesWeather')) as Weather[];
 
 		const refreshViewData = async () => {
-			const group: number[] = this.favouriteCitiesViewData.map((viewData: Weather) => viewData.id);
+			const group: number[] = this.favouritesWeather.map((weather: Weather) => weather.id);
 
 			if (group.length > 0) {
-				this.favouriteCitiesViewData = await this.openWeatherService.getWeatherGroup({ group });
+				this.favouritesWeather = await this.openWeatherService.getWeatherGroup({ group });
 			}
 		};
 

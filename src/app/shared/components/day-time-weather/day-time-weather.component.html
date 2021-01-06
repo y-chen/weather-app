@@ -9,7 +9,7 @@
 		<ng-container *ngIf="dayTimeWeather; else unavailableTemplete">
 			<ng-container *ngFor="let weather of dayTimeWeather">
 				<span>{{ weather.time | time }}</span>
-				<wa-basic-weather [viewData]="weather"></wa-basic-weather>
+				<wa-basic-weather [weather]="weather"></wa-basic-weather>
 			</ng-container>
 		</ng-container>
 	</mat-card-content>

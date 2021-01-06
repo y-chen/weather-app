@@ -1,9 +1,9 @@
 <div class="basic-weather">
 	<div class="forecast-info">
-		<span class="temperature">{{ viewData.temperature }}</span>
+		<span class="temperature">{{ weather.temperature }}</span>
 
-		<span class="description">{{ viewData.description }}</span>
+		<span class="description">{{ weather.description }}</span>
 	</div>
 
-	<img [src]="viewData.icon" [alt]="viewData.description" />
+	<img [src]="weather.icon" [alt]="weather.description" />
 </div>

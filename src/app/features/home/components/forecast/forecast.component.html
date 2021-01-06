@@ -1,11 +1,11 @@
-<div *ngIf="viewForecast; else missingDataTemplate" class="forecast-container">
+<div *ngIf="forecast; else missingDataTemplate" class="forecast-container">
 	<mat-toolbar-row>
-		<span>{{ viewForecast.name }}</span>
+		<span>{{ forecast.name }}</span>
 
-		<wa-favourite [cityId]="viewForecast.id" color="primary"></wa-favourite>
+		<wa-favourite [cityId]="forecast.id" color="primary"></wa-favourite>
 	</mat-toolbar-row>
 
-	<mat-card *ngFor="let day of viewForecast.days">
+	<mat-card *ngFor="let day of forecast.days">
 		<mat-card-header>
 			<mat-card-title>
 				{{ day.day | localizedDate | case }}

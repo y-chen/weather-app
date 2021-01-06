@@ -9,7 +9,7 @@ describe('BasicWeatherComponent', () => {
 		component: BasicWeatherComponent,
 	});
 
-	const viewData: Weather = {
+	const weather: Weather = {
 		id: 0,
 		title: 'title',
 		temperature: 'temperature',
@@ -19,8 +19,8 @@ describe('BasicWeatherComponent', () => {
 	};
 
 	it('should create', () => {
-		host = createHost('<wa-basic-weather [viewData]="viewData"></wa-basic-weather>', {
-			hostProps: { viewData },
+		host = createHost('<wa-basic-weather [weather]="weather"></wa-basic-weather>', {
+			hostProps: { weather },
 		});
 
 		const basicWeather = host.queryHost('wa-basic-weather');
@@ -30,16 +30,16 @@ describe('BasicWeatherComponent', () => {
 	});
 
 	it('should display Weather as expected', () => {
-		host = createHost('<wa-basic-weather [viewData]="viewData"></wa-basic-weather>', {
-			hostProps: { viewData },
+		host = createHost('<wa-basic-weather [weather]="weather"></wa-basic-weather>', {
+			hostProps: { weather },
 		});
 
 		const temperature: HTMLSpanElement = host.query('.temperature');
 		const description: HTMLSpanElement = host.query('.description');
 		const image: HTMLImageElement = host.query('img');
 
-		expect(temperature).toHaveText(viewData.temperature);
-		expect(description).toHaveText(viewData.description);
-		expect(image.src).toEqual(`http://localhost/${viewData.icon}`);
+		expect(temperature).toHaveText(weather.temperature);
+		expect(description).toHaveText(weather.description);
+		expect(image.src).toEqual(`http://localhost/${weather.icon}`);
 	});
 });

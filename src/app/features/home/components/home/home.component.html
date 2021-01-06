@@ -1,5 +1,5 @@
-<div *ngIf="favouriteCitiesViewData && favouriteCitiesViewData.length > 0; else missingDataTemplate" class="weather-container">
-	<wa-weather-card *ngFor="let viewData of favouriteCitiesViewData" [viewData]="viewData"></wa-weather-card>
+<div *ngIf="favouritesWeather && favouritesWeather.length > 0; else missingDataTemplate" class="weather-container">
+	<wa-weather-card *ngFor="let weather of favouritesWeather" [weather]="weather"></wa-weather-card>
 </div>
 
 <ng-template #missingDataTemplate>

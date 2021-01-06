@@ -81,24 +81,24 @@ describe('OpenWeatherParserService', () => {
 		it('should group days and day times as expected', async () => {
 			geoServiceMock.locationLookup.mockResolvedValue(mocks.location);
 
-			const viewForecast = await spectator.service.parseForecastData(mocks.forecast);
+			const forecast = await spectator.service.parseForecastData(mocks.forecast);
 
-			expect(viewForecast.days).toHaveLength(3);
+			expect(forecast.days).toHaveLength(3);
 
-			expect(viewForecast.days[0].night).not.toBeDefined();
-			expect(viewForecast.days[0].morning).not.toBeDefined();
-			expect(viewForecast.days[0].afternoon).toBeDefined();
-			expect(viewForecast.days[0].evening).toBeDefined();
+			expect(forecast.days[0].night).not.toBeDefined();
+			expect(forecast.days[0].morning).not.toBeDefined();
+			expect(forecast.days[0].afternoon).toBeDefined();
+			expect(forecast.days[0].evening).toBeDefined();
 
-			expect(viewForecast.days[1].night).toBeDefined();
-			expect(viewForecast.days[1].morning).toBeDefined();
-			expect(viewForecast.days[1].afternoon).toBeDefined();
-			expect(viewForecast.days[1].evening).toBeDefined();
+			expect(forecast.days[1].night).toBeDefined();
+			expect(forecast.days[1].morning).toBeDefined();
+			expect(forecast.days[1].afternoon).toBeDefined();
+			expect(forecast.days[1].evening).toBeDefined();
 
-			expect(viewForecast.days[2].night).toBeDefined();
-			expect(viewForecast.days[2].morning).toBeDefined();
-			expect(viewForecast.days[2].afternoon).not.toBeDefined();
-			expect(viewForecast.days[2].evening).not.toBeDefined();
+			expect(forecast.days[2].night).toBeDefined();
+			expect(forecast.days[2].morning).toBeDefined();
+			expect(forecast.days[2].afternoon).not.toBeDefined();
+			expect(forecast.days[2].evening).not.toBeDefined();
 		});
 
 		it('should call CultureService.convertUnixTimeToLocaleDate for each RawWeather with correct timezone', async () => {

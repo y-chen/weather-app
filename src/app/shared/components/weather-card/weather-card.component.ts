@@ -10,7 +10,7 @@ import { Weather } from '@wa/app/models/open-weather-parser.model';
 	providers: [ComponentService],
 })
 export class WeatherCardComponent implements IComponent, OnInit {
-	@Input() viewData: Weather;
+	@Input() weather: Weather;
 	@Input() title?: string;
 	@Input() subtitle?: string;
 
@@ -19,8 +19,8 @@ export class WeatherCardComponent implements IComponent, OnInit {
 	}
 
 	ngOnInit(): void {
-		this.title = this.title || this.viewData.title;
-		this.subtitle = this.subtitle || this.viewData.time;
+		this.title = this.title || this.weather.title;
+		this.subtitle = this.subtitle || this.weather.time;
 	}
 
 	getLocalizationPath(end: string): string {
