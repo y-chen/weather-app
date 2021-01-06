@@ -1,11 +1,9 @@
-import { mock, MockProxy } from 'jest-mock-extended';
+import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
-import { ActivatedRouteSnapshot } from '@angular/router';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { Coord, IconSize } from '@wa/app/models/open-weather.model';
-
-import { OpenWeatherService } from '../../services/open-weather/open-weather.service';
-import { ForecastResolver } from './forecast.resolver';
+import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resolver';
+import { ForecastResolverMocks, getForecastResolverMocks } from '@wa/app/core/resolvers/forecast/forecast.resolver.spec.mocks';
+import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 
 describe('ForecastResolver', () => {
 	let spectator: SpectatorService<ForecastResolver>;
@@ -13,7 +11,7 @@ describe('ForecastResolver', () => {
 
 	const createService = createServiceFactory(ForecastResolver);
 
-	let route: ActivatedRouteSnapshot;
+	let mocks: ForecastResolverMocks;
 
 	beforeEach(() => {
 		openWeatherServiceMock = mock<OpenWeatherService>();
@@ -22,7 +20,11 @@ describe('ForecastResolver', () => {
 			providers: [{ provide: OpenWeatherService, useValue: openWeatherServiceMock }],
 		});
 
-		route = new ActivatedRouteSnapshot();
+		mocks = getForecastResolverMocks();
+	});
+
+	afterEach(() => {
+		mockReset(openWeatherServiceMock);
 	});
 
 	it('should be created', () => {
@@ -31,8 +33,7 @@ describe('ForecastResolver', () => {
 
 	describe('resolve', () => {
 		it('should call OpenWeatherService.getForecastById with expected arguments when route param is available', async () => {
-			const iconSize: IconSize = 2;
-			const id = 1;
+			const { iconSize, id, route } = mocks;
 			route.data = { iconSize };
 			route.params = { id };
 
@@ -43,8 +44,7 @@ describe('ForecastResolver', () => {
 		});
 
 		it('should call OpenWeatherService.getForecastByCoord with expected arguments when route param is available', async () => {
-			const iconSize: IconSize = 2;
-			const coord: Coord = { lat: 1, lon: 1 };
+			const { coord, iconSize, route } = mocks;
 			route.data = { iconSize };
 			route.queryParams = { ...coord };
 
