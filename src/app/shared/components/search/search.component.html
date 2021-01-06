@@ -5,7 +5,7 @@
 		placeholder="{{ getLocalizationPath('placeholder') | translate }}"
 		[formControl]="searchInput"
 		[matAutocomplete]="auto"
-		(keydown)="onSearchInputKeydown($event)"
+		(keydown.enter)="onInputEnterKeydown($event)"
 		(focus)="onSearchInputFocus($event)"
 	/>
 

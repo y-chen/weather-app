@@ -25,8 +25,8 @@ export class SearchComponent implements IComponent, OnInit {
 	isLocating = false;
 
 	constructor(
-		private readonly geoService: GeoService,
 		private readonly componentService: ComponentService,
+		private readonly geoService: GeoService,
 		private readonly locationService: LocationService,
 		private readonly router: Router,
 	) {
@@ -34,22 +34,20 @@ export class SearchComponent implements IComponent, OnInit {
 	}
 
 	ngOnInit(): void {
-		this.searchInput.valueChanges.pipe(debounceTime(300)).subscribe((term) => {
+		this.searchInput.valueChanges.pipe(debounceTime(300)).subscribe((term: string) => {
 			if (term !== '') {
 				this.cities = this.geoService.findCities(term);
 			}
 		});
 	}
 
-	async onSearchInputKeydown(event: any): Promise<void> {
-		if (event.key === 'Enter') {
-			const location: SearchResult = await this.geoService.findLocationByQuery(this.searchInput.value);
-			const { lat, lng } = location.position;
+	async onInputEnterKeydown(event: any): Promise<void> {
+		const location: SearchResult = await this.geoService.findLocationByQuery(this.searchInput.value);
+		const { lat, lng } = location.position;
 
-			event.target.blur();
+		event.target.blur();
 
-			await this.navigateToForecast(location, lat, lng);
-		}
+		await this.navigateToForecast(location, lat, lng);
 	}
 
 	onSearchInputFocus(event: any): void {
@@ -62,6 +60,8 @@ export class SearchComponent implements IComponent, OnInit {
 		this.isLocating = true;
 
 		const coord: GeolocationCoordinates = await this.locationService.getLocation();
+		console.log(coord);
+
 		const { latitude, longitude } = coord;
 		const location: SearchResult = await this.geoService.findLocationByCoords({
 			lat: latitude,
@@ -69,12 +69,13 @@ export class SearchComponent implements IComponent, OnInit {
 		});
 
 		this.isLocating = false;
-
+		console.log('coord');
 		await this.navigateToForecast(location, latitude, longitude);
 	}
 
 	async onAutocompleteOptionClick(selection: SearchResult): Promise<void> {
 		const location: SearchResult = await this.geoService.findLocationById(selection.id);
+		console.log(location);
 		const { lat, lng } = location.position;
 
 		await this.navigateToForecast(location, lat, lng);
