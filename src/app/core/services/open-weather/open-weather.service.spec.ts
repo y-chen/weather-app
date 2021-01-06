@@ -5,12 +5,12 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { ApiService } from '@wa/app/core/services/api/api.service';
-import { availableCultures } from '@wa/app/core/services/culture/culture.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { getOpenWeatherMocks, OpenWeatherMocks } from '@wa/app/core/services/open-weather/open-weather.service.spec.mocks';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Units, Weather } from '@wa/app/models/open-weather.model';
+import { environment } from '@wa/environments/environment';
 
 describe('OpenWeatherService', () => {
 	let spectator: SpectatorService<OpenWeatherService>;
@@ -35,7 +35,7 @@ describe('OpenWeatherService', () => {
 			],
 		});
 
-		settingsServiceMock.getCulture.mockReturnValue(availableCultures[0]);
+		settingsServiceMock.getCulture.mockReturnValue(environment.cultures[0]);
 		settingsServiceMock.getUnit.mockReturnValue(Units.Imperial);
 
 		mocks = getOpenWeatherMocks();

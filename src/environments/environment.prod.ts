@@ -1,5 +1,17 @@
 export const environment = {
 	production: true,
+	cultures: [
+		{
+			label: 'English',
+			language: 'en',
+			code: 'en-GB',
+		},
+		{
+			label: 'Italiano',
+			language: 'it',
+			code: 'it-IT',
+		},
+	],
 	hereAPI: {
 		apiKey: '1vFZKYF-Lkd-1Cgxe1OtCRnTyCHrqLlG68zrzRNyeiM',
 		auth: {

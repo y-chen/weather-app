@@ -1,18 +1,15 @@
 <mat-sidenav-container [ngClass]="{ closed: closed }" fullscreen>
 	<mat-sidenav mode="side" opened #sidebar>
-		<ng-container *ngFor="let item of navItems">
-			<wa-nav-item
-				matTooltip="{{ closed ? (item.label | translate) : null }}"
-				[item]="item"
-				[open]="!closed"
-			>
-			</wa-nav-item>
-		</ng-container>
+		<wa-nav-item
+			*ngFor="let item of navItems"
+			matTooltip="{{ closed ? (item.label | translate) : null }}"
+			[item]="item"
+			[open]="!closed"
+		>
+		</wa-nav-item>
 
 		<div
-			matTooltip="{{
-				(closed ? getLocalizationPath('open') : getLocalizationPath('close')) | translate
-			}}"
+			matTooltip="{{ (closed ? getLocalizationPath('open') : getLocalizationPath('close')) | translate }}"
 			class="sidebar-toggle"
 			(click)="toggle()"
 		>

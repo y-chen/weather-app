@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
-import { IconSize } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-weather-card',

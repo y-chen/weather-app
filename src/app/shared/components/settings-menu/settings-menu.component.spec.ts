@@ -1,9 +1,10 @@
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { availableCultures, CultureService } from '@wa/app/core/services/culture/culture.service';
+import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { SettingsMenuComponent } from '@wa/app/shared/components/settings-menu/settings-menu.component';
+import { environment } from '@wa/environments/environment';
 
 describe('SettingsMenuComponent', () => {
 	let host: SpectatorHost<SettingsMenuComponent>;
@@ -16,8 +17,8 @@ describe('SettingsMenuComponent', () => {
 		cultureServiceMock = mock<CultureService>();
 		settingsServiceMock = mock<SettingsService>();
 
-		cultureServiceMock.getAvailableCultures.mockReturnValue(availableCultures);
-		settingsServiceMock.getCulture.mockReturnValue(availableCultures[0]);
+		cultureServiceMock.getAvailableCultures.mockReturnValue(environment.cultures);
+		settingsServiceMock.getCulture.mockReturnValue(environment.cultures[0]);
 	});
 
 	afterEach(() => {
