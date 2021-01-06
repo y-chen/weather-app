@@ -1,12 +1,12 @@
 import { IconSize, OpenCoord } from '@wa/app/models/open-weather.model';
 
-export interface ViewParserOptions {
+export interface ParserOptions {
 	iconSize?: IconSize;
 	timezone?: number;
 	titleOverride?: string;
 }
 
-export interface ViewForecast {
+export interface Forecast {
 	id: number;
 	name: string;
 	coord: OpenCoord;
@@ -30,11 +30,11 @@ export interface DayForecast {
 }
 
 export interface DayTimeWeather {
-	0?: ViewWeather;
-	1?: ViewWeather;
+	0?: Weather;
+	1?: Weather;
 }
 
-export interface ViewWeather {
+export interface Weather {
 	id: number;
 	title: string;
 	description: string;

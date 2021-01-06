@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { HereLocation } from '@wa/app/models/here.model';
-import { ViewParserOptions } from '@wa/app/models/open-weather-parser.model';
+import { ParserOptions } from '@wa/app/models/open-weather-parser.model';
 import { RawForecast, RawWeather, WeatherGroup } from '@wa/app/models/open-weather.model';
 
 export interface OpenWeatherParserMocks {
-	options: ViewParserOptions;
+	options: ParserOptions;
 	weather: RawWeather;
 	forecast: RawForecast;
 	location: HereLocation;
@@ -14,7 +14,7 @@ export interface OpenWeatherParserMocks {
 }
 
 export const getOpenWeatherParserMocks = (): OpenWeatherParserMocks => {
-	const options: ViewParserOptions = {
+	const options: ParserOptions = {
 		iconSize: 2,
 		timezone: 7200,
 		titleOverride: 'Title Override',

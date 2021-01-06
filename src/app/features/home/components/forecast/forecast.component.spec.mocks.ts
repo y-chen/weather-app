@@ -1,11 +1,11 @@
-import { ViewForecast } from '@wa/app/models/open-weather-parser.model';
+import { Forecast } from '@wa/app/models/open-weather-parser.model';
 
 export interface ForecastComponentMocks {
-	forecast: ViewForecast;
+	forecast: Forecast;
 }
 
 export const getForecastComponentMocks = (): ForecastComponentMocks => {
-	const forecast: ViewForecast = {
+	const forecast: Forecast = {
 		id: 0,
 		name: 'Name',
 		coord: { lat: 0, lon: 0 },

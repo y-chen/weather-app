@@ -7,7 +7,7 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { HomeComponent } from '@wa/app/features/home/components/home/home.component';
 import { getHomeComponentMocks, HomeComponentMocks } from '@wa/app/features/home/components/home/home.component.spec.mocks';
-import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
+import { Weather } from '@wa/app/models/open-weather-parser.model';
 import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
 
 describe('HomeComponent', () => {
@@ -55,8 +55,8 @@ describe('HomeComponent', () => {
 		expect(componentServiceMock.getResolverData).toHaveBeenCalledWith('favouriteCitiesWeather');
 	});
 
-	it('should have many wa-weather-card components with expected ViewWeather input as returned from resolver', () => {
-		const viewWeathers: ViewWeather[] = mocks.viewWeathers;
+	it('should have many wa-weather-card components with expected Weather input as returned from resolver', () => {
+		const viewWeathers: Weather[] = mocks.viewWeathers;
 
 		componentServiceMock.getResolverData.calledWith('favouriteCitiesWeather').mockResolvedValue(viewWeathers as never);
 

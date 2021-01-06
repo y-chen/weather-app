@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
+import { Weather } from '@wa/app/models/open-weather-parser.model';
 
 @Component({
 	selector: 'wa-basic-weather',
@@ -7,5 +7,5 @@ import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
 	styleUrls: ['./basic-weather.component.scss'],
 })
 export class BasicWeatherComponent {
-	@Input() viewData: ViewWeather;
+	@Input() viewData: Weather;
 }

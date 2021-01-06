@@ -7,7 +7,7 @@ import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { IComponent } from '@wa/app/models/component.model';
-import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
+import { Weather } from '@wa/app/models/open-weather-parser.model';
 
 @Component({
 	selector: 'wa-home',
@@ -16,7 +16,7 @@ import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
 	providers: [ComponentService],
 })
 export class HomeComponent implements IComponent, OnInit {
-	favouriteCitiesViewData: ViewWeather[];
+	favouriteCitiesViewData: Weather[];
 
 	constructor(
 		private readonly componentService: ComponentService,
@@ -29,10 +29,10 @@ export class HomeComponent implements IComponent, OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		this.favouriteCitiesViewData = (await this.componentService.getResolverData('favouriteCitiesWeather')) as ViewWeather[];
+		this.favouriteCitiesViewData = (await this.componentService.getResolverData('favouriteCitiesWeather')) as Weather[];
 
 		const refreshViewData = async () => {
-			const group: number[] = this.favouriteCitiesViewData.map((viewData: ViewWeather) => viewData.id);
+			const group: number[] = this.favouriteCitiesViewData.map((viewData: Weather) => viewData.id);
 
 			if (group.length > 0) {
 				this.favouriteCitiesViewData = await this.openWeatherService.getWeatherGroup({ group });

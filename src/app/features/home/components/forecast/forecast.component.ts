@@ -7,7 +7,7 @@ import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { IComponent } from '@wa/app/models/component.model';
-import { ViewForecast } from '@wa/app/models/open-weather-parser.model';
+import { Forecast } from '@wa/app/models/open-weather-parser.model';
 import { OpenCoord } from '@wa/app/models/open-weather.model';
 
 @Component({
@@ -17,7 +17,7 @@ import { OpenCoord } from '@wa/app/models/open-weather.model';
 	providers: [ComponentService],
 })
 export class ForecastComponent implements IComponent, OnInit {
-	viewForecast: ViewForecast;
+	viewForecast: Forecast;
 
 	constructor(
 		private readonly componentService: ComponentService,
@@ -31,7 +31,7 @@ export class ForecastComponent implements IComponent, OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		this.viewForecast = (await this.componentService.getResolverData('forecast')) as ViewForecast;
+		this.viewForecast = (await this.componentService.getResolverData('forecast')) as Forecast;
 
 		const queryParamsSub: Subscription = this.route.queryParams.subscribe((queryParams: OpenCoord) =>
 			this.updateForecast(queryParams),

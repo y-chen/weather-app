@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { IComponent } from '@wa/app/models/component.model';
-import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
+import { Weather } from '@wa/app/models/open-weather-parser.model';
 
 @Component({
 	selector: 'wa-weather-card',
@@ -10,7 +10,7 @@ import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
 	providers: [ComponentService],
 })
 export class WeatherCardComponent implements IComponent, OnInit {
-	@Input() viewData: ViewWeather;
+	@Input() viewData: Weather;
 	@Input() title?: string;
 	@Input() subtitle?: string;
 

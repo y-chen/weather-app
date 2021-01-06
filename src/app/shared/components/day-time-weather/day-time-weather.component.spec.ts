@@ -57,7 +57,7 @@ describe('DayTimeWeatherComponent', () => {
 		expect(header).toHaveClass('unavailable');
 	});
 
-	it('should have a wa-basic-weather for each ViewWeather passed from parent', () => {
+	it('should have a wa-basic-weather for each Weather passed from parent', () => {
 		const dayTimeWeather: DayTimeWeather = mocks.dayTimeWeather;
 
 		host = createHost('<wa-day-time-weather [dayTimeWeather]="dayTimeWeather"></wa-day-time-weather>', {

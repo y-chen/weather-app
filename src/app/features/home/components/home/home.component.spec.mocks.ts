@@ -1,11 +1,11 @@
-import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
+import { Weather } from '@wa/app/models/open-weather-parser.model';
 
 export interface HomeComponentMocks {
-	viewWeathers: ViewWeather[];
+	viewWeathers: Weather[];
 }
 
 export const getHomeComponentMocks = (): HomeComponentMocks => {
-	const viewWeathers: ViewWeather[] = [
+	const viewWeathers: Weather[] = [
 		{
 			id: 1,
 			title: 'First Title',

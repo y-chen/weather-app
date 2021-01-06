@@ -45,7 +45,7 @@ describe('OpenWeatherParserService', () => {
 	});
 
 	describe('parseWeatherData', () => {
-		it('should use RawWeather data instead of ViewParserOptions when options are not available', () => {
+		it('should use RawWeather data instead of ParserOptions when options are not available', () => {
 			const { weather } = mocks;
 
 			const parsed = spectator.service.parseWeatherData(weather);
@@ -55,7 +55,7 @@ describe('OpenWeatherParserService', () => {
 			expect(cultureServiceMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), weather.sys.timezone);
 		});
 
-		it('should use ViewParserOptions data instead of RawWeather data when options are available', () => {
+		it('should use ParserOptions data instead of RawWeather data when options are available', () => {
 			const { options, weather } = mocks;
 			const { iconSize, titleOverride, timezone } = options;
 

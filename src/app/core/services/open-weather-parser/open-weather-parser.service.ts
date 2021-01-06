@@ -6,9 +6,7 @@ import { Injectable } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { HereLocation } from '@wa/app/models/here.model';
-import {
-	DayForecast, DayForecastPromise, ViewForecast, ViewParserOptions, ViewWeather
-} from '@wa/app/models/open-weather-parser.model';
+import { DayForecast, DayForecastPromise, Forecast, ParserOptions, Weather } from '@wa/app/models/open-weather-parser.model';
 import { DayTime, IconSize, RawForecast, RawWeather, Units, WeatherGroup } from '@wa/app/models/open-weather.model';
 
 import { SettingsService } from '../settings/settings.service';
@@ -21,7 +19,7 @@ export class OpenWeatherParserService {
 		private readonly settingsService: SettingsService,
 	) {}
 
-	parseWeatherData(weather: RawWeather, options: ViewParserOptions = {}): ViewWeather {
+	parseWeatherData(weather: RawWeather, options: ParserOptions = {}): Weather {
 		const { iconSize, titleOverride, timezone } = options;
 		const temperatureUnit: string = this.getTemperatureUnit();
 
@@ -38,7 +36,7 @@ export class OpenWeatherParserService {
 		};
 	}
 
-	async parseForecastData(forecast: RawForecast, iconSize: IconSize = 4): Promise<ViewForecast> {
+	async parseForecastData(forecast: RawForecast, iconSize: IconSize = 4): Promise<Forecast> {
 		const { id, coord, timezone } = forecast.city;
 		const location: HereLocation = await this.geoService.locationLookup({ coord, query: forecast.city.name });
 		const { city, countryCode } = location.address;

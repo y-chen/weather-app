@@ -5,7 +5,7 @@ import { ngMocks } from 'ng-mocks';
 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
+import { Weather } from '@wa/app/models/open-weather-parser.model';
 import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
 import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
 
@@ -17,7 +17,7 @@ describe('WeatherCardComponent', () => {
 
 	const createHost = createHostFactory(WeatherCardComponent);
 
-	let viewData: ViewWeather;
+	let viewData: Weather;
 
 	beforeEach(() => {
 		componentServiceMock = mock<ComponentService>();
@@ -81,7 +81,7 @@ describe('WeatherCardComponent', () => {
 			expect(subtitle).not.toHaveText(viewData.time);
 		});
 
-		it('should have a wa-favourite component with input id from ViewWeather', () => {
+		it('should have a wa-favourite component with input id from Weather', () => {
 			host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
 				hostProps: { viewData },
 			});
@@ -93,7 +93,7 @@ describe('WeatherCardComponent', () => {
 	});
 
 	describe('content', () => {
-		it('should have a wa-basic-weather component with input ViewWeather data', () => {
+		it('should have a wa-basic-weather component with input Weather data', () => {
 			host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
 				hostProps: { viewData },
 			});
@@ -104,7 +104,7 @@ describe('WeatherCardComponent', () => {
 		});
 
 		describe('actions', () => {
-			it('should have a link to details when ViewWeather.id is defined', () => {
+			it('should have a link to details when Weather.id is defined', () => {
 				host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
 					hostProps: { viewData },
 				});
@@ -114,7 +114,7 @@ describe('WeatherCardComponent', () => {
 				expect(link.href).toEndWith(viewData.id.toString());
 			});
 
-			it('should not have a mat-card-action element when ViewWeather.id is not defined', () => {
+			it('should not have a mat-card-action element when Weather.id is not defined', () => {
 				host = createHost('<wa-weather-card [viewData]="viewData"></wa-weather-card>', {
 					hostProps: { viewData },
 				});

@@ -3,14 +3,14 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
-import { ViewForecast } from '@wa/app/models/open-weather-parser.model';
+import { Forecast } from '@wa/app/models/open-weather-parser.model';
 import { IconSize, OpenCoord } from '@wa/app/models/open-weather.model';
 
 @Injectable()
-export class ForecastResolver implements Resolve<ViewForecast | null> {
+export class ForecastResolver implements Resolve<Forecast | null> {
 	constructor(private readonly openWeatherService: OpenWeatherService) {}
 
-	async resolve(route: ActivatedRouteSnapshot): Promise<ViewForecast> | null {
+	async resolve(route: ActivatedRouteSnapshot): Promise<Forecast> | null {
 		const iconSize = route.data?.iconSize as IconSize;
 		const id: number = route.params?.id as number;
 		if (id) {
