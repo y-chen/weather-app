@@ -20,10 +20,10 @@ export class HomeComponent implements IComponent, OnInit {
 
 	constructor(
 		private readonly componentService: ComponentService,
-		private readonly route: ActivatedRoute,
-		private readonly openWeatherService: OpenWeatherService,
 		private readonly cultureService: CultureService,
 		private readonly eventService: EventService,
+		private readonly openWeatherService: OpenWeatherService,
+		private readonly route: ActivatedRoute,
 	) {
 		this.componentService.init({ localizationBasePath: 'features.main.home', route: this.route });
 	}
