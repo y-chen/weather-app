@@ -12,7 +12,7 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_WEATHER_APP_EAF49 }}'
-          projectId: ng-weather-app-eaf49
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_NG_WEATHER_APP_STAGING }}'
+          projectId: ng-weather-app-staging
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
