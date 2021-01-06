@@ -45,9 +45,9 @@ export class SettingsMenuComponent implements IComponent, OnInit {
 		if (this.currentLang !== culture.language) {
 			this.cultureService.setCulture(culture);
 			this.currentLang = culture.language;
-		}
 
-		this.eventService.onSettingsChange.emit();
+			this.eventService.onSettingsChange.emit();
+		}
 	}
 
 	setUnits(event: MouseEvent, unit: Units): void {
@@ -56,9 +56,9 @@ export class SettingsMenuComponent implements IComponent, OnInit {
 		if (unit !== this.currentUnit) {
 			this.settingsService.setUnit(unit);
 			this.currentUnit = unit;
-		}
 
-		this.eventService.onSettingsChange.emit();
+			this.eventService.onSettingsChange.emit();
+		}
 	}
 
 	getUnitsTranslationPath(unit: string): string {

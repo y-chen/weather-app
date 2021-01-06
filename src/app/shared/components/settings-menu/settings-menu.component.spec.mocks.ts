@@ -5,6 +5,7 @@ export interface SettingsMenuComponentMocks {
 	cultures: Culture[];
 	currentCulture: Culture;
 	currentUnit: Units;
+	units: string[];
 }
 
 export const getSettingsMenuComponentMocks = (): SettingsMenuComponentMocks => {
@@ -29,5 +30,7 @@ export const getSettingsMenuComponentMocks = (): SettingsMenuComponentMocks => {
 
 	const currentUnit: Units = Units.Imperial;
 
-	return { cultures, currentCulture, currentUnit };
+	const units: string[] = ['Metric', 'Imperial'];
+
+	return { cultures, currentCulture, currentUnit, units };
 };
