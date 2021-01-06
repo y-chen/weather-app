@@ -6,21 +6,24 @@ import { ngMocks } from 'ng-mocks';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { HomeComponent } from '@wa/app/features/home/components/home/home.component';
-import { getHomeComponentMocks } from '@wa/app/features/home/components/home/home.component.spec.mocks';
+import { getHomeComponentMocks, HomeComponentMocks } from '@wa/app/features/home/components/home/home.component.spec.mocks';
+import { ViewWeather } from '@wa/app/models/open-weather-parser.model';
 import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
 
 describe('HomeComponent', () => {
 	let host: SpectatorHost<HomeComponent>;
 	let componentServiceMock: MockProxy<ComponentService>;
 
-	const { viewWeathers } = getHomeComponentMocks();
-
 	const createHost = createHostFactory({
 		component: HomeComponent,
 	});
 
+	let mocks: HomeComponentMocks;
+
 	beforeEach(() => {
 		componentServiceMock = mock<ComponentService>();
+
+		mocks = getHomeComponentMocks();
 	});
 
 	afterEach(() => {
@@ -53,6 +56,8 @@ describe('HomeComponent', () => {
 	});
 
 	it('should have many wa-weather-card components with expected ViewWeather input as returned from resolver', () => {
+		const viewWeathers: ViewWeather[] = mocks.viewWeathers;
+
 		componentServiceMock.getResolverData.calledWith('favouriteCitiesWeather').mockResolvedValue(viewWeathers as never);
 
 		host = createHost('<wa-home></wa-home>');
