@@ -7,11 +7,9 @@
 		<span translate>{{ getLocalizationPath('language') }}</span>
 
 		<mat-button-toggle-group [value]="currentLang">
-			<ng-container *ngFor="let culture of cultures">
-				<mat-button-toggle [value]="culture.language" (click)="setCulture($event, culture)">
-					<i class="flag-icon flag-icon-{{ culture.language }}"></i>
-				</mat-button-toggle>
-			</ng-container>
+			<mat-button-toggle *ngFor="let culture of cultures" [value]="culture.language" (click)="setCulture($event, culture)">
+				<i class="flag-icon flag-icon-{{ culture.language }}"></i>
+			</mat-button-toggle>
 		</mat-button-toggle-group>
 	</div>
 

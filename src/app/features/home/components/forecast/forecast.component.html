@@ -1,29 +1,25 @@
-<ng-container *ngIf="viewForecast; else missingDataTemplate">
-	<div class="forecast-container">
-		<mat-toolbar-row>
-			<span>{{ viewForecast.name }}</span>
+<div *ngIf="viewForecast; else missingDataTemplate" class="forecast-container">
+	<mat-toolbar-row>
+		<span>{{ viewForecast.name }}</span>
 
-			<wa-favourite [cityId]="viewForecast.id" color="primary"></wa-favourite>
-		</mat-toolbar-row>
+		<wa-favourite [cityId]="viewForecast.id" color="primary"></wa-favourite>
+	</mat-toolbar-row>
 
-		<ng-container *ngFor="let day of viewForecast.days">
-			<mat-card>
-				<mat-card-header>
-					<mat-card-title>
-						{{ day.day | localizedDate | case }}
-					</mat-card-title>
-				</mat-card-header>
+	<mat-card *ngFor="let day of viewForecast.days">
+		<mat-card-header>
+			<mat-card-title>
+				{{ day.day | localizedDate | case }}
+			</mat-card-title>
+		</mat-card-header>
 
-				<mat-card-content>
-					<wa-day-time-weather dayTimeName="night" [dayTimeWeather]="day.night"></wa-day-time-weather>
-					<wa-day-time-weather dayTimeName="morning" [dayTimeWeather]="day.morning"></wa-day-time-weather>
-					<wa-day-time-weather dayTimeName="afternoon" [dayTimeWeather]="day.afternoon"></wa-day-time-weather>
-					<wa-day-time-weather dayTimeName="evening" [dayTimeWeather]="day.evening"></wa-day-time-weather>
-				</mat-card-content>
-			</mat-card>
-		</ng-container>
-	</div>
-</ng-container>
+		<mat-card-content>
+			<wa-day-time-weather dayTimeName="night" [dayTimeWeather]="day.night"></wa-day-time-weather>
+			<wa-day-time-weather dayTimeName="morning" [dayTimeWeather]="day.morning"></wa-day-time-weather>
+			<wa-day-time-weather dayTimeName="afternoon" [dayTimeWeather]="day.afternoon"></wa-day-time-weather>
+			<wa-day-time-weather dayTimeName="evening" [dayTimeWeather]="day.evening"></wa-day-time-weather>
+		</mat-card-content>
+	</mat-card>
+</div>
 
 <ng-template #missingDataTemplate>
 	<wa-missing-data
