@@ -11,8 +11,8 @@ export class ForecastResolver implements Resolve<ViewForecast | null> {
 	constructor(private readonly openWeatherService: OpenWeatherService) {}
 
 	async resolve(route: ActivatedRouteSnapshot): Promise<ViewForecast> | null {
-		const iconSize = route.data.iconSize as IconSize;
-		const id: number = route.params.id as number;
+		const iconSize = route.data?.iconSize as IconSize;
+		const id: number = route.params?.id as number;
 		if (id) {
 			return await this.openWeatherService.getForecastById({ id, iconSize });
 		}
