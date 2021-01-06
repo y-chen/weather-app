@@ -7,7 +7,7 @@ import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-par
 import {
 	getOpenWeatherParserMocks, OpenWeatherParserMocks
 } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service.spec.mocks';
-import { Weather } from '@wa/app/models/open-weather.model';
+import { RawWeather } from '@wa/app/models/open-weather.model';
 
 describe('OpenWeatherParserService', () => {
 	let spectator: SpectatorService<OpenWeatherParserService>;
@@ -45,7 +45,7 @@ describe('OpenWeatherParserService', () => {
 	});
 
 	describe('parseWeatherData', () => {
-		it('should use Weather data instead of ViewParserOptions when options are not available', () => {
+		it('should use RawWeather data instead of ViewParserOptions when options are not available', () => {
 			const { weather } = mocks;
 
 			const parsed = spectator.service.parseWeatherData(weather);
@@ -55,7 +55,7 @@ describe('OpenWeatherParserService', () => {
 			expect(cultureServiceMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), weather.sys.timezone);
 		});
 
-		it('should use ViewParserOptions data instead of Weather data when options are available', () => {
+		it('should use ViewParserOptions data instead of RawWeather data when options are available', () => {
 			const { options, weather } = mocks;
 			const { iconSize, titleOverride, timezone } = options;
 
@@ -101,12 +101,12 @@ describe('OpenWeatherParserService', () => {
 			expect(viewForecast.days[2].evening).not.toBeDefined();
 		});
 
-		it('should call CultureService.convertUnixTimeToLocaleDate for each Weather with correct timezone', async () => {
+		it('should call CultureService.convertUnixTimeToLocaleDate for each RawWeather with correct timezone', async () => {
 			geoServiceMock.locationLookup.mockResolvedValue(mocks.location);
 
 			await spectator.service.parseForecastData(mocks.forecast);
 
-			mocks.forecast.list.forEach((weather: Weather, index: number) =>
+			mocks.forecast.list.forEach((weather: RawWeather, index: number) =>
 				expect(cultureServiceMock.convertUnixTimeToLocaleDate).toHaveBeenNthCalledWith(
 					index + 1,
 					weather.dt,
@@ -122,7 +122,7 @@ describe('OpenWeatherParserService', () => {
 
 			await spectator.service.translateLocationNames(mocks.group);
 
-			mocks.group.list.forEach((weather: Weather, index: number) =>
+			mocks.group.list.forEach((weather: RawWeather, index: number) =>
 				expect(geoServiceMock.findLocationByCoords).toHaveBeenNthCalledWith(index + 1, weather.coord),
 			);
 		});

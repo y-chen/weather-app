@@ -8,7 +8,7 @@ import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-par
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Param } from '@wa/app/models/http.model';
 import { ViewForecast, ViewWeather } from '@wa/app/models/open-weather-parser.model';
-import { Forecast, OpenWeatherSearchParams, Units, Weather, WeatherGroup } from '@wa/app/models/open-weather.model';
+import { OpenWeatherSearchParams, RawForecast, RawWeather, Units, WeatherGroup } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
 @Injectable()
@@ -34,7 +34,7 @@ export class OpenWeatherService {
 		const weatherGroup = await this.api.get<WeatherGroup>(url, { params });
 		await this.openWeatherParserService.translateLocationNames(weatherGroup);
 
-		return weatherGroup.list.map((weather: Weather) => this.openWeatherParserService.parseWeatherData(weather));
+		return weatherGroup.list.map((weather: RawWeather) => this.openWeatherParserService.parseWeatherData(weather));
 	}
 
 	async getForecastById(searchParams: OpenWeatherSearchParams): Promise<ViewForecast> {
@@ -42,7 +42,7 @@ export class OpenWeatherService {
 		let params: Param[] = [{ key: 'id', value: searchParams.id }];
 		params = this.appendParams(params);
 
-		const forecast: Forecast = await this.api.get<Forecast>(url, { params });
+		const forecast: RawForecast = await this.api.get<RawForecast>(url, { params });
 
 		return await this.openWeatherParserService.parseForecastData(forecast, searchParams.iconSize);
 	}
@@ -56,7 +56,7 @@ export class OpenWeatherService {
 		];
 		params = this.appendParams(params);
 
-		const forecast = await this.api.get<Forecast>(url, { params });
+		const forecast = await this.api.get<RawForecast>(url, { params });
 
 		return await this.openWeatherParserService.parseForecastData(forecast, searchParams.iconSize);
 	}

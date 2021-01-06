@@ -9,7 +9,7 @@ import { HereLocation } from '@wa/app/models/here.model';
 import {
 	DayForecast, DayForecastPromise, ViewForecast, ViewParserOptions, ViewWeather
 } from '@wa/app/models/open-weather-parser.model';
-import { DayTime, Forecast, IconSize, Units, Weather, WeatherGroup } from '@wa/app/models/open-weather.model';
+import { DayTime, IconSize, RawForecast, RawWeather, Units, WeatherGroup } from '@wa/app/models/open-weather.model';
 
 import { SettingsService } from '../settings/settings.service';
 
@@ -21,7 +21,7 @@ export class OpenWeatherParserService {
 		private readonly settingsService: SettingsService,
 	) {}
 
-	parseWeatherData(weather: Weather, options: ViewParserOptions = {}): ViewWeather {
+	parseWeatherData(weather: RawWeather, options: ViewParserOptions = {}): ViewWeather {
 		const { iconSize, titleOverride, timezone } = options;
 		const temperatureUnit: string = this.getTemperatureUnit();
 
@@ -38,7 +38,7 @@ export class OpenWeatherParserService {
 		};
 	}
 
-	async parseForecastData(forecast: Forecast, iconSize: IconSize = 4): Promise<ViewForecast> {
+	async parseForecastData(forecast: RawForecast, iconSize: IconSize = 4): Promise<ViewForecast> {
 		const { id, coord, timezone } = forecast.city;
 		const location: HereLocation = await this.geoService.locationLookup({ coord, query: forecast.city.name });
 		const { city, countryCode } = location.address;
@@ -50,12 +50,12 @@ export class OpenWeatherParserService {
 		const promises: Promise<DayForecast>[] = lodash
 			.chain(forecast.list)
 			.groupBy(startOfDay)
-			.mapValues((dayWeathers: Weather[], day: string) => {
+			.mapValues((dayWeathers: RawWeather[], day: string) => {
 				const dayTimes = lodash
 					.chain(dayWeathers)
 					.groupBy(groupByDayTime)
-					.mapValues(async (dayTimeWeathers: Weather[]) => {
-						const dayTimeWeatherPromises = lodash.map(dayTimeWeathers, async (weather: Weather) => {
+					.mapValues(async (dayTimeWeathers: RawWeather[]) => {
+						const dayTimeWeatherPromises = lodash.map(dayTimeWeathers, async (weather: RawWeather) => {
 							const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt, timezone);
 							const titleOverride: string = await this.cultureService.getTranslation('shared.basicWeather.date', { date });
 
@@ -92,8 +92,8 @@ export class OpenWeatherParserService {
 		}
 	}
 
-	private groupByDayTimeFunction(timezone: number): (weather: Weather) => DayTime {
-		return (weather: Weather): DayTime => {
+	private groupByDayTimeFunction(timezone: number): (weather: RawWeather) => DayTime {
+		return (weather: RawWeather): DayTime => {
 			const hour = moment((weather.dt + timezone || 0) * 1000).hour();
 
 			if (hour < 6) {
@@ -111,8 +111,8 @@ export class OpenWeatherParserService {
 		};
 	}
 
-	private startOfDayFunction(timezone: number): (weather: Weather) => Moment {
-		return (weather: Weather): Moment => moment((weather.dt + timezone || 0) * 1000).startOf('day');
+	private startOfDayFunction(timezone: number): (weather: RawWeather) => Moment {
+		return (weather: RawWeather): Moment => moment((weather.dt + timezone || 0) * 1000).startOf('day');
 	}
 
 	private getTemperatureUnit(): string {

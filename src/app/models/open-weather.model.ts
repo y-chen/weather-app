@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-export interface Forecast {
+export interface RawForecast {
 	cod: string;
 	message: number;
 	cnt: number;
-	list: Weather[];
+	list: RawWeather[];
 	city: City;
 }
 
@@ -29,10 +29,10 @@ export interface OpenWeatherSearchParams {
 
 export interface WeatherGroup {
 	cnt: number;
-	list: Weather[];
+	list: RawWeather[];
 }
 
-export interface Weather {
+export interface RawWeather {
 	id?: number;
 	name?: string;
 	coord?: OpenCoord;

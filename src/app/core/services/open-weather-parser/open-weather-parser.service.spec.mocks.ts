@@ -3,12 +3,12 @@
 
 import { HereLocation } from '@wa/app/models/here.model';
 import { ViewParserOptions } from '@wa/app/models/open-weather-parser.model';
-import { Forecast, Weather, WeatherGroup } from '@wa/app/models/open-weather.model';
+import { RawForecast, RawWeather, WeatherGroup } from '@wa/app/models/open-weather.model';
 
 export interface OpenWeatherParserMocks {
 	options: ViewParserOptions;
-	weather: Weather;
-	forecast: Forecast;
+	weather: RawWeather;
+	forecast: RawForecast;
 	location: HereLocation;
 	group: WeatherGroup;
 }
@@ -20,7 +20,7 @@ export const getOpenWeatherParserMocks = (): OpenWeatherParserMocks => {
 		titleOverride: 'Title Override',
 	};
 
-	const weather: Weather = {
+	const weather: RawWeather = {
 		coord: {
 			lon: 16.37,
 			lat: 48.21,
@@ -300,7 +300,7 @@ export const getOpenWeatherParserMocks = (): OpenWeatherParserMocks => {
 		],
 	};
 
-	const forecast: Forecast = {
+	const forecast: RawForecast = {
 		cod: '200',
 		message: 0,
 		cnt: 40,

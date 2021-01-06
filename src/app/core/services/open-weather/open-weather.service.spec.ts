@@ -9,7 +9,7 @@ import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-par
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { getOpenWeatherMocks, OpenWeatherMocks } from '@wa/app/core/services/open-weather/open-weather.service.spec.mocks';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { Units, Weather } from '@wa/app/models/open-weather.model';
+import { RawWeather, Units } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
 describe('OpenWeatherService', () => {
@@ -82,7 +82,7 @@ describe('OpenWeatherService', () => {
 
 			await spectator.service.getWeatherGroup(searchParams);
 
-			group.list.forEach((weather: Weather, index: number) =>
+			group.list.forEach((weather: RawWeather, index: number) =>
 				expect(openWeatherParserServiceMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
 			);
 		});
@@ -109,7 +109,7 @@ describe('OpenWeatherService', () => {
 
 			await spectator.service.getForecastById(searchParams);
 
-			forecast.list.forEach((weather: Weather, index: number) =>
+			forecast.list.forEach((weather: RawWeather, index: number) =>
 				expect(openWeatherParserServiceMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
 			);
 		});
@@ -139,7 +139,7 @@ describe('OpenWeatherService', () => {
 
 			await spectator.service.getForecastByCoord(searchParams);
 
-			forecast.list.forEach((weather: Weather, index: number) =>
+			forecast.list.forEach((weather: RawWeather, index: number) =>
 				expect(openWeatherParserServiceMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
 			);
 		});

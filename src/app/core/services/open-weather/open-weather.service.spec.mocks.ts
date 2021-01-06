@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Forecast, OpenWeatherSearchParams, WeatherGroup } from '@wa/app/models/open-weather.model';
+import { OpenWeatherSearchParams, RawForecast, WeatherGroup } from '@wa/app/models/open-weather.model';
 
 export interface OpenWeatherMocks {
 	searchParams: OpenWeatherSearchParams;
 	group: WeatherGroup;
-	forecast: Forecast;
+	forecast: RawForecast;
 }
 
 export const getOpenWeatherMocks = (): OpenWeatherMocks => {
@@ -22,7 +22,7 @@ export const getOpenWeatherMocks = (): OpenWeatherMocks => {
 		list: [],
 	};
 
-	const forecast: Forecast = {
+	const forecast: RawForecast = {
 		cod: '200',
 		message: 0,
 		cnt: 40,
