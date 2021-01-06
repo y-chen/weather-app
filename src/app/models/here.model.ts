@@ -8,7 +8,7 @@ export interface HereSearchParams {
 	query?: string;
 }
 
-export interface SearchResult {
+export interface HereLocation {
 	title: string;
 	id: string;
 	resultType: string;

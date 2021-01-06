@@ -1,9 +1,9 @@
 import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
-import { SearchResult } from '@wa/app/models/here.model';
+import { HereLocation } from '@wa/app/models/here.model';
 
 export interface SearchComponentMocks {
 	coordinates: GeolocationCoordinates;
-	location: SearchResult;
+	location: HereLocation;
 }
 
 export const getSearchComponentMocks = (): SearchComponentMocks => {
@@ -17,7 +17,7 @@ export const getSearchComponentMocks = (): SearchComponentMocks => {
 		speed: null,
 	};
 
-	const location: SearchResult = {
+	const location: HereLocation = {
 		title: 'Title',
 		id: 'Id',
 		resultType: 'Resource Type',

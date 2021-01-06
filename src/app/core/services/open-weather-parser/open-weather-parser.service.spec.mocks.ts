@@ -1,7 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { SearchResult } from '@wa/app/models/here.model';
+import { HereLocation } from '@wa/app/models/here.model';
 import { ViewParserOptions } from '@wa/app/models/open-weather-parser.model';
 import { Forecast, Weather, WeatherGroup } from '@wa/app/models/open-weather.model';
 
@@ -9,7 +9,7 @@ export interface OpenWeatherParserMocks {
 	options: ViewParserOptions;
 	weather: Weather;
 	forecast: Forecast;
-	location: SearchResult;
+	location: HereLocation;
 	group: WeatherGroup;
 }
 
@@ -890,7 +890,7 @@ export const getOpenWeatherParserMocks = (): OpenWeatherParserMocks => {
 		},
 	};
 
-	const location: SearchResult = {
+	const location: HereLocation = {
 		title: 'Spiegelgasse 3, 1010 Vienna, Austria',
 		id: 'here:af:streetsection:9KHK78chjH2teW48hg58mA:CgcIBCCvkqlNEAEaATM',
 		resultType: 'houseNumber',

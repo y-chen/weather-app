@@ -11,7 +11,7 @@ import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { LocationService } from '@wa/app/core/services/location/location.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
-import { SearchResult } from '@wa/app/models/here.model';
+import { HereLocation } from '@wa/app/models/here.model';
 
 @Component({
 	selector: 'wa-search',
@@ -20,7 +20,7 @@ import { SearchResult } from '@wa/app/models/here.model';
 	providers: [ComponentService],
 })
 export class SearchComponent implements IComponent, OnInit {
-	cities: Promise<SearchResult[]>;
+	cities: Promise<HereLocation[]>;
 	searchInput: FormControl = new FormControl();
 	isLocating = false;
 
@@ -42,7 +42,7 @@ export class SearchComponent implements IComponent, OnInit {
 	}
 
 	async onInputEnterKeydown(event: any): Promise<void> {
-		const location: SearchResult = await this.geoService.findLocationByQuery(this.searchInput.value);
+		const location: HereLocation = await this.geoService.findLocationByQuery(this.searchInput.value);
 		const { lat, lng } = location.position;
 
 		event.target.blur();
@@ -61,7 +61,7 @@ export class SearchComponent implements IComponent, OnInit {
 
 		const coord: GeolocationCoordinates = await this.locationService.getLocation();
 		const { latitude, longitude } = coord;
-		const location: SearchResult = await this.geoService.findLocationByCoords({
+		const location: HereLocation = await this.geoService.findLocationByCoords({
 			lat: latitude,
 			lon: longitude,
 		});
@@ -71,8 +71,8 @@ export class SearchComponent implements IComponent, OnInit {
 		await this.navigateToForecast(location, latitude, longitude);
 	}
 
-	async onAutocompleteOptionClick(selection: SearchResult): Promise<void> {
-		const location: SearchResult = await this.geoService.findLocationById(selection.id);
+	async onAutocompleteOptionClick(selection: HereLocation): Promise<void> {
+		const location: HereLocation = await this.geoService.findLocationById(selection.id);
 		const { lat, lng } = location.position;
 
 		await this.navigateToForecast(location, lat, lng);
@@ -82,7 +82,7 @@ export class SearchComponent implements IComponent, OnInit {
 		return this.componentService.getLocalizationPath(end);
 	}
 
-	private async navigateToForecast(location: SearchResult, lat: number, lng: number): Promise<void> {
+	private async navigateToForecast(location: HereLocation, lat: number, lng: number): Promise<void> {
 		this.searchInput.setValue(location.title);
 
 		const queryParams = { lat, lon: lng };

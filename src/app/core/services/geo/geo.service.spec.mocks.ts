@@ -1,8 +1,8 @@
-import { HereSearchParams, SearchResult } from '@wa/app/models/here.model';
+import { HereLocation, HereSearchParams } from '@wa/app/models/here.model';
 
 export interface GeoServiceMocks {
 	searchParams: HereSearchParams;
-	location: SearchResult;
+	location: HereLocation;
 }
 
 export const getGeoServiceMocks = (): GeoServiceMocks => {
@@ -12,7 +12,7 @@ export const getGeoServiceMocks = (): GeoServiceMocks => {
 		query: 'Search Query',
 	};
 
-	const location: SearchResult = {
+	const location: HereLocation = {
 		title: 'Title',
 		id: 'Id',
 		resultType: 'Resource Type',
