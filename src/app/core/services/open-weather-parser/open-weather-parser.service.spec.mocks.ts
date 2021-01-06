@@ -1,7 +1,7 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { SearchResult } from '@wa/app/models/here-api.model';
+import { SearchResult } from '@wa/app/models/here.model';
 import { ViewParserOptions } from '@wa/app/models/open-weather-parser.model';
 import { Forecast, Weather, WeatherGroup } from '@wa/app/models/open-weather.model';
 

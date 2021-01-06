@@ -11,7 +11,7 @@ import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { LocationService } from '@wa/app/core/services/location/location.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
-import { SearchResult } from '@wa/app/models/here-api.model';
+import { SearchResult } from '@wa/app/models/here.model';
 
 @Component({
 	selector: 'wa-search',

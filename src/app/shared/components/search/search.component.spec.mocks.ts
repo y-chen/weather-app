@@ -1,5 +1,5 @@
 import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
-import { SearchResult } from '@wa/app/models/here-api.model';
+import { SearchResult } from '@wa/app/models/here.model';
 
 export interface SearchComponentMocks {
 	coordinates: GeolocationCoordinates;

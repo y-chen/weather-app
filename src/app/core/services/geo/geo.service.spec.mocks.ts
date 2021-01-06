@@ -1,4 +1,4 @@
-import { SearchParams, SearchResult } from '@wa/app/models/here-api.model';
+import { SearchParams, SearchResult } from '@wa/app/models/here.model';
 
 export interface GeoServiceMocks {
 	searchParams: SearchParams;

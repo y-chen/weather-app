@@ -5,7 +5,7 @@ import moment, { Moment } from 'moment';
 import { Injectable } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
-import { SearchResult } from '@wa/app/models/here-api.model';
+import { SearchResult } from '@wa/app/models/here.model';
 import {
 	DayForecast, DayForecastPromise, ViewForecast, ViewParserOptions, ViewWeather
 } from '@wa/app/models/open-weather-parser.model';
