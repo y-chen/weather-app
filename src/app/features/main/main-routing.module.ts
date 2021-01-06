@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resolver';
 import { WeatherGroupResolver } from '@wa/app/core/resolvers/weather-group/weather-group.resolver';
-import { HomeComponent } from '@wa/app/features/home/components/home/home.component';
+import { ForecastComponent } from '@wa/app/features/main/components/forecast/forecast.component';
+import { HomeComponent } from '@wa/app/features/main/components/home/home.component';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
-
-import { ForecastComponent } from './components/forecast/forecast.component';
 
 const navItemsLocalizationBasePath = 'shared.shell.sidebar.navItems';
 const defaultCities: number[] = [
@@ -58,4 +57,4 @@ const routes: Routes = [
 	imports: [RouterModule.forChild(routes)],
 	exports: [RouterModule],
 })
-export class HomeRoutingModule {}
+export class MainRoutingModule {}

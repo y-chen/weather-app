@@ -5,8 +5,8 @@ import { ngMocks } from 'ng-mocks';
 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { HomeComponent } from '@wa/app/features/home/components/home/home.component';
-import { getHomeComponentMocks, HomeComponentMocks } from '@wa/app/features/home/components/home/home.component.spec.mocks';
+import { HomeComponent } from '@wa/app/features/main/components/home/home.component';
+import { getHomeComponentMocks, HomeComponentMocks } from '@wa/app/features/main/components/home/home.component.spec.mocks';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
 

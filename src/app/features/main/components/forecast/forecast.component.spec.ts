@@ -4,7 +4,7 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { ForecastComponent } from '@wa/app/features/home/components/forecast/forecast.component';
+import { ForecastComponent } from '@wa/app/features/main/components/forecast/forecast.component';
 
 describe('ForecastComponent', () => {
 	let host: SpectatorHost<ForecastComponent>;
