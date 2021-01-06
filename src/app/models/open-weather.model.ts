@@ -11,7 +11,7 @@ export interface Forecast {
 export interface City {
 	id: number;
 	name: string;
-	coord: Coord;
+	coord: OpenCoord;
 	country: string;
 	population: number;
 	timezone: number;
@@ -23,7 +23,7 @@ export interface OpenWeatherSearchParams {
 	q?: string;
 	group?: number[];
 	id?: number;
-	coord?: Coord;
+	coord?: OpenCoord;
 	iconSize?: IconSize;
 }
 
@@ -35,7 +35,7 @@ export interface WeatherGroup {
 export interface Weather {
 	id?: number;
 	name?: string;
-	coord?: Coord;
+	coord?: OpenCoord;
 	weather: WeatherDetails[];
 	base?: string;
 	main: Temperature;
@@ -51,7 +51,7 @@ export interface Weather {
 	dt_txt?: string;
 }
 
-export interface Coord {
+export interface OpenCoord {
 	lat: number;
 	lon: number;
 }

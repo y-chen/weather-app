@@ -7,7 +7,7 @@ import { ApiService } from '@wa/app/core/services/api/api.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { HereLocation, HereSearchParams } from '@wa/app/models/here.model';
 import { Param } from '@wa/app/models/http.model';
-import { Coord } from '@wa/app/models/open-weather.model';
+import { OpenCoord } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
 
 @Injectable()
@@ -61,7 +61,7 @@ export class GeoService {
 		return await this.api.get<HereLocation>(url, { params });
 	}
 
-	async findLocationByCoords(coord: Coord): Promise<HereLocation> {
+	async findLocationByCoords(coord: OpenCoord): Promise<HereLocation> {
 		const url = `${this.REV_GEOCODE_URL}/revgeocode`;
 		let params: Param[] = [{ key: 'at', value: `${coord.lat},${coord.lon}` }];
 		params = this.appendParams(params);

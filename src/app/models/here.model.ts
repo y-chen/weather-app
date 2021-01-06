@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Coord as OpenCoord } from '@wa/app/models/open-weather.model';
+import { OpenCoord } from '@wa/app/models/open-weather.model';
 
 export interface HereSearchParams {
 	id?: string;
@@ -15,13 +15,13 @@ export interface HereLocation {
 	localityType?: string;
 	address: Address;
 	mapView?: MapView;
-	position?: Coord;
+	position?: HereCoord;
 	houseNumberType?: string;
-	access?: Coord[];
+	access?: HereCoord[];
 	distance?: number;
 }
 
-export interface Coord {
+export interface HereCoord {
 	lat: number;
 	lng: number;
 }

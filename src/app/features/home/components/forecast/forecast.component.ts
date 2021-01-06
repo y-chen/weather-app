@@ -8,7 +8,7 @@ import { EventService } from '@wa/app/core/services/event/event.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { ViewForecast } from '@wa/app/models/open-weather-parser.model';
-import { Coord } from '@wa/app/models/open-weather.model';
+import { OpenCoord } from '@wa/app/models/open-weather.model';
 
 @Component({
 	selector: 'wa-forecast',
@@ -33,7 +33,9 @@ export class ForecastComponent implements IComponent, OnInit {
 	async ngOnInit(): Promise<void> {
 		this.viewForecast = (await this.componentService.getResolverData('forecast')) as ViewForecast;
 
-		const queryParamsSub: Subscription = this.route.queryParams.subscribe((queryParams: Coord) => this.updateForecast(queryParams));
+		const queryParamsSub: Subscription = this.route.queryParams.subscribe((queryParams: OpenCoord) =>
+			this.updateForecast(queryParams),
+		);
 		const onSettingsChangeSub: Subscription = this.eventService.onSettingsChange.subscribe(() => this.updateForecast());
 
 		this.componentService.subscribe(queryParamsSub);
@@ -46,7 +48,7 @@ export class ForecastComponent implements IComponent, OnInit {
 		return this.componentService.getLocalizationPath(end);
 	}
 
-	private updateForecast(coord?: Coord): void {
+	private updateForecast(coord?: OpenCoord): void {
 		coord = coord ? coord : this.viewForecast.coord;
 
 		if (coord.lat && coord.lon) {

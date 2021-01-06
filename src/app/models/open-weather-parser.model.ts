@@ -1,4 +1,4 @@
-import { Coord, IconSize } from '@wa/app/models/open-weather.model';
+import { IconSize, OpenCoord } from '@wa/app/models/open-weather.model';
 
 export interface ViewParserOptions {
 	iconSize?: IconSize;
@@ -9,7 +9,7 @@ export interface ViewParserOptions {
 export interface ViewForecast {
 	id: number;
 	name: string;
-	coord: Coord;
+	coord: OpenCoord;
 	days: DayForecast[];
 }
 

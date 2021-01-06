@@ -1,15 +1,15 @@
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { Coord, IconSize } from '@wa/app/models/open-weather.model';
+import { IconSize, OpenCoord } from '@wa/app/models/open-weather.model';
 
 export interface ForecastResolverMocks {
-	coord: Coord;
+	coord: OpenCoord;
 	iconSize: IconSize;
 	id: number;
 	route: ActivatedRouteSnapshot;
 }
 
 export const getForecastResolverMocks = (): ForecastResolverMocks => {
-	const coord: Coord = { lat: 1, lon: 1 };
+	const coord: OpenCoord = { lat: 1, lon: 1 };
 	const iconSize: IconSize = 2;
 	const id = 1;
 
