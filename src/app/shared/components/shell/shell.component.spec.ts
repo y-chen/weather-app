@@ -1,17 +1,13 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
-import { ngMocks } from 'ng-mocks';
 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { NavItem } from '@wa/app/models/navigation.model';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 import { environment } from '@wa/environments/environment';
-
-import { SidebarComponent } from './sidebar/sidebar.component';
 
 describe('ShellComponent', () => {
 	let host: SpectatorHost<ShellComponent>;
@@ -21,8 +17,6 @@ describe('ShellComponent', () => {
 
 	const createHost = createHostFactory({ component: ShellComponent });
 
-	let navItems: NavItem[];
-
 	beforeEach(() => {
 		componentServiceMock = mock<ComponentService>();
 		cultureServiceMock = mock<CultureService>();
@@ -30,11 +24,6 @@ describe('ShellComponent', () => {
 
 		cultureServiceMock.getAvailableCultures.mockReturnValue(environment.cultures);
 		settingsServiceMock.getCulture.mockReturnValue(environment.cultures[0]);
-
-		navItems = [
-			{ icon: 'First Icon', label: 'First Label', route: 'First Route' },
-			{ icon: 'Second Icon', label: 'Second Label', route: 'Second Route' },
-		];
 	});
 
 	afterEach(() => {
