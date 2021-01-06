@@ -5,7 +5,7 @@ import * as lodash from 'lodash';
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { SearchParams, SearchResult } from '@wa/app/models/here.model';
+import { HereSearchParams, SearchResult } from '@wa/app/models/here.model';
 import { Param } from '@wa/app/models/http.model';
 import { Coord } from '@wa/app/models/open-weather.model';
 import { environment } from '@wa/environments/environment';
@@ -23,7 +23,7 @@ export class GeoService {
 		this.API_KEY = environment.hereAPI.apiKey;
 	}
 
-	async locationLookup(searchParams: SearchParams): Promise<SearchResult> {
+	async locationLookup(searchParams: HereSearchParams): Promise<SearchResult> {
 		const { id, coord, query } = searchParams;
 		let location: SearchResult;
 

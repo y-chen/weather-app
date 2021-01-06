@@ -2,7 +2,7 @@
 
 import { Coord as OpenCoord } from '@wa/app/models/open-weather.model';
 
-export interface SearchParams {
+export interface HereSearchParams {
 	id?: string;
 	coord?: OpenCoord;
 	query?: string;
