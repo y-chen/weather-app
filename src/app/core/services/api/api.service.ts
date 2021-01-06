@@ -106,7 +106,7 @@ export class ApiService {
 
 	private handleOption(options: HttpOption, pair: Header | Param): HttpOption {
 		if (this.isSimpleType(pair.value)) {
-			return options.append(pair.key, pair.value);
+			return options.set(pair.key, pair.value);
 		}
 
 		return options.set(pair.key, JSON.stringify(pair.value));
