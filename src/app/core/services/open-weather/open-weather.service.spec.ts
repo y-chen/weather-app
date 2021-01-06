@@ -5,33 +5,38 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { ApiService } from '@wa/app/core/services/api/api.service';
+import { availableCultures } from '@wa/app/core/services/culture/culture.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { getOpenWeatherMocks, OpenWeatherMocks } from '@wa/app/core/services/open-weather/open-weather.service.spec.mocks';
-import { Weather } from '@wa/app/models/open-weather.model';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
+import { Units, Weather } from '@wa/app/models/open-weather.model';
 
 describe('OpenWeatherService', () => {
 	let spectator: SpectatorService<OpenWeatherService>;
 	let apiServiceMock: MockProxy<ApiService>;
 	let openWeatherParserServiceMock: MockProxy<OpenWeatherParserService>;
+	let settingsServiceMock: MockProxy<SettingsService>;
 
-	const createService = createServiceFactory({
-		service: OpenWeatherService,
-		mocks: [ApiService, OpenWeatherParserService],
-	});
+	const createService = createServiceFactory(OpenWeatherService);
 
 	let mocks: OpenWeatherMocks;
 
 	beforeEach(() => {
 		apiServiceMock = mock<ApiService>();
 		openWeatherParserServiceMock = mock<OpenWeatherParserService>();
+		settingsServiceMock = mock<SettingsService>();
 
 		spectator = createService({
 			providers: [
 				{ provide: ApiService, useValue: apiServiceMock },
 				{ provide: OpenWeatherParserService, useValue: openWeatherParserServiceMock },
+				{ provide: SettingsService, useValue: settingsServiceMock },
 			],
 		});
+
+		settingsServiceMock.getCulture.mockReturnValue(availableCultures[0]);
+		settingsServiceMock.getUnit.mockReturnValue(Units.Imperial);
 
 		mocks = getOpenWeatherMocks();
 	});
@@ -39,6 +44,7 @@ describe('OpenWeatherService', () => {
 	afterEach(() => {
 		mockReset(apiServiceMock);
 		mockReset(openWeatherParserServiceMock);
+		mockReset(settingsServiceMock);
 	});
 
 	it('should be created', () => {

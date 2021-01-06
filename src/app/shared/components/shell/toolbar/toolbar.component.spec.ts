@@ -1,29 +1,36 @@
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { TranslateService } from '@ngx-translate/core';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
+import { availableCultures } from '@wa/app/core/services/culture/culture.service';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { ToolbarComponent } from '@wa/app/shared/components/shell/toolbar/toolbar.component';
 
 describe('ToolbarComponent', () => {
 	let host: SpectatorHost<ToolbarComponent>;
-	let translateMock: MockProxy<TranslateService>;
 	let componentServiceMock: MockProxy<ComponentService>;
+	let settingsServiceMock: MockProxy<SettingsService>;
 
-	const createHost = createHostFactory({
-		component: ToolbarComponent,
-	});
+	const createHost = createHostFactory(ToolbarComponent);
 
 	beforeEach(() => {
 		componentServiceMock = mock<ComponentService>();
-		translateMock = mock<TranslateService>();
+		settingsServiceMock = mock<SettingsService>();
 
+		settingsServiceMock.getCulture.mockReturnValue(availableCultures[0]);
+	});
+
+	afterEach(() => {
 		mockReset(componentServiceMock);
-		mockReset(translateMock);
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-toolbar></wa-toolbar>');
+		host = createHost('<wa-toolbar></wa-toolbar>', {
+			providers: [
+				{ provide: ComponentService, useValue: componentServiceMock },
+				{ provide: SettingsService, useValue: settingsServiceMock },
+			],
+		});
 
 		const toolbar = host.queryHost('wa-toolbar');
 

@@ -4,33 +4,40 @@ import { anyObject, mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { ApiService } from '@wa/app/core/services/api/api.service';
+import { availableCultures } from '@wa/app/core/services/culture/culture.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { GeoServiceMocks, getGeoServiceMocks } from '@wa/app/core/services/geo/geo.service.spec.mocks';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Param } from '@wa/app/models/http.model';
 
 describe('GeoService', () => {
 	let spectator: SpectatorService<GeoService>;
 	let apiMock: MockProxy<ApiService>;
+	let settingsServiceMock: MockProxy<SettingsService>;
 
-	const createService = createServiceFactory({
-		service: GeoService,
-		mocks: [ApiService],
-	});
+	const createService = createServiceFactory(GeoService);
 
 	let mocks: GeoServiceMocks;
 
 	beforeEach(() => {
 		apiMock = mock<ApiService>();
+		settingsServiceMock = mock<SettingsService>();
 
 		spectator = createService({
-			providers: [{ provide: ApiService, useValue: apiMock }],
+			providers: [
+				{ provide: ApiService, useValue: apiMock },
+				{ provide: SettingsService, useValue: settingsServiceMock },
+			],
 		});
+
+		settingsServiceMock.getCulture.mockReturnValue(availableCultures[0]);
 
 		mocks = getGeoServiceMocks();
 	});
 
 	afterEach(() => {
 		mockReset(apiMock);
+		mockReset(settingsServiceMock);
 	});
 
 	it('should be defined', () => {
