@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "ng-weather-app-staging"
+  },
+  "targets": {
+    "ng-weather-app-staging": {
+      "hosting": {
+        "weather-app": [
+          "ng-weather-app-staging"
+        ]
+      }
+    }
   }
 }

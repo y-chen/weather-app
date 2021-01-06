@@ -16,6 +16,15 @@ export const environment = {
 			code: 'it-IT',
 		},
 	],
+	firebase: {
+		apiKey: 'AIzaSyDDx2nHBea8HgHXhloQvnYAeHvZyrnrC4g',
+		authDomain: 'ng-weather-app-staging.firebaseapp.com',
+		projectId: 'ng-weather-app-staging',
+		storageBucket: 'ng-weather-app-staging.appspot.com',
+		messagingSenderId: '255407891982',
+		appId: '1:255407891982:web:bfeeb22db54eb9c3e77e5f',
+		measurementId: 'G-MR3CW3H12G',
+	},
 	hereAPI: {
 		apiKey: '1vFZKYF-Lkd-1Cgxe1OtCRnTyCHrqLlG68zrzRNyeiM',
 		auth: {

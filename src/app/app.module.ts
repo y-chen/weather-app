@@ -4,6 +4,8 @@ import localeEn from '@angular/common/locales/en';
 import localeItExtra from '@angular/common/locales/extra/it';
 import localeIt from '@angular/common/locales/it';
 import { NgModule } from '@angular/core';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -14,6 +16,7 @@ import { CoreModule } from '@wa/app/core/core.module';
 import { ErrorHandlersModule } from '@wa/app/error-handlers/error-handlers.module';
 import { InterceptorsModule } from '@wa/app/interceptors/interceptors.module';
 import { SharedModule } from '@wa/app/shared/shared.module';
+import { environment } from '@wa/environments/environment';
 
 registerLocaleData(localeEn, 'en');
 registerLocaleData(localeIt, 'it', localeItExtra);
@@ -38,6 +41,8 @@ export const ConfiguredTranslateModule = TranslateModule.forRoot({
 		ErrorHandlersModule,
 		InterceptorsModule,
 		SharedModule,
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFireFunctionsModule,
 	],
 	providers: [],
 	bootstrap: [AppComponent],
