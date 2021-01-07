@@ -100,7 +100,7 @@ describe('HereService', () => {
 			const { location, searchParams } = mocks;
 			const partialParams: Param[] = [
 				{ key: 'q', value: searchParams.query.replace(' ', '+') },
-				{ key: 'limit', value: 20 },
+				{ key: 'limit', value: 5 },
 			];
 
 			apiMock.get.mockResolvedValue([location]);
