@@ -13,8 +13,6 @@
 	},
 	"shared": {
 		"basicWeather": {
-			"date": "Weather on {{date}}",
-			"time": "Weather at {{time}}",
 			"viewForecast": "View Forecast"
 		},
 		"dayTimeWeather": {
