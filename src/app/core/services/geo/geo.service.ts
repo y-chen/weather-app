@@ -4,11 +4,11 @@ import * as lodash from 'lodash';
 
 import { Injectable } from '@angular/core';
 import { ApiService } from '@wa/app/core/services/api/api.service';
+import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { HereLocation, HereSearchParams } from '@wa/app/models/here.model';
 import { Param } from '@wa/app/models/http.model';
 import { OpenCoord } from '@wa/app/models/open-weather.model';
-import { environment } from '@wa/environments/environment';
 
 @Injectable()
 export class GeoService {
@@ -16,11 +16,17 @@ export class GeoService {
 	private readonly GEOCODE_URL: string;
 	private readonly REV_GEOCODE_URL: string;
 
-	constructor(private readonly api: ApiService, private readonly settingsService: SettingsService) {
-		const { geocode, revGeocode } = environment.hereAPI.urls;
+	constructor(
+		private readonly api: ApiService,
+		private readonly configService: ConfigService,
+		private readonly settingsService: SettingsService,
+	) {
+		console.log('GeoService', this.configService.config);
+
+		const { geocode, revGeocode } = this.configService.config.here.urls;
 		this.GEOCODE_URL = geocode;
 		this.REV_GEOCODE_URL = revGeocode;
-		this.API_KEY = environment.hereAPI.apiKey;
+		this.API_KEY = this.configService.config.here.apiKey;
 	}
 
 	async locationLookup(searchParams: HereSearchParams): Promise<HereLocation> {
