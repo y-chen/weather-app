@@ -54,6 +54,10 @@
 		display: block;
 		margin: 12px auto 0 auto;
 
+		@include media('>=0', '<=tablet') {
+			display: none;
+		}
+
 		&:hover {
 			background-color: var(--accent-color);
 		}
