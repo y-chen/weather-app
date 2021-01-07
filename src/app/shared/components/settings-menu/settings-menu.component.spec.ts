@@ -5,6 +5,7 @@
 
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
+import { EventEmitter } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
@@ -41,6 +42,10 @@ describe('SettingsMenuComponent', () => {
 		cultureServiceMock.getAvailableCultures.mockReturnValue(cultures);
 		settingsServiceMock.getCulture.mockReturnValue(currentCulture);
 		settingsServiceMock.getUnit.mockReturnValue(currentUnit);
+
+		Object.defineProperty(eventServiceMock, 'onSettingsChange', {
+			get: jest.fn(() => new EventEmitter()),
+		});
 	});
 
 	afterEach(() => {
