@@ -11,7 +11,6 @@
 		"deploy:dev": "firebase use default && ng build --aot && firebase deploy",
 		"deploy:prod": "firebase use prod && ng build --prod && firebase deploy",
 		"lint": "npm run eslint",
-		"e2e": "ng e2e",
 		"eslint": "eslint \"src/**/*.{ts, js, json, html, scss}\"",
 		"eslint:fix": "npm run eslint --fix",
 		"prettier": "prettier \"**/*.{ts, js, json, html, scss}\"",
