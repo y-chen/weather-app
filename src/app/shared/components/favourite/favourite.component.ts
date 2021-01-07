@@ -11,7 +11,6 @@ import { IComponent } from '@wa/app/models/component.model';
 })
 export class FavouriteComponent implements IComponent {
 	@Input() cityId: number;
-	@Input() color?: 'primary' | 'accent' = 'primary';
 
 	constructor(private readonly localStorageService: LocalStorageService, private readonly componentService: ComponentService) {
 		this.componentService.init({ localizationBasePath: 'shared.favourite' });

@@ -5,17 +5,6 @@
 
 	mat-icon {
 		@include mat-icon-size(32px);
-
-		&.primary {
-			color: var(--primary-color);
-		}
-
-		&.accent {
-			color: var(--accent-color);
-		}
-
-		&.deselected {
-			color: #fff;
-		}
+		color: #fff;
 	}
 }
