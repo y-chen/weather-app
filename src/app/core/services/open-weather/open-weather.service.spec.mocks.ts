@@ -16,7 +16,7 @@ export const getOpenWeatherMocks = (): OpenWeatherMocks => {
 			apiKey: 'HERE-API-KEY',
 			urls: {
 				geocode: 'GEOCODE-URL',
-				revGeocode: 'REVGEOCODE-URL',
+				revGeocode: 'REV-GEOCODE-URL',
 			},
 		},
 		openWeatherMap: {

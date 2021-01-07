@@ -5,6 +5,7 @@ import { ngMocks } from 'ng-mocks';
 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
+import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { HomeComponent } from '@wa/app/features/main/components/home/home.component';
 import { getHomeComponentMocks, HomeComponentMocks } from '@wa/app/features/main/components/home/home.component.spec.mocks';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
@@ -13,25 +14,30 @@ import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/wea
 describe('HomeComponent', () => {
 	let host: SpectatorHost<HomeComponent>;
 	let componentServiceMock: MockProxy<ComponentService>;
+	let configServiceMock: MockProxy<ConfigService>;
 
-	const createHost = createHostFactory({
-		component: HomeComponent,
-	});
+	const createHost = createHostFactory(HomeComponent);
 
 	let mocks: HomeComponentMocks;
 
 	beforeEach(() => {
 		componentServiceMock = mock<ComponentService>();
+		configServiceMock = mock<ConfigService>();
 
 		mocks = getHomeComponentMocks();
+
+		configServiceMock.getConfig.mockReturnValue(mocks.config);
 	});
 
 	afterEach(() => {
 		mockReset(componentServiceMock);
+		mockReset(configServiceMock);
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-home></wa-home>');
+		host = createHost('<wa-home></wa-home>', {
+			providers: [{ provide: ConfigService, useValue: configServiceMock }],
+		});
 
 		const home = host.queryHost('wa-home');
 
@@ -41,7 +47,10 @@ describe('HomeComponent', () => {
 
 	it('should call ComponentService.init', () => {
 		host = createHost('<wa-home></wa-home>', {
-			providers: [{ provide: ComponentService, useValue: componentServiceMock }],
+			providers: [
+				{ provide: ComponentService, useValue: componentServiceMock },
+				{ provide: ConfigService, useValue: configServiceMock },
+			],
 		});
 
 		expect(componentServiceMock.init).toHaveBeenCalled();
@@ -49,7 +58,10 @@ describe('HomeComponent', () => {
 
 	it('should ComponentService.getResolverData with expected paramName', () => {
 		host = createHost('<wa-home></wa-home>', {
-			providers: [{ provide: ComponentService, useValue: componentServiceMock }],
+			providers: [
+				{ provide: ComponentService, useValue: componentServiceMock },
+				{ provide: ConfigService, useValue: configServiceMock },
+			],
 		});
 
 		expect(componentServiceMock.getResolverData).toHaveBeenCalledWith('favouritesWeather');
@@ -60,7 +72,9 @@ describe('HomeComponent', () => {
 
 		componentServiceMock.getResolverData.calledWith('favouritesWeather').mockResolvedValue(viewWeathers as never);
 
-		host = createHost('<wa-home></wa-home>');
+		host = createHost('<wa-home></wa-home>', {
+			providers: [{ provide: ConfigService, useValue: configServiceMock }],
+		});
 
 		const weatherCards: WeatherCardComponent[] = ngMocks.findInstances(WeatherCardComponent);
 
@@ -68,7 +82,9 @@ describe('HomeComponent', () => {
 	});
 
 	it('should display wa-missing-data component when ComponentService.getResolverData return not defined result', () => {
-		host = createHost('<wa-home></wa-home>');
+		host = createHost('<wa-home></wa-home>', {
+			providers: [{ provide: ConfigService, useValue: configServiceMock }],
+		});
 
 		const missingData: Element = host.query('wa-missing-data');
 

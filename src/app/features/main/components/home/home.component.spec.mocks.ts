@@ -1,10 +1,26 @@
+import { Config } from '@wa/app/models/config.model';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 
 export interface HomeComponentMocks {
+	config: Config;
 	viewWeathers: Weather[];
 }
 
 export const getHomeComponentMocks = (): HomeComponentMocks => {
+	const config: Config = {
+		here: {
+			apiKey: 'HERE-API-KEY',
+			urls: {
+				geocode: 'GEOCODE-URL',
+				revGeocode: 'REV-GEOCODE-URL',
+			},
+		},
+		openWeatherMap: {
+			apiKey: 'OPEN-WEATHER-MAP-API-KEY',
+			url: 'OPEN-WEATHER-MAP-URL',
+		},
+	};
+
 	const viewWeathers: Weather[] = [
 		{
 			id: 1,
@@ -24,5 +40,5 @@ export const getHomeComponentMocks = (): HomeComponentMocks => {
 		},
 	];
 
-	return { viewWeathers };
+	return { config, viewWeathers };
 };
