@@ -13,5 +13,9 @@
 		&.accent {
 			color: var(--accent-color);
 		}
+
+		&.deselected {
+			color: #fff;
+		}
 	}
 }
