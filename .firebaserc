@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "ng-weather-app-staging"
+    "default": "ng-weather-app-staging",
+    "prod": "ng-weather-app-prod"
   }
 }
