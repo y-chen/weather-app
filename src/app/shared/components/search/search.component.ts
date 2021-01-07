@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { GeoService } from '@wa/app/core/services/geo/geo.service';
+import { HereService } from '@wa/app/core/services/here/here.service';
 import { LocationService } from '@wa/app/core/services/location/location.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
@@ -26,7 +26,7 @@ export class SearchComponent implements IComponent, OnInit {
 
 	constructor(
 		private readonly componentService: ComponentService,
-		private readonly geoService: GeoService,
+		private readonly hereService: HereService,
 		private readonly locationService: LocationService,
 		private readonly router: Router,
 	) {
@@ -36,13 +36,13 @@ export class SearchComponent implements IComponent, OnInit {
 	ngOnInit(): void {
 		this.searchInput.valueChanges.pipe(debounceTime(300)).subscribe((term: string) => {
 			if (term !== '') {
-				this.cities = this.geoService.findCities(term);
+				this.cities = this.hereService.findCities(term);
 			}
 		});
 	}
 
 	async onInputEnterKeydown(event: any): Promise<void> {
-		const location: HereLocation = await this.geoService.findLocationByQuery(this.searchInput.value);
+		const location: HereLocation = await this.hereService.findLocationByQuery(this.searchInput.value);
 		const { lat, lng } = location.position;
 
 		event.target.blur();
@@ -61,7 +61,7 @@ export class SearchComponent implements IComponent, OnInit {
 
 		const coord: GeolocationCoordinates = await this.locationService.getLocation();
 		const { latitude, longitude } = coord;
-		const location: HereLocation = await this.geoService.findLocationByCoords({
+		const location: HereLocation = await this.hereService.findLocationByCoords({
 			lat: latitude,
 			lon: longitude,
 		});
@@ -72,7 +72,7 @@ export class SearchComponent implements IComponent, OnInit {
 	}
 
 	async onAutocompleteOptionClick(selection: HereLocation): Promise<void> {
-		const location: HereLocation = await this.geoService.findLocationById(selection.id);
+		const location: HereLocation = await this.hereService.findLocationById(selection.id);
 		const { lat, lng } = location.position;
 
 		await this.navigateToForecast(location, lat, lng);

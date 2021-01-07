@@ -11,7 +11,7 @@ import { Param } from '@wa/app/models/http.model';
 import { OpenCoord } from '@wa/app/models/open-weather.model';
 
 @Injectable()
-export class GeoService {
+export class HereService {
 	private readonly API_KEY: string;
 	private readonly GEOCODE_URL: string;
 	private readonly REV_GEOCODE_URL: string;
@@ -21,12 +21,12 @@ export class GeoService {
 		private readonly configService: ConfigService,
 		private readonly settingsService: SettingsService,
 	) {
-		console.log('GeoService', this.configService.config);
+		const here = this.configService.getConfig().here;
+		const { geocode, revGeocode } = here.urls;
 
-		const { geocode, revGeocode } = this.configService.config.here.urls;
 		this.GEOCODE_URL = geocode;
 		this.REV_GEOCODE_URL = revGeocode;
-		this.API_KEY = this.configService.config.here.apiKey;
+		this.API_KEY = here.apiKey;
 	}
 
 	async locationLookup(searchParams: HereSearchParams): Promise<HereLocation> {

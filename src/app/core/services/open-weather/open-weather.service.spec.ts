@@ -5,6 +5,7 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { ApiService } from '@wa/app/core/services/api/api.service';
+import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { getOpenWeatherMocks, OpenWeatherMocks } from '@wa/app/core/services/open-weather/open-weather.service.spec.mocks';
@@ -15,6 +16,7 @@ import { RawWeather, Units } from '@wa/app/models/open-weather.model';
 describe('OpenWeatherService', () => {
 	let spectator: SpectatorService<OpenWeatherService>;
 	let apiServiceMock: MockProxy<ApiService>;
+	let configServiceMock: MockProxy<ConfigService>;
 	let openWeatherParserServiceMock: MockProxy<OpenWeatherParserService>;
 	let settingsServiceMock: MockProxy<SettingsService>;
 
@@ -24,31 +26,35 @@ describe('OpenWeatherService', () => {
 
 	beforeEach(() => {
 		apiServiceMock = mock<ApiService>();
+		configServiceMock = mock<ConfigService>();
 		openWeatherParserServiceMock = mock<OpenWeatherParserService>();
 		settingsServiceMock = mock<SettingsService>();
+
+		mocks = getOpenWeatherMocks();
+
+		configServiceMock.getConfig.mockReturnValue(mocks.config);
+		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
+		settingsServiceMock.getUnit.mockReturnValue(Units.Imperial);
 
 		spectator = createService({
 			providers: [
 				{ provide: ApiService, useValue: apiServiceMock },
+				{ provide: ConfigService, useValue: configServiceMock },
 				{ provide: OpenWeatherParserService, useValue: openWeatherParserServiceMock },
 				{ provide: SettingsService, useValue: settingsServiceMock },
 			],
 		});
-
-		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
-		settingsServiceMock.getUnit.mockReturnValue(Units.Imperial);
-
-		mocks = getOpenWeatherMocks();
 	});
 
 	afterEach(() => {
 		mockReset(apiServiceMock);
+		mockReset(configServiceMock);
 		mockReset(openWeatherParserServiceMock);
 		mockReset(settingsServiceMock);
 	});
 
 	it('should be created', () => {
-		expect(spectator.service).toBeTruthy();
+		expect(spectator.service).toBeDefined();
 	});
 
 	describe('getWeatherGroup', () => {

@@ -2,24 +2,21 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
 import { Config } from '@wa/app/models/config.model';
 import { environment } from '@wa/environments/environment';
 
 @Injectable()
 export class ConfigService {
-	private _config: Config;
-
-	public get config(): Config {
-		return this._config;
-	}
-
-	constructor(private readonly firestore: AngularFirestore) {}
+	constructor(private readonly firestore: AngularFirestore, private readonly localStorageService: LocalStorageService) {}
 
 	async loadConfig(): Promise<void> {
-		if (!this._config) {
-			const snapshot = await this.firestore.collection('config').doc<Config>(environment.configId).get().toPromise();
+		const snapshot = await this.firestore.collection('config').doc<Config>(environment.configId).get().toPromise();
 
-			this._config = snapshot.data();
-		}
+		this.localStorageService.set(StorageKeys.Config, JSON.stringify(snapshot.data()));
+	}
+
+	getConfig(): Config {
+		return JSON.parse(this.localStorageService.get(StorageKeys.Config)) as Config;
 	}
 }

@@ -2,41 +2,49 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { anyObject, mock, MockProxy, mockReset } from 'jest-mock-extended';
 
+import { AngularFirestore } from '@angular/fire/firestore';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { ApiService } from '@wa/app/core/services/api/api.service';
-import { GeoService } from '@wa/app/core/services/geo/geo.service';
-import { GeoServiceMocks, getGeoServiceMocks } from '@wa/app/core/services/geo/geo.service.spec.mocks';
+import { HereService } from '@wa/app/core/services/here/here.service';
+import { getHereServiceMocks, HereServiceMocks } from '@wa/app/core/services/here/here.service.spec.mocks';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { cultures } from '@wa/app/models/culture.model';
 import { Param } from '@wa/app/models/http.model';
 
-describe('GeoService', () => {
-	let spectator: SpectatorService<GeoService>;
+import { ConfigService } from '../config/config.service';
+
+describe('HereService', () => {
+	let spectator: SpectatorService<HereService>;
 	let apiMock: MockProxy<ApiService>;
+	let configServiceMock: MockProxy<ConfigService>;
 	let settingsServiceMock: MockProxy<SettingsService>;
 
-	const createService = createServiceFactory(GeoService);
+	const createService = createServiceFactory({ service: HereService, mocks: [ConfigService] });
 
-	let mocks: GeoServiceMocks;
+	let mocks: HereServiceMocks;
 
 	beforeEach(() => {
 		apiMock = mock<ApiService>();
+		configServiceMock = mock<ConfigService>();
 		settingsServiceMock = mock<SettingsService>();
+
+		mocks = getHereServiceMocks();
+
+		configServiceMock.getConfig.mockReturnValue(mocks.config);
+		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
 
 		spectator = createService({
 			providers: [
 				{ provide: ApiService, useValue: apiMock },
+				{ provide: ConfigService, useValue: configServiceMock },
 				{ provide: SettingsService, useValue: settingsServiceMock },
 			],
 		});
-
-		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
-
-		mocks = getGeoServiceMocks();
 	});
 
 	afterEach(() => {
 		mockReset(apiMock);
+		mockReset(configServiceMock);
 		mockReset(settingsServiceMock);
 	});
 

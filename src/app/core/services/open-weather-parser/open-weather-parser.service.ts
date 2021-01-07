@@ -4,7 +4,7 @@ import moment, { Moment } from 'moment';
 
 import { Injectable } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import { GeoService } from '@wa/app/core/services/geo/geo.service';
+import { HereService } from '@wa/app/core/services/here/here.service';
 import { HereLocation } from '@wa/app/models/here.model';
 import { DayForecast, DayForecastPromise, Forecast, ParserOptions, Weather } from '@wa/app/models/open-weather-parser.model';
 import { DayTime, IconSize, RawForecast, RawWeather, Units, WeatherGroup } from '@wa/app/models/open-weather.model';
@@ -15,7 +15,7 @@ import { SettingsService } from '../settings/settings.service';
 export class OpenWeatherParserService {
 	constructor(
 		private readonly cultureService: CultureService,
-		private readonly geoService: GeoService,
+		private readonly hereService: HereService,
 		private readonly settingsService: SettingsService,
 	) {}
 
@@ -38,7 +38,7 @@ export class OpenWeatherParserService {
 
 	async parseForecastData(forecast: RawForecast, iconSize: IconSize = 4): Promise<Forecast> {
 		const { id, coord, timezone } = forecast.city;
-		const location: HereLocation = await this.geoService.locationLookup({ coord, query: forecast.city.name });
+		const location: HereLocation = await this.hereService.locationLookup({ coord, query: forecast.city.name });
 		const { city, countryCode } = location.address;
 		const name = `${city}, ${countryCode}`;
 
@@ -83,7 +83,7 @@ export class OpenWeatherParserService {
 
 	async translateLocationNames(weatherGroup: WeatherGroup): Promise<void> {
 		for (const weather of weatherGroup.list) {
-			const location = await this.geoService.findLocationByCoords(weather.coord);
+			const location = await this.hereService.findLocationByCoords(weather.coord);
 			const { city, countryCode } = location.address;
 
 			weather.name = `${city}, ${countryCode}`;

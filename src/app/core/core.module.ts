@@ -9,7 +9,7 @@ import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { ErrorService } from '@wa/app/core/services/error/error.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
-import { GeoService } from '@wa/app/core/services/geo/geo.service';
+import { HereService } from '@wa/app/core/services/here/here.service';
 import { LocalStorageService } from '@wa/app/core/services/local-storage/local-storage.service';
 import { LocationService } from '@wa/app/core/services/location/location.service';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
@@ -30,7 +30,7 @@ import { SettingsService } from '@wa/app/core/services/settings/settings.service
 		LocationService,
 		ApiService,
 		LoggerService,
-		GeoService,
+		HereService,
 		OpenWeatherService,
 		WeatherGroupResolver,
 		ForecastResolver,

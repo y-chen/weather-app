@@ -1,11 +1,27 @@
+import { Config } from '@wa/app/models/config.model';
 import { HereLocation, HereSearchParams } from '@wa/app/models/here.model';
 
-export interface GeoServiceMocks {
+export interface HereServiceMocks {
+	config: Config;
 	searchParams: HereSearchParams;
 	location: HereLocation;
 }
 
-export const getGeoServiceMocks = (): GeoServiceMocks => {
+export const getHereServiceMocks = (): HereServiceMocks => {
+	const config: Config = {
+		here: {
+			apiKey: 'HERE-API-KEY',
+			urls: {
+				geocode: 'GEOCODE-URL',
+				revGeocode: 'REVGEOCODE-URL',
+			},
+		},
+		openWeatherMap: {
+			apiKey: 'OPEN-WEATHER-MAP-API-KEY',
+			url: 'OPEN-WEATHER-MAP-URL',
+		},
+	};
+
 	const searchParams: HereSearchParams = {
 		id: 'LocationId',
 		coord: { lat: 0, lon: 0 },
@@ -27,5 +43,5 @@ export const getGeoServiceMocks = (): GeoServiceMocks => {
 		},
 	};
 
-	return { searchParams, location };
+	return { config, searchParams, location };
 };

@@ -2,7 +2,7 @@ import { anyNumber, mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import { GeoService } from '@wa/app/core/services/geo/geo.service';
+import { HereService } from '@wa/app/core/services/here/here.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import {
 	getOpenWeatherParserMocks, OpenWeatherParserMocks
@@ -12,23 +12,23 @@ import { RawWeather } from '@wa/app/models/open-weather.model';
 describe('OpenWeatherParserService', () => {
 	let spectator: SpectatorService<OpenWeatherParserService>;
 	let cultureServiceMock: MockProxy<CultureService>;
-	let geoServiceMock: MockProxy<GeoService>;
+	let hereServiceMock: MockProxy<HereService>;
 
 	const createService = createServiceFactory({
 		service: OpenWeatherParserService,
-		mocks: [CultureService, GeoService],
+		mocks: [CultureService, HereService],
 	});
 
 	let mocks: OpenWeatherParserMocks;
 
 	beforeEach(() => {
 		cultureServiceMock = mock<CultureService>();
-		geoServiceMock = mock<GeoService>();
+		hereServiceMock = mock<HereService>();
 
 		spectator = createService({
 			providers: [
 				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: GeoService, useValue: geoServiceMock },
+				{ provide: HereService, useValue: hereServiceMock },
 			],
 		});
 
@@ -37,7 +37,7 @@ describe('OpenWeatherParserService', () => {
 
 	afterEach(() => {
 		mockReset(cultureServiceMock);
-		mockReset(geoServiceMock);
+		mockReset(hereServiceMock);
 	});
 
 	it('should be created', () => {
@@ -68,18 +68,18 @@ describe('OpenWeatherParserService', () => {
 	});
 
 	describe('parseForecastData', () => {
-		it('should call GeoService.locationLookup with expected arguments', async () => {
+		it('should call HereService.locationLookup with expected arguments', async () => {
 			const { coord, name } = mocks.forecast.city;
 
-			geoServiceMock.locationLookup.mockResolvedValue(mocks.location);
+			hereServiceMock.locationLookup.mockResolvedValue(mocks.location);
 
 			await spectator.service.parseForecastData(mocks.forecast);
 
-			expect(geoServiceMock.locationLookup).toHaveBeenCalledWith({ coord, query: name });
+			expect(hereServiceMock.locationLookup).toHaveBeenCalledWith({ coord, query: name });
 		});
 
 		it('should group days and day times as expected', async () => {
-			geoServiceMock.locationLookup.mockResolvedValue(mocks.location);
+			hereServiceMock.locationLookup.mockResolvedValue(mocks.location);
 
 			const forecast = await spectator.service.parseForecastData(mocks.forecast);
 
@@ -102,7 +102,7 @@ describe('OpenWeatherParserService', () => {
 		});
 
 		it('should call CultureService.convertUnixTimeToLocaleDate for each RawWeather with correct timezone', async () => {
-			geoServiceMock.locationLookup.mockResolvedValue(mocks.location);
+			hereServiceMock.locationLookup.mockResolvedValue(mocks.location);
 
 			await spectator.service.parseForecastData(mocks.forecast);
 
@@ -117,13 +117,13 @@ describe('OpenWeatherParserService', () => {
 	});
 
 	describe('translateLocationNames', () => {
-		it('should call GeoService.findLocationByCoords for each element of the WeatherGroup', async () => {
-			geoServiceMock.findLocationByCoords.mockResolvedValue(mocks.location);
+		it('should call HereService.findLocationByCoords for each element of the WeatherGroup', async () => {
+			hereServiceMock.findLocationByCoords.mockResolvedValue(mocks.location);
 
 			await spectator.service.translateLocationNames(mocks.group);
 
 			mocks.group.list.forEach((weather: RawWeather, index: number) =>
-				expect(geoServiceMock.findLocationByCoords).toHaveBeenNthCalledWith(index + 1, weather.coord),
+				expect(hereServiceMock.findLocationByCoords).toHaveBeenNthCalledWith(index + 1, weather.coord),
 			);
 		});
 	});
