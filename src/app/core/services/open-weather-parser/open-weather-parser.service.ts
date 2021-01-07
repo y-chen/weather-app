@@ -32,7 +32,7 @@ export class OpenWeatherParserService {
 			time: this.cultureService.convertUnixTimeToLocaleDate(dt, timezone || weather.sys.timezone),
 			description: Case.capital(description),
 			temperature: `${Math.round(weather.main.temp)}° ${temperatureUnit}`,
-			icon: `http://openweathermap.org/img/wn/${icon}@${iconSize || 4}x.png`,
+			icon: `https://openweathermap.org/img/wn/${icon}@${iconSize || 4}x.png`,
 		};
 	}
 
