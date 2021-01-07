@@ -65,9 +65,7 @@ describe('FavouriteComponent', () => {
 		expect(primary).toBeNull();
 	});
 
-	it('should have proper icon when cityId is in the favourites', () => {
-		const expectedIcon = 'star';
-
+	it('should have the default CSS class when cityId is in the favourites and color is not passed as input', () => {
 		localStorageServiceMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
 
 		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
@@ -75,27 +73,40 @@ describe('FavouriteComponent', () => {
 			providers: [{ provide: LocalStorageService, useValue: localStorageServiceMock }],
 		});
 
-		const matIcon: Element = host.query('mat-icon');
+		const matIcon: Element = host.query('.primary');
 
-		expect(matIcon).toHaveText(expectedIcon);
+		expect(matIcon).toExist();
 	});
 
-	it('should have proper icon when cityId is not in the favourites', () => {
-		const expectedIcon = 'star_border';
-
+	it('should have the provided CSS class when cityId is in the favourites and color is passed as input', () => {
 		localStorageServiceMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
 
 		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
-			hostProps: { cityId: 2 },
+			hostProps: { cityId: 0, color: 'accent' },
 			providers: [{ provide: LocalStorageService, useValue: localStorageServiceMock }],
 		});
 
-		const matIcon: Element = host.query('mat-icon');
+		const matIcon: Element = host.query('.accent');
 
-		expect(matIcon).toHaveText(expectedIcon);
+		expect(matIcon).toExist();
 	});
 
-	it('should call LocalStorageService.set with expected arguments when cityId is not in the favourites ', () => {
+	it('should have the .deselected CSS class when cityId is not in the favourites even when a color is passed as input', () => {
+		localStorageServiceMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
+
+		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
+			hostProps: { cityId: 0, color: 'accent' },
+			providers: [{ provide: LocalStorageService, useValue: localStorageServiceMock }],
+		});
+
+		const deselected: Element = host.query('.deselected');
+		const accent: Element = host.query('.accent');
+
+		expect(deselected).toExist();
+		expect(accent).not.toExist();
+	});
+
+	it('should call LocalStorageService.set with expected arguments when cityId is not in the favourites', () => {
 		const notFavouriteCityId = 2;
 		const expectedFavourites: string = JSON.stringify([...favoutiteCities, notFavouriteCityId]);
 
