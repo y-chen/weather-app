@@ -1,5 +1,5 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { GlobalErrorHandler } from '@wa/app/error-handlers/error-handlers/global.error-handler';
+import { GlobalErrorHandler } from '@wa/app/error-handlers/error-handlers/global/global.error-handler';
 
 describe('GlobalErrorHandler', () => {
 	let spectator: SpectatorService<GlobalErrorHandler>;

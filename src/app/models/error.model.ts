@@ -1,43 +1,19 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import { HttpErrorResponse } from '@angular/common/http';
 
-export class ServerError extends Error {
-	constructor(error: HttpErrorResponse) {
-		super(error.message);
-	}
+export interface ExtendedError extends Error {
+	message: string;
+	stack: string;
+	rejection?: HttpErrorResponse;
 }
 
-export class BadRequestError extends ServerError {
-	constructor(error: any) {
-		super(error);
-	}
+export interface HereError {
+	error: string;
+	error_description: string;
 }
 
-export class NotFoundError extends ServerError {
-	constructor(error: any) {
-		super(error);
-	}
-}
-
-export class UnauthorizedError extends ServerError {
-	constructor(error: any) {
-		super(error);
-	}
-}
-
-export class ForbiddenError extends ServerError {
-	constructor(error: any) {
-		super(error);
-	}
-}
-
-export class ConflictError extends ServerError {
-	constructor(error: any) {
-		super(error);
-	}
-}
-
-export class InternalServerError extends ServerError {
-	constructor(error: any) {
-		super(error);
-	}
+export interface OpenWeatherMapError {
+	cod: number;
+	message: string;
 }
