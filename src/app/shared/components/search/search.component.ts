@@ -59,16 +59,19 @@ export class SearchComponent implements IComponent, OnInit {
 	async onCurrentLocationClick(): Promise<void> {
 		this.isLocating = true;
 
-		const coord: GeolocationCoordinates = await this.locationService.getLocation();
-		const { latitude, longitude } = coord;
-		const location: HereLocation = await this.hereService.findLocationByCoords({
-			lat: latitude,
-			lon: longitude,
-		});
+		try {
+			const coord: GeolocationCoordinates = await this.locationService.getLocation();
+			const { latitude, longitude } = coord;
+			const location: HereLocation = await this.hereService.findLocationByCoords({
+				lat: latitude,
+				lon: longitude,
+			});
 
-		this.isLocating = false;
-
-		await this.navigateToForecast(location, latitude, longitude);
+			await this.navigateToForecast(location, latitude, longitude);
+		} catch (e) {
+		} finally {
+			this.isLocating = false;
+		}
 	}
 
 	async onAutocompleteOptionClick(selection: HereLocation): Promise<void> {

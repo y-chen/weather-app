@@ -24,6 +24,7 @@ export class LocationService {
 
 					reject(error);
 				},
+				{ timeout: 5000 },
 			),
 		);
 	}
