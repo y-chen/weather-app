@@ -1,9 +1,11 @@
 /* eslint-disable sonarjs/no-duplicate-string */
+
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { fakeAsync, tick } from '@angular/core/testing';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
+import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { HereService } from '@wa/app/core/services/here/here.service';
 import { LocationService } from '@wa/app/core/services/location/location.service';
 import { SearchComponent } from '@wa/app/shared/components/search/search.component';
@@ -12,6 +14,7 @@ import { getSearchComponentMocks, SearchComponentMocks } from '@wa/app/shared/co
 describe('SearchComponent', () => {
 	let host: SpectatorHost<SearchComponent>;
 	let componentServiceMock: MockProxy<ComponentService>;
+	let configServiceMock: MockProxy<ConfigService>;
 	let hereServiceMock: MockProxy<HereService>;
 	let locationServiceMock: MockProxy<LocationService>;
 
@@ -21,20 +24,26 @@ describe('SearchComponent', () => {
 
 	beforeEach(() => {
 		componentServiceMock = mock<ComponentService>();
+		configServiceMock = mock<ConfigService>();
 		hereServiceMock = mock<HereService>();
 		locationServiceMock = mock<LocationService>();
 
 		mocks = getSearchComponentMocks();
+
+		configServiceMock.getConfig.mockReturnValue(mocks.config);
 	});
 
 	afterEach(() => {
 		mockReset(componentServiceMock);
+		mockReset(configServiceMock);
 		mockReset(hereServiceMock);
 		mockReset(locationServiceMock);
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-search></wa-search>');
+		host = createHost('<wa-search></wa-search>', {
+			providers: [{ provide: ConfigService, useValue: configServiceMock }],
+		});
 
 		const search = host.queryHost('wa-search');
 
@@ -44,7 +53,10 @@ describe('SearchComponent', () => {
 
 	it('should call ComponentService.init', () => {
 		host = createHost('<wa-search></wa-search>', {
-			providers: [{ provide: ComponentService, useValue: componentServiceMock }],
+			providers: [
+				{ provide: ComponentService, useValue: componentServiceMock },
+				{ provide: ConfigService, useValue: configServiceMock },
+			],
 		});
 
 		expect(componentServiceMock.init).toHaveBeenCalled();

@@ -2,13 +2,12 @@
 
 import { anyObject, mock, MockProxy, mockReset } from 'jest-mock-extended';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { ApiServiceMocks, getApiServiceMocks } from '@wa/app/core/services/api/api.service.spec.mocks';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { KeyValuePair } from '@wa/app/models/http.model';
 
 describe('ApiService', () => {
 	let spectator: SpectatorService<ApiService>;

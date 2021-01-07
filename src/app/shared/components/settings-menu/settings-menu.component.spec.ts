@@ -8,7 +8,6 @@ import { mock, MockProxy, mockReset } from 'jest-mock-extended';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import { ErrorService } from '@wa/app/core/services/error/error.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Culture } from '@wa/app/models/culture.model';

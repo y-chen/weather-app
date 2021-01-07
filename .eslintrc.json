@@ -15,14 +15,7 @@
 		"plugin:sonarjs/recommended",
 		"plugin:security/recommended"
 	],
-	"ignorePatterns": [
-		"/node_modules",
-		"/.tmp",
-		"/.data",
-		"/.dist",
-		"/.documentation",
-		"polyfills.ts"
-	],
+	"ignorePatterns": ["/node_modules", "/.tmp", "/.data", "/.dist", "/.documentation", "polyfills.ts"],
 	"overrides": [
 		{
 			"files": ["*.component.html"],
@@ -192,15 +185,7 @@
 				"rules": {
 					"import-spacing": true,
 					"typedef": [true, "call-signature"],
-					"whitespace": [
-						true,
-						"check-branch",
-						"check-decl",
-						"check-operator",
-						"check-separator",
-						"check-type",
-						"check-typecast"
-					]
+					"whitespace": [true, "check-branch", "check-decl", "check-operator", "check-separator", "check-type", "check-typecast"]
 				}
 			}
 		],
@@ -232,20 +217,15 @@
 		"generator-star-spacing": "off",
 		"getter-return": "error",
 		"guard-for-in": "error",
-		"id-blacklist": [
-			"error",
-			"any",
-			"Number",
-			"number",
-			"String",
-			"string",
-			"Boolean",
-			"boolean",
-			"Undefined",
-			"undefined"
-		],
+		"id-blacklist": ["error", "any", "Number", "number", "String", "string", "Boolean", "boolean", "Undefined", "undefined"],
 		"id-match": "error",
 		"implicit-arrow-linebreak": "off",
+		"import/no-cycle": [
+			"error",
+			{
+				"maxDepth": 100
+			}
+		],
 		"import/no-deprecated": "warn",
 		"indent": "off",
 		"indent-legacy": "off",

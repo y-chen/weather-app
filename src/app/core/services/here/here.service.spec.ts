@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { anyObject, mock, MockProxy, mockReset } from 'jest-mock-extended';
 
-import { AngularFirestore } from '@angular/fire/firestore';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { HereService } from '@wa/app/core/services/here/here.service';

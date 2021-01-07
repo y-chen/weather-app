@@ -1,12 +1,28 @@
+import { Config } from '@wa/app/models/config.model';
 import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
 import { HereLocation } from '@wa/app/models/here.model';
 
 export interface SearchComponentMocks {
+	config: Config;
 	coordinates: GeolocationCoordinates;
 	location: HereLocation;
 }
 
 export const getSearchComponentMocks = (): SearchComponentMocks => {
+	const config: Config = {
+		here: {
+			apiKey: 'HERE-API-KEY',
+			urls: {
+				geocode: 'GEOCODE-URL',
+				revGeocode: 'REVGEOCODE-URL',
+			},
+		},
+		openWeatherMap: {
+			apiKey: 'OPEN-WEATHER-MAP-API-KEY',
+			url: 'OPEN-WEATHER-MAP-URL',
+		},
+	};
+
 	const coordinates = {
 		accuracy: 30,
 		altitude: null,
@@ -32,5 +48,5 @@ export const getSearchComponentMocks = (): SearchComponentMocks => {
 		},
 	};
 
-	return { coordinates, location };
+	return { config, coordinates, location };
 };
