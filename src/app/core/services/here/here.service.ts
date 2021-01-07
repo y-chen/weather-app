@@ -52,7 +52,7 @@ export class HereService {
 		const url = `${this.GEOCODE_URL}/autocomplete`;
 		let params: Param[] = [
 			{ key: 'q', value: query.replace(' ', '+') },
-			{ key: 'limit', value: 20 },
+			{ key: 'limit', value: 5 },
 		];
 		params = this.appendParams(params);
 
