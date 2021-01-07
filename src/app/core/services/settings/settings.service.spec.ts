@@ -80,7 +80,7 @@ describe('SettingsService', () => {
 
 			spectator.service.setUnit(unit);
 
-			expect(localStorageServiceMock.set).toBeCalledWith(StorageKeys.Units, JSON.stringify(unit));
+			expect(localStorageServiceMock.set).toBeCalledWith(StorageKeys.Units, unit);
 		});
 	});
 });

@@ -38,6 +38,6 @@ export class SettingsService {
 	}
 
 	setUnit(unit: Units): void {
-		this.localStorageService.set(StorageKeys.Units, JSON.stringify(unit));
+		this.localStorageService.set(StorageKeys.Units, unit);
 	}
 }

@@ -50,7 +50,7 @@ export class SettingsMenuComponent implements IComponent, OnInit {
 		}
 	}
 
-	setUnits(event: MouseEvent, unit: Units): void {
+	setUnit(event: MouseEvent, unit: Units): void {
 		event.stopPropagation();
 
 		if (unit !== this.currentUnit) {
