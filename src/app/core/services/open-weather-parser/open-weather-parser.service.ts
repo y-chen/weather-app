@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { HereService } from '@wa/app/core/services/here/here.service';
 import { HereLocation } from '@wa/app/models/here.model';
-import { DayForecast, DayForecastPromise, Forecast, ParserOptions, Weather } from '@wa/app/models/open-weather-parser.model';
+import { DayForecast, Forecast, ParserOptions, Weather } from '@wa/app/models/open-weather-parser.model';
 import { DayTime, IconSize, RawForecast, RawWeather, Units, WeatherGroup } from '@wa/app/models/open-weather.model';
 
 import { SettingsService } from '../settings/settings.service';
@@ -45,38 +45,26 @@ export class OpenWeatherParserService {
 		const startOfDay = this.startOfDayFunction(timezone);
 		const groupByDayTime = this.groupByDayTimeFunction(timezone);
 
-		const promises: Promise<DayForecast>[] = lodash
+		const days: DayForecast[] = lodash
 			.chain(forecast.list)
 			.groupBy(startOfDay)
 			.mapValues((dayWeathers: RawWeather[], day: string) => {
 				const dayTimes = lodash
 					.chain(dayWeathers)
 					.groupBy(groupByDayTime)
-					.mapValues(async (dayTimeWeathers: RawWeather[]) => {
-						const dayTimeWeatherPromises = lodash.map(dayTimeWeathers, async (weather: RawWeather) => {
-							const date: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt, timezone);
-							const titleOverride: string = await this.cultureService.getTranslation('shared.basicWeather.date', { date });
+					.mapValues((dayTimeWeathers: RawWeather[]) =>
+						lodash.map(dayTimeWeathers, (weather: RawWeather) => {
+							const titleOverride: string = this.cultureService.convertUnixTimeToLocaleDate(weather.dt, timezone);
 
 							return this.parseWeatherData(weather, { iconSize, titleOverride, timezone });
-						});
-
-						return await Promise.all(dayTimeWeatherPromises);
-					})
+						}),
+					)
 					.value();
 
 				return { day, ...dayTimes };
 			})
 			.map((value) => value)
-			.map(async (value: DayForecastPromise) => ({
-				day: value.day,
-				night: await value.night,
-				morning: await value.morning,
-				afternoon: await value.afternoon,
-				evening: await value.evening,
-			}))
 			.value();
-
-		const days = await Promise.all(promises);
 
 		return { id, name, coord, days };
 	}

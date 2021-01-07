@@ -29,19 +29,11 @@ export class CultureService {
 		}
 	}
 
-	async getTranslation(localizationPath, data?: { [key: string]: any }): Promise<string> {
-		return (await this.translate.get(localizationPath, data).toPromise()) as string;
-	}
-
 	onLangChange(callback: () => Promise<void>): Subscription {
 		return this.translate.onLangChange.subscribe(async () => await callback());
 	}
 
 	convertUnixTimeToLocaleDate(unixTime: number, offset: number = 0): string {
-		const momentDate = moment((unixTime + offset) * 1000);
-		const timeZoneSign = offset !== 0 ? (offset > 0 ? '+' : '') : '';
-		const hoursOffset = offset / 3600;
-
-		return `${momentDate.format('DD/MM/YYYY - H:mm')} GMT${timeZoneSign}${hoursOffset !== 0 ? hoursOffset : ''}`;
+		return moment((unixTime + offset) * 1000).toString();
 	}
 }

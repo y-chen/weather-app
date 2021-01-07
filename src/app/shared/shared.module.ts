@@ -23,7 +23,6 @@ import { MaterialModule } from '@wa/app/shared/material/material.module';
 import { CasePipe } from '@wa/app/shared/pipes/case/case.pipe';
 import { KeysPipe } from '@wa/app/shared/pipes/keys/keys.pipe';
 import { LocalizedDatePipe } from '@wa/app/shared/pipes/localized-date/localized-date.pipe';
-import { TimePipe } from '@wa/app/shared/pipes/time/time.pipe';
 
 export const moduleDeclarations = [
 	BasicWeatherComponent,
@@ -41,7 +40,6 @@ export const moduleDeclarations = [
 	SettingsMenuComponent,
 	ShellComponent,
 	SidebarComponent,
-	TimePipe,
 	ToolbarComponent,
 	ValidationErrorsComponent,
 	WeatherCardComponent,
@@ -77,7 +75,6 @@ export const moduleExports = [
 	SearchComponent,
 	ShellComponent,
 	SidebarComponent,
-	TimePipe,
 	ToolbarComponent,
 	TranslateModule,
 	ValidationErrorsComponent,

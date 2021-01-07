@@ -1,14 +1,22 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { Culture } from '@wa/app/models/culture.model';
 import { DayTimeWeather } from '@wa/app/models/open-weather-parser.model';
 import { DayTime } from '@wa/app/models/open-weather.model';
 
 export interface DayTimeWeatherComponentMocks {
+	culture: Culture;
 	dayTimeName: DayTime;
 	dayTimeWeather: DayTimeWeather;
 }
 
 export const getDayTimeWeatherComponentMocks = (): DayTimeWeatherComponentMocks => {
+	const culture: Culture = {
+		label: 'English',
+		language: 'en',
+		code: 'en-GB',
+	};
+
 	const dayTimeName: DayTime = 'night';
 
 	const dayTimeWeather: DayTimeWeather = [
@@ -30,5 +38,5 @@ export const getDayTimeWeatherComponentMocks = (): DayTimeWeatherComponentMocks 
 		},
 	];
 
-	return { dayTimeName, dayTimeWeather };
+	return { culture, dayTimeName, dayTimeWeather };
 };

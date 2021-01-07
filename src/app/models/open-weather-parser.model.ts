@@ -13,14 +13,6 @@ export interface Forecast {
 	days: DayForecast[];
 }
 
-export interface DayForecastPromise {
-	day: string;
-	night?: Promise<DayTimeWeather>;
-	morning?: Promise<DayTimeWeather>;
-	afternoon?: Promise<DayTimeWeather>;
-	evening?: Promise<DayTimeWeather>;
-}
-
 export interface DayForecast {
 	day: string;
 	night?: DayTimeWeather;

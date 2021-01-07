@@ -4,6 +4,7 @@ module.exports = {
 	transform: {
 		'^.+\\.(ts|js|html)$': 'ts-jest',
 	},
+	roots: ['<rootDir>/src'],
 	globals: {
 		'ts-jest': {
 			tsconfig: '<rootDir>/tsconfig.spec.json',

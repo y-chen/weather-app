@@ -1,4 +1,5 @@
 import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import moment from 'moment';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { TranslateService } from '@ngx-translate/core';
@@ -96,7 +97,7 @@ describe('CultureService', () => {
 
 			const date = spectator.service.convertUnixTimeToLocaleDate(unixTime, offset);
 
-			expect(date).toEqual('01/01/2020 - 2:00 GMT+1');
+			expect(date).toEqual(moment((unixTime + offset) * 1000).toString());
 		});
 	});
 });

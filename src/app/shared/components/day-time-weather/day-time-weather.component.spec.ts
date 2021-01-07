@@ -6,28 +6,33 @@ import { ngMocks } from 'ng-mocks';
 
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { DayTimeWeather } from '@wa/app/models/open-weather-parser.model';
+import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
 import { DayTimeWeatherComponent } from '@wa/app/shared/components/day-time-weather/day-time-weather.component';
 import {
 	DayTimeWeatherComponentMocks, getDayTimeWeatherComponentMocks
 } from '@wa/app/shared/components/day-time-weather/day-time-weather.component.spec.mocks';
 
-import { BasicWeatherComponent } from '../basic-weather/basic-weather.component';
-
 describe('DayTimeWeatherComponent', () => {
 	let host: SpectatorHost<DayTimeWeatherComponent>;
 	let componentServiceMock: MockProxy<ComponentService>;
+	let settingsServiceMock: MockProxy<SettingsService>;
 
 	let mocks: DayTimeWeatherComponentMocks;
 
 	beforeEach(() => {
 		componentServiceMock = mock<ComponentService>();
+		settingsServiceMock = mock<SettingsService>();
 
 		mocks = getDayTimeWeatherComponentMocks();
+
+		settingsServiceMock.getCulture.mockReturnValue(mocks.culture);
 	});
 
 	afterEach(() => {
 		mockReset(componentServiceMock);
+		mockReset(settingsServiceMock);
 	});
 
 	const createHost = createHostFactory(DayTimeWeatherComponent);
@@ -62,6 +67,7 @@ describe('DayTimeWeatherComponent', () => {
 
 		host = createHost('<wa-day-time-weather [dayTimeWeather]="dayTimeWeather"></wa-day-time-weather>', {
 			hostProps: { dayTimeWeather },
+			providers: [{ provide: SettingsService, useValue: settingsServiceMock }],
 		});
 
 		const basicWeathers: BasicWeatherComponent[] = ngMocks.findInstances(BasicWeatherComponent);

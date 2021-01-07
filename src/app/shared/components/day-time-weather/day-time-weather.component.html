@@ -8,7 +8,7 @@
 	<mat-card-content>
 		<ng-container *ngIf="dayTimeWeather; else unavailableTemplete">
 			<ng-container *ngFor="let weather of dayTimeWeather">
-				<span>{{ weather.time | time }}</span>
+				<span>{{ weather.time | localizedDate: 'H:mm:ss zzzz' }}</span>
 				<wa-basic-weather [weather]="weather"></wa-basic-weather>
 			</ng-container>
 		</ng-container>

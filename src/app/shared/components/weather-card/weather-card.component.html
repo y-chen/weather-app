@@ -2,7 +2,7 @@
 	<mat-card-header>
 		<mat-card-title *ngIf="title">{{ title }}</mat-card-title>
 
-		<mat-card-subtitle *ngIf="subtitle">{{ subtitle }}</mat-card-subtitle>
+		<mat-card-subtitle *ngIf="subtitle">{{ subtitle | localizedDate | case }}</mat-card-subtitle>
 
 		<wa-favourite [cityId]="weather.id" color="accent"></wa-favourite>
 	</mat-card-header>

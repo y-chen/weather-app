@@ -12,6 +12,10 @@ export class LocalizedDatePipe implements PipeTransform {
 	transform(value: any, pattern: string = 'fullDate'): any {
 		const datePipe: DatePipe = new DatePipe(this.settingsService.getCulture().language);
 
-		return datePipe.transform(value, pattern);
+		try {
+			return datePipe.transform(value, pattern);
+		} catch (e) {
+			return value as string;
+		}
 	}
 }

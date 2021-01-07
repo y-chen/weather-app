@@ -14,10 +14,7 @@ describe('OpenWeatherParserService', () => {
 	let cultureServiceMock: MockProxy<CultureService>;
 	let hereServiceMock: MockProxy<HereService>;
 
-	const createService = createServiceFactory({
-		service: OpenWeatherParserService,
-		mocks: [CultureService, HereService],
-	});
+	const createService = createServiceFactory(OpenWeatherParserService);
 
 	let mocks: OpenWeatherParserMocks;
 
@@ -101,18 +98,27 @@ describe('OpenWeatherParserService', () => {
 			expect(forecast.days[2].evening).not.toBeDefined();
 		});
 
-		it('should call CultureService.convertUnixTimeToLocaleDate for each RawWeather with correct timezone', async () => {
+		it('should call CultureService.convertUnixTimeToLocaleDate twice for each RawWeather with correct timezone', async () => {
 			hereServiceMock.locationLookup.mockResolvedValue(mocks.location);
 
 			await spectator.service.parseForecastData(mocks.forecast);
 
-			mocks.forecast.list.forEach((weather: RawWeather, index: number) =>
+			let counter = 0;
+			mocks.forecast.list.forEach((weather: RawWeather, index: number) => {
 				expect(cultureServiceMock.convertUnixTimeToLocaleDate).toHaveBeenNthCalledWith(
-					index + 1,
+					index + counter + 1,
 					weather.dt,
 					mocks.forecast.city.timezone,
-				),
-			);
+				);
+
+				expect(cultureServiceMock.convertUnixTimeToLocaleDate).toHaveBeenNthCalledWith(
+					index + counter + 2,
+					weather.dt,
+					mocks.forecast.city.timezone,
+				);
+
+				counter++;
+			});
 		});
 	});
 
