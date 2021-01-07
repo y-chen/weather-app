@@ -8,6 +8,8 @@
 		"test": "jest --config ./jest.config.js --no-cache",
 		"coverage": "rimraf ./.coverage && jest --config ./jest.config.js --no-cache --coverage",
 		"coverage:web": "npm run coverage && http-server ./.coverage/lcov-report -o",
+		"deploy:dev": "firebase use staging && ng build --aot && firebase deploy",
+		"deploy:prod": "firebase use default && ng build --prod && firebase deploy",
 		"lint": "npm run eslint",
 		"e2e": "ng e2e",
 		"eslint": "eslint \"src/**/*.{ts, js, json, html, scss}\"",
