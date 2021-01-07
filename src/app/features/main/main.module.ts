@@ -6,7 +6,7 @@ import { MainRoutingModule } from '@wa/app/features/main/main-routing.module';
 import { SharedModule } from '@wa/app/shared/shared.module';
 
 @NgModule({
-	declarations: [HomeComponent, ForecastComponent],
+	declarations: [ForecastComponent, HomeComponent],
 	imports: [CommonModule, MainRoutingModule, SharedModule],
 })
 export class MainModule {}

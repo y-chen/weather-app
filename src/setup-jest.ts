@@ -34,14 +34,14 @@ const TRANSLATIONS = {
 };
 
 defineGlobalsInjections({
-	declarations: [...moduleDeclarations],
+	declarations: moduleDeclarations,
 	imports: [
-		RouterTestingModule,
-		TranslateTestingModule.withTranslations(TRANSLATIONS),
+		ConfigureFirebase,
 		CoreModule,
 		ErrorHandlersModule,
 		InterceptorsModule,
-		ConfigureFirebase,
+		RouterTestingModule,
+		TranslateTestingModule.withTranslations(TRANSLATIONS),
 		...moduleImports,
 	],
 	providers: [],
