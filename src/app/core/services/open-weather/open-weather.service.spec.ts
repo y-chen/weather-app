@@ -9,8 +9,8 @@ import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-par
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { getOpenWeatherMocks, OpenWeatherMocks } from '@wa/app/core/services/open-weather/open-weather.service.spec.mocks';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
+import { cultures } from '@wa/app/models/culture.model';
 import { RawWeather, Units } from '@wa/app/models/open-weather.model';
-import { environment } from '@wa/environments/environment';
 
 describe('OpenWeatherService', () => {
 	let spectator: SpectatorService<OpenWeatherService>;
@@ -35,7 +35,7 @@ describe('OpenWeatherService', () => {
 			],
 		});
 
-		settingsServiceMock.getCulture.mockReturnValue(environment.cultures[0]);
+		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
 		settingsServiceMock.getUnit.mockReturnValue(Units.Imperial);
 
 		mocks = getOpenWeatherMocks();

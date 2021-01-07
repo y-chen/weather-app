@@ -6,8 +6,8 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
+import { cultures } from '@wa/app/models/culture.model';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
-import { environment } from '@wa/environments/environment';
 
 describe('ShellComponent', () => {
 	let host: SpectatorHost<ShellComponent>;
@@ -22,8 +22,8 @@ describe('ShellComponent', () => {
 		cultureServiceMock = mock<CultureService>();
 		settingsServiceMock = mock<SettingsService>();
 
-		cultureServiceMock.getAvailableCultures.mockReturnValue(environment.cultures);
-		settingsServiceMock.getCulture.mockReturnValue(environment.cultures[0]);
+		cultureServiceMock.getAvailableCultures.mockReturnValue(cultures);
+		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
 	});
 
 	afterEach(() => {

@@ -4,8 +4,7 @@ import { Subscription } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { Culture } from '@wa/app/models/culture.model';
-import { environment } from '@wa/environments/environment';
+import { Culture, cultures } from '@wa/app/models/culture.model';
 
 @Injectable()
 export class CultureService {
@@ -18,7 +17,7 @@ export class CultureService {
 	}
 
 	getAvailableCultures(): Culture[] {
-		return Object.assign([], environment.cultures);
+		return Object.assign([], cultures);
 	}
 
 	setCulture(culture: Culture): void {

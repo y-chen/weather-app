@@ -3,9 +3,8 @@
 
 import { Injectable } from '@angular/core';
 import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
-import { Culture } from '@wa/app/models/culture.model';
+import { Culture, cultures } from '@wa/app/models/culture.model';
 import { Units } from '@wa/app/models/open-weather.model';
-import { environment } from '@wa/environments/environment';
 
 @Injectable()
 export class SettingsService {
@@ -13,7 +12,7 @@ export class SettingsService {
 	private readonly defaultUnit: Units;
 
 	constructor(private readonly localStorageService: LocalStorageService) {
-		this.defaultCulture = environment.cultures[0];
+		this.defaultCulture = cultures[0];
 		this.defaultUnit = Units.Metric;
 	}
 

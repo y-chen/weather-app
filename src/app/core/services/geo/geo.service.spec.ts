@@ -7,8 +7,8 @@ import { ApiService } from '@wa/app/core/services/api/api.service';
 import { GeoService } from '@wa/app/core/services/geo/geo.service';
 import { GeoServiceMocks, getGeoServiceMocks } from '@wa/app/core/services/geo/geo.service.spec.mocks';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
+import { cultures } from '@wa/app/models/culture.model';
 import { Param } from '@wa/app/models/http.model';
-import { environment } from '@wa/environments/environment';
 
 describe('GeoService', () => {
 	let spectator: SpectatorService<GeoService>;
@@ -30,7 +30,7 @@ describe('GeoService', () => {
 			],
 		});
 
-		settingsServiceMock.getCulture.mockReturnValue(environment.cultures[0]);
+		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
 
 		mocks = getGeoServiceMocks();
 	});
