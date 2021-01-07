@@ -1,83 +1,48 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoggerService } from '@wa/app/core/services/logger/logger.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { Header, HttpOption, HttpOptions, Param } from '@wa/app/models/http.model';
+import { Header, HttpOption, HttpRequestOptions, Param } from '@wa/app/models/http.model';
 
 @Injectable()
 export class ApiService {
 	constructor(
 		private readonly http: HttpClient,
-		private readonly loggerService: LoggerService,
 		private readonly settingsService: SettingsService,
 	) {}
 
-	async get<T>(url: string, options?: HttpOptions): Promise<T> {
+	async get<T>(url: string, options?: HttpRequestOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
-		this.loggerService.debug(`ApiService: executing GET ${url}`, { opts });
-
-		const result = await this.http.get<T>(url, opts).toPromise();
-
-		this.loggerService.debug(`ApiService: executed GET ${url} result`, { result });
-
-		return result;
+		return await this.http.get<T>(url, opts).toPromise();
 	}
 
-	async post<T>(url: string, body?: unknown, options?: HttpOptions): Promise<T> {
+	async post<T>(url: string, body?: unknown, options?: HttpRequestOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
-		this.loggerService.debug(`ApiService: executing POST ${url}`, { body, opts });
-
-		const result = await this.http.post<T>(url, body, opts).toPromise();
-
-		this.loggerService.debug(`ApiService: executed POST ${url} result`, { result });
-
-		return result;
+		return await this.http.post<T>(url, body, opts).toPromise();
 	}
 
-	async put<T>(url: string, body?: unknown, options?: HttpOptions): Promise<T> {
+	async put<T>(url: string, body?: unknown, options?: HttpRequestOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
-		this.loggerService.debug(`ApiService: executing PUT ${url}`, { body, opts });
-
-		const result = await this.http.put<T>(url, body, opts).toPromise();
-
-		this.loggerService.debug(`ApiService: executed PUT ${url} result`, result);
-
-		return result;
+		return await this.http.put<T>(url, body, opts).toPromise();
 	}
 
-	async delete<T>(url: string, options?: HttpOptions): Promise<T> {
+	async delete<T>(url: string, options?: HttpRequestOptions): Promise<T> {
 		const opts = this.getOptions(options);
 
-		this.loggerService.debug(`ApiService: executing DELETE ${url}`, { opts });
-
-		const result = await this.http.delete<T>(url, opts).toPromise();
-
-		this.loggerService.debug(`ApiService: executed DELETE ${url} result`, { result });
-
-		return result;
+		return await this.http.delete<T>(url, opts).toPromise();
 	}
 
 	async patch<T>(url: string, body?: Body): Promise<T> {
 		const opts = { headers: new HttpHeaders() };
 		opts.headers = this.getHeaders([]);
 
-		this.loggerService.debug(`ApiService: executing PATCH ${url}`, { body, opts });
-
-		const result = await this.http.patch<T>(url, body, opts).toPromise();
-
-		this.loggerService.debug(`ApiService: executed PATCH ${url} result`, { result });
-
-		return result;
+		return await this.http.patch<T>(url, body, opts).toPromise();
 	}
 
 	private getOptions(
-		options: HttpOptions = { headers: [], params: [] },
+		options: HttpRequestOptions = { headers: [], params: [] },
 	): { headers: HttpHeaders; params: HttpParams; withCredentials: boolean } {
 		return {
 			headers: this.getHeaders(options.headers),

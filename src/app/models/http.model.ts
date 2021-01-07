@@ -1,6 +1,6 @@
 import { HttpHeaders, HttpParams } from '@angular/common/http';
 
-export interface HttpOptions {
+export interface HttpRequestOptions {
 	headers?: Header[];
 	params?: Param[];
 	withCredentials?: boolean;

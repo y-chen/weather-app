@@ -12,7 +12,6 @@ import { SettingsService } from '@wa/app/core/services/settings/settings.service
 describe('ApiService', () => {
 	let spectator: SpectatorService<ApiService>;
 	let httpMock: MockProxy<HttpClient>;
-	let loggerServiceMock: MockProxy<LoggerService>;
 	let settingsServiceMock: MockProxy<SettingsService>;
 
 	const createService = createServiceFactory(ApiService);
@@ -21,13 +20,11 @@ describe('ApiService', () => {
 
 	beforeEach(() => {
 		httpMock = mock<HttpClient>();
-		loggerServiceMock = mock<LoggerService>();
 		settingsServiceMock = mock<SettingsService>();
 
 		spectator = createService({
 			providers: [
 				{ provide: HttpClient, useValue: httpMock },
-				{ provide: LoggerService, useValue: loggerServiceMock },
 				{ provide: SettingsService, useValue: settingsServiceMock },
 			],
 		});
@@ -45,7 +42,6 @@ describe('ApiService', () => {
 
 	afterEach(() => {
 		mockReset(httpMock);
-		mockReset(loggerServiceMock);
 		mockReset(settingsServiceMock);
 	});
 
