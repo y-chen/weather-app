@@ -81,7 +81,7 @@ describe('FavouriteComponent', () => {
 	it('should have the provided CSS class when cityId is in the favourites and color is passed as input', () => {
 		localStorageServiceMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
 
-		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
+		host = createHost('<wa-favourite [cityId]="cityId" [color]="color"></wa-favourite>', {
 			hostProps: { cityId: 0, color: 'accent' },
 			providers: [{ provide: LocalStorageService, useValue: localStorageServiceMock }],
 		});
@@ -92,9 +92,9 @@ describe('FavouriteComponent', () => {
 	});
 
 	it('should have the .deselected CSS class when cityId is not in the favourites even when a color is passed as input', () => {
-		localStorageServiceMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
+		localStorageServiceMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(JSON.stringify([]));
 
-		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
+		host = createHost('<wa-favourite [cityId]="cityId" [color]="color"></wa-favourite>', {
 			hostProps: { cityId: 0, color: 'accent' },
 			providers: [{ provide: LocalStorageService, useValue: localStorageServiceMock }],
 		});
