@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { stringify } from 'flatted';
 import moment from 'moment';
 
 import { Injectable } from '@angular/core';
@@ -21,7 +22,7 @@ export class SlackService {
 	async sendError(content: unknown): Promise<void> {
 		const headers: Header[] = [{ key: 'Content-type', value: 'application/x-www-form-urlencoded' }];
 		const message: SlackMessage = { timestamp: moment.now(), type: 'error', content };
-		const payload: SlackPayload = { channel: 'ng-weather-app-log-staging', text: JSON.stringify(message) };
+		const payload: SlackPayload = { channel: 'ng-weather-app-log-staging', text: stringify(message) };
 
 		await this.api.post<void>(this.HOOK_URL, payload, { headers });
 	}

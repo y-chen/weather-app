@@ -32,7 +32,6 @@ export class HomeComponent implements IComponent, OnInit {
 
 	async ngOnInit(): Promise<void> {
 		this.favouritesWeather = (await this.componentService.getResolverData('favouritesWeather')) as Weather[];
-		console.log(this.favouritesWeather);
 
 		const refreshViewData = async () => {
 			const group: number[] = this.favouritesWeather.map((weather: Weather) => weather.id);

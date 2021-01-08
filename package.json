@@ -44,6 +44,7 @@
 		"compass-mixins": "^0.12.10",
 		"crypto-js": "^4.0.0",
 		"firebase": "^7.0 || ^8.0",
+		"flatted": "^3.1.0",
 		"lodash": "^4.17.20",
 		"moment": "^2.29.1",
 		"moment-timezone": "^0.5.32",

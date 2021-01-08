@@ -156,7 +156,6 @@ export class MasterMock {
 
 	mockConfig(): MasterMock {
 		this.configServiceMock.getConfig.mockReturnValue(this.testData.config);
-		this.angularFirestoreMock.collection.mockReturnValue((this.testData.config as unknown) as AngularFirestoreCollection<Config>);
 
 		return this;
 	}
