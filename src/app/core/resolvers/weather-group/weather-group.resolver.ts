@@ -2,9 +2,10 @@
 
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
+import { StorageKeys } from '@wa/app/common/constants';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 
-import { LocalStorageService, StorageKeys } from '../../services/local-storage/local-storage.service';
+import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { OpenWeatherService } from '../../services/open-weather/open-weather.service';
 
 @Injectable()

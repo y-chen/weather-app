@@ -2,15 +2,6 @@
 
 import { Injectable } from '@angular/core';
 
-export const StorageKeys = {
-	Config: 'config',
-	Culture: 'culture',
-	FavouriteCities: 'favourite-cities',
-	HereOAuthToken: 'here-oauth-token',
-	Position: 'position',
-	Units: 'units',
-};
-
 @Injectable()
 export class LocalStorageService {
 	get(key: string): string {

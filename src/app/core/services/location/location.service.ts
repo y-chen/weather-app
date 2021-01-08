@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { StorageKeys } from '@wa/app/common/constants';
 import { GeolocationCoordinates, GeolocationPosition, GeolocationPositionError } from '@wa/app/models/geolocation.model';
 
-import { LocalStorageService, StorageKeys } from '../local-storage/local-storage.service';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 import { NotificationService } from '../notification/notification.service';
 
 @Injectable()

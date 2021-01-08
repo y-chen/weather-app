@@ -2,10 +2,11 @@
 
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { StorageKeys } from '@wa/app/common/constants';
 import { Config } from '@wa/app/models/config.model';
 import { environment } from '@wa/environments/environment';
 
-import { LocalStorageService, StorageKeys } from '../local-storage/local-storage.service';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable()
 export class ConfigService {
