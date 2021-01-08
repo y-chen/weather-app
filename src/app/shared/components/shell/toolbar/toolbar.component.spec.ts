@@ -13,7 +13,11 @@ describe('ToolbarComponent', () => {
 	const createHost = createHostFactory(ToolbarComponent);
 
 	beforeEach(() => {
-		const { componentServiceProvider, configServiceProvider, settingsServiceProvider } = new MasterMock().mockConfig().mockCulture();
+		const {
+			componentServiceProvider,
+			configServiceProvider,
+			settingsServiceProvider,
+		} = new MasterMock().mockConfig().mockCultureWithEnglish();
 
 		componentProvider = componentServiceProvider;
 		configProvider = configServiceProvider;

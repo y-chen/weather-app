@@ -8,14 +8,12 @@ import { ngMocks } from 'ng-mocks';
 import { Provider } from '@angular/compiler/src/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { DayTimeWeather } from '@wa/app/models/open-weather-parser.model';
 import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
 import { DayTimeWeatherComponent } from '@wa/app/shared/components/day-time-weather/day-time-weather.component';
-import {
-	DayTimeWeatherComponentMocks, getDayTimeWeatherComponentMocks
-} from '@wa/app/shared/components/day-time-weather/day-time-weather.component.spec.mocks';
 
 describe('DayTimeWeatherComponent', () => {
 	let host: SpectatorHost<DayTimeWeatherComponent>;
@@ -26,7 +24,7 @@ describe('DayTimeWeatherComponent', () => {
 	let componentProvider: Provider;
 	let settingsProvider: Provider;
 
-	let mocks: DayTimeWeatherComponentMocks;
+	let testData: TestData;
 
 	beforeEach(() => {
 		const {
@@ -43,7 +41,7 @@ describe('DayTimeWeatherComponent', () => {
 		componentProvider = componentServiceProvider;
 		settingsProvider = settingsServiceProvider;
 
-		mocks = getDayTimeWeatherComponentMocks();
+		testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -81,7 +79,7 @@ describe('DayTimeWeatherComponent', () => {
 	});
 
 	it('should have a wa-basic-weather for each Weather passed from parent', () => {
-		const dayTimeWeather: DayTimeWeather = mocks.dayTimeWeather;
+		const dayTimeWeather: DayTimeWeather = testData.dayTimeWeather;
 
 		host = createHost('<wa-day-time-weather [dayTimeWeather]="dayTimeWeather"></wa-day-time-weather>', {
 			hostProps: { dayTimeWeather },

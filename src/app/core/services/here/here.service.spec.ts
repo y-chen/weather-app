@@ -5,8 +5,8 @@ import { anyObject, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { HereService } from '@wa/app/core/services/here/here.service';
-import { getHereServiceMocks, HereServiceMocks } from '@wa/app/core/services/here/here.service.spec.mocks';
 import { Param } from '@wa/app/models/http.model';
 
 import { ApiService } from '../api/api.service';
@@ -18,7 +18,7 @@ describe('HereService', () => {
 
 	const createService = createServiceFactory(HereService);
 
-	let mocks: HereServiceMocks;
+	let testData: TestData;
 
 	beforeEach(() => {
 		const {
@@ -35,7 +35,7 @@ describe('HereService', () => {
 			providers: [apiServiceProvider, configServiceProvider, settingsServiceProvider],
 		});
 
-		mocks = getHereServiceMocks();
+		testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -50,10 +50,10 @@ describe('HereService', () => {
 		it('should call findLocationById, not findLocationByCoords or findLocationByQuery when param id has value', async () => {
 			apiMock.get.mockResolvedValue(location);
 
-			mocks.searchParams.coord = null;
-			mocks.searchParams.query = null;
+			testData.hereSearchParams.coord = null;
+			testData.hereSearchParams.query = null;
 
-			await spectator.service.locationLookup(mocks.searchParams);
+			await spectator.service.locationLookup(testData.hereSearchParams);
 
 			expect(apiMock.get).toHaveBeenNthCalledWith(1, expect.toEndWith('/lookup'), anyObject());
 			expect(apiMock.get).not.toHaveBeenCalledWith(expect.toEndWith('/revgeocode'), anyObject());
@@ -62,12 +62,12 @@ describe('HereService', () => {
 		});
 
 		it('should call findLocationByCoords, not findLocationById or findLocationByQuery when param coord has value', async () => {
-			apiMock.get.mockResolvedValue([location]);
+			apiMock.get.mockResolvedValue([testData.hereLocation]);
 
-			mocks.searchParams.id = null;
-			mocks.searchParams.query = null;
+			testData.hereSearchParams.id = null;
+			testData.hereSearchParams.query = null;
 
-			await spectator.service.locationLookup(mocks.searchParams);
+			await spectator.service.locationLookup(testData.hereSearchParams);
 
 			expect(apiMock.get).toHaveBeenNthCalledWith(1, expect.toEndWith('/revgeocode'), anyObject());
 			expect(apiMock.get).not.toHaveBeenCalledWith(expect.toEndWith('/lookup'), anyObject());
@@ -76,12 +76,12 @@ describe('HereService', () => {
 		});
 
 		it('should call findLocationByQuery, not findLocationById or findLocationByCoords when param query has value', async () => {
-			apiMock.get.mockResolvedValue(location);
+			apiMock.get.mockResolvedValue(testData.hereLocation);
 
-			mocks.searchParams.id = null;
-			mocks.searchParams.coord = null;
+			testData.hereSearchParams.id = null;
+			testData.hereSearchParams.coord = null;
 
-			await spectator.service.locationLookup(mocks.searchParams);
+			await spectator.service.locationLookup(testData.hereSearchParams);
 
 			expect(apiMock.get).toHaveBeenNthCalledWith(1, expect.toEndWith('/geocode'), anyObject());
 			expect(apiMock.get).not.toHaveBeenCalledWith(expect.toEndWith('/lookup'), anyObject());
@@ -92,15 +92,15 @@ describe('HereService', () => {
 
 	describe('findCities', () => {
 		it('should format query and call ApiService.get with expected arguments', async () => {
-			const { location, searchParams } = mocks;
+			const { hereLocation, hereSearchParams } = testData;
 			const partialParams: Param[] = [
-				{ key: 'q', value: searchParams.query.replace(' ', '+') },
+				{ key: 'q', value: hereSearchParams.query.replace(' ', '+') },
 				{ key: 'limit', value: 5 },
 			];
 
-			apiMock.get.mockResolvedValue([location]);
+			apiMock.get.mockResolvedValue([hereLocation]);
 
-			await spectator.service.findCities(searchParams.query);
+			await spectator.service.findCities(hereSearchParams.query);
 
 			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/autocomplete'), {
 				params: expect.arrayContaining(partialParams),
@@ -110,12 +110,12 @@ describe('HereService', () => {
 
 	describe('findLocationById', () => {
 		it('should format id and call ApiService.get with expected arguments', async () => {
-			const { location, searchParams } = mocks;
-			const partialParams = [{ key: 'id', value: searchParams.id }];
+			const { hereLocation, hereSearchParams } = testData;
+			const partialParams = [{ key: 'id', value: hereSearchParams.id }];
 
-			apiMock.get.mockResolvedValue(location);
+			apiMock.get.mockResolvedValue(hereLocation);
 
-			await spectator.service.findLocationById(searchParams.id);
+			await spectator.service.findLocationById(hereSearchParams.id);
 
 			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/lookup'), {
 				params: expect.arrayContaining(partialParams),
@@ -125,13 +125,13 @@ describe('HereService', () => {
 
 	describe('findLocationByCoords', () => {
 		it('should format coords and call ApiService.get with expected arguments', async () => {
-			const { location, searchParams } = mocks;
-			const { lat, lon } = searchParams.coord;
+			const { hereLocation, hereSearchParams } = testData;
+			const { lat, lon } = hereSearchParams.coord;
 			const partialParams = [{ key: 'at', value: `${lat},${lon}` }];
 
-			apiMock.get.mockResolvedValue(location);
+			apiMock.get.mockResolvedValue(hereLocation);
 
-			await spectator.service.findLocationByCoords(searchParams.coord);
+			await spectator.service.findLocationByCoords(hereSearchParams.coord);
 
 			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/revgeocode'), {
 				params: expect.arrayContaining(partialParams),
@@ -141,12 +141,12 @@ describe('HereService', () => {
 
 	describe('findLocationByQuery', () => {
 		it('should format query and call ApiService.get with expected arguments', async () => {
-			const { location, searchParams } = mocks;
-			const partialParams = [{ key: 'q', value: searchParams.query.replace(' ', '+') }];
+			const { hereLocation, hereSearchParams } = testData;
+			const partialParams = [{ key: 'q', value: hereSearchParams.query.replace(' ', '+') }];
 
-			apiMock.get.mockResolvedValue(location);
+			apiMock.get.mockResolvedValue(hereLocation);
 
-			await spectator.service.findLocationByQuery(searchParams.query);
+			await spectator.service.findLocationByQuery(hereSearchParams.query);
 
 			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/geocode'), {
 				params: expect.arrayContaining(partialParams),

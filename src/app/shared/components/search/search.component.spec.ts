@@ -6,11 +6,11 @@ import { Provider } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { HereService } from '@wa/app/core/services/here/here.service';
 import { SearchComponent } from '@wa/app/shared/components/search/search.component';
-import { getSearchComponentMocks, SearchComponentMocks } from '@wa/app/shared/components/search/search.component.spec.mocks';
 
 describe('SearchComponent', () => {
 	let host: SpectatorHost<SearchComponent>;
@@ -25,7 +25,7 @@ describe('SearchComponent', () => {
 
 	const createHost = createHostFactory(SearchComponent);
 
-	let mocks: SearchComponentMocks;
+	let testData: TestData;
 
 	beforeEach(() => {
 		const {
@@ -46,7 +46,7 @@ describe('SearchComponent', () => {
 		configProvider = configServiceProvider;
 		hereProvider = hereServiceProvider;
 
-		mocks = getSearchComponentMocks();
+		testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -77,7 +77,7 @@ describe('SearchComponent', () => {
 	it('should set searchInput.value and calls HereService.findCities with expected term when searchInput values changes', fakeAsync(() => {
 		const term = 'Term';
 
-		hereMock.findLocationByQuery.mockResolvedValue(mocks.location);
+		hereMock.findLocationByQuery.mockResolvedValue(testData.hereLocation);
 
 		host = createHost('<wa-search></wa-search>', {
 			providers: [hereProvider],
@@ -96,7 +96,7 @@ describe('SearchComponent', () => {
 	it('should call HereService.findLocationByQuery with expected term on Enter key press', fakeAsync(() => {
 		const term = 'Term';
 
-		hereMock.findLocationByQuery.mockResolvedValue(mocks.location);
+		hereMock.findLocationByQuery.mockResolvedValue(testData.hereLocation);
 
 		host = createHost('<wa-search></wa-search>', {
 			providers: [hereProvider],

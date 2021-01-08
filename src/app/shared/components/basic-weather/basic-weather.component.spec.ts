@@ -1,5 +1,5 @@
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { Weather } from '@wa/app/models/open-weather-parser.model';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
 
 describe('BasicWeatherComponent', () => {
@@ -7,18 +7,15 @@ describe('BasicWeatherComponent', () => {
 
 	const createHost = createHostFactory(BasicWeatherComponent);
 
-	const weather: Weather = {
-		id: 0,
-		title: 'title',
-		temperature: 'temperature',
-		description: 'description',
-		icon: 'icon',
-		time: 'time',
-	};
+	let testData: TestData;
+
+	beforeEach(() => {
+		testData = getTestData();
+	});
 
 	it('should create', () => {
 		host = createHost('<wa-basic-weather [weather]="weather"></wa-basic-weather>', {
-			hostProps: { weather },
+			hostProps: { weather: testData.weather },
 		});
 
 		const basicWeather = host.queryHost('wa-basic-weather');
@@ -28,6 +25,7 @@ describe('BasicWeatherComponent', () => {
 	});
 
 	it('should display Weather as expected', () => {
+		const weather = testData.weather;
 		host = createHost('<wa-basic-weather [weather]="weather"></wa-basic-weather>', {
 			hostProps: { weather },
 		});

@@ -7,7 +7,8 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { cultures, MasterMock } from '@wa/app/common/master-mock';
+import { MasterMock } from '@wa/app/common/master-mock';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
@@ -31,6 +32,8 @@ describe('SettingsMenuComponent', () => {
 
 	const createHost = createHostFactory(SettingsMenuComponent);
 
+	let testData: TestData;
+
 	beforeEach(() => {
 		const {
 			componentServiceMock,
@@ -53,6 +56,8 @@ describe('SettingsMenuComponent', () => {
 		cultureProvider = cultureServiceProvider;
 		eventProvider = eventServiceProvider;
 		settingsProvider = settingsServiceProvider;
+
+		testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -82,6 +87,8 @@ describe('SettingsMenuComponent', () => {
 	});
 
 	it('should have cultures, currentLang and currentUnit with expected results returned by CultureService.getAvailableCultures, SettingsService.getCulture and SettingsService.getUnit', () => {
+		const cultures = testData.cultures;
+
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
 			providers: [cultureProvider, componentProvider, settingsProvider],
 		});
@@ -92,6 +99,8 @@ describe('SettingsMenuComponent', () => {
 	});
 
 	it('should have expected flags in according to available cultures', () => {
+		const cultures = testData.cultures;
+
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
 			providers: [cultureProvider, componentProvider, settingsProvider],
 		});
@@ -104,7 +113,7 @@ describe('SettingsMenuComponent', () => {
 	});
 
 	it('should call SettingsService.setCulture with expected culture when click on different from current one', () => {
-		const cultureToClick: Culture = cultures[1];
+		const cultureToClick: Culture = testData.it;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
 			providers: [cultureProvider, componentProvider, eventProvider, settingsProvider],
@@ -117,7 +126,7 @@ describe('SettingsMenuComponent', () => {
 	});
 
 	it('should not call SettingsService.setCulture when click on same of current one', () => {
-		const cultureToClick: Culture = cultures[1];
+		const cultureToClick: Culture = testData.it;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
 			providers: [cultureProvider, componentProvider, settingsProvider],

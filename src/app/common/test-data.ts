@@ -1,26 +1,154 @@
-/* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { HereLocation } from '@wa/app/models/here.model';
-import { ParserOptions } from '@wa/app/models/open-weather-parser.model';
-import { RawForecast, RawWeather, WeatherGroup } from '@wa/app/models/open-weather.model';
+import { Observable, of } from 'rxjs';
 
-export interface OpenWeatherParserMocks {
-	options: ParserOptions;
-	weather: RawWeather;
-	forecast: RawForecast;
-	location: HereLocation;
+import { HttpHeaders } from '@angular/common/http';
+import { ActivatedRouteSnapshot } from '@angular/router';
+import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
+
+import { Config } from '../models/config.model';
+import { Culture } from '../models/culture.model';
+import { ExtendedError, HereError, OpenWeatherMapError } from '../models/error.model';
+import { HereLocation, HereSearchParams } from '../models/here.model';
+import { DayTimeWeather, Forecast, ParserOptions, Weather } from '../models/open-weather-parser.model';
+import {
+	DayTime, IconSize, OpenCoord, OpenWeatherSearchParams, RawForecast, RawWeather, WeatherGroup
+} from '../models/open-weather.model';
+
+export interface TestData {
+	config: Config;
+	en: Culture;
+	it: Culture;
+	cultures: Culture[];
+	coord: OpenCoord;
+	iconSize: IconSize;
+	id: number;
+	defaultCities: number[];
+	storedFavouriteCities: string;
+	route: ActivatedRouteSnapshot;
+	body: any;
+	observable: Observable<string>;
+	url: string;
+	extendedError: ExtendedError;
+	initHttpErrorResponse: any;
+	hereError: HereError;
+	openWeatherMapError: OpenWeatherMapError;
+	hereSearchParams: HereSearchParams;
+	hereLocation: HereLocation;
+	openWeatherSearchParams: OpenWeatherSearchParams;
 	group: WeatherGroup;
+	parserOptions: ParserOptions;
+	rawWeather: RawWeather;
+	rawForecast: RawForecast;
+	forecast: Forecast;
+	weathers: Weather[];
+	weather: Weather;
+	dayTimeName: DayTime;
+	dayTimeWeather: DayTimeWeather;
+	coordinates: GeolocationCoordinates;
 }
 
-export const getOpenWeatherParserMocks = (): OpenWeatherParserMocks => {
-	const options: ParserOptions = {
+export const getTestData = (): TestData => {
+	const config: Config = {
+		here: {
+			apiKey: 'HERE-API-KEY',
+			urls: {
+				geocode: 'GEOCODE-URL',
+				revGeocode: 'REV-GEOCODE-URL',
+			},
+		},
+		openWeatherMap: {
+			apiKey: 'OPEN-WEATHER-MAP-API-KEY',
+			url: 'OPEN-WEATHER-MAP-URL',
+		},
+		slackHookUrl: 'SLACK-HOOK-URL',
+	};
+
+	const en: Culture = {
+		label: 'English',
+		language: 'en',
+		code: 'en-GB',
+	};
+
+	const it: Culture = {
+		label: 'Italiano',
+		language: 'it',
+		code: 'it-IT',
+	};
+
+	const cultures: Culture[] = [en, it];
+	const coord: OpenCoord = { lat: 1, lon: 1 };
+	const iconSize: IconSize = 2;
+	const id = 1;
+	const route = new ActivatedRouteSnapshot();
+	const defaultCities: number[] = [1, 2];
+	const storedFavouriteCities = '[3,4]';
+	const body = { key: 'value' };
+	const observable: Observable<string> = of('foo.bar');
+	const url = 'http://example.com';
+
+	let headers: HttpHeaders = new HttpHeaders();
+	headers = headers.set('Key', 'Value');
+
+	const hereError: HereError = {
+		error: 'Here Error',
+		error_description: 'Here Description',
+	};
+
+	const openWeatherMapError: OpenWeatherMapError = {
+		cod: 500,
+		message: 'OpenWeatherMap Message',
+	};
+
+	const initHttpErrorResponse = { headers, status: 401, statusText: 'Unauthorized', url: 'http://example.com' };
+
+	const extendedError: ExtendedError = {
+		name: 'ExtendedError',
+		message: 'Error Message',
+		stack: 'Client Stack',
+	};
+
+	const hereSearchParams: HereSearchParams = {
+		id: 'LocationId',
+		coord: { lat: 0, lon: 0 },
+		query: 'Search Query',
+	};
+
+	const hereLocation: HereLocation = {
+		title: 'Title',
+		id: 'Id',
+		resultType: 'Resource Type',
+		address: {
+			label: 'Label',
+			countryCode: 'Country Code',
+			countryName: 'Country Name',
+			state: 'State',
+			county: 'County',
+			city: 'City',
+			postalCode: '0',
+		},
+	};
+
+	const openWeatherSearchParams: OpenWeatherSearchParams = {
+		q: 'Query',
+		group: [1, 1],
+		id: 0,
+		coord: { lat: 0, lon: 0 },
+		iconSize: 2,
+	};
+
+	const group: WeatherGroup = {
+		cnt: 0,
+		list: [],
+	};
+
+	const parserOptions: ParserOptions = {
 		iconSize: 2,
 		timezone: 7200,
 		titleOverride: 'Title Override',
 	};
 
-	const weather: RawWeather = {
+	const rawWeather: RawWeather = {
 		coord: {
 			lon: 16.37,
 			lat: 48.21,
@@ -60,247 +188,7 @@ export const getOpenWeatherParserMocks = (): OpenWeatherParserMocks => {
 		name: 'Inner city',
 	};
 
-	const group: WeatherGroup = {
-		cnt: 6,
-		list: [
-			{
-				coord: {
-					lon: -0.13,
-					lat: 51.51,
-				},
-				sys: {
-					country: 'GB',
-					timezone: 0,
-					sunrise: 1609833914,
-					sunset: 1609862779,
-				},
-				weather: [
-					{
-						id: 802,
-						main: 'Clouds',
-						description: 'scattered clouds',
-						icon: '03d',
-					},
-				],
-				main: {
-					temp: 3.78,
-					feels_like: -0.63,
-					temp_min: 3.33,
-					temp_max: 4.44,
-					pressure: 1020,
-					humidity: 80,
-				},
-				visibility: 10000,
-				wind: {
-					speed: 3.6,
-					deg: 0,
-				},
-				clouds: {
-					all: 40,
-				},
-				dt: 1609848573,
-				id: 2643743,
-				name: 'London',
-			},
-			{
-				coord: {
-					lon: 13.41,
-					lat: 52.52,
-				},
-				sys: {
-					country: 'DE',
-					timezone: 3600,
-					sunrise: 1609830965,
-					sunset: 1609859226,
-				},
-				weather: [
-					{
-						id: 803,
-						main: 'Clouds',
-						description: 'broken clouds',
-						icon: '04d',
-					},
-				],
-				main: {
-					temp: 1.9,
-					feels_like: -3.36,
-					temp_min: 1,
-					temp_max: 2.78,
-					pressure: 1016,
-					humidity: 100,
-				},
-				visibility: 6000,
-				wind: {
-					speed: 5.1,
-					deg: 30,
-				},
-				clouds: {
-					all: 75,
-				},
-				dt: 1609848561,
-				id: 2950159,
-				name: 'Berlin',
-			},
-			{
-				coord: {
-					lon: 12.48,
-					lat: 41.89,
-				},
-				sys: {
-					country: 'IT',
-					timezone: 3600,
-					sunrise: 1609828667,
-					sunset: 1609861971,
-				},
-				weather: [
-					{
-						id: 804,
-						main: 'Clouds',
-						description: 'overcast clouds',
-						icon: '04d',
-					},
-				],
-				main: {
-					temp: 9.26,
-					feels_like: 7.79,
-					temp_min: 8,
-					temp_max: 10,
-					pressure: 1008,
-					humidity: 93,
-				},
-				visibility: 8000,
-				wind: {
-					speed: 1.5,
-					deg: 0,
-				},
-				clouds: {
-					all: 90,
-				},
-				dt: 1609848579,
-				id: 3169070,
-				name: 'Rome',
-			},
-			{
-				coord: {
-					lon: 16.37,
-					lat: 48.21,
-				},
-				sys: {
-					country: 'AT',
-					timezone: 3600,
-					sunrise: 1609829081,
-					sunset: 1609859689,
-				},
-				weather: [
-					{
-						id: 803,
-						main: 'Clouds',
-						description: 'broken clouds',
-						icon: '04d',
-					},
-				],
-				main: {
-					temp: 4.18,
-					feels_like: 0.35,
-					temp_min: 3.89,
-					temp_max: 5,
-					pressure: 1010,
-					humidity: 86,
-				},
-				visibility: 9000,
-				wind: {
-					speed: 3.1,
-					deg: 340,
-				},
-				clouds: {
-					all: 75,
-				},
-				dt: 1609848545,
-				id: 2761369,
-				name: 'Vienna',
-			},
-			{
-				coord: {
-					lon: 2.35,
-					lat: 48.85,
-				},
-				sys: {
-					country: 'FR',
-					timezone: 3600,
-					sunrise: 1609832603,
-					sunset: 1609862898,
-				},
-				weather: [
-					{
-						id: 804,
-						main: 'Clouds',
-						description: 'overcast clouds',
-						icon: '04d',
-					},
-				],
-				main: {
-					temp: 2.73,
-					feels_like: -2.15,
-					temp_min: 2,
-					temp_max: 3.33,
-					pressure: 1014,
-					humidity: 81,
-				},
-				visibility: 7000,
-				wind: {
-					speed: 4.1,
-					deg: 40,
-				},
-				clouds: {
-					all: 90,
-				},
-				dt: 1609848570,
-				id: 2988507,
-				name: 'Paris',
-			},
-			{
-				coord: {
-					lon: -3.7,
-					lat: 40.42,
-				},
-				sys: {
-					country: 'ES',
-					timezone: 3600,
-					sunrise: 1609832281,
-					sunset: 1609866125,
-				},
-				weather: [
-					{
-						id: 800,
-						main: 'Clear',
-						description: 'clear sky',
-						icon: '01d',
-					},
-				],
-				main: {
-					temp: 4.05,
-					feels_like: 0.86,
-					temp_min: 2.78,
-					temp_max: 5.56,
-					pressure: 1012,
-					humidity: 56,
-				},
-				visibility: 10000,
-				wind: {
-					speed: 1,
-					deg: 0,
-				},
-				clouds: {
-					all: 0,
-				},
-				dt: 1609848522,
-				id: 3117735,
-				name: 'Madrid',
-			},
-		],
-	};
-
-	const forecast: RawForecast = {
+	const rawForecast: RawForecast = {
 		cod: '200',
 		message: 0,
 		cnt: 40,
@@ -890,42 +778,145 @@ export const getOpenWeatherParserMocks = (): OpenWeatherParserMocks => {
 		},
 	};
 
-	const location: HereLocation = {
-		title: 'Spiegelgasse 3, 1010 Vienna, Austria',
-		id: 'here:af:streetsection:9KHK78chjH2teW48hg58mA:CgcIBCCvkqlNEAEaATM',
-		resultType: 'houseNumber',
-		houseNumberType: 'PA',
-		address: {
-			label: 'Spiegelgasse 3, 1010 Vienna, Austria',
-			countryCode: 'AUT',
-			countryName: 'Austria',
-			state: 'Vienna',
-			countyCode: 'W',
-			county: 'Vienna',
-			city: 'Vienna',
-			district: '1. Bezirk-Innere Stadt',
-			street: 'Spiegelgasse',
-			postalCode: '1010',
-			houseNumber: '3',
-		},
-		position: {
-			lat: 48.20778,
-			lng: 16.37055,
-		},
-		access: [
+	const forecast: Forecast = {
+		id: 0,
+		name: 'Name',
+		coord: { lat: 0, lon: 0 },
+		days: [
 			{
-				lat: 48.2078,
-				lng: 16.37041,
+				day: 'Day 1',
+				night: {
+					0: {
+						id: 1,
+						title: 'First Title',
+						description: 'First Description',
+						temperature: 'First Temperature',
+						icon: 'First Icon',
+						time: 'First Time',
+					},
+					1: {
+						id: 2,
+						title: 'Second Title',
+						description: 'Second Description',
+						temperature: 'Second Temperature',
+						icon: 'Second Icon',
+						time: 'Second Time',
+					},
+				},
+			},
+			{
+				day: 'Day 2',
+				night: {
+					0: {
+						id: 1,
+						title: 'First Title',
+						description: 'First Description',
+						temperature: 'First Temperature',
+						icon: 'First Icon',
+						time: 'First Time',
+					},
+					1: {
+						id: 2,
+						title: 'Second Title',
+						description: 'Second Description',
+						temperature: 'Second Temperature',
+						icon: 'Second Icon',
+						time: 'Second Time',
+					},
+				},
 			},
 		],
-		distance: 10,
-		mapView: {
-			west: 16.3688,
-			south: 48.20574,
-			east: 16.37059,
-			north: 48.20819,
-		},
 	};
 
-	return { options, weather, forecast, location, group };
+	const weathers: Weather[] = [
+		{
+			id: 1,
+			title: 'First Title',
+			description: 'First Description',
+			temperature: 'First Temperature',
+			icon: 'First Icon',
+			time: 'First Time',
+		},
+		{
+			id: 2,
+			title: 'Second Title',
+			description: 'Second Description',
+			temperature: 'Second Temperature',
+			icon: 'Second Icon',
+			time: 'Second Time',
+		},
+	];
+
+	const weather: Weather = {
+		id: 0,
+		title: 'title',
+		temperature: 'temperature',
+		description: 'description',
+		icon: 'icon',
+		time: 'time',
+	};
+
+	const dayTimeName: DayTime = 'night';
+
+	const dayTimeWeather: DayTimeWeather = [
+		{
+			id: 1,
+			title: 'First Title',
+			description: 'First Description',
+			temperature: 'First Temperature',
+			icon: 'First Icon',
+			time: 'First Time',
+		},
+		{
+			id: 2,
+			title: 'Second Title',
+			description: 'Second Description',
+			temperature: 'Second Temperature',
+			icon: 'Second Icon',
+			time: 'Second Time',
+		},
+	];
+
+	const coordinates = {
+		accuracy: 30,
+		altitude: null,
+		altitudeAccuracy: null,
+		heading: null,
+		latitude: 0,
+		longitude: 0,
+		speed: null,
+	};
+
+	return {
+		config,
+		en,
+		it,
+		cultures,
+		coord,
+		iconSize,
+		id,
+		route,
+		defaultCities,
+		storedFavouriteCities,
+		body,
+		url,
+		observable,
+		extendedError,
+		initHttpErrorResponse,
+		hereError,
+		openWeatherMapError,
+		hereSearchParams,
+		hereLocation,
+		openWeatherSearchParams,
+		group,
+		parserOptions,
+		rawForecast,
+		rawWeather,
+		forecast,
+		weathers,
+		weather,
+		dayTimeName,
+		dayTimeWeather,
+		coordinates,
+	};
 };

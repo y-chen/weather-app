@@ -4,6 +4,7 @@ import moment from 'moment';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { TranslateService } from '@ngx-translate/core';
 import { MasterMock } from '@wa/app/common/master-mock';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 
@@ -15,6 +16,8 @@ describe('CultureService', () => {
 
 	const createService = createServiceFactory(CultureService);
 
+let testData: TestData;
+
 	beforeEach(() => {
 		const { settingsServiceMock, translateServiceMock, settingsServiceProvider, translateServiceProvider } = new MasterMock();
 
@@ -23,7 +26,9 @@ describe('CultureService', () => {
 
 		spectator = createService({
 			providers: [settingsServiceProvider, translateServiceProvider],
-		});
+    });
+
+    testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -58,8 +63,8 @@ describe('CultureService', () => {
 
 	describe('setCulture', () => {
 		it('should call SettingsService.setCulture with expected culture when stored culture is different from provided one', () => {
-			const storedCulture = { label: 'English', language: 'en', code: 'en-GB' };
-			const newCulture = { label: 'Italiano', language: 'it', code: 'it-IT' };
+			const storedCulture = testData.en
+			const newCulture = testData.it
 
 			settingsMock.getCulture.mockReturnValue(storedCulture);
 
@@ -69,8 +74,8 @@ describe('CultureService', () => {
 		});
 
 		it('should call TranslateService.use with expected language when stored culture is different from provided one', () => {
-			const storedCulture = { label: 'English', language: 'en', code: 'en-GB' };
-			const newCulture = { label: 'Italiano', language: 'it', code: 'it-IT' };
+			const storedCulture = testData.en
+			const newCulture = testData.it
 
 			settingsMock.getCulture.mockReturnValue(storedCulture);
 
@@ -80,7 +85,7 @@ describe('CultureService', () => {
 		});
 
 		it('should not call SettingsService.setCulture or TranslateService.use when stored culture is same of provided one', () => {
-			const storedCulture = { label: 'English', language: 'en', code: 'en-GB' };
+			const storedCulture = testData.en
 
 			settingsMock.getCulture.mockReturnValue(storedCulture);
 

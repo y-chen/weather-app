@@ -5,8 +5,8 @@ import { anyObject, MockProxy, mockReset } from 'jest-mock-extended';
 import { HttpClient } from '@angular/common/http';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ApiService } from '@wa/app/core/services/api/api.service';
-import { ApiServiceMocks, getApiServiceMocks } from '@wa/app/core/services/api/api.service.spec.mocks';
 
 describe('ApiService', () => {
 	let spectator: SpectatorService<ApiService>;
@@ -15,7 +15,7 @@ describe('ApiService', () => {
 
 	const createService = createServiceFactory(ApiService);
 
-	let mocks: ApiServiceMocks;
+	let testData: TestData;
 
 	beforeEach(() => {
 		const { httpClientMock, httpClientProvider, settingsServiceProvider } = new MasterMock().mockSettings().mockHttpClient();
@@ -26,7 +26,7 @@ describe('ApiService', () => {
 			providers: [httpClientProvider, settingsServiceProvider],
 		});
 
-		mocks = getApiServiceMocks();
+		testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -39,7 +39,7 @@ describe('ApiService', () => {
 
 	describe('get', () => {
 		it('should call HttpClient.get with expected arguments', async () => {
-			const url = mocks.url;
+			const url = testData.url;
 
 			await spectator.service.get(url);
 
@@ -49,7 +49,7 @@ describe('ApiService', () => {
 
 	describe('post', () => {
 		it('should call HttpClient.post with expected arguments', async () => {
-			const { body, url } = mocks;
+			const { body, url } = testData;
 
 			await spectator.service.post(url, body);
 
@@ -59,7 +59,7 @@ describe('ApiService', () => {
 
 	describe('put', () => {
 		it('should call HttpClient.put with expected arguments', async () => {
-			const { body, url } = mocks;
+			const { body, url } = testData;
 
 			await spectator.service.put(url, body);
 
@@ -69,7 +69,7 @@ describe('ApiService', () => {
 
 	describe('delete', () => {
 		it('should call HttpClient.delete with expected arguments', async () => {
-			const url = mocks.url;
+			const url = testData.url;
 
 			await spectator.service.delete(url);
 
@@ -79,7 +79,7 @@ describe('ApiService', () => {
 
 	describe('patch', () => {
 		it('should call HttpClient.patch with expected arguments', async () => {
-			const { body, url } = mocks;
+			const { body, url } = testData;
 
 			await spectator.service.patch(url, body);
 

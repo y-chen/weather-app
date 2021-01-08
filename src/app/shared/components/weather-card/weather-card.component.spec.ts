@@ -7,7 +7,6 @@ import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { Culture } from '@wa/app/models/culture.model';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
 import { FavouriteComponent } from '@wa/app/shared/components/favourite/favourite.component';
@@ -26,7 +25,7 @@ describe('WeatherCardComponent', () => {
 	let weather: Weather;
 
 	beforeEach(() => {
-		const { componentServiceMock, componentServiceProvider, settingsServiceProvider } = new MasterMock().mockCulture();
+		const { componentServiceMock, componentServiceProvider, settingsServiceProvider } = new MasterMock().mockCultureWithEnglish();
 
 		componentMock = componentServiceMock;
 

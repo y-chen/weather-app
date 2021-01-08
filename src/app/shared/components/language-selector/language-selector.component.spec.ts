@@ -25,7 +25,7 @@ describe('LanguageSelectorComponent', () => {
 
 			cultureServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockCulture().mockCultures();
+		} = new MasterMock().mockCultures().mockCultureWithEnglish();
 
 		cultureMock = cultureServiceMock;
 		settingsMock = settingsServiceMock;

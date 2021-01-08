@@ -26,7 +26,7 @@ describe('ShellComponent', () => {
 			componentServiceProvider,
 			configServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockConfig().mockCulture().mockCultures();
+		} = new MasterMock().mockConfig().mockCultures().mockCultureWithEnglish();
 
 		componentMock = componentServiceMock;
 

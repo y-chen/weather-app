@@ -2,8 +2,8 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resolver';
-import { ForecastResolverMocks, getForecastResolverMocks } from '@wa/app/core/resolvers/forecast/forecast.resolver.spec.mocks';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 
 describe('ForecastResolver', () => {
@@ -13,11 +13,10 @@ describe('ForecastResolver', () => {
 	const createService = createServiceFactory(ForecastResolver);
 
 	let master: MasterMock;
-	let mocks: ForecastResolverMocks;
+	let testData: TestData;
 
 	beforeEach(() => {
 		master = new MasterMock();
-		mocks = getForecastResolverMocks();
 
 		const { openWeatherServiceMock, openWeatherServiceProvider } = master;
 
@@ -26,6 +25,8 @@ describe('ForecastResolver', () => {
 		spectator = createService({
 			providers: [openWeatherServiceProvider],
 		});
+
+		testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -38,7 +39,7 @@ describe('ForecastResolver', () => {
 
 	describe('resolve', () => {
 		it('should call OpenWeatherService.getForecastById with expected arguments when route param is available', async () => {
-			const { iconSize, id, route } = mocks;
+			const { iconSize, id, route } = testData;
 			route.data = { iconSize };
 			route.params = { id };
 
@@ -49,7 +50,7 @@ describe('ForecastResolver', () => {
 		});
 
 		it('should call OpenWeatherService.getForecastByCoord with expected arguments when route param is available', async () => {
-			const { coord, iconSize, route } = mocks;
+			const { coord, iconSize, route } = testData;
 			route.data = { iconSize };
 			route.queryParams = { ...coord };
 

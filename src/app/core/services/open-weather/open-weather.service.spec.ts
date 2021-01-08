@@ -5,10 +5,10 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
-import { getOpenWeatherMocks, OpenWeatherMocks } from '@wa/app/core/services/open-weather/open-weather.service.spec.mocks';
 import { RawWeather } from '@wa/app/models/open-weather.model';
 
 describe('OpenWeatherService', () => {
@@ -19,7 +19,7 @@ describe('OpenWeatherService', () => {
 
 	const createService = createServiceFactory(OpenWeatherService);
 
-	let mocks: OpenWeatherMocks;
+	let testData: TestData;
 
 	beforeEach(() => {
 		const {
@@ -39,7 +39,7 @@ describe('OpenWeatherService', () => {
 			providers: [apiServiceProvider, configServiceProvider, openWeatherParserServiceProvider, settingsServiceProvider],
 		});
 
-		mocks = getOpenWeatherMocks();
+		testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -53,10 +53,10 @@ describe('OpenWeatherService', () => {
 
 	describe('getWeatherGroup', () => {
 		it('should call ApiService.get with expected arguments', async () => {
-			const searchParams = mocks.searchParams;
+			const searchParams = testData.openWeatherSearchParams;
 			const partialParams = [{ key: 'id', value: searchParams.group.join(',') }];
 
-			apiMock.get.mockResolvedValue(mocks.group);
+			apiMock.get.mockResolvedValue(testData.group);
 
 			await spectator.service.getWeatherGroup(searchParams);
 
@@ -66,21 +66,21 @@ describe('OpenWeatherService', () => {
 		});
 
 		it('should call OpenWeatherParserService.translateLocationNames with retreived group', async () => {
-			const { group, searchParams } = mocks;
+			const { group, openWeatherSearchParams } = testData;
 
 			apiMock.get.mockResolvedValue(group);
 
-			await spectator.service.getWeatherGroup(searchParams);
+			await spectator.service.getWeatherGroup(openWeatherSearchParams);
 
 			expect(openWeatherParserMock.translateLocationNames).toHaveBeenCalledWith(group);
 		});
 
 		it('should call OpenWeatherParserService.parseWeatherData for each element of the group', async () => {
-			const { group, searchParams } = mocks;
+			const { group, openWeatherSearchParams } = testData;
 
 			apiMock.get.mockResolvedValue(group);
 
-			await spectator.service.getWeatherGroup(searchParams);
+			await spectator.service.getWeatherGroup(openWeatherSearchParams);
 
 			group.list.forEach((weather: RawWeather, index: number) =>
 				expect(openWeatherParserMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
@@ -90,58 +90,54 @@ describe('OpenWeatherService', () => {
 
 	describe('getForecastById', () => {
 		it('should call ApiService.get with expected arguments', async () => {
-			const { forecast, searchParams } = mocks;
-			const partialParams = [{ key: 'id', value: searchParams.id }];
+			const { rawForecast, openWeatherSearchParams } = testData;
+			const partialParams = [{ key: 'id', value: openWeatherSearchParams.id }];
 
-			apiMock.get.mockResolvedValue(forecast);
+			apiMock.get.mockResolvedValue(rawForecast);
 
-			await spectator.service.getForecastById(searchParams);
+			await spectator.service.getForecastById(openWeatherSearchParams);
 
 			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
 				params: expect.arrayContaining(partialParams),
 			});
 		});
 
-		it('should call OpenWeatherParserService.parseWeatherData for each element of the forecast list', async () => {
-			const { forecast, searchParams } = mocks;
+		it('should call OpenWeatherParserService.parseForecastData with expected arguments', async () => {
+			const { rawForecast, openWeatherSearchParams } = testData;
 
-			apiMock.get.mockResolvedValue(forecast);
+			apiMock.get.mockResolvedValue(rawForecast);
 
-			await spectator.service.getForecastById(searchParams);
+			await spectator.service.getForecastById(openWeatherSearchParams);
 
-			forecast.list.forEach((weather: RawWeather, index: number) =>
-				expect(openWeatherParserMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
-			);
+			expect(openWeatherParserMock.parseForecastData).toHaveBeenCalledWith(rawForecast, openWeatherSearchParams.iconSize);
 		});
 	});
 
 	describe('getForecastByCoord', () => {
 		it('should call ApiService.get with expected arguments', async () => {
-			const { forecast, searchParams } = mocks;
+			const { rawForecast, openWeatherSearchParams } = testData;
 			const partialParams = [
-				{ key: 'lat', value: searchParams.coord.lat },
-				{ key: 'lon', value: searchParams.coord.lon },
+				{ key: 'lat', value: openWeatherSearchParams.coord.lat },
+				{ key: 'lon', value: openWeatherSearchParams.coord.lon },
 			];
 
-			apiMock.get.mockResolvedValue(forecast);
+			apiMock.get.mockResolvedValue(rawForecast);
 
-			await spectator.service.getForecastByCoord(searchParams);
+			await spectator.service.getForecastByCoord(openWeatherSearchParams);
 
 			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
 				params: expect.arrayContaining(partialParams),
 			});
 		});
 
-		it('should call OpenWeatherParserService.parseWeatherData for each element of the forecast list', async () => {
-			const { forecast, searchParams } = mocks;
+		it('should call OpenWeatherParserService.parseForecastData with expected arguments', async () => {
+			const { rawForecast, openWeatherSearchParams } = testData;
 
-			apiMock.get.mockResolvedValue(forecast);
+			apiMock.get.mockResolvedValue(rawForecast);
 
-			await spectator.service.getForecastByCoord(searchParams);
+			await spectator.service.getForecastByCoord(openWeatherSearchParams);
 
-			forecast.list.forEach((weather: RawWeather, index: number) =>
-				expect(openWeatherParserMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
-			);
+			expect(openWeatherParserMock.parseForecastData).toHaveBeenCalledWith(rawForecast, openWeatherSearchParams.iconSize);
 		});
 	});
 });

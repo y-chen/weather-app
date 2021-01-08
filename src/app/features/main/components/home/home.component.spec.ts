@@ -2,16 +2,16 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable security/detect-object-injection */
 
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 import { ngMocks } from 'ng-mocks';
 
 import { Provider } from '@angular/compiler/src/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
+import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { HomeComponent } from '@wa/app/features/main/components/home/home.component';
-import { getHomeComponentMocks, HomeComponentMocks } from '@wa/app/features/main/components/home/home.component.spec.mocks';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
 
@@ -26,7 +26,7 @@ describe('HomeComponent', () => {
 
 	const createHost = createHostFactory(HomeComponent);
 
-	let mocks: HomeComponentMocks;
+	let testData: TestData;
 
 	beforeEach(() => {
 		const { componentServiceMock, configServiceMock, componentServiceProvider, configServiceProvider } = new MasterMock().mockConfig();
@@ -37,7 +37,7 @@ describe('HomeComponent', () => {
 		componentProvider = componentServiceProvider;
 		configProvider = configServiceProvider;
 
-		mocks = getHomeComponentMocks();
+		testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -73,7 +73,7 @@ describe('HomeComponent', () => {
 	});
 
 	it('should have many wa-weather-card components with expected Weather input as returned from resolver', () => {
-		const weathers: Weather[] = mocks.weathers;
+		const weathers: Weather[] = testData.weathers;
 
 		componentMock.getResolverData.calledWith('favouritesWeather').mockResolvedValue(weathers as never);
 

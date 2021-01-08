@@ -22,40 +22,8 @@ import { OpenWeatherParserService } from '../core/services/open-weather-parser/o
 import { OpenWeatherService } from '../core/services/open-weather/open-weather.service';
 import { SettingsService } from '../core/services/settings/settings.service';
 import { SlackService } from '../core/services/slack/slack.service';
-import { Config } from '../models/config.model';
-import { Culture } from '../models/culture.model';
 import { Units } from '../models/open-weather.model';
-
-const units: string[] = ['Metric', 'Imperial'];
-
-export const config: Config = {
-	here: {
-		apiKey: 'HERE-API-KEY',
-		urls: {
-			geocode: 'GEOCODE-URL',
-			revGeocode: 'REV-GEOCODE-URL',
-		},
-	},
-	openWeatherMap: {
-		apiKey: 'OPEN-WEATHER-MAP-API-KEY',
-		url: 'OPEN-WEATHER-MAP-URL',
-	},
-	slackHookUrl: 'SLACK-HOOK-URL',
-};
-
-export const en: Culture = {
-	label: 'English',
-	language: 'en',
-	code: 'en-GB',
-};
-
-export const it: Culture = {
-	label: 'Italiano',
-	language: 'it',
-	code: 'it-IT',
-};
-
-export const cultures: Culture[] = [en, it];
+import { getTestData, TestData } from './test-data';
 
 export class MasterMock {
 	angularFirestoreMock: MockProxy<AngularFirestore>;
@@ -100,6 +68,8 @@ export class MasterMock {
 	settingsServiceProvider: Provider;
 	slackServiceProvider: Provider;
 
+	private readonly testData: TestData;
+
 	constructor() {
 		this.angularFirestoreMock = mock<AngularFirestore>();
 		this.httpClientMock = mock<HttpClient>();
@@ -142,6 +112,8 @@ export class MasterMock {
 		this.openWeatherServiceProvider = { provide: OpenWeatherService, useValue: this.openWeatherServiceMock };
 		this.settingsServiceProvider = { provide: SettingsService, useValue: this.settingsServiceMock };
 		this.slackServiceProvider = { provide: SlackService, useValue: this.slackServiceMock };
+
+		this.testData = getTestData();
 	}
 
 	fixOnSettingsChange(): MasterMock {
@@ -163,32 +135,26 @@ export class MasterMock {
 		return this;
 	}
 
-	mockCulture(): MasterMock {
-		this.settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
-
-		return this;
-	}
-
 	mockCultureWithEnglish(): MasterMock {
-		this.settingsServiceMock.getCulture.mockReturnValue(en);
+		this.settingsServiceMock.getCulture.mockReturnValue(this.testData.en);
 
 		return this;
 	}
 
 	mockCultureWithItalian(): MasterMock {
-		this.settingsServiceMock.getCulture.mockReturnValue(it);
+		this.settingsServiceMock.getCulture.mockReturnValue(this.testData.it);
 
 		return this;
 	}
 
 	mockCultures(): MasterMock {
-		this.cultureServiceMock.getAvailableCultures.mockReturnValue(cultures);
+		this.cultureServiceMock.getAvailableCultures.mockReturnValue(this.testData.cultures);
 
 		return this;
 	}
 
 	mockConfig(): MasterMock {
-		this.configServiceMock.getConfig.mockReturnValue(config);
+		this.configServiceMock.getConfig.mockReturnValue(this.testData.config);
 
 		return this;
 	}
@@ -206,7 +172,7 @@ export class MasterMock {
 	}
 
 	mockSettings(): MasterMock {
-		this.settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
+		this.settingsServiceMock.getCulture.mockReturnValue(this.testData.en);
 		this.settingsServiceMock.getUnit.mockReturnValue(Units.Imperial);
 
 		return this;
