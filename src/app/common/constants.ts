@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { Culture } from '../models/culture.model';
+
 const LocalizationPathKeys = {
 	ForecastComponent: 'features.main.forecast',
 	HomeComponent: 'features.main.home',
@@ -24,4 +26,17 @@ const StorageKeys = {
 	Units: 'units',
 };
 
-export { LocalizationPathKeys, StorageKeys };
+const Cultures: Culture[] = [
+	{
+		label: 'English',
+		language: 'en',
+		code: 'en-GB',
+	},
+	{
+		label: 'Italiano',
+		language: 'it',
+		code: 'it-IT',
+	},
+];
+
+export { LocalizationPathKeys, StorageKeys, Cultures };

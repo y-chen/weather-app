@@ -3,7 +3,8 @@ import { Subscription } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Culture, cultures } from '@wa/app/models/culture.model';
+import { Cultures } from '@wa/app/common/constants';
+import { Culture } from '@wa/app/models/culture.model';
 
 import { SettingsService } from '../settings/settings.service';
 
@@ -18,7 +19,7 @@ export class CultureService {
 	}
 
 	getAvailableCultures(): Culture[] {
-		return Object.assign([], cultures);
+		return Object.assign([], Cultures);
 	}
 
 	setCulture(culture: Culture): void {

@@ -2,8 +2,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { Injectable } from '@angular/core';
-import { StorageKeys } from '@wa/app/common/constants';
-import { Culture, cultures } from '@wa/app/models/culture.model';
+import { Cultures, StorageKeys } from '@wa/app/common/constants';
+import { Culture } from '@wa/app/models/culture.model';
 import { Units } from '@wa/app/models/open-weather.model';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
@@ -14,7 +14,7 @@ export class SettingsService {
 	private readonly defaultUnit: Units;
 
 	constructor(private readonly localStorageService: LocalStorageService) {
-		this.defaultCulture = cultures[0];
+		this.defaultCulture = Cultures[0];
 		this.defaultUnit = Units.Metric;
 	}
 
