@@ -15,8 +15,8 @@ import { ConfigService } from '../config/config.service';
 export class SlackService {
 	private readonly HOOK_URL: string;
 
-	constructor(private readonly api: ApiService, private readonly config: ConfigService) {
-		this.HOOK_URL = this.config.getConfig().slackHookUrl;
+	constructor(private readonly api: ApiService, private readonly configService: ConfigService) {
+		// this.HOOK_URL = this.configService.config.slackHookUrl;
 	}
 
 	async sendError(content: unknown): Promise<void> {

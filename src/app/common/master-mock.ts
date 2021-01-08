@@ -154,7 +154,7 @@ export class MasterMock {
 	}
 
 	mockConfig(): MasterMock {
-		this.configServiceMock.getConfig.mockReturnValue(this.testData.config);
+		Object.defineProperty(this.configServiceMock, 'config', { get: jest.fn(() => this.testData.config) });
 
 		return this;
 	}

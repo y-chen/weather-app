@@ -24,10 +24,9 @@ import { SharedModule } from './shared/shared.module';
 registerLocaleData(localeEn, 'en');
 registerLocaleData(localeIt, 'it', localeItExtra);
 
-export const configAppFactory = (config: ConfigService) => async () => await config.loadConfig();
 export const ConfigureApp = {
 	provide: APP_INITIALIZER,
-	useFactory: configAppFactory,
+	useFactory: (config: ConfigService) => () => config.loadConfig(),
 	deps: [ConfigService],
 	multi: true,
 };

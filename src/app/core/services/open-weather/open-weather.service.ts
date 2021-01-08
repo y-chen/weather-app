@@ -23,7 +23,7 @@ export class OpenWeatherService {
 		private readonly openWeatherParserService: OpenWeatherParserService,
 		private readonly settingsService: SettingsService,
 	) {
-		const { url, apiKey } = this.configService.getConfig().openWeatherMap;
+		const { url, apiKey } = this.configService.config.openWeatherMap;
 		this.URL = url;
 		this.API_KEY = apiKey;
 	}

@@ -22,7 +22,7 @@ export class HereService {
 		private readonly configService: ConfigService,
 		private readonly settingsService: SettingsService,
 	) {
-		const here = this.configService.getConfig().here;
+		const here = this.configService.config.here;
 		const { geocode, revGeocode } = here.urls;
 
 		this.GEOCODE_URL = geocode;
