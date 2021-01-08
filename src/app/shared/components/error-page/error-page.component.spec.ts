@@ -2,7 +2,7 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { ErrorPageComponent } from '@wa/app/shared/components/error-page/error-page.component';

@@ -4,7 +4,7 @@ import { anyObject, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { HttpClient } from '@angular/common/http';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { ApiServiceMocks, getApiServiceMocks } from '@wa/app/core/services/api/api.service.spec.mocks';
 

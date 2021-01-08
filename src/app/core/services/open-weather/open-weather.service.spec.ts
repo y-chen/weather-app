@@ -4,7 +4,7 @@
 import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';

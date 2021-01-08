@@ -1,7 +1,7 @@
 import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { WeatherGroupResolver } from '@wa/app/core/resolvers/weather-group/weather-group.resolver';
 import {
 	getWeatherGroupResolverMocks, WeatherGroupResolverMocks

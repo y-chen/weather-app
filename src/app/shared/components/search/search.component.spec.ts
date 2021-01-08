@@ -5,7 +5,7 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 import { Provider } from '@angular/core';
 import { fakeAsync, tick } from '@angular/core/testing';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { HereService } from '@wa/app/core/services/here/here.service';

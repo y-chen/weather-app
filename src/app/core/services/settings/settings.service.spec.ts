@@ -1,7 +1,7 @@
 import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Units } from '@wa/app/models/open-weather.model';

@@ -7,7 +7,7 @@ import { ngMocks } from 'ng-mocks';
 
 import { Provider } from '@angular/compiler/src/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { HomeComponent } from '@wa/app/features/main/components/home/home.component';

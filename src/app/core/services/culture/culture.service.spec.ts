@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { TranslateService } from '@ngx-translate/core';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 

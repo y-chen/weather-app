@@ -7,7 +7,7 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { AppComponent } from '@wa/app/app.component';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 
-import { MasterMock } from './common/master-mocks';
+import { MasterMock } from './common/master-mock';
 
 describe('AppComponent', () => {
 	let host: SpectatorHost<AppComponent>;

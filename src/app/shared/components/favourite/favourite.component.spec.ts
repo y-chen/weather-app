@@ -4,7 +4,7 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
 import { FavouriteComponent } from '@wa/app/shared/components/favourite/favourite.component';

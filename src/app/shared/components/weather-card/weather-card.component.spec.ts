@@ -5,7 +5,7 @@ import { ngMocks } from 'ng-mocks';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { Culture } from '@wa/app/models/culture.model';
 import { Weather } from '@wa/app/models/open-weather-parser.model';

@@ -5,7 +5,7 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ErrorService } from '@wa/app/core/services/error/error.service';
 import { ErrorServiceMocks, getErrorServiceMocks } from '@wa/app/core/services/error/error.service.spec.mocks';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';

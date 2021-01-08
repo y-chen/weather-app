@@ -6,7 +6,7 @@ import { ngMocks } from 'ng-mocks';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { NavItem } from '@wa/app/models/navigation.model';
 import { NavItemComponent } from '@wa/app/shared/components/shell/sidebar/nav-item/nav-item.component';

@@ -4,7 +4,7 @@
 import { anyObject, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mocks';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { HereService } from '@wa/app/core/services/here/here.service';
 import { getHereServiceMocks, HereServiceMocks } from '@wa/app/core/services/here/here.service.spec.mocks';
 import { Param } from '@wa/app/models/http.model';
