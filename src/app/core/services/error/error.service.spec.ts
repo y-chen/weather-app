@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { stringify } from 'flatted';
 
 import { HttpErrorResponse } from '@angular/common/http';
@@ -77,12 +78,12 @@ describe('ErrorService', () => {
 		});
 
 		it('should return flatted.stringfy of the error when server error is undefined', () => {
-			const error = testData.extendedError;
-			error.message = null;
+			const { extendedError, initHttpErrorResponse } = testData;
+			extendedError.rejection = new HttpErrorResponse({ error: { message: 'Error' }, ...initHttpErrorResponse });
 
-			const message = spectator.service.getClientMessage(error);
+			const message = spectator.service.getServerMessage(extendedError.rejection);
 
-			expect(message).toEqual(stringify(error));
+			expect(message).toEqual(stringify(extendedError.rejection.error));
 		});
 	});
 

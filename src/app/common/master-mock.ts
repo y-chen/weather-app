@@ -3,7 +3,7 @@ import { Observable, of } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Provider } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -22,7 +22,6 @@ import { OpenWeatherParserService } from '../core/services/open-weather-parser/o
 import { OpenWeatherService } from '../core/services/open-weather/open-weather.service';
 import { SettingsService } from '../core/services/settings/settings.service';
 import { SlackService } from '../core/services/slack/slack.service';
-import { Config } from '../models/config.model';
 import { Units } from '../models/open-weather.model';
 import { getTestData, TestData } from './test-data';
 
