@@ -7,7 +7,6 @@ import { ComponentService } from '@wa/app/core/services/component/component.serv
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
-import { SlackService } from '@wa/app/core/services/slack/slack.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 
