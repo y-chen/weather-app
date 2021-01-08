@@ -5,10 +5,7 @@ import { Header, HttpOption, HttpRequestOptions, Param } from '@wa/app/models/ht
 
 @Injectable()
 export class ApiService {
-	constructor(
-		private readonly http: HttpClient,
-		private readonly settingsService: SettingsService,
-	) {}
+	constructor(private readonly http: HttpClient, private readonly settingsService: SettingsService) {}
 
 	async get<T>(url: string, options?: HttpRequestOptions): Promise<T> {
 		const opts = this.getOptions(options);

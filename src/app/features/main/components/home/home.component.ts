@@ -6,6 +6,7 @@ import { ComponentService } from '@wa/app/core/services/component/component.serv
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
+import { SlackService } from '@wa/app/core/services/slack/slack.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 
@@ -24,12 +25,15 @@ export class HomeComponent implements IComponent, OnInit {
 		private readonly eventService: EventService,
 		private readonly openWeatherService: OpenWeatherService,
 		private readonly route: ActivatedRoute,
+		private readonly slackService: SlackService,
 	) {
 		this.componentService.init({ localizationBasePath: 'features.main.home', route: this.route });
 	}
 
 	async ngOnInit(): Promise<void> {
+		// await this.slackService.sendError('error');
 		this.favouritesWeather = (await this.componentService.getResolverData('favouritesWeather')) as Weather[];
+		console.log(this.favouritesWeather);
 
 		const refreshViewData = async () => {
 			const group: number[] = this.favouritesWeather.map((weather: Weather) => weather.id);

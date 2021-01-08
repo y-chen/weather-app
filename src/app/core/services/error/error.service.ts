@@ -35,7 +35,7 @@ export class ErrorService {
 
 		this.loggerService.error(message, stackTrace);
 		this.notificationService.showError(message);
-		await this.slackService.send(error, 'error');
+		await this.slackService.sendError(error);
 	}
 
 	private getClientMessage(error: Error): string {
