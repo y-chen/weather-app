@@ -1,23 +1,33 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 
+import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { AppComponent } from '@wa/app/app.component';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 
+import { MasterMock } from './common/master-mocks';
+
 describe('AppComponent', () => {
 	let host: SpectatorHost<AppComponent>;
-	let cultureServiceMock: MockProxy<CultureService>;
+
+	let cultureMock: MockProxy<CultureService>;
+
+	let cultureProvider: Provider;
 
 	const createHost = createHostFactory(AppComponent);
 
 	beforeEach(() => {
-		cultureServiceMock = mock<CultureService>();
+		const { cultureServiceMock, cultureServiceProvider } = new MasterMock();
+
+		cultureMock = cultureServiceMock;
+
+		cultureProvider = cultureServiceProvider;
 	});
 
 	afterEach(() => {
-		mockReset(cultureServiceMock);
+		mockReset(cultureMock);
 	});
 
 	it('should create the app', () => {
@@ -30,10 +40,10 @@ describe('AppComponent', () => {
 
 	it('should call CultureService.init', () => {
 		host = createHost('<wa-root></wa-root>', {
-			providers: [{ provide: CultureService, useValue: cultureServiceMock }],
+			providers: [cultureProvider],
 		});
 
-		expect(cultureServiceMock.init).toHaveBeenCalled();
+		expect(cultureMock.init).toHaveBeenCalled();
 	});
 
 	it('should have as title weather-app', () => {

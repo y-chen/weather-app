@@ -1,37 +1,47 @@
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 
+import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { cultures } from '@wa/app/models/culture.model';
 import { ErrorPageComponent } from '@wa/app/shared/components/error-page/error-page.component';
 
 describe('ErrorPageComponent', () => {
 	let host: SpectatorHost<ErrorPageComponent>;
-	let cultureServiceMock: MockProxy<CultureService>;
-	let settingsServiceMock: MockProxy<SettingsService>;
+
+	let cultureMock: MockProxy<CultureService>;
+	let settingsMock: MockProxy<SettingsService>;
+
+	let cultureProvider: Provider;
+	let settingsProvider: Provider;
 
 	const createHost = createHostFactory(ErrorPageComponent);
 
 	beforeEach(() => {
-		cultureServiceMock = mock<CultureService>();
-		settingsServiceMock = mock<SettingsService>();
+		const {
+			cultureServiceMock,
+			settingsServiceMock,
 
-		cultureServiceMock.getAvailableCultures.mockReturnValue(cultures);
-		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
+			cultureServiceProvider,
+			settingsServiceProvider,
+		} = new MasterMock().mockSettings().mockCultures();
+
+		cultureMock = cultureServiceMock;
+		settingsMock = settingsServiceMock;
+
+		cultureProvider = cultureServiceProvider;
+		settingsProvider = settingsServiceProvider;
 	});
 
 	afterEach(() => {
-		mockReset(cultureServiceMock);
-		mockReset(settingsServiceMock);
+		mockReset(cultureMock);
+		mockReset(settingsMock);
 	});
 
 	it('should create', () => {
 		host = createHost('<wa-error-page></wa-error-page>', {
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [cultureProvider, settingsProvider],
 		});
 
 		const errorPage = host.queryHost('wa-error-page');

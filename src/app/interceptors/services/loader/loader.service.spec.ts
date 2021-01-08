@@ -7,7 +7,9 @@ describe('LoaderService', () => {
 
 	const createService = createServiceFactory(LoaderService);
 
-	beforeEach(() => (spectator = createService()));
+	beforeEach(() => {
+		spectator = createService();
+	});
 
 	it('should be created', () => {
 		expect(spectator.service).toBeTruthy();

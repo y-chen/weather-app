@@ -1,10 +1,12 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable security/detect-object-injection */
 
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 import { ngMocks } from 'ng-mocks';
 
+import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { NavItem } from '@wa/app/models/navigation.model';
 import { NavItemComponent } from '@wa/app/shared/components/shell/sidebar/nav-item/nav-item.component';
@@ -12,14 +14,21 @@ import { SidebarComponent } from '@wa/app/shared/components/shell/sidebar/sideba
 
 describe('SidebarComponent', () => {
 	let host: SpectatorHost<SidebarComponent>;
-	let componentServiceMock: MockProxy<ComponentService>;
+
+	let componentMock: MockProxy<ComponentService>;
+
+	let componentProvider: Provider;
 
 	const createHost = createHostFactory(SidebarComponent);
 
 	let navItems: NavItem[];
 
 	beforeEach(() => {
-		componentServiceMock = mock<ComponentService>();
+		const { componentServiceMock, componentServiceProvider } = new MasterMock();
+
+		componentMock = componentServiceMock;
+
+		componentProvider = componentServiceProvider;
 
 		navItems = [
 			{ icon: 'First Icon', label: 'First Label', route: 'First Route' },
@@ -28,7 +37,7 @@ describe('SidebarComponent', () => {
 	});
 
 	afterEach(() => {
-		mockReset(componentServiceMock);
+		mockReset(componentMock);
 	});
 
 	it('should create', () => {
@@ -42,10 +51,10 @@ describe('SidebarComponent', () => {
 
 	it('should call ComponentService.init', () => {
 		host = createHost('<wa-sidebar></wa-sidebar>', {
-			providers: [{ provide: ComponentService, useValue: componentServiceMock }],
+			providers: [componentProvider],
 		});
 
-		expect(componentServiceMock.init).toHaveBeenCalled();
+		expect(componentMock.init).toHaveBeenCalled();
 	});
 
 	it('should render as many wa-nav-item elements as input NavItem[] length', () => {

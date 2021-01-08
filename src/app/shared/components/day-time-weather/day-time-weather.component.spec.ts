@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable security/detect-object-injection */
 
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 import { ngMocks } from 'ng-mocks';
 
+import { Provider } from '@angular/compiler/src/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { DayTimeWeather } from '@wa/app/models/open-weather-parser.model';
@@ -16,23 +19,36 @@ import {
 
 describe('DayTimeWeatherComponent', () => {
 	let host: SpectatorHost<DayTimeWeatherComponent>;
-	let componentServiceMock: MockProxy<ComponentService>;
-	let settingsServiceMock: MockProxy<SettingsService>;
+
+	let componentMock: MockProxy<ComponentService>;
+	let settingsMock: MockProxy<SettingsService>;
+
+	let componentProvider: Provider;
+	let settingsProvider: Provider;
 
 	let mocks: DayTimeWeatherComponentMocks;
 
 	beforeEach(() => {
-		componentServiceMock = mock<ComponentService>();
-		settingsServiceMock = mock<SettingsService>();
+		const {
+			componentServiceMock,
+			settingsServiceMock,
+
+			componentServiceProvider,
+			settingsServiceProvider,
+		} = new MasterMock().mockSettings();
+
+		componentMock = componentServiceMock;
+		settingsMock = settingsServiceMock;
+
+		componentProvider = componentServiceProvider;
+		settingsProvider = settingsServiceProvider;
 
 		mocks = getDayTimeWeatherComponentMocks();
-
-		settingsServiceMock.getCulture.mockReturnValue(mocks.culture);
 	});
 
 	afterEach(() => {
-		mockReset(componentServiceMock);
-		mockReset(settingsServiceMock);
+		mockReset(componentMock);
+		mockReset(settingsMock);
 	});
 
 	const createHost = createHostFactory(DayTimeWeatherComponent);
@@ -48,14 +64,16 @@ describe('DayTimeWeatherComponent', () => {
 
 	it('should call ComponentService.init', () => {
 		host = createHost('<wa-day-time-weather></wa-day-time-weather>', {
-			providers: [{ provide: ComponentService, useValue: componentServiceMock }],
+			providers: [componentProvider, settingsProvider],
 		});
 
-		expect(componentServiceMock.init).toHaveBeenCalled();
+		expect(componentMock.init).toHaveBeenCalled();
 	});
 
 	it('should have .unavailable CSS class when DayTimeWeather is not defined', () => {
-		host = createHost('<wa-day-time-weather></wa-day-time-weather>');
+		host = createHost('<wa-day-time-weather></wa-day-time-weather>', {
+			providers: [componentProvider, settingsProvider],
+		});
 
 		const header: Element = host.query('mat-card-header');
 
@@ -67,7 +85,7 @@ describe('DayTimeWeatherComponent', () => {
 
 		host = createHost('<wa-day-time-weather [dayTimeWeather]="dayTimeWeather"></wa-day-time-weather>', {
 			hostProps: { dayTimeWeather },
-			providers: [{ provide: SettingsService, useValue: settingsServiceMock }],
+			providers: [componentProvider, settingsProvider],
 		});
 
 		const basicWeathers: BasicWeatherComponent[] = ngMocks.findInstances(BasicWeatherComponent);
@@ -80,6 +98,7 @@ describe('DayTimeWeatherComponent', () => {
 	it('should show unavailableTemplate when data is not unavailable', () => {
 		host = createHost('<wa-day-time-weather [dayTimeWeather]="dayTimeWeather"></wa-day-time-weather>', {
 			hostProps: { dayTimeWeather: null },
+			providers: [componentProvider, settingsProvider],
 		});
 
 		const unavailable: Element = host.query('h1');

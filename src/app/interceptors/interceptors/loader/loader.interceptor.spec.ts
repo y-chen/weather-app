@@ -6,9 +6,11 @@ describe('LoaderInterceptor', () => {
 
 	const createService = createServiceFactory(LoaderInterceptor);
 
-	beforeEach(() => (spectator = createService()));
+	beforeEach(() => {
+		spectator = createService();
+	});
 
 	it('should be created', () => {
-		expect(spectator.service).toBeTruthy();
+		expect(spectator.service).toBeDefined();
 	});
 });

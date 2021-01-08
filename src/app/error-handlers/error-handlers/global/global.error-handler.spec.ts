@@ -6,7 +6,9 @@ describe('GlobalErrorHandler', () => {
 
 	const createService = createServiceFactory(GlobalErrorHandler);
 
-	beforeEach(() => (spectator = createService()));
+	beforeEach(() => {
+		spectator = createService();
+	});
 
 	it('should be created', () => {
 		expect(spectator.service).toBeTruthy();

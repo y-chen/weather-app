@@ -6,7 +6,9 @@ describe('RequestsInterceptor', () => {
 
 	const createService = createServiceFactory(HttpLoggerInterceptor);
 
-	beforeEach(() => (spectator = createService()));
+	beforeEach(() => {
+		spectator = createService();
+	});
 
 	it('should be created', () => {
 		expect(spectator.service).toBeDefined();

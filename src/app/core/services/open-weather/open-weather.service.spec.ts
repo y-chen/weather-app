@@ -1,56 +1,50 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { ApiService } from '@wa/app/core/services/api/api.service';
-import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { getOpenWeatherMocks, OpenWeatherMocks } from '@wa/app/core/services/open-weather/open-weather.service.spec.mocks';
-import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { cultures } from '@wa/app/models/culture.model';
-import { RawWeather, Units } from '@wa/app/models/open-weather.model';
+import { RawWeather } from '@wa/app/models/open-weather.model';
 
 describe('OpenWeatherService', () => {
 	let spectator: SpectatorService<OpenWeatherService>;
-	let apiServiceMock: MockProxy<ApiService>;
-	let configServiceMock: MockProxy<ConfigService>;
-	let openWeatherParserServiceMock: MockProxy<OpenWeatherParserService>;
-	let settingsServiceMock: MockProxy<SettingsService>;
+
+	let apiMock: MockProxy<ApiService>;
+	let openWeatherParserMock: MockProxy<OpenWeatherParserService>;
 
 	const createService = createServiceFactory(OpenWeatherService);
 
 	let mocks: OpenWeatherMocks;
 
 	beforeEach(() => {
-		apiServiceMock = mock<ApiService>();
-		configServiceMock = mock<ConfigService>();
-		openWeatherParserServiceMock = mock<OpenWeatherParserService>();
-		settingsServiceMock = mock<SettingsService>();
+		const {
+			apiServiceMock,
+			openWeatherParserServiceMock,
 
-		mocks = getOpenWeatherMocks();
+			apiServiceProvider,
+			configServiceProvider,
+			openWeatherParserServiceProvider,
+			settingsServiceProvider,
+		} = new MasterMock().mockHttpClient().mockSettings().mockConfig();
 
-		configServiceMock.getConfig.mockReturnValue(mocks.config);
-		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
-		settingsServiceMock.getUnit.mockReturnValue(Units.Imperial);
+		apiMock = apiServiceMock;
+		openWeatherParserMock = openWeatherParserServiceMock;
 
 		spectator = createService({
-			providers: [
-				{ provide: ApiService, useValue: apiServiceMock },
-				{ provide: ConfigService, useValue: configServiceMock },
-				{ provide: OpenWeatherParserService, useValue: openWeatherParserServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [apiServiceProvider, configServiceProvider, openWeatherParserServiceProvider, settingsServiceProvider],
 		});
+
+		mocks = getOpenWeatherMocks();
 	});
 
 	afterEach(() => {
-		mockReset(apiServiceMock);
-		mockReset(configServiceMock);
-		mockReset(openWeatherParserServiceMock);
-		mockReset(settingsServiceMock);
+		mockReset(apiMock);
+		mockReset(openWeatherParserMock);
 	});
 
 	it('should be created', () => {
@@ -62,11 +56,11 @@ describe('OpenWeatherService', () => {
 			const searchParams = mocks.searchParams;
 			const partialParams = [{ key: 'id', value: searchParams.group.join(',') }];
 
-			apiServiceMock.get.mockResolvedValue(mocks.group);
+			apiMock.get.mockResolvedValue(mocks.group);
 
 			await spectator.service.getWeatherGroup(searchParams);
 
-			expect(apiServiceMock.get).toHaveBeenCalledWith(expect.toEndWith('group'), {
+			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('group'), {
 				params: expect.arrayContaining(partialParams),
 			});
 		});
@@ -74,22 +68,22 @@ describe('OpenWeatherService', () => {
 		it('should call OpenWeatherParserService.translateLocationNames with retreived group', async () => {
 			const { group, searchParams } = mocks;
 
-			apiServiceMock.get.mockResolvedValue(group);
+			apiMock.get.mockResolvedValue(group);
 
 			await spectator.service.getWeatherGroup(searchParams);
 
-			expect(openWeatherParserServiceMock.translateLocationNames).toHaveBeenCalledWith(group);
+			expect(openWeatherParserMock.translateLocationNames).toHaveBeenCalledWith(group);
 		});
 
 		it('should call OpenWeatherParserService.parseWeatherData for each element of the group', async () => {
 			const { group, searchParams } = mocks;
 
-			apiServiceMock.get.mockResolvedValue(group);
+			apiMock.get.mockResolvedValue(group);
 
 			await spectator.service.getWeatherGroup(searchParams);
 
 			group.list.forEach((weather: RawWeather, index: number) =>
-				expect(openWeatherParserServiceMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
+				expect(openWeatherParserMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
 			);
 		});
 	});
@@ -99,11 +93,11 @@ describe('OpenWeatherService', () => {
 			const { forecast, searchParams } = mocks;
 			const partialParams = [{ key: 'id', value: searchParams.id }];
 
-			apiServiceMock.get.mockResolvedValue(forecast);
+			apiMock.get.mockResolvedValue(forecast);
 
 			await spectator.service.getForecastById(searchParams);
 
-			expect(apiServiceMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
+			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
 				params: expect.arrayContaining(partialParams),
 			});
 		});
@@ -111,12 +105,12 @@ describe('OpenWeatherService', () => {
 		it('should call OpenWeatherParserService.parseWeatherData for each element of the forecast list', async () => {
 			const { forecast, searchParams } = mocks;
 
-			apiServiceMock.get.mockResolvedValue(forecast);
+			apiMock.get.mockResolvedValue(forecast);
 
 			await spectator.service.getForecastById(searchParams);
 
 			forecast.list.forEach((weather: RawWeather, index: number) =>
-				expect(openWeatherParserServiceMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
+				expect(openWeatherParserMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
 			);
 		});
 	});
@@ -129,11 +123,11 @@ describe('OpenWeatherService', () => {
 				{ key: 'lon', value: searchParams.coord.lon },
 			];
 
-			apiServiceMock.get.mockResolvedValue(forecast);
+			apiMock.get.mockResolvedValue(forecast);
 
 			await spectator.service.getForecastByCoord(searchParams);
 
-			expect(apiServiceMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
+			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
 				params: expect.arrayContaining(partialParams),
 			});
 		});
@@ -141,12 +135,12 @@ describe('OpenWeatherService', () => {
 		it('should call OpenWeatherParserService.parseWeatherData for each element of the forecast list', async () => {
 			const { forecast, searchParams } = mocks;
 
-			apiServiceMock.get.mockResolvedValue(forecast);
+			apiMock.get.mockResolvedValue(forecast);
 
 			await spectator.service.getForecastByCoord(searchParams);
 
 			forecast.list.forEach((weather: RawWeather, index: number) =>
-				expect(openWeatherParserServiceMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
+				expect(openWeatherParserMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
 			);
 		});
 	});

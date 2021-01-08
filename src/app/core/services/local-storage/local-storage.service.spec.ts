@@ -4,14 +4,16 @@ import { mockLocalStorage } from '@wa/app/core/services/local-storage/local-stor
 
 describe('LocalStorageService', () => {
 	let spectator: SpectatorService<LocalStorageService>;
-	const { getItemMock, setItemMock, removeItemMock } = mockLocalStorage();
 
 	const createService = createServiceFactory(LocalStorageService);
 
+	const { getItemMock, setItemMock, removeItemMock } = mockLocalStorage();
 	const key = 'Key';
 	const value = 'Value';
 
-	beforeEach(() => (spectator = createService()));
+	beforeEach(() => {
+		spectator = createService();
+	});
 
 	it('should be defined', () => {
 		expect(spectator.service).toBeDefined();

@@ -1,25 +1,18 @@
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
-
-import { AngularFirestore } from '@angular/fire/firestore';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { ConfigService } from '@wa/app/core/services/config/config.service';
 
 describe('ConfigService', () => {
 	let spectator: SpectatorService<ConfigService>;
-	let firestoreMock: MockProxy<AngularFirestore>;
 
 	const createService = createServiceFactory(ConfigService);
 
 	beforeEach(() => {
-		firestoreMock = mock<AngularFirestore>();
+		const { angularFirestoreProvider } = new MasterMock();
 
 		spectator = createService({
-			providers: [{ provide: AngularFirestore, useValue: firestoreMock }],
+			providers: [angularFirestoreProvider],
 		});
-	});
-
-	afterEach(() => {
-		mockReset(firestoreMock);
 	});
 
 	it('should be created', () => {

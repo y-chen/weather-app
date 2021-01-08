@@ -7,7 +7,9 @@ describe('SlackService', () => {
 
 	const createService = createServiceFactory(SlackService);
 
-	beforeEach(() => (spectator = createService()));
+	beforeEach(() => {
+		spectator = createService();
+	});
 
 	it('should be created', () => {
 		expect(spectator.service).toBeDefined();

@@ -5,9 +5,7 @@ import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/b
 describe('BasicWeatherComponent', () => {
 	let host: SpectatorHost<BasicWeatherComponent>;
 
-	const createHost = createHostFactory({
-		component: BasicWeatherComponent,
-	});
+	const createHost = createHostFactory(BasicWeatherComponent);
 
 	const weather: Weather = {
 		id: 0,

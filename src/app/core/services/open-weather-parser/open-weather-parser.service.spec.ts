@@ -1,6 +1,7 @@
-import { anyNumber, mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { anyNumber, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { HereService } from '@wa/app/core/services/here/here.service';
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
@@ -11,30 +12,30 @@ import { RawWeather } from '@wa/app/models/open-weather.model';
 
 describe('OpenWeatherParserService', () => {
 	let spectator: SpectatorService<OpenWeatherParserService>;
-	let cultureServiceMock: MockProxy<CultureService>;
-	let hereServiceMock: MockProxy<HereService>;
+
+	let cultureMock: MockProxy<CultureService>;
+	let hereMock: MockProxy<HereService>;
 
 	const createService = createServiceFactory(OpenWeatherParserService);
 
 	let mocks: OpenWeatherParserMocks;
 
 	beforeEach(() => {
-		cultureServiceMock = mock<CultureService>();
-		hereServiceMock = mock<HereService>();
+		const { cultureServiceMock, hereServiceMock, cultureServiceProvider, hereServiceProvider } = new MasterMock();
+
+		cultureMock = cultureServiceMock;
+		hereMock = hereServiceMock;
 
 		spectator = createService({
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: HereService, useValue: hereServiceMock },
-			],
+			providers: [cultureServiceProvider, hereServiceProvider],
 		});
 
 		mocks = getOpenWeatherParserMocks();
 	});
 
 	afterEach(() => {
-		mockReset(cultureServiceMock);
-		mockReset(hereServiceMock);
+		mockReset(cultureMock);
+		mockReset(hereMock);
 	});
 
 	it('should be created', () => {
@@ -49,7 +50,7 @@ describe('OpenWeatherParserService', () => {
 
 			expect(parsed.title).toEqual(weather.name);
 			expect(parsed.icon.endsWith(`${4}x.png`)).toBeTrue();
-			expect(cultureServiceMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), weather.sys.timezone);
+			expect(cultureMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), weather.sys.timezone);
 		});
 
 		it('should use ParserOptions data instead of RawWeather data when options are available', () => {
@@ -60,7 +61,7 @@ describe('OpenWeatherParserService', () => {
 
 			expect(parsed.title).toEqual(titleOverride);
 			expect(parsed.icon.endsWith(`${iconSize}x.png`)).toBeTrue();
-			expect(cultureServiceMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), timezone);
+			expect(cultureMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), timezone);
 		});
 	});
 
@@ -68,15 +69,15 @@ describe('OpenWeatherParserService', () => {
 		it('should call HereService.locationLookup with expected arguments', async () => {
 			const { coord, name } = mocks.forecast.city;
 
-			hereServiceMock.locationLookup.mockResolvedValue(mocks.location);
+			hereMock.locationLookup.mockResolvedValue(mocks.location);
 
 			await spectator.service.parseForecastData(mocks.forecast);
 
-			expect(hereServiceMock.locationLookup).toHaveBeenCalledWith({ coord, query: name });
+			expect(hereMock.locationLookup).toHaveBeenCalledWith({ coord, query: name });
 		});
 
 		it('should group days and day times as expected', async () => {
-			hereServiceMock.locationLookup.mockResolvedValue(mocks.location);
+			hereMock.locationLookup.mockResolvedValue(mocks.location);
 
 			const forecast = await spectator.service.parseForecastData(mocks.forecast);
 
@@ -99,19 +100,19 @@ describe('OpenWeatherParserService', () => {
 		});
 
 		it('should call CultureService.convertUnixTimeToLocaleDate twice for each RawWeather with correct timezone', async () => {
-			hereServiceMock.locationLookup.mockResolvedValue(mocks.location);
+			hereMock.locationLookup.mockResolvedValue(mocks.location);
 
 			await spectator.service.parseForecastData(mocks.forecast);
 
 			let counter = 0;
 			mocks.forecast.list.forEach((weather: RawWeather, index: number) => {
-				expect(cultureServiceMock.convertUnixTimeToLocaleDate).toHaveBeenNthCalledWith(
+				expect(cultureMock.convertUnixTimeToLocaleDate).toHaveBeenNthCalledWith(
 					index + counter + 1,
 					weather.dt,
 					mocks.forecast.city.timezone,
 				);
 
-				expect(cultureServiceMock.convertUnixTimeToLocaleDate).toHaveBeenNthCalledWith(
+				expect(cultureMock.convertUnixTimeToLocaleDate).toHaveBeenNthCalledWith(
 					index + counter + 2,
 					weather.dt,
 					mocks.forecast.city.timezone,
@@ -124,12 +125,12 @@ describe('OpenWeatherParserService', () => {
 
 	describe('translateLocationNames', () => {
 		it('should call HereService.findLocationByCoords for each element of the WeatherGroup', async () => {
-			hereServiceMock.findLocationByCoords.mockResolvedValue(mocks.location);
+			hereMock.findLocationByCoords.mockResolvedValue(mocks.location);
 
 			await spectator.service.translateLocationNames(mocks.group);
 
 			mocks.group.list.forEach((weather: RawWeather, index: number) =>
-				expect(hereServiceMock.findLocationByCoords).toHaveBeenNthCalledWith(index + 1, weather.coord),
+				expect(hereMock.findLocationByCoords).toHaveBeenNthCalledWith(index + 1, weather.coord),
 			);
 		});
 	});

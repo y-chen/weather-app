@@ -1,34 +1,43 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 
+import { Provider } from '@angular/core';
 import { byText, createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { NavItem } from '@wa/app/models/navigation.model';
 import { NavItemComponent } from '@wa/app/shared/components/shell/sidebar/nav-item/nav-item.component';
 
 describe('NavItemComponent', () => {
 	let host: SpectatorHost<NavItemComponent>;
-	let componentServiceMock: MockProxy<ComponentService>;
+
+	let componentMock: MockProxy<ComponentService>;
+
+	let componentProvider: Provider;
 
 	const createHost = createHostFactory(NavItemComponent);
 
 	let item: NavItem;
 
 	beforeEach(() => {
-		componentServiceMock = mock<ComponentService>();
+		const { componentServiceMock, componentServiceProvider } = new MasterMock();
+
+		componentMock = componentServiceMock;
+
+		componentProvider = componentServiceProvider;
 
 		item = { icon: 'Icon', label: 'Label', route: 'Route' };
 	});
 
 	afterEach(() => {
-		mockReset(componentServiceMock);
+		mockReset(componentMock);
 	});
 
 	it('should create', () => {
 		host = createHost('<wa-nav-item [item]="item"></wa-nav-item>', {
 			hostProps: { item },
-			providers: [{ provide: ComponentService, useValue: componentServiceMock }],
+			providers: [componentProvider],
 		});
 
 		const navItem = host.queryHost('wa-nav-item');
@@ -40,10 +49,10 @@ describe('NavItemComponent', () => {
 	it('should init ComponentService', () => {
 		host = createHost('<wa-nav-item [item]="item"></wa-nav-item>', {
 			hostProps: { item },
-			providers: [{ provide: ComponentService, useValue: componentServiceMock }],
+			providers: [componentProvider],
 		});
 
-		expect(componentServiceMock.init).toHaveBeenCalled();
+		expect(componentMock.init).toHaveBeenCalled();
 	});
 
 	it('should have a link to the NavItem.route', () => {

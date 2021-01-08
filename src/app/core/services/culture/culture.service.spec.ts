@@ -1,32 +1,33 @@
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 import moment from 'moment';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { TranslateService } from '@ngx-translate/core';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 
 describe('CultureService', () => {
 	let spectator: SpectatorService<CultureService>;
-	let settingsServiceMock: MockProxy<SettingsService>;
+
+	let settingsMock: MockProxy<SettingsService>;
 	let translateMock: MockProxy<TranslateService>;
 
 	const createService = createServiceFactory(CultureService);
 
 	beforeEach(() => {
-		settingsServiceMock = mock<SettingsService>();
-		translateMock = mock<TranslateService>();
+		const { settingsServiceMock, translateServiceMock, settingsServiceProvider, translateServiceProvider } = new MasterMock();
+
+		settingsMock = settingsServiceMock;
+		translateMock = translateServiceMock;
 
 		spectator = createService({
-			providers: [
-				{ provide: SettingsService, useValue: settingsServiceMock },
-				{ provide: TranslateService, useValue: translateMock },
-			],
+			providers: [settingsServiceProvider, translateServiceProvider],
 		});
 	});
 
 	afterEach(() => {
-		mockReset(settingsServiceMock);
+		mockReset(settingsMock);
 		mockReset(translateMock);
 	});
 
@@ -39,7 +40,7 @@ describe('CultureService', () => {
 			spectator.service.init();
 
 			expect(translateMock.setDefaultLang).toHaveBeenCalled();
-			expect(settingsServiceMock.setCulture).toHaveBeenCalled();
+			expect(settingsMock.setCulture).toHaveBeenCalled();
 		});
 	});
 
@@ -60,18 +61,18 @@ describe('CultureService', () => {
 			const storedCulture = { label: 'English', language: 'en', code: 'en-GB' };
 			const newCulture = { label: 'Italiano', language: 'it', code: 'it-IT' };
 
-			settingsServiceMock.getCulture.mockReturnValue(storedCulture);
+			settingsMock.getCulture.mockReturnValue(storedCulture);
 
 			spectator.service.setCulture(newCulture);
 
-			expect(settingsServiceMock.setCulture).toHaveBeenCalledWith(newCulture);
+			expect(settingsMock.setCulture).toHaveBeenCalledWith(newCulture);
 		});
 
 		it('should call TranslateService.use with expected language when stored culture is different from provided one', () => {
 			const storedCulture = { label: 'English', language: 'en', code: 'en-GB' };
 			const newCulture = { label: 'Italiano', language: 'it', code: 'it-IT' };
 
-			settingsServiceMock.getCulture.mockReturnValue(storedCulture);
+			settingsMock.getCulture.mockReturnValue(storedCulture);
 
 			spectator.service.setCulture(newCulture);
 
@@ -81,11 +82,11 @@ describe('CultureService', () => {
 		it('should not call SettingsService.setCulture or TranslateService.use when stored culture is same of provided one', () => {
 			const storedCulture = { label: 'English', language: 'en', code: 'en-GB' };
 
-			settingsServiceMock.getCulture.mockReturnValue(storedCulture);
+			settingsMock.getCulture.mockReturnValue(storedCulture);
 
 			spectator.service.setCulture(storedCulture);
 
-			expect(settingsServiceMock.setCulture).not.toHaveBeenCalled();
+			expect(settingsMock.setCulture).not.toHaveBeenCalled();
 			expect(translateMock.use).not.toHaveBeenCalled();
 		});
 	});

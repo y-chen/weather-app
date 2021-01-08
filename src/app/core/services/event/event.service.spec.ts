@@ -6,7 +6,9 @@ describe('EventService', () => {
 
 	const createService = createServiceFactory(EventService);
 
-	beforeEach(() => (spectator = createService()));
+	beforeEach(() => {
+		spectator = createService();
+	});
 
 	it('should be defined', () => {
 		expect(spectator.service).toBeDefined();

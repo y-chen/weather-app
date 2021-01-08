@@ -1,30 +1,35 @@
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resolver';
 import { ForecastResolverMocks, getForecastResolverMocks } from '@wa/app/core/resolvers/forecast/forecast.resolver.spec.mocks';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 
 describe('ForecastResolver', () => {
 	let spectator: SpectatorService<ForecastResolver>;
-	let openWeatherServiceMock: MockProxy<OpenWeatherService>;
+	let openWeatherMock: MockProxy<OpenWeatherService>;
 
 	const createService = createServiceFactory(ForecastResolver);
 
+	let master: MasterMock;
 	let mocks: ForecastResolverMocks;
 
 	beforeEach(() => {
-		openWeatherServiceMock = mock<OpenWeatherService>();
+		master = new MasterMock();
+		mocks = getForecastResolverMocks();
+
+		const { openWeatherServiceMock, openWeatherServiceProvider } = master;
+
+		openWeatherMock = openWeatherServiceMock;
 
 		spectator = createService({
-			providers: [{ provide: OpenWeatherService, useValue: openWeatherServiceMock }],
+			providers: [openWeatherServiceProvider],
 		});
-
-		mocks = getForecastResolverMocks();
 	});
 
 	afterEach(() => {
-		mockReset(openWeatherServiceMock);
+		mockReset(openWeatherMock);
 	});
 
 	it('should be created', () => {
@@ -39,8 +44,8 @@ describe('ForecastResolver', () => {
 
 			await spectator.service.resolve(route);
 
-			expect(openWeatherServiceMock.getForecastById).toHaveBeenCalledWith({ id, iconSize });
-			expect(openWeatherServiceMock.getForecastByCoord).not.toHaveBeenCalled();
+			expect(openWeatherMock.getForecastById).toHaveBeenCalledWith({ id, iconSize });
+			expect(openWeatherMock.getForecastByCoord).not.toHaveBeenCalled();
 		});
 
 		it('should call OpenWeatherService.getForecastByCoord with expected arguments when route param is available', async () => {
@@ -50,8 +55,8 @@ describe('ForecastResolver', () => {
 
 			await spectator.service.resolve(route);
 
-			expect(openWeatherServiceMock.getForecastByCoord).toHaveBeenCalledWith({ coord, iconSize });
-			expect(openWeatherServiceMock.getForecastById).not.toHaveBeenCalled();
+			expect(openWeatherMock.getForecastByCoord).toHaveBeenCalledWith({ coord, iconSize });
+			expect(openWeatherMock.getForecastById).not.toHaveBeenCalled();
 		});
 	});
 });

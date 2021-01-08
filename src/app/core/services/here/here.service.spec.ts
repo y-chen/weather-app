@@ -1,50 +1,45 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import { anyObject, mock, MockProxy, mockReset } from 'jest-mock-extended';
+
+import { anyObject, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { ApiService } from '@wa/app/core/services/api/api.service';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { HereService } from '@wa/app/core/services/here/here.service';
 import { getHereServiceMocks, HereServiceMocks } from '@wa/app/core/services/here/here.service.spec.mocks';
-import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { cultures } from '@wa/app/models/culture.model';
 import { Param } from '@wa/app/models/http.model';
 
-import { ConfigService } from '../config/config.service';
+import { ApiService } from '../api/api.service';
 
 describe('HereService', () => {
 	let spectator: SpectatorService<HereService>;
-	let apiMock: MockProxy<ApiService>;
-	let configServiceMock: MockProxy<ConfigService>;
-	let settingsServiceMock: MockProxy<SettingsService>;
 
-	const createService = createServiceFactory({ service: HereService, mocks: [ConfigService] });
+	let apiMock: MockProxy<ApiService>;
+
+	const createService = createServiceFactory(HereService);
 
 	let mocks: HereServiceMocks;
 
 	beforeEach(() => {
-		apiMock = mock<ApiService>();
-		configServiceMock = mock<ConfigService>();
-		settingsServiceMock = mock<SettingsService>();
+		const {
+			apiServiceMock,
 
-		mocks = getHereServiceMocks();
+			apiServiceProvider,
+			configServiceProvider,
+			settingsServiceProvider,
+		} = new MasterMock().mockConfig().mockSettings();
 
-		configServiceMock.getConfig.mockReturnValue(mocks.config);
-		settingsServiceMock.getCulture.mockReturnValue(cultures[0]);
+		apiMock = apiServiceMock;
 
 		spectator = createService({
-			providers: [
-				{ provide: ApiService, useValue: apiMock },
-				{ provide: ConfigService, useValue: configServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [apiServiceProvider, configServiceProvider, settingsServiceProvider],
 		});
+
+		mocks = getHereServiceMocks();
 	});
 
 	afterEach(() => {
 		mockReset(apiMock);
-		mockReset(configServiceMock);
-		mockReset(settingsServiceMock);
 	});
 
 	it('should be defined', () => {
@@ -120,7 +115,7 @@ describe('HereService', () => {
 
 			apiMock.get.mockResolvedValue(location);
 
-			await spectator.service.findLocationById(mocks.searchParams.id);
+			await spectator.service.findLocationById(searchParams.id);
 
 			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/lookup'), {
 				params: expect.arrayContaining(partialParams),
@@ -136,7 +131,7 @@ describe('HereService', () => {
 
 			apiMock.get.mockResolvedValue(location);
 
-			await spectator.service.findLocationByCoords(mocks.searchParams.coord);
+			await spectator.service.findLocationByCoords(searchParams.coord);
 
 			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/revgeocode'), {
 				params: expect.arrayContaining(partialParams),
@@ -151,7 +146,7 @@ describe('HereService', () => {
 
 			apiMock.get.mockResolvedValue(location);
 
-			await spectator.service.findLocationByQuery(mocks.searchParams.query);
+			await spectator.service.findLocationByQuery(searchParams.query);
 
 			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('/geocode'), {
 				params: expect.arrayContaining(partialParams),

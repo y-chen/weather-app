@@ -1,29 +1,30 @@
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Units } from '@wa/app/models/open-weather.model';
 
 describe('SettingsService', () => {
 	let spectator: SpectatorService<SettingsService>;
-	let localStorageServiceMock: MockProxy<LocalStorageService>;
 
-	const createService = createServiceFactory({
-		service: SettingsService,
-		mocks: [LocalStorageService],
-	});
+	let localStorageMock: MockProxy<LocalStorageService>;
+
+	const createService = createServiceFactory(SettingsService);
 
 	beforeEach(() => {
-		localStorageServiceMock = mock<LocalStorageService>();
+		const { localStorageServiceMock, localStorageServiceProvider } = new MasterMock();
+
+		localStorageMock = localStorageServiceMock;
 
 		spectator = createService({
-			providers: [{ provide: LocalStorageService, useValue: localStorageServiceMock }],
+			providers: [localStorageServiceProvider],
 		});
 	});
 
 	afterEach(() => {
-		mockReset(localStorageServiceMock);
+		mockReset(localStorageMock);
 	});
 
 	it('should be created', () => {
@@ -34,7 +35,7 @@ describe('SettingsService', () => {
 		it('should call LocalStorageService.get with expected key', () => {
 			spectator.service.getCulture();
 
-			expect(localStorageServiceMock.get).toHaveBeenCalledWith(StorageKeys.Culture);
+			expect(localStorageMock.get).toHaveBeenCalledWith(StorageKeys.Culture);
 		});
 
 		it('should return a defined Culture even when LocalStorageService.get returns null', () => {
@@ -53,7 +54,7 @@ describe('SettingsService', () => {
 
 			spectator.service.setCulture(culture);
 
-			expect(localStorageServiceMock.set).toBeCalledWith(StorageKeys.Culture, JSON.stringify(culture));
+			expect(localStorageMock.set).toBeCalledWith(StorageKeys.Culture, JSON.stringify(culture));
 		});
 	});
 
@@ -61,11 +62,11 @@ describe('SettingsService', () => {
 		it('should call LocalStorageService.get with expected key', () => {
 			spectator.service.getUnit();
 
-			expect(localStorageServiceMock.get).toHaveBeenCalledWith(StorageKeys.Units);
+			expect(localStorageMock.get).toHaveBeenCalledWith(StorageKeys.Units);
 		});
 
 		it('should return a defined Units even when LocalStorageService.get returns null', () => {
-			localStorageServiceMock.get.mockReturnValue(null);
+			localStorageMock.get.mockReturnValue(null);
 
 			const unit = spectator.service.getUnit();
 
@@ -80,7 +81,7 @@ describe('SettingsService', () => {
 
 			spectator.service.setUnit(unit);
 
-			expect(localStorageServiceMock.set).toBeCalledWith(StorageKeys.Units, unit);
+			expect(localStorageMock.set).toBeCalledWith(StorageKeys.Units, unit);
 		});
 	});
 });

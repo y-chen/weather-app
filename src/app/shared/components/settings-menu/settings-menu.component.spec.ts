@@ -3,10 +3,11 @@
 /* eslint-disable max-len */
 /* eslint-disable sonarjs/no-duplicate-string */
 
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 
-import { EventEmitter } from '@angular/core';
+import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { cultures, MasterMock } from '@wa/app/common/master-mocks';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
@@ -14,53 +15,56 @@ import { SettingsService } from '@wa/app/core/services/settings/settings.service
 import { Culture } from '@wa/app/models/culture.model';
 import { Units } from '@wa/app/models/open-weather.model';
 import { SettingsMenuComponent } from '@wa/app/shared/components/settings-menu/settings-menu.component';
-import {
-	getSettingsMenuComponentMocks, SettingsMenuComponentMocks
-} from '@wa/app/shared/components/settings-menu/settings-menu.component.spec.mocks';
 
 describe('SettingsMenuComponent', () => {
 	let host: SpectatorHost<SettingsMenuComponent>;
-	let componentServiceMock: MockProxy<ComponentService>;
-	let cultureServiceMock: MockProxy<CultureService>;
-	let eventServiceMock: MockProxy<EventService>;
-	let settingsServiceMock: MockProxy<SettingsService>;
+
+	let componentMock: MockProxy<ComponentService>;
+	let cultureMock: MockProxy<CultureService>;
+	let eventMock: MockProxy<EventService>;
+	let settingsMock: MockProxy<SettingsService>;
+
+	let componentProvider: Provider;
+	let cultureProvider: Provider;
+	let eventProvider: Provider;
+	let settingsProvider: Provider;
 
 	const createHost = createHostFactory(SettingsMenuComponent);
 
-	let mocks: SettingsMenuComponentMocks;
-
 	beforeEach(() => {
-		componentServiceMock = mock<ComponentService>();
-		cultureServiceMock = mock<CultureService>();
-		eventServiceMock = mock<EventService>();
-		settingsServiceMock = mock<SettingsService>();
+		const {
+			componentServiceMock,
+			cultureServiceMock,
+			eventServiceMock,
+			settingsServiceMock,
 
-		mocks = getSettingsMenuComponentMocks();
+			componentServiceProvider,
+			cultureServiceProvider,
+			eventServiceProvider,
+			settingsServiceProvider,
+		} = new MasterMock().fixOnSettingsChange().mockCultures().mockCultureWithItalian().mockSettings().mockUnitWithImperial();
 
-		const { cultures, currentCulture, currentUnit } = mocks;
+		componentMock = componentServiceMock;
+		cultureMock = cultureServiceMock;
+		eventMock = eventServiceMock;
+		settingsMock = settingsServiceMock;
 
-		cultureServiceMock.getAvailableCultures.mockReturnValue(cultures);
-		settingsServiceMock.getCulture.mockReturnValue(currentCulture);
-		settingsServiceMock.getUnit.mockReturnValue(currentUnit);
-
-		Object.defineProperty(eventServiceMock, 'onSettingsChange', {
-			get: jest.fn(() => new EventEmitter()),
-		});
+		componentProvider = componentServiceProvider;
+		cultureProvider = cultureServiceProvider;
+		eventProvider = eventServiceProvider;
+		settingsProvider = settingsServiceProvider;
 	});
 
 	afterEach(() => {
-		mockReset(componentServiceMock);
-		mockReset(cultureServiceMock);
-		mockReset(eventServiceMock);
-		mockReset(settingsServiceMock);
+		mockReset(componentMock);
+		mockReset(cultureMock);
+		mockReset(eventMock);
+		mockReset(settingsMock);
 	});
 
 	it('should create', () => {
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [cultureProvider, settingsProvider],
 		});
 
 		const settingsMenu = host.queryHost('wa-settings-menu');
@@ -70,44 +74,26 @@ describe('SettingsMenuComponent', () => {
 	});
 
 	it('should call ComponentService.init', () => {
-		cultureServiceMock.getAvailableCultures.mockReturnValue(mocks.cultures);
-
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: ComponentService, useValue: componentServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [cultureProvider, componentProvider, settingsProvider],
 		});
 
-		expect(componentServiceMock.init).toHaveBeenCalled();
+		expect(componentMock.init).toHaveBeenCalled();
 	});
 
 	it('should have cultures, currentLang and currentUnit with expected results returned by CultureService.getAvailableCultures, SettingsService.getCulture and SettingsService.getUnit', () => {
-		const { cultures, currentCulture, currentUnit } = mocks;
-
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: ComponentService, useValue: componentServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [cultureProvider, componentProvider, settingsProvider],
 		});
 
-		expect(host.component.cultures).toBe(cultures);
-		expect(host.component.currentLang).toBe(currentCulture.language);
-		expect(host.component.currentUnit).toBe(currentUnit);
+		expect(host.component.cultures).toStrictEqual(cultures);
+		expect(host.component.currentLang).toStrictEqual(cultures[0].language);
+		expect(host.component.currentUnit).toStrictEqual(Units.Imperial);
 	});
 
 	it('should have expected flags in according to available cultures', () => {
-		const { cultures } = mocks;
-
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: ComponentService, useValue: componentServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [cultureProvider, componentProvider, settingsProvider],
 		});
 
 		host.click('.menu-trigger');
@@ -118,76 +104,54 @@ describe('SettingsMenuComponent', () => {
 	});
 
 	it('should call SettingsService.setCulture with expected culture when click on different from current one', () => {
-		const { cultures } = mocks;
-		const cultureToClick: Culture = cultures[0];
-
-		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: ComponentService, useValue: componentServiceMock },
-				{ provide: EventService, useValue: eventServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
-		});
-
-		host.click('.menu-trigger');
-		host.click(`.flag-icon-${cultureToClick.language}`);
-
-		expect(cultureServiceMock.setCulture).toHaveBeenCalledWith(cultureToClick);
-	});
-
-	it('should not call SettingsService.setCulture when click on same of current one', () => {
-		const { cultures } = mocks;
 		const cultureToClick: Culture = cultures[1];
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: ComponentService, useValue: componentServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [cultureProvider, componentProvider, eventProvider, settingsProvider],
 		});
 
 		host.click('.menu-trigger');
 		host.click(`.flag-icon-${cultureToClick.language}`);
 
-		expect(cultureServiceMock.setCulture).not.toHaveBeenCalledWith();
+		expect(cultureMock.setCulture).toHaveBeenCalledWith(cultureToClick);
+	});
+
+	it('should not call SettingsService.setCulture when click on same of current one', () => {
+		const cultureToClick: Culture = cultures[1];
+
+		host = createHost('<wa-settings-menu></wa-settings-menu>', {
+			providers: [cultureProvider, componentProvider, settingsProvider],
+		});
+
+		host.click('.menu-trigger');
+		host.click(`.flag-icon-${cultureToClick.language}`);
+
+		expect(cultureMock.setCulture).not.toHaveBeenCalledWith();
 	});
 
 	it('should call SettingsService.setUnit with expected uni when click on different from current one', () => {
-		const { units } = mocks;
-		const unitToClick: string = units[0];
+		const unitToClick: Units = Units.Metric;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: ComponentService, useValue: componentServiceMock },
-				{ provide: EventService, useValue: eventServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [cultureProvider, componentProvider, eventProvider, settingsProvider],
 		});
 
 		host.click('.menu-trigger');
 		host.click(`.unit-button-${unitToClick}`);
 
-		expect(settingsServiceMock.setUnit).toHaveBeenCalledWith(Units[unitToClick]);
+		expect(settingsMock.setUnit).toHaveBeenCalledWith(Units[unitToClick]);
 	});
 
 	it('should not call SettingsService.setUnit when click on culture same of current one', () => {
-		const { units } = mocks;
-		const unitToClick: string = units[1];
+		const unitToClick: Units = Units.Imperial;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [
-				{ provide: CultureService, useValue: cultureServiceMock },
-				{ provide: ComponentService, useValue: componentServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [cultureProvider, componentProvider, settingsProvider],
 		});
 
 		host.click('.menu-trigger');
 		host.click(`.unit-button-${unitToClick}`);
 
-		expect(settingsServiceMock.setUnit).not.toHaveBeenCalledWith();
+		expect(settingsMock.setUnit).not.toHaveBeenCalledWith();
 	});
 });

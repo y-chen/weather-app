@@ -1,23 +1,12 @@
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
-
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 
 describe('NotificationService', () => {
 	let spectator: SpectatorService<NotificationService>;
-	let snackBarMock: MockProxy<MatSnackBar>;
 
-	const createService = createServiceFactory({
-		service: NotificationService,
-		mocks: [MatSnackBar],
-	});
+	const createService = createServiceFactory(NotificationService);
 
 	beforeEach(() => {
-		snackBarMock = mock<MatSnackBar>();
-
-		mockReset(snackBarMock);
-
 		spectator = createService();
 	});
 

@@ -1,11 +1,12 @@
 /* eslint-disable sonarjs/no-duplicate-string */
 
-import { mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { MockProxy, mockReset } from 'jest-mock-extended';
 import { ngMocks } from 'ng-mocks';
 
+import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Culture } from '@wa/app/models/culture.model';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
@@ -14,17 +15,23 @@ import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/wea
 
 describe('WeatherCardComponent', () => {
 	let host: SpectatorHost<WeatherCardComponent>;
-	let componentServiceMock: MockProxy<ComponentService>;
-	let settingsServiceMock: MockProxy<SettingsService>;
+
+	let componentMock: MockProxy<ComponentService>;
+
+	let componentProvider: Provider;
+	let settingsProvider: Provider;
 
 	const createHost = createHostFactory(WeatherCardComponent);
 
 	let weather: Weather;
-	let culture: Culture;
 
 	beforeEach(() => {
-		componentServiceMock = mock<ComponentService>();
-		settingsServiceMock = mock<SettingsService>();
+		const { componentServiceMock, componentServiceProvider, settingsServiceProvider } = new MasterMock().mockCulture();
+
+		componentMock = componentServiceMock;
+
+		componentProvider = componentServiceProvider;
+		settingsProvider = settingsServiceProvider;
 
 		weather = {
 			id: 1,
@@ -34,25 +41,16 @@ describe('WeatherCardComponent', () => {
 			icon: 'icon',
 			time: 'Thu Jan 02 2020 02:00:00 GMT+0100',
 		};
-
-		culture = {
-			label: 'Italiano',
-			language: 'it',
-			code: 'it-IT',
-		};
-
-		settingsServiceMock.getCulture.mockReturnValue(culture);
 	});
 
 	afterEach(() => {
-		mockReset(componentServiceMock);
-		mockReset(settingsServiceMock);
+		mockReset(componentMock);
 	});
 
 	it('should create', () => {
 		host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 			hostProps: { weather },
-			providers: [{ provide: SettingsService, useValue: settingsServiceMock }],
+			providers: [settingsProvider],
 		});
 
 		const weatherCard = host.queryHost('wa-weather-card');
@@ -64,13 +62,10 @@ describe('WeatherCardComponent', () => {
 	it('should init ComponentService', () => {
 		host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 			hostProps: { weather },
-			providers: [
-				{ provide: ComponentService, useValue: componentServiceMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [componentProvider, settingsProvider],
 		});
 
-		expect(componentServiceMock.init).toHaveBeenCalled();
+		expect(componentMock.init).toHaveBeenCalled();
 	});
 
 	describe('header', () => {
@@ -86,7 +81,7 @@ describe('WeatherCardComponent', () => {
         </wa-weather-card>`,
 				{
 					hostProps: { weather, titleOverride, subtitleOverride },
-					providers: [{ provide: SettingsService, useValue: settingsServiceMock }],
+					providers: [settingsProvider],
 				},
 			);
 
@@ -102,7 +97,7 @@ describe('WeatherCardComponent', () => {
 		it('should have a wa-favourite component with input id from Weather', () => {
 			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 				hostProps: { weather },
-				providers: [{ provide: SettingsService, useValue: settingsServiceMock }],
+				providers: [settingsProvider],
 			});
 
 			const favouriteComponent = ngMocks.findInstance(FavouriteComponent);
@@ -115,7 +110,7 @@ describe('WeatherCardComponent', () => {
 		it('should have a wa-basic-weather component with input Weather data', () => {
 			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 				hostProps: { weather },
-				providers: [{ provide: SettingsService, useValue: settingsServiceMock }],
+				providers: [settingsProvider],
 			});
 
 			const basicWeatherComponent = ngMocks.findInstance(BasicWeatherComponent);
@@ -128,7 +123,7 @@ describe('WeatherCardComponent', () => {
 		it('should have a link to details when Weather.id is defined', () => {
 			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 				hostProps: { weather },
-				providers: [{ provide: SettingsService, useValue: settingsServiceMock }],
+				providers: [settingsProvider],
 			});
 
 			const link: HTMLAnchorElement = host.query('.view-forecast-link');
@@ -139,7 +134,7 @@ describe('WeatherCardComponent', () => {
 		it('should not have a mat-card-action element when Weather.id is not defined', () => {
 			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 				hostProps: { weather },
-				providers: [{ provide: SettingsService, useValue: settingsServiceMock }],
+				providers: [settingsProvider],
 			});
 
 			const matCardAction: Element = host.query('mat-card-action');

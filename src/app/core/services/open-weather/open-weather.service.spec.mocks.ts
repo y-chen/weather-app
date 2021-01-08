@@ -1,30 +1,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-import { Config } from '@wa/app/models/config.model';
 import { OpenWeatherSearchParams, RawForecast, WeatherGroup } from '@wa/app/models/open-weather.model';
 
 export interface OpenWeatherMocks {
-	config: Config;
 	searchParams: OpenWeatherSearchParams;
 	group: WeatherGroup;
 	forecast: RawForecast;
 }
 
 export const getOpenWeatherMocks = (): OpenWeatherMocks => {
-	const config: Config = {
-		here: {
-			apiKey: 'HERE-API-KEY',
-			urls: {
-				geocode: 'GEOCODE-URL',
-				revGeocode: 'REV-GEOCODE-URL',
-			},
-		},
-		openWeatherMap: {
-			apiKey: 'OPEN-WEATHER-MAP-API-KEY',
-			url: 'OPEN-WEATHER-MAP-URL',
-		},
-	};
-
 	const searchParams: OpenWeatherSearchParams = {
 		q: 'Query',
 		group: [1, 1],
@@ -58,5 +42,5 @@ export const getOpenWeatherMocks = (): OpenWeatherMocks => {
 		},
 	};
 
-	return { config, searchParams, group, forecast };
+	return { searchParams, group, forecast };
 };

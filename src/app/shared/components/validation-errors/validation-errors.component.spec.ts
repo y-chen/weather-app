@@ -6,9 +6,7 @@ import { ValidationErrorsComponent } from '@wa/app/shared/components/validation-
 describe('ValidationErrorsComponent', () => {
 	let host: SpectatorHost<ValidationErrorsComponent>;
 
-	const createHost = createHostFactory({
-		component: ValidationErrorsComponent,
-	});
+	const createHost = createHostFactory(ValidationErrorsComponent);
 
 	const errorMessages: ValidationError[] = [
 		{ type: 'required', message: 'REQUIRED' },
@@ -36,7 +34,7 @@ describe('ValidationErrorsComponent', () => {
 		host.detectChanges();
 		const errors = host.queryAll('mat-error');
 
-		expect(errors.length).toEqual(2);
+		expect(errors).toHaveLength(errorMessages.length);
 		expect(errors[0]).toContainText('REQUIRED');
 		expect(errors[1]).toContainText('PATTERN');
 	});
@@ -51,7 +49,7 @@ describe('ValidationErrorsComponent', () => {
 		host.detectChanges();
 		const errors = host.queryAll('mat-error');
 
-		expect(errors.length).toEqual(1);
+		expect(errors).toHaveLength(1);
 		expect(errors[0]).not.toContainText('REQUIRED');
 		expect(errors[0]).toContainText('PATTERN');
 	});

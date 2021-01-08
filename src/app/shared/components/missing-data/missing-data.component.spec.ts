@@ -4,9 +4,7 @@ import { MissingDataComponent } from '@wa/app/shared/components/missing-data/mis
 describe('MissingDataComponent', () => {
 	let host: SpectatorHost<MissingDataComponent>;
 
-	const createHost = createHostFactory({
-		component: MissingDataComponent,
-	});
+	const createHost = createHostFactory(MissingDataComponent);
 
 	it('should create', () => {
 		host = createHost('<wa-missing-data></wa-missing-data>');

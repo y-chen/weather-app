@@ -1,48 +1,36 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { anyObject, mock, MockProxy, mockReset } from 'jest-mock-extended';
+import { anyObject, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { HttpClient } from '@angular/common/http';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mocks';
 import { ApiService } from '@wa/app/core/services/api/api.service';
 import { ApiServiceMocks, getApiServiceMocks } from '@wa/app/core/services/api/api.service.spec.mocks';
-import { LoggerService } from '@wa/app/core/services/logger/logger.service';
-import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 
 describe('ApiService', () => {
 	let spectator: SpectatorService<ApiService>;
+
 	let httpMock: MockProxy<HttpClient>;
-	let settingsServiceMock: MockProxy<SettingsService>;
 
 	const createService = createServiceFactory(ApiService);
 
 	let mocks: ApiServiceMocks;
 
 	beforeEach(() => {
-		httpMock = mock<HttpClient>();
-		settingsServiceMock = mock<SettingsService>();
+		const { httpClientMock, httpClientProvider, settingsServiceProvider } = new MasterMock().mockSettings().mockHttpClient();
+
+		httpMock = httpClientMock;
 
 		spectator = createService({
-			providers: [
-				{ provide: HttpClient, useValue: httpMock },
-				{ provide: SettingsService, useValue: settingsServiceMock },
-			],
+			providers: [httpClientProvider, settingsServiceProvider],
 		});
 
 		mocks = getApiServiceMocks();
-		const { culture, result } = mocks;
-
-		httpMock.get.mockReturnValue(result);
-		httpMock.post.mockReturnValue(result);
-		httpMock.put.mockReturnValue(result);
-		httpMock.patch.mockReturnValue(result);
-		httpMock.delete.mockReturnValue(result);
-		settingsServiceMock.getCulture.mockReturnValue(culture);
 	});
 
 	afterEach(() => {
 		mockReset(httpMock);
-		mockReset(settingsServiceMock);
 	});
 
 	it('should be created', () => {
