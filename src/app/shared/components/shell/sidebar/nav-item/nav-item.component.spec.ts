@@ -15,17 +15,19 @@ describe('NavItemComponent', () => {
 	let componentMock: MockProxy<ComponentService>;
 
 	let componentProvider: Provider;
+	let configProvider: Provider;
 
 	const createHost = createHostFactory(NavItemComponent);
 
 	let item: NavItem;
 
 	beforeEach(() => {
-		const { componentServiceMock, componentServiceProvider } = new MasterMock();
+		const { componentServiceMock, componentServiceProvider, configServiceProvider } = new MasterMock().mockConfig();
 
 		componentMock = componentServiceMock;
 
 		componentProvider = componentServiceProvider;
+		configProvider = configServiceProvider;
 
 		item = { icon: 'Icon', label: 'Label', route: 'Route' };
 	});
@@ -37,7 +39,7 @@ describe('NavItemComponent', () => {
 	it('should create', () => {
 		host = createHost('<wa-nav-item [item]="item"></wa-nav-item>', {
 			hostProps: { item },
-			providers: [componentProvider],
+			providers: [componentProvider, configProvider],
 		});
 
 		const navItem = host.queryHost('wa-nav-item');
@@ -49,7 +51,7 @@ describe('NavItemComponent', () => {
 	it('should init ComponentService', () => {
 		host = createHost('<wa-nav-item [item]="item"></wa-nav-item>', {
 			hostProps: { item },
-			providers: [componentProvider],
+			providers: [componentProvider, configProvider],
 		});
 
 		expect(componentMock.init).toHaveBeenCalled();
@@ -58,6 +60,7 @@ describe('NavItemComponent', () => {
 	it('should have a link to the NavItem.route', () => {
 		host = createHost('<wa-nav-item [item]="item"></wa-nav-item>', {
 			hostProps: { item },
+			providers: [configProvider],
 		});
 
 		const link: HTMLAnchorElement = host.query('a');
@@ -68,6 +71,7 @@ describe('NavItemComponent', () => {
 	it('should have correct icon and label', () => {
 		host = createHost('<wa-nav-item [item]="item"></wa-nav-item>', {
 			hostProps: { item },
+			providers: [configProvider],
 		});
 
 		const icon: Element = host.query(byText(item.icon));
@@ -82,6 +86,7 @@ describe('NavItemComponent', () => {
 
 		host = createHost('<wa-nav-item [item]="item" [open]="open"></wa-nav-item>', {
 			hostProps: { item, open },
+			providers: [configProvider],
 		});
 
 		const label: HTMLSpanElement = host.query(byText(item.label));

@@ -13,6 +13,7 @@ describe('LanguageSelectorComponent', () => {
 	let cultureMock: MockProxy<CultureService>;
 	let settingsMock: MockProxy<SettingsService>;
 
+	let configProvider: Provider;
 	let cultureProvider: Provider;
 	let settingsProvider: Provider;
 
@@ -23,13 +24,15 @@ describe('LanguageSelectorComponent', () => {
 			cultureServiceMock,
 			settingsServiceMock,
 
+			configServiceProvider,
 			cultureServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockCultures().mockCultureWithEnglish();
+		} = new MasterMock().mockConfig().mockCultures().mockCultureWithEnglish();
 
 		cultureMock = cultureServiceMock;
 		settingsMock = settingsServiceMock;
 
+		configProvider = configServiceProvider;
 		cultureProvider = cultureServiceProvider;
 		settingsProvider = settingsServiceProvider;
 	});
@@ -45,7 +48,7 @@ describe('LanguageSelectorComponent', () => {
 		settingsMock.getCulture.mockReturnValue(storedCulture);
 
 		host = createHost('<wa-language-selector></wa-language-selector>', {
-			providers: [cultureProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, settingsProvider],
 		});
 
 		const languageSelector = host.queryHost('wa-language-selector');

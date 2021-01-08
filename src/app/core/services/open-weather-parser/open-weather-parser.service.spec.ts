@@ -19,13 +19,20 @@ describe('OpenWeatherParserService', () => {
 	let testData: TestData;
 
 	beforeEach(() => {
-		const { cultureServiceMock, hereServiceMock, cultureServiceProvider, hereServiceProvider } = new MasterMock();
+		const {
+			cultureServiceMock,
+			hereServiceMock,
+
+			configServiceProvider,
+			cultureServiceProvider,
+			hereServiceProvider,
+		} = new MasterMock().mockConfig();
 
 		cultureMock = cultureServiceMock;
 		hereMock = hereServiceMock;
 
 		spectator = createService({
-			providers: [cultureServiceProvider, hereServiceProvider],
+			providers: [configServiceProvider, cultureServiceProvider, hereServiceProvider],
 		});
 
 		testData = getTestData();

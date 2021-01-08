@@ -1,4 +1,5 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 
 describe('ComponentService', () => {
@@ -9,7 +10,11 @@ describe('ComponentService', () => {
 	const localizationBasePath = 'foo.bar';
 
 	beforeEach(() => {
-		spectator = createService();
+		const { configServiceProvider } = new MasterMock().mockConfig();
+
+		spectator = createService({
+			providers: [configServiceProvider],
+		});
 
 		spectator.service.init({ localizationBasePath });
 	});

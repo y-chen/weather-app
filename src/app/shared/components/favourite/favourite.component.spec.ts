@@ -16,6 +16,7 @@ describe('FavouriteComponent', () => {
 	let localStorageMock: MockProxy<LocalStorageService>;
 
 	let componentProvider: Provider;
+	let configProvider: Provider;
 	let localStorageProvider: Provider;
 
 	const createHost = createHostFactory(FavouriteComponent);
@@ -23,12 +24,19 @@ describe('FavouriteComponent', () => {
 	let favoutiteCities: number[];
 
 	beforeEach(() => {
-		const { componentServiceMock, localStorageServiceMock, componentServiceProvider, localStorageServiceProvider } = new MasterMock();
+		const {
+			componentServiceMock,
+			localStorageServiceMock,
+			componentServiceProvider,
+			configServiceProvider,
+			localStorageServiceProvider,
+		} = new MasterMock().mockConfig();
 
 		componentMock = componentServiceMock;
 		localStorageMock = localStorageServiceMock;
 
 		componentProvider = componentServiceProvider;
+		configProvider = configServiceProvider;
 		localStorageProvider = localStorageServiceProvider;
 
 		favoutiteCities = [0, 1];
@@ -40,7 +48,9 @@ describe('FavouriteComponent', () => {
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-favourite></wa-favourite>');
+		host = createHost('<wa-favourite></wa-favourite>', {
+			providers: [configProvider],
+		});
 
 		const favourite = host.queryHost('wa-favourite');
 
@@ -50,7 +60,7 @@ describe('FavouriteComponent', () => {
 
 	it('should init ComponentService', () => {
 		host = createHost('<wa-favourite></wa-favourite>', {
-			providers: [componentProvider],
+			providers: [componentProvider, configProvider],
 		});
 
 		expect(componentMock.init).toHaveBeenCalled();
@@ -64,7 +74,7 @@ describe('FavouriteComponent', () => {
 
 		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
 			hostProps: { cityId: notFavouriteCityId },
-			providers: [localStorageProvider],
+			providers: [configProvider, localStorageProvider],
 		});
 
 		host.click('mat-icon');
@@ -80,7 +90,7 @@ describe('FavouriteComponent', () => {
 
 		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
 			hostProps: { cityId: favouriteCityId },
-			providers: [localStorageProvider],
+			providers: [configProvider, localStorageProvider],
 		});
 
 		host.click('mat-icon');

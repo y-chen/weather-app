@@ -18,12 +18,17 @@ describe('ApiService', () => {
 	let testData: TestData;
 
 	beforeEach(() => {
-		const { httpClientMock, httpClientProvider, settingsServiceProvider } = new MasterMock().mockSettings().mockHttpClient();
+		const {
+			httpClientMock,
+			configServiceProvider,
+			httpClientProvider,
+			settingsServiceProvider,
+		} = new MasterMock().mockConfig().mockSettings().mockHttpClient();
 
 		httpMock = httpClientMock;
 
 		spectator = createService({
-			providers: [httpClientProvider, settingsServiceProvider],
+			providers: [configServiceProvider, httpClientProvider, settingsServiceProvider],
 		});
 
 		testData = getTestData();

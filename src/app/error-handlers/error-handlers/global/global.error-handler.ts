@@ -6,7 +6,7 @@ import { ExtendedError } from '@wa/app/models/error.model';
 export class GlobalErrorHandler implements ErrorHandler {
 	constructor(private readonly errorService: ErrorService) {}
 
-	handleError(error: ExtendedError): void {
-		this.errorService.handleError(error);
+	async handleError(error: ExtendedError): Promise<void> {
+		await this.errorService.handleError(error);
 	}
 }

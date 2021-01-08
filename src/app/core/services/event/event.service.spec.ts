@@ -1,4 +1,5 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { EventService } from '@wa/app/core/services/event/event.service';
 
 describe('EventService', () => {
@@ -7,7 +8,11 @@ describe('EventService', () => {
 	const createService = createServiceFactory(EventService);
 
 	beforeEach(() => {
-		spectator = createService();
+		const { configServiceProvider } = new MasterMock().mockConfig();
+
+		spectator = createService({
+			providers: [configServiceProvider],
+		});
 	});
 
 	it('should be defined', () => {

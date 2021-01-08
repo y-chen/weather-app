@@ -1,10 +1,7 @@
 export interface SlackMessage {
 	timestamp: number;
-	type: 'message' | 'error';
+	type: SlackMessageType;
 	content: unknown;
 }
 
-// export enum SlackMessageType {
-// 	message = 'message',
-// 	error = 'error',
-// }
+export type SlackMessageType = 'message' | 'error';

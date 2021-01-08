@@ -5,7 +5,7 @@
 import { MockProxy, mockReset } from 'jest-mock-extended';
 import { ngMocks } from 'ng-mocks';
 
-import { Provider } from '@angular/compiler/src/core';
+import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';

@@ -14,12 +14,12 @@ describe('SettingsService', () => {
 	const createService = createServiceFactory(SettingsService);
 
 	beforeEach(() => {
-		const { localStorageServiceMock, localStorageServiceProvider } = new MasterMock();
+		const { localStorageServiceMock, configServiceProvider, localStorageServiceProvider } = new MasterMock().mockConfig();
 
 		localStorageMock = localStorageServiceMock;
 
 		spectator = createService({
-			providers: [localStorageServiceProvider],
+			providers: [configServiceProvider, localStorageServiceProvider],
 		});
 	});
 

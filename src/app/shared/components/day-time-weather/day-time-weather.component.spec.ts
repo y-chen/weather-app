@@ -5,7 +5,7 @@
 import { MockProxy, mockReset } from 'jest-mock-extended';
 import { ngMocks } from 'ng-mocks';
 
-import { Provider } from '@angular/compiler/src/core';
+import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
@@ -22,6 +22,7 @@ describe('DayTimeWeatherComponent', () => {
 	let settingsMock: MockProxy<SettingsService>;
 
 	let componentProvider: Provider;
+	let configProvider: Provider;
 	let settingsProvider: Provider;
 
 	let testData: TestData;
@@ -32,13 +33,15 @@ describe('DayTimeWeatherComponent', () => {
 			settingsServiceMock,
 
 			componentServiceProvider,
+			configServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockSettings();
+		} = new MasterMock().mockConfig().mockSettings();
 
 		componentMock = componentServiceMock;
 		settingsMock = settingsServiceMock;
 
 		componentProvider = componentServiceProvider;
+		configProvider = configServiceProvider;
 		settingsProvider = settingsServiceProvider;
 
 		testData = getTestData();
@@ -52,7 +55,9 @@ describe('DayTimeWeatherComponent', () => {
 	const createHost = createHostFactory(DayTimeWeatherComponent);
 
 	it('should create', () => {
-		host = createHost('<wa-day-time-weather></wa-day-time-weather>');
+		host = createHost('<wa-day-time-weather></wa-day-time-weather>', {
+			providers: [configProvider],
+		});
 
 		const dayTimeWeather = host.queryHost('wa-day-time-weather');
 
@@ -62,7 +67,7 @@ describe('DayTimeWeatherComponent', () => {
 
 	it('should call ComponentService.init', () => {
 		host = createHost('<wa-day-time-weather></wa-day-time-weather>', {
-			providers: [componentProvider, settingsProvider],
+			providers: [componentProvider, configProvider, settingsProvider],
 		});
 
 		expect(componentMock.init).toHaveBeenCalled();
@@ -70,7 +75,7 @@ describe('DayTimeWeatherComponent', () => {
 
 	it('should have .unavailable CSS class when DayTimeWeather is not defined', () => {
 		host = createHost('<wa-day-time-weather></wa-day-time-weather>', {
-			providers: [componentProvider, settingsProvider],
+			providers: [componentProvider, configProvider, settingsProvider],
 		});
 
 		const header: Element = host.query('mat-card-header');
@@ -83,7 +88,7 @@ describe('DayTimeWeatherComponent', () => {
 
 		host = createHost('<wa-day-time-weather [dayTimeWeather]="dayTimeWeather"></wa-day-time-weather>', {
 			hostProps: { dayTimeWeather },
-			providers: [componentProvider, settingsProvider],
+			providers: [componentProvider, configProvider, settingsProvider],
 		});
 
 		const basicWeathers: BasicWeatherComponent[] = ngMocks.findInstances(BasicWeatherComponent);
@@ -96,7 +101,7 @@ describe('DayTimeWeatherComponent', () => {
 	it('should show unavailableTemplate when data is not unavailable', () => {
 		host = createHost('<wa-day-time-weather [dayTimeWeather]="dayTimeWeather"></wa-day-time-weather>', {
 			hostProps: { dayTimeWeather: null },
-			providers: [componentProvider, settingsProvider],
+			providers: [componentProvider, configProvider, settingsProvider],
 		});
 
 		const unavailable: Element = host.query('h1');

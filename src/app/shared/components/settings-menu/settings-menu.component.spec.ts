@@ -26,6 +26,7 @@ describe('SettingsMenuComponent', () => {
 	let settingsMock: MockProxy<SettingsService>;
 
 	let componentProvider: Provider;
+	let configProvider: Provider;
 	let cultureProvider: Provider;
 	let eventProvider: Provider;
 	let settingsProvider: Provider;
@@ -42,10 +43,11 @@ describe('SettingsMenuComponent', () => {
 			settingsServiceMock,
 
 			componentServiceProvider,
+			configServiceProvider,
 			cultureServiceProvider,
 			eventServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().fixOnSettingsChange().mockCultures().mockCultureWithItalian().mockSettings().mockUnitWithImperial();
+		} = new MasterMock().fixOnSettingsChange().mockConfig().mockCultures().mockCultureWithItalian().mockSettings().mockUnitWithImperial();
 
 		componentMock = componentServiceMock;
 		cultureMock = cultureServiceMock;
@@ -53,6 +55,7 @@ describe('SettingsMenuComponent', () => {
 		settingsMock = settingsServiceMock;
 
 		componentProvider = componentServiceProvider;
+		configProvider = configServiceProvider;
 		cultureProvider = cultureServiceProvider;
 		eventProvider = eventServiceProvider;
 		settingsProvider = settingsServiceProvider;
@@ -69,7 +72,7 @@ describe('SettingsMenuComponent', () => {
 
 	it('should create', () => {
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [cultureProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, settingsProvider],
 		});
 
 		const settingsMenu = host.queryHost('wa-settings-menu');
@@ -80,7 +83,7 @@ describe('SettingsMenuComponent', () => {
 
 	it('should call ComponentService.init', () => {
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [cultureProvider, componentProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, componentProvider, settingsProvider],
 		});
 
 		expect(componentMock.init).toHaveBeenCalled();
@@ -90,7 +93,7 @@ describe('SettingsMenuComponent', () => {
 		const cultures = testData.cultures;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [cultureProvider, componentProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, componentProvider, settingsProvider],
 		});
 
 		expect(host.component.cultures).toStrictEqual(cultures);
@@ -102,7 +105,7 @@ describe('SettingsMenuComponent', () => {
 		const cultures = testData.cultures;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [cultureProvider, componentProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, componentProvider, settingsProvider],
 		});
 
 		host.click('.menu-trigger');
@@ -116,7 +119,7 @@ describe('SettingsMenuComponent', () => {
 		const cultureToClick: Culture = testData.it;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [cultureProvider, componentProvider, eventProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, componentProvider, eventProvider, settingsProvider],
 		});
 
 		host.click('.menu-trigger');
@@ -129,7 +132,7 @@ describe('SettingsMenuComponent', () => {
 		const cultureToClick: Culture = testData.it;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [cultureProvider, componentProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, componentProvider, settingsProvider],
 		});
 
 		host.click('.menu-trigger');
@@ -142,7 +145,7 @@ describe('SettingsMenuComponent', () => {
 		const unitToClick: Units = Units.Metric;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [cultureProvider, componentProvider, eventProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, componentProvider, eventProvider, settingsProvider],
 		});
 
 		host.click('.menu-trigger');
@@ -155,7 +158,7 @@ describe('SettingsMenuComponent', () => {
 		const unitToClick: Units = Units.Imperial;
 
 		host = createHost('<wa-settings-menu></wa-settings-menu>', {
-			providers: [cultureProvider, componentProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, componentProvider, settingsProvider],
 		});
 
 		host.click('.menu-trigger');

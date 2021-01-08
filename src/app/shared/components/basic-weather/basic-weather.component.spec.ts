@@ -1,21 +1,30 @@
+import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
 
 describe('BasicWeatherComponent', () => {
 	let host: SpectatorHost<BasicWeatherComponent>;
 
+	let configProvider: Provider;
+
 	const createHost = createHostFactory(BasicWeatherComponent);
 
 	let testData: TestData;
 
 	beforeEach(() => {
+		const { configServiceProvider } = new MasterMock().mockConfig();
+
+		configProvider = configServiceProvider;
+
 		testData = getTestData();
 	});
 
 	it('should create', () => {
 		host = createHost('<wa-basic-weather [weather]="weather"></wa-basic-weather>', {
 			hostProps: { weather: testData.weather },
+			providers: [configProvider],
 		});
 
 		const basicWeather = host.queryHost('wa-basic-weather');
@@ -28,6 +37,7 @@ describe('BasicWeatherComponent', () => {
 		const weather = testData.weather;
 		host = createHost('<wa-basic-weather [weather]="weather"></wa-basic-weather>', {
 			hostProps: { weather },
+			providers: [configProvider],
 		});
 
 		const temperature: HTMLSpanElement = host.query('.temperature');

@@ -13,6 +13,7 @@ describe('ErrorPageComponent', () => {
 	let cultureMock: MockProxy<CultureService>;
 	let settingsMock: MockProxy<SettingsService>;
 
+	let configProvider: Provider;
 	let cultureProvider: Provider;
 	let settingsProvider: Provider;
 
@@ -23,13 +24,15 @@ describe('ErrorPageComponent', () => {
 			cultureServiceMock,
 			settingsServiceMock,
 
+			configServiceProvider,
 			cultureServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockSettings().mockCultures();
+		} = new MasterMock().mockConfig().mockCultures().mockSettings();
 
 		cultureMock = cultureServiceMock;
 		settingsMock = settingsServiceMock;
 
+		configProvider = configServiceProvider;
 		cultureProvider = cultureServiceProvider;
 		settingsProvider = settingsServiceProvider;
 	});
@@ -41,7 +44,7 @@ describe('ErrorPageComponent', () => {
 
 	it('should create', () => {
 		host = createHost('<wa-error-page></wa-error-page>', {
-			providers: [cultureProvider, settingsProvider],
+			providers: [configProvider, cultureProvider, settingsProvider],
 		});
 
 		const errorPage = host.queryHost('wa-error-page');

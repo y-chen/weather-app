@@ -7,11 +7,17 @@ import { NotificationService } from '@wa/app/core/services/notification/notifica
 import { ExtendedError, HereError, OpenWeatherMapError } from '@wa/app/models/error.model';
 import { Header } from '@wa/app/models/http.model';
 
+import { SlackService } from '../slack/slack.service';
+
 @Injectable()
 export class ErrorService {
-	constructor(private readonly loggerService: LoggerService, private readonly notificationService: NotificationService) {}
+	constructor(
+		private readonly loggerService: LoggerService,
+		private readonly notificationService: NotificationService,
+		private readonly slackService: SlackService,
+	) {}
 
-	handleError(error: ExtendedError): void {
+	async handleError(error: ExtendedError): Promise<void> {
 		let message: string;
 		let stackTrace: string;
 
@@ -29,6 +35,7 @@ export class ErrorService {
 
 		this.loggerService.error(message, stackTrace);
 		this.notificationService.showError(message);
+		await this.slackService.send(error, 'error');
 	}
 
 	private getClientMessage(error: Error): string {

@@ -12,18 +12,15 @@ describe('ForecastResolver', () => {
 
 	const createService = createServiceFactory(ForecastResolver);
 
-	let master: MasterMock;
 	let testData: TestData;
 
 	beforeEach(() => {
-		master = new MasterMock();
-
-		const { openWeatherServiceMock, openWeatherServiceProvider } = master;
+		const { openWeatherServiceMock, configServiceProvider, openWeatherServiceProvider } = new MasterMock().mockConfig();
 
 		openWeatherMock = openWeatherServiceMock;
 
 		spectator = createService({
-			providers: [openWeatherServiceProvider],
+			providers: [configServiceProvider, openWeatherServiceProvider],
 		});
 
 		testData = getTestData();

@@ -22,15 +22,16 @@ describe('GroupForecastResolver', () => {
 			localStorageServiceMock,
 			openWeatherServiceMock,
 
+			configServiceProvider,
 			localStorageServiceProvider,
 			openWeatherServiceProvider,
-		} = new MasterMock();
+		} = new MasterMock().mockConfig();
 
 		localStorageMock = localStorageServiceMock;
 		openWeatherMock = openWeatherServiceMock;
 
 		spectator = createService({
-			providers: [localStorageServiceProvider, openWeatherServiceProvider],
+			providers: [configServiceProvider, localStorageServiceProvider, openWeatherServiceProvider],
 		});
 
 		testData = getTestData();

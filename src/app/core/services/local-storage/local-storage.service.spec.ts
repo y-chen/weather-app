@@ -1,4 +1,5 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { LocalStorageService } from '@wa/app/core/services/local-storage/local-storage.service';
 import { mockLocalStorage } from '@wa/app/core/services/local-storage/local-storage.service.spec.mocks';
 
@@ -12,7 +13,11 @@ describe('LocalStorageService', () => {
 	const value = 'Value';
 
 	beforeEach(() => {
-		spectator = createService();
+		const { configServiceProvider } = new MasterMock().mockConfig();
+
+		spectator = createService({
+			providers: [configServiceProvider],
+		});
 	});
 
 	it('should be defined', () => {

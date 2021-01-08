@@ -80,7 +80,7 @@ describe('SearchComponent', () => {
 		hereMock.findLocationByQuery.mockResolvedValue(testData.hereLocation);
 
 		host = createHost('<wa-search></wa-search>', {
-			providers: [hereProvider],
+			providers: [configProvider, hereProvider],
 		});
 
 		const input: HTMLInputElement = host.query('input');
@@ -99,7 +99,7 @@ describe('SearchComponent', () => {
 		hereMock.findLocationByQuery.mockResolvedValue(testData.hereLocation);
 
 		host = createHost('<wa-search></wa-search>', {
-			providers: [hereProvider],
+			providers: [configProvider, hereProvider],
 		});
 
 		const input: HTMLInputElement = host.query('input');

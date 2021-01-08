@@ -1,21 +1,34 @@
+import { Provider } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { ValidationError } from '@wa/app/models/validation-errors.model';
 import { ValidationErrorsComponent } from '@wa/app/shared/components/validation-errors/validation-errors.component';
 
 describe('ValidationErrorsComponent', () => {
 	let host: SpectatorHost<ValidationErrorsComponent>;
 
+	let configProvider: Provider;
+
 	const createHost = createHostFactory(ValidationErrorsComponent);
 
-	const errorMessages: ValidationError[] = [
-		{ type: 'required', message: 'REQUIRED' },
-		{ type: 'pattern', message: 'PATTERN' },
-	];
+	let errorMessages: ValidationError[];
+
+	beforeEach(() => {
+		const { configServiceProvider } = new MasterMock().mockConfig().mockCultureWithEnglish();
+
+		configProvider = configServiceProvider;
+
+		errorMessages = [
+			{ type: 'required', message: 'REQUIRED' },
+			{ type: 'pattern', message: 'PATTERN' },
+		];
+	});
 
 	it('should create', () => {
 		host = createHost('<wa-validation-errors></wa-validation-errors>', {
 			props: { control: new FormControl() },
+			providers: [configProvider],
 		});
 
 		const input = host.queryHost('wa-validation-errors');
@@ -28,6 +41,7 @@ describe('ValidationErrorsComponent', () => {
 		host = createHost('<wa-validation-errors [errors]="errors"></wa-validation-errors>', {
 			hostProps: { errors: errorMessages },
 			props: { control: new FormControl() },
+			providers: [configProvider],
 		});
 
 		host.component.control.setErrors({ required: true, pattern: true });
@@ -43,6 +57,7 @@ describe('ValidationErrorsComponent', () => {
 		host = createHost('<wa-validation-errors [errors]="errors"></wa-validation-errors>', {
 			hostProps: { errors: errorMessages },
 			props: { control: new FormControl() },
+			providers: [configProvider],
 		});
 
 		host.component.control.setErrors({ pattern: true });

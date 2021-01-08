@@ -18,6 +18,7 @@ describe('WeatherCardComponent', () => {
 	let componentMock: MockProxy<ComponentService>;
 
 	let componentProvider: Provider;
+	let configProvider: Provider;
 	let settingsProvider: Provider;
 
 	const createHost = createHostFactory(WeatherCardComponent);
@@ -25,11 +26,18 @@ describe('WeatherCardComponent', () => {
 	let weather: Weather;
 
 	beforeEach(() => {
-		const { componentServiceMock, componentServiceProvider, settingsServiceProvider } = new MasterMock().mockCultureWithEnglish();
+		const {
+			componentServiceMock,
+
+			componentServiceProvider,
+			configServiceProvider,
+			settingsServiceProvider,
+		} = new MasterMock().mockConfig().mockCultureWithEnglish();
 
 		componentMock = componentServiceMock;
 
 		componentProvider = componentServiceProvider;
+		configProvider = configServiceProvider;
 		settingsProvider = settingsServiceProvider;
 
 		weather = {
@@ -49,7 +57,7 @@ describe('WeatherCardComponent', () => {
 	it('should create', () => {
 		host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 			hostProps: { weather },
-			providers: [settingsProvider],
+			providers: [configProvider, settingsProvider],
 		});
 
 		const weatherCard = host.queryHost('wa-weather-card');
@@ -61,7 +69,7 @@ describe('WeatherCardComponent', () => {
 	it('should init ComponentService', () => {
 		host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 			hostProps: { weather },
-			providers: [componentProvider, settingsProvider],
+			providers: [componentProvider, configProvider, settingsProvider],
 		});
 
 		expect(componentMock.init).toHaveBeenCalled();
@@ -80,7 +88,7 @@ describe('WeatherCardComponent', () => {
         </wa-weather-card>`,
 				{
 					hostProps: { weather, titleOverride, subtitleOverride },
-					providers: [settingsProvider],
+					providers: [configProvider, settingsProvider],
 				},
 			);
 
@@ -96,7 +104,7 @@ describe('WeatherCardComponent', () => {
 		it('should have a wa-favourite component with input id from Weather', () => {
 			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 				hostProps: { weather },
-				providers: [settingsProvider],
+				providers: [configProvider, settingsProvider],
 			});
 
 			const favouriteComponent = ngMocks.findInstance(FavouriteComponent);
@@ -109,7 +117,7 @@ describe('WeatherCardComponent', () => {
 		it('should have a wa-basic-weather component with input Weather data', () => {
 			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 				hostProps: { weather },
-				providers: [settingsProvider],
+				providers: [configProvider, settingsProvider],
 			});
 
 			const basicWeatherComponent = ngMocks.findInstance(BasicWeatherComponent);
@@ -122,7 +130,7 @@ describe('WeatherCardComponent', () => {
 		it('should have a link to details when Weather.id is defined', () => {
 			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 				hostProps: { weather },
-				providers: [settingsProvider],
+				providers: [configProvider, settingsProvider],
 			});
 
 			const link: HTMLAnchorElement = host.query('.view-forecast-link');
@@ -133,7 +141,7 @@ describe('WeatherCardComponent', () => {
 		it('should not have a mat-card-action element when Weather.id is not defined', () => {
 			host = createHost('<wa-weather-card [weather]="weather"></wa-weather-card>', {
 				hostProps: { weather },
-				providers: [settingsProvider],
+				providers: [configProvider, settingsProvider],
 			});
 
 			const matCardAction: Element = host.query('mat-card-action');

@@ -14,15 +14,17 @@ describe('AppComponent', () => {
 
 	let cultureMock: MockProxy<CultureService>;
 
+	let configProvider: Provider;
 	let cultureProvider: Provider;
 
 	const createHost = createHostFactory(AppComponent);
 
 	beforeEach(() => {
-		const { cultureServiceMock, cultureServiceProvider } = new MasterMock();
+		const { cultureServiceMock, configServiceProvider, cultureServiceProvider } = new MasterMock().mockConfig();
 
 		cultureMock = cultureServiceMock;
 
+		configProvider = configServiceProvider;
 		cultureProvider = cultureServiceProvider;
 	});
 
@@ -31,7 +33,9 @@ describe('AppComponent', () => {
 	});
 
 	it('should create the app', () => {
-		host = createHost('<wa-root></wa-root>');
+		host = createHost('<wa-root></wa-root>', {
+			providers: [configProvider],
+		});
 
 		const element = host.queryHost('wa-root');
 
@@ -40,14 +44,16 @@ describe('AppComponent', () => {
 
 	it('should call CultureService.init', () => {
 		host = createHost('<wa-root></wa-root>', {
-			providers: [cultureProvider],
+			providers: [configProvider, cultureProvider],
 		});
 
 		expect(cultureMock.init).toHaveBeenCalled();
 	});
 
 	it('should have as title weather-app', () => {
-		host = createHost('<wa-root></wa-root>');
+		host = createHost('<wa-root></wa-root>', {
+			providers: [configProvider],
+		});
 
 		const title = host.component.title;
 

@@ -1,4 +1,5 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { KeysPipe } from '@wa/app/shared/pipes/keys/keys.pipe';
 
 describe('KeysPipe', () => {
@@ -7,7 +8,11 @@ describe('KeysPipe', () => {
 	const createService = createServiceFactory(KeysPipe);
 
 	beforeEach(() => {
-		spectator = createService();
+		const { configServiceProvider } = new MasterMock().mockConfig();
+
+		spectator = createService({
+			providers: [configServiceProvider],
+		});
 	});
 
 	it('should be created', () => {

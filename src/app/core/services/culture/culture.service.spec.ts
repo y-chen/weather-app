@@ -16,19 +16,26 @@ describe('CultureService', () => {
 
 	const createService = createServiceFactory(CultureService);
 
-let testData: TestData;
+	let testData: TestData;
 
 	beforeEach(() => {
-		const { settingsServiceMock, translateServiceMock, settingsServiceProvider, translateServiceProvider } = new MasterMock();
+		const {
+			settingsServiceMock,
+			translateServiceMock,
+
+			configServiceProvider,
+			settingsServiceProvider,
+			translateServiceProvider,
+		} = new MasterMock().mockConfig();
 
 		settingsMock = settingsServiceMock;
 		translateMock = translateServiceMock;
 
 		spectator = createService({
-			providers: [settingsServiceProvider, translateServiceProvider],
-    });
+			providers: [configServiceProvider, settingsServiceProvider, translateServiceProvider],
+		});
 
-    testData = getTestData();
+		testData = getTestData();
 	});
 
 	afterEach(() => {
@@ -63,8 +70,8 @@ let testData: TestData;
 
 	describe('setCulture', () => {
 		it('should call SettingsService.setCulture with expected culture when stored culture is different from provided one', () => {
-			const storedCulture = testData.en
-			const newCulture = testData.it
+			const storedCulture = testData.en;
+			const newCulture = testData.it;
 
 			settingsMock.getCulture.mockReturnValue(storedCulture);
 
@@ -74,8 +81,8 @@ let testData: TestData;
 		});
 
 		it('should call TranslateService.use with expected language when stored culture is different from provided one', () => {
-			const storedCulture = testData.en
-			const newCulture = testData.it
+			const storedCulture = testData.en;
+			const newCulture = testData.it;
 
 			settingsMock.getCulture.mockReturnValue(storedCulture);
 
@@ -85,7 +92,7 @@ let testData: TestData;
 		});
 
 		it('should not call SettingsService.setCulture or TranslateService.use when stored culture is same of provided one', () => {
-			const storedCulture = testData.en
+			const storedCulture = testData.en;
 
 			settingsMock.getCulture.mockReturnValue(storedCulture);
 

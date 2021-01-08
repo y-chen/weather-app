@@ -18,17 +18,19 @@ describe('SidebarComponent', () => {
 	let componentMock: MockProxy<ComponentService>;
 
 	let componentProvider: Provider;
+	let configProvider: Provider;
 
 	const createHost = createHostFactory(SidebarComponent);
 
 	let navItems: NavItem[];
 
 	beforeEach(() => {
-		const { componentServiceMock, componentServiceProvider } = new MasterMock();
+		const { componentServiceMock, componentServiceProvider, configServiceProvider } = new MasterMock().mockConfig();
 
 		componentMock = componentServiceMock;
 
 		componentProvider = componentServiceProvider;
+		configProvider = configServiceProvider;
 
 		navItems = [
 			{ icon: 'First Icon', label: 'First Label', route: 'First Route' },
@@ -41,7 +43,9 @@ describe('SidebarComponent', () => {
 	});
 
 	it('should create', () => {
-		host = createHost('<wa-sidebar></wa-sidebar>');
+		host = createHost('<wa-sidebar></wa-sidebar>', {
+			providers: [configProvider],
+		});
 
 		const sidebar = host.queryHost('wa-sidebar');
 
@@ -51,7 +55,7 @@ describe('SidebarComponent', () => {
 
 	it('should call ComponentService.init', () => {
 		host = createHost('<wa-sidebar></wa-sidebar>', {
-			providers: [componentProvider],
+			providers: [componentProvider, configProvider],
 		});
 
 		expect(componentMock.init).toHaveBeenCalled();
@@ -60,6 +64,7 @@ describe('SidebarComponent', () => {
 	it('should render as many wa-nav-item elements as input NavItem[] length', () => {
 		host = createHost('<wa-sidebar [navItems]="navItems"></wa-sidebar>', {
 			hostProps: { navItems },
+			providers: [configProvider],
 		});
 
 		const items: Element[] = host.queryAll('wa-nav-item');
@@ -70,6 +75,7 @@ describe('SidebarComponent', () => {
 	it('should pass as input the NavItem as expected', () => {
 		host = createHost('<wa-sidebar [navItems]="navItems"></wa-sidebar>', {
 			hostProps: { navItems },
+			providers: [configProvider],
 		});
 
 		const navItemComponents: NavItemComponent[] = ngMocks.findInstances(NavItemComponent);
@@ -78,7 +84,9 @@ describe('SidebarComponent', () => {
 	});
 
 	it('should has class .closed on toggle element click', () => {
-		host = createHost('<wa-sidebar></wa-sidebar>');
+		host = createHost('<wa-sidebar></wa-sidebar>', {
+			providers: [configProvider],
+		});
 
 		const beforeClick: Element = host.query('.closed');
 		host.click('.sidebar-toggle');
@@ -89,7 +97,9 @@ describe('SidebarComponent', () => {
 	});
 
 	it('should change toggle closed value on toggle element', () => {
-		host = createHost('<wa-sidebar></wa-sidebar>');
+		host = createHost('<wa-sidebar></wa-sidebar>', {
+			providers: [configProvider],
+		});
 
 		const beforeClick: boolean = host.component.closed;
 		host.click('.sidebar-toggle');
@@ -103,7 +113,9 @@ describe('SidebarComponent', () => {
 		const beforeClickIcon = 'chevron_left';
 		const afterClickIcon = 'chevron_right';
 
-		host = createHost('<wa-sidebar></wa-sidebar>');
+		host = createHost('<wa-sidebar></wa-sidebar>', {
+			providers: [configProvider],
+		});
 
 		const beforeClick: Element = host.query('mat-icon');
 		host.click('.sidebar-toggle');
@@ -114,11 +126,14 @@ describe('SidebarComponent', () => {
 	});
 
 	it('should display ng-content named outlet in mat-sidenav-content as expected ', () => {
-		host = createHost(`
+		host = createHost(
+			`
       <wa-sidebar>
         <div outlet></div>
       </wa-sidebar>
-    `);
+    `,
+			{ providers: [configProvider] },
+		);
 
 		const outlet: Element = host.query('[outlet]');
 

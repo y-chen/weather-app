@@ -1,4 +1,5 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
+import { MasterMock } from '@wa/app/common/master-mock';
 import { GlobalErrorHandler } from '@wa/app/error-handlers/error-handlers/global/global.error-handler';
 
 describe('GlobalErrorHandler', () => {
@@ -7,7 +8,11 @@ describe('GlobalErrorHandler', () => {
 	const createService = createServiceFactory(GlobalErrorHandler);
 
 	beforeEach(() => {
-		spectator = createService();
+		const { configServiceProvider } = new MasterMock().mockConfig();
+
+		spectator = createService({
+			providers: [configServiceProvider],
+		});
 	});
 
 	it('should be created', () => {
