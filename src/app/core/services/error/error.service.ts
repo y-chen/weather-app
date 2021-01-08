@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
@@ -12,7 +14,6 @@ export class ErrorService {
 	handleError(error: ExtendedError): void {
 		let message: string;
 		let stackTrace: string;
-		console.log(error.rejection);
 
 		if (error.rejection instanceof HttpErrorResponse) {
 			// Server Error
@@ -26,47 +27,38 @@ export class ErrorService {
 			stackTrace = this.getClientStack(error);
 		}
 
-		this.notificationService.showError(message);
 		this.loggerService.error(message, stackTrace);
+		this.notificationService.showError(message);
 	}
 
 	private getClientMessage(error: Error): string {
-		if (!navigator.onLine) {
-			return 'No Internet Connection';
-		}
-
-		return error.message || error.toString();
+		return error.message || JSON.stringify(error);
 	}
 
 	private getClientStack(error: Error): string {
 		return error.stack;
 	}
 
-	private getServerMessage(error: HttpErrorResponse): string {
-		if (this.isHereError(error.error)) {
-			return (error.error as HereError).error_description;
+	private getServerMessage(e: HttpErrorResponse): string {
+		const error = e.error;
+		let message: string;
+
+		if (this.isHereError(error)) {
+			message = (error as HereError).error_description;
 		}
 
-		if (this.isOpenWeatherMapError(error.error)) {
-			return (error.error as OpenWeatherMapError).message;
+		if (this.isOpenWeatherMapError(error)) {
+			message = (error as OpenWeatherMapError).message;
 		}
 
-		return 'Unexpected error';
+		return message || JSON.stringify(error);
 	}
 
 	private getServerStack(e: HttpErrorResponse): string {
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 		const { status, statusText, error, message, url, headers } = e;
 		const mappedHeaders: Header[] = headers.keys().map((key: string) => ({ key, value: headers.get(key) }));
 
-		return `
-status: ${status}
-statusText: ${statusText}
-error: ${JSON.stringify(error)}
-message: ${message}
-url: ${url}
-headers: ${JSON.stringify(mappedHeaders)}
-    `;
+		return JSON.stringify({ status, statusText, error, message, url, headers: mappedHeaders });
 	}
 
 	private isHereError(error: any): boolean {

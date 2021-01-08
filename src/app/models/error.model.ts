@@ -2,6 +2,17 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 
+import { Header } from './http.model';
+
+export interface ErrorStack {
+	status: number;
+	statusText: string;
+	error: HereError | OpenWeatherMapError;
+	message: string;
+	url: string;
+	headers: Header[];
+}
+
 export interface ExtendedError extends Error {
 	message: string;
 	stack: string;
