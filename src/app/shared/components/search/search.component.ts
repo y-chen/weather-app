@@ -6,6 +6,7 @@ import { debounceTime } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalizationPathKeys } from '@wa/app/common/constants';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { HereService } from '@wa/app/core/services/here/here.service';
 import { LocationService } from '@wa/app/core/services/location/location.service';
@@ -30,7 +31,7 @@ export class SearchComponent implements IComponent, OnInit {
 		private readonly locationService: LocationService,
 		private readonly router: Router,
 	) {
-		this.componentService.init({ localizationBasePath: 'shared.search' });
+		this.componentService.init({ localizationBasePath: LocalizationPathKeys.SearchComponent });
 	}
 
 	ngOnInit(): void {

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LocalizationPathKeys } from '@wa/app/common/constants';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { IComponent } from '@wa/app/models/component.model';
 
@@ -10,7 +11,7 @@ import { IComponent } from '@wa/app/models/component.model';
 })
 export class ToolbarComponent implements IComponent {
 	constructor(private readonly componentService: ComponentService) {
-		this.componentService.init({ localizationBasePath: 'shared.shell.toolbar' });
+		this.componentService.init({ localizationBasePath: LocalizationPathKeys.ToolbarComponent });
 	}
 
 	getLocalizationPath(end: string): string {

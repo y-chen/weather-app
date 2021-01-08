@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LocalizationPathKeys } from '@wa/app/common/constants';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class ErrorPageComponent implements OnInit {
 	secondLineMessagePath: string;
 
 	constructor(private readonly componentService: ComponentService, private readonly route: ActivatedRoute) {
-		this.componentService.init({ localizationBasePath: 'shared.errorPage', route: this.route });
+		this.componentService.init({ localizationBasePath: LocalizationPathKeys.ErrorPageComponent, route: this.route });
 	}
 
 	async ngOnInit(): Promise<void> {

@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LocalizationPathKeys } from '@wa/app/common/constants';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
@@ -27,7 +28,11 @@ export class ForecastComponent implements IComponent, OnInit {
 		private readonly route: ActivatedRoute,
 		private readonly router: Router,
 	) {
-		this.componentService.init({ localizationBasePath: 'features.main.forecast', route: this.route, router: this.router });
+		this.componentService.init({
+			localizationBasePath: LocalizationPathKeys.ForecastComponent,
+			route: this.route,
+			router: this.router,
+		});
 	}
 
 	async ngOnInit(): Promise<void> {

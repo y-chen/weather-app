@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { LocalizationPathKeys } from '@wa/app/common/constants';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { IComponent } from '@wa/app/models/component.model';
 import { DayTimeWeather } from '@wa/app/models/open-weather-parser.model';
@@ -15,7 +16,7 @@ export class DayTimeWeatherComponent implements IComponent {
 	@Input() dayTimeWeather: DayTimeWeather;
 
 	constructor(private readonly componentService: ComponentService) {
-		this.componentService.init({ localizationBasePath: 'shared.dayTimeWeather' });
+		this.componentService.init({ localizationBasePath: LocalizationPathKeys.DayTimeWeatherComponent });
 	}
 
 	getLocalizationPath(end: string): string {

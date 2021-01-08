@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { StorageKeys } from '@wa/app/common/constants';
+import { LocalizationPathKeys, StorageKeys } from '@wa/app/common/constants';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { LocalStorageService } from '@wa/app/core/services/local-storage/local-storage.service';
 import { IComponent } from '@wa/app/models/component.model';
@@ -14,7 +14,7 @@ export class FavouriteComponent implements IComponent {
 	@Input() cityId: number;
 
 	constructor(private readonly localStorageService: LocalStorageService, private readonly componentService: ComponentService) {
-		this.componentService.init({ localizationBasePath: 'shared.favourite' });
+		this.componentService.init({ localizationBasePath: LocalizationPathKeys.FavouriteComponent });
 	}
 
 	isFavourite(): boolean {

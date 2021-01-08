@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { Component, OnInit } from '@angular/core';
+import { LocalizationPathKeys } from '@wa/app/common/constants';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
@@ -29,7 +30,7 @@ export class SettingsMenuComponent implements IComponent, OnInit {
 		private readonly eventService: EventService,
 		private readonly settingsService: SettingsService,
 	) {
-		this.componentService.init({ localizationBasePath: 'shared.settingsMenu' });
+		this.componentService.init({ localizationBasePath: LocalizationPathKeys.SettingsMenuComponent });
 	}
 
 	ngOnInit(): void {

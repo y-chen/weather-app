@@ -2,6 +2,7 @@ import { Subscription } from 'rxjs';
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LocalizationPathKeys } from '@wa/app/common/constants';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { EventService } from '@wa/app/core/services/event/event.service';
@@ -25,13 +26,11 @@ export class HomeComponent implements IComponent, OnInit {
 		private readonly eventService: EventService,
 		private readonly openWeatherService: OpenWeatherService,
 		private readonly route: ActivatedRoute,
-		private readonly slackService: SlackService,
 	) {
-		this.componentService.init({ localizationBasePath: 'features.main.home', route: this.route });
+		this.componentService.init({ localizationBasePath: LocalizationPathKeys.HomeComponent, route: this.route });
 	}
 
 	async ngOnInit(): Promise<void> {
-		// await this.slackService.sendError('error');
 		this.favouritesWeather = (await this.componentService.getResolverData('favouritesWeather')) as Weather[];
 		console.log(this.favouritesWeather);
 
