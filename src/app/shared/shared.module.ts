@@ -14,6 +14,7 @@ import { MissingDataComponent } from './components/missing-data/missing-data.com
 import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
 import { SearchComponent } from './components/search/search.component';
 import { SettingsMenuComponent } from './components/settings-menu/settings-menu.component';
+import { FooterComponent } from './components/shell/footer/footer.component';
 import { ShellComponent } from './components/shell/shell.component';
 import { NavItemComponent } from './components/shell/sidebar/nav-item/nav-item.component';
 import { SidebarComponent } from './components/shell/sidebar/sidebar.component';
@@ -31,6 +32,7 @@ export const moduleDeclarations = [
 	DayTimeWeatherComponent,
 	ErrorPageComponent,
 	FavouriteComponent,
+	FooterComponent,
 	KeysPipe,
 	LanguageSelectorComponent,
 	LocalizedDatePipe,
@@ -63,6 +65,7 @@ export const moduleExports = [
 	DayTimeWeatherComponent,
 	ErrorPageComponent,
 	FavouriteComponent,
+	FooterComponent,
 	FormsModule,
 	HttpClientModule,
 	KeysPipe,
