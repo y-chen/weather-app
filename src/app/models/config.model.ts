@@ -1,6 +1,7 @@
 export interface Config {
 	here: Here;
 	openWeatherMap: OpenWeatherMap;
+	slackHookUrl: string;
 }
 
 export interface Here {

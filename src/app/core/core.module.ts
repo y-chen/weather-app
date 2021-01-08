@@ -17,6 +17,7 @@ import { NotificationService } from '@wa/app/core/services/notification/notifica
 import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
+import { SlackService } from '@wa/app/core/services/slack/slack.service';
 
 @NgModule({
 	declarations: [],
@@ -38,6 +39,7 @@ import { SettingsService } from '@wa/app/core/services/settings/settings.service
 		OpenWeatherParserService,
 		OpenWeatherService,
 		SettingsService,
+		SlackService,
 		WeatherGroupResolver,
 	],
 })
