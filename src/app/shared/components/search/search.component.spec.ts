@@ -10,7 +10,8 @@ import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { HereService } from '@wa/app/core/services/here/here.service';
-import { SearchComponent } from '@wa/app/shared/components/search/search.component';
+
+import { SearchComponent } from './search.component';
 
 describe('SearchComponent', () => {
 	let host: SpectatorHost<SearchComponent>;

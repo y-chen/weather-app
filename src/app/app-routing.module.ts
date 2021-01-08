@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ErrorPageComponent } from '@wa/app/shared/components/error-page/error-page.component';
+
+import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
 
 const routes: Routes = [
 	{ path: 'app', loadChildren: () => import('./features/main/main.module').then((m) => m.MainModule) },

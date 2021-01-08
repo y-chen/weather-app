@@ -1,6 +1,7 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
-import { LocationService } from '@wa/app/core/services/location/location.service';
+
+import { LocationService } from './location.service';
 
 describe('LocationService', () => {
 	let spectator: SpectatorService<LocationService>;

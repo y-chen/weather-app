@@ -7,13 +7,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
-import { ErrorService } from '@wa/app/core/services/error/error.service';
-import { LoggerService } from '@wa/app/core/services/logger/logger.service';
-import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 import { ErrorStack } from '@wa/app/models/error.model';
 import { Header } from '@wa/app/models/http.model';
 
+import { LoggerService } from '../logger/logger.service';
+import { NotificationService } from '../notification/notification.service';
 import { SlackService } from '../slack/slack.service';
+import { ErrorService } from './error.service';
 
 describe('ErrorService', () => {
 	let spectator: SpectatorService<ErrorService>;

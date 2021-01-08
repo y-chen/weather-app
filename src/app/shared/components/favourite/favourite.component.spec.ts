@@ -7,7 +7,8 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
-import { FavouriteComponent } from '@wa/app/shared/components/favourite/favourite.component';
+
+import { FavouriteComponent } from './favourite.component';
 
 describe('FavouriteComponent', () => {
 	let host: SpectatorHost<FavouriteComponent>;
@@ -70,7 +71,7 @@ describe('FavouriteComponent', () => {
 		const notFavouriteCityId = 2;
 		const expectedFavourites: string = JSON.stringify([...favoutiteCities, notFavouriteCityId]);
 
-		localStorageMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
+		localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
 
 		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
 			hostProps: { cityId: notFavouriteCityId },
@@ -79,14 +80,14 @@ describe('FavouriteComponent', () => {
 
 		host.click('mat-icon');
 
-		expect(localStorageMock.set).toHaveBeenCalledWith(StorageKeys.favouriteCities, expectedFavourites);
+		expect(localStorageMock.set).toHaveBeenCalledWith(StorageKeys.FavouriteCities, expectedFavourites);
 	});
 
 	it('should call LocalStorageService.set with expected arguments when cityId is in the favourites ', () => {
 		const favouriteCityId = 0;
 		const expectedFavourites = '[1]';
 
-		localStorageMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
+		localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
 
 		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
 			hostProps: { cityId: favouriteCityId },
@@ -95,6 +96,6 @@ describe('FavouriteComponent', () => {
 
 		host.click('mat-icon');
 
-		expect(localStorageMock.set).toHaveBeenCalledWith(StorageKeys.favouriteCities, expectedFavourites);
+		expect(localStorageMock.set).toHaveBeenCalledWith(StorageKeys.FavouriteCities, expectedFavourites);
 	});
 });

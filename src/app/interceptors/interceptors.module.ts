@@ -1,8 +1,9 @@
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { HttpLoggerInterceptor } from '@wa/app/interceptors/interceptors/http-logger/http-logger.interceptor';
-import { LoaderInterceptor } from '@wa/app/interceptors/interceptors/loader/loader.interceptor';
-import { LoaderService } from '@wa/app/interceptors/services/loader/loader.service';
+
+import { HttpLoggerInterceptor } from './interceptors/http-logger/http-logger.interceptor';
+import { LoaderInterceptor } from './interceptors/loader/loader.interceptor';
+import { LoaderService } from './services/loader/loader.service';
 
 @NgModule({
 	providers: [

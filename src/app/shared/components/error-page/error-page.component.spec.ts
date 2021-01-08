@@ -5,7 +5,8 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { ErrorPageComponent } from '@wa/app/shared/components/error-page/error-page.component';
+
+import { ErrorPageComponent } from './error-page.component';
 
 describe('ErrorPageComponent', () => {
 	let host: SpectatorHost<ErrorPageComponent>;

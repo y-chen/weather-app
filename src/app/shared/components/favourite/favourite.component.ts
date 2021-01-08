@@ -17,14 +17,14 @@ export class FavouriteComponent implements IComponent {
 	}
 
 	isFavourite(): boolean {
-		const favouriteCitieStorageValue: string = this.localStorageService.get(StorageKeys.favouriteCities);
+		const favouriteCitieStorageValue: string = this.localStorageService.get(StorageKeys.FavouriteCities);
 		const favouriteCities: number[] = JSON.parse(favouriteCitieStorageValue) as number[];
 
 		return favouriteCities?.includes(this.cityId);
 	}
 
 	onFavouriteClick(): void {
-		const favouriteCitieStorageValue: string = this.localStorageService.get(StorageKeys.favouriteCities);
+		const favouriteCitieStorageValue: string = this.localStorageService.get(StorageKeys.FavouriteCities);
 		const favouriteCities: number[] = JSON.parse(favouriteCitieStorageValue) as number[];
 		const cityIndex: number = favouriteCities.indexOf(this.cityId);
 
@@ -34,7 +34,7 @@ export class FavouriteComponent implements IComponent {
 			favouriteCities.push(this.cityId);
 		}
 
-		this.localStorageService.set(StorageKeys.favouriteCities, JSON.stringify(favouriteCities));
+		this.localStorageService.set(StorageKeys.FavouriteCities, JSON.stringify(favouriteCities));
 	}
 
 	getLocalizationPath(end: string): string {

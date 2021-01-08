@@ -6,10 +6,10 @@ import { anyObject, MockProxy, mockReset } from 'jest-mock-extended';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
-import { HereService } from '@wa/app/core/services/here/here.service';
 import { Param } from '@wa/app/models/http.model';
 
 import { ApiService } from '../api/api.service';
+import { HereService } from './here.service';
 
 describe('HereService', () => {
 	let spectator: SpectatorService<HereService>;

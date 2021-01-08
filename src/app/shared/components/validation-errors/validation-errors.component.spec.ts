@@ -3,7 +3,8 @@ import { FormControl } from '@angular/forms';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { ValidationError } from '@wa/app/models/validation-errors.model';
-import { ValidationErrorsComponent } from '@wa/app/shared/components/validation-errors/validation-errors.component';
+
+import { ValidationErrorsComponent } from './validation-errors.component';
 
 describe('ValidationErrorsComponent', () => {
 	let host: SpectatorHost<ValidationErrorsComponent>;

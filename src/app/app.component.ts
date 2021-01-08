@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
+
+import { CultureService } from './core/services/culture/culture.service';
 
 @Component({
 	selector: 'wa-root',

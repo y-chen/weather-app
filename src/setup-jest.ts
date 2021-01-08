@@ -6,11 +6,12 @@ import { TranslateTestingModule } from 'ngx-translate-testing';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { defineGlobalsInjections } from '@ngneat/spectator';
-import { ConfigureFirebase } from '@wa/app/app.module';
-import { CoreModule } from '@wa/app/core/core.module';
-import { ErrorHandlersModule } from '@wa/app/error-handlers/error-handlers.module';
-import { InterceptorsModule } from '@wa/app/interceptors/interceptors.module';
-import { moduleDeclarations, moduleImports } from '@wa/app/shared/shared.module';
+
+import { ConfigureFirebase } from './app/app.module';
+import { CoreModule } from './app/core/core.module';
+import { ErrorHandlersModule } from './app/error-handlers/error-handlers.module';
+import { InterceptorsModule } from './app/interceptors/interceptors.module';
+import { moduleDeclarations, moduleImports } from './app/shared/shared.module';
 
 const ENGLISH_LANGUAGE = 'en';
 const ENGLISH_TRANSLATIONS = {

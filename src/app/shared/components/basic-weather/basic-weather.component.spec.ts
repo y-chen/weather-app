@@ -2,7 +2,8 @@ import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
-import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
+
+import { BasicWeatherComponent } from './basic-weather.component';
 
 describe('BasicWeatherComponent', () => {
 	let host: SpectatorHost<BasicWeatherComponent>;

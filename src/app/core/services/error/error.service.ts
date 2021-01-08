@@ -2,11 +2,11 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoggerService } from '@wa/app/core/services/logger/logger.service';
-import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 import { ExtendedError, HereError, OpenWeatherMapError } from '@wa/app/models/error.model';
 import { Header } from '@wa/app/models/http.model';
 
+import { LoggerService } from '../logger/logger.service';
+import { NotificationService } from '../notification/notification.service';
 import { SlackService } from '../slack/slack.service';
 
 @Injectable()

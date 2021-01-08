@@ -11,9 +11,10 @@ import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { ConfigService } from '@wa/app/core/services/config/config.service';
-import { HomeComponent } from '@wa/app/features/main/components/home/home.component';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
+
+import { HomeComponent } from './home.component';
 
 describe('HomeComponent', () => {
 	let host: SpectatorHost<HomeComponent>;

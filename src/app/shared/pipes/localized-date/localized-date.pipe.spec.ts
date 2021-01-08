@@ -1,6 +1,7 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
-import { LocalizedDatePipe } from '@wa/app/shared/pipes/localized-date/localized-date.pipe';
+
+import { LocalizedDatePipe } from './localized-date.pipe';
 
 describe('LocalizedDatePipe', () => {
 	let spectator: SpectatorService<LocalizedDatePipe>;

@@ -1,7 +1,8 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Header, HttpOption, HttpRequestOptions, Param } from '@wa/app/models/http.model';
+
+import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class ApiService {

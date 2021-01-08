@@ -3,9 +3,10 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
-import { WeatherGroupResolver } from '@wa/app/core/resolvers/weather-group/weather-group.resolver';
-import { LocalStorageService, StorageKeys } from '@wa/app/core/services/local-storage/local-storage.service';
-import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
+
+import { LocalStorageService, StorageKeys } from '../../services/local-storage/local-storage.service';
+import { OpenWeatherService } from '../../services/open-weather/open-weather.service';
+import { WeatherGroupResolver } from './weather-group.resolver';
 
 describe('GroupForecastResolver', () => {
 	let spectator: SpectatorService<WeatherGroupResolver>;
@@ -50,21 +51,21 @@ describe('GroupForecastResolver', () => {
 		it('should call LocalStorageService.get with expected key', async () => {
 			const { storedFavouriteCities, route } = testData;
 
-			localStorageMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(storedFavouriteCities);
+			localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(storedFavouriteCities);
 
 			await spectator.service.resolve(route);
 
-			expect(localStorageMock.get).toHaveBeenCalledWith(StorageKeys.favouriteCities);
+			expect(localStorageMock.get).toHaveBeenCalledWith(StorageKeys.FavouriteCities);
 		});
 
 		it('should call LocalStorageService.set with already stored favourite cities when are retreived', async () => {
 			const { storedFavouriteCities, route } = testData;
 
-			localStorageMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(storedFavouriteCities);
+			localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(storedFavouriteCities);
 
 			await spectator.service.resolve(route);
 
-			expect(localStorageMock.set).toHaveBeenCalledWith(StorageKeys.favouriteCities, storedFavouriteCities);
+			expect(localStorageMock.set).toHaveBeenCalledWith(StorageKeys.FavouriteCities, storedFavouriteCities);
 		});
 
 		it('should call LocalStorageService.set with defaultCities when are favourite cities are not found', async () => {
@@ -73,13 +74,13 @@ describe('GroupForecastResolver', () => {
 
 			await spectator.service.resolve(route);
 
-			expect(localStorageMock.set).toHaveBeenCalledWith(StorageKeys.favouriteCities, JSON.stringify(defaultCities));
+			expect(localStorageMock.set).toHaveBeenCalledWith(StorageKeys.FavouriteCities, JSON.stringify(defaultCities));
 		});
 
 		it('should call OpenWeatherService.getWeatherGroup with stored favourite cities when are retreived', async () => {
 			const { storedFavouriteCities, route } = testData;
 
-			localStorageMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(storedFavouriteCities);
+			localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(storedFavouriteCities);
 
 			await spectator.service.resolve(route);
 
@@ -96,7 +97,7 @@ describe('GroupForecastResolver', () => {
 		});
 
 		it('should not call OpenWeatherService.getWeatherGroup when calculated group is empty', async () => {
-			localStorageMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue('[]');
+			localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue('[]');
 
 			await spectator.service.resolve(testData.route);
 
@@ -116,7 +117,7 @@ describe('GroupForecastResolver', () => {
 			const { route } = testData;
 			route.data = { defaultCities: null };
 
-			localStorageMock.get.calledWith(StorageKeys.favouriteCities).mockReturnValue(null);
+			localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(null);
 
 			const result = await spectator.service.resolve(route);
 

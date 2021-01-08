@@ -3,12 +3,13 @@
 import * as lodash from 'lodash';
 
 import { Injectable } from '@angular/core';
-import { ApiService } from '@wa/app/core/services/api/api.service';
-import { ConfigService } from '@wa/app/core/services/config/config.service';
-import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { HereLocation, HereSearchParams } from '@wa/app/models/here.model';
 import { Param } from '@wa/app/models/http.model';
 import { OpenCoord } from '@wa/app/models/open-weather.model';
+
+import { ApiService } from '../api/api.service';
+import { ConfigService } from '../config/config.service';
+import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class HereService {

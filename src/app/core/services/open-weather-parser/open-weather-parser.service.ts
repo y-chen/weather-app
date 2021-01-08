@@ -1,14 +1,14 @@
 import Case from 'case';
-import * as lodash from 'lodash';
+import lodash from 'lodash';
 import moment, { Moment } from 'moment';
 
 import { Injectable } from '@angular/core';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import { HereService } from '@wa/app/core/services/here/here.service';
 import { HereLocation } from '@wa/app/models/here.model';
 import { DayForecast, Forecast, ParserOptions, Weather } from '@wa/app/models/open-weather-parser.model';
 import { DayTime, IconSize, RawForecast, RawWeather, Units, WeatherGroup } from '@wa/app/models/open-weather.model';
 
+import { CultureService } from '../culture/culture.service';
+import { HereService } from '../here/here.service';
 import { SettingsService } from '../settings/settings.service';
 
 @Injectable()

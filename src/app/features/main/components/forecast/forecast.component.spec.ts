@@ -6,7 +6,8 @@ import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
-import { ForecastComponent } from '@wa/app/features/main/components/forecast/forecast.component';
+
+import { ForecastComponent } from './forecast.component';
 
 describe('ForecastComponent', () => {
 	let host: SpectatorHost<ForecastComponent>;

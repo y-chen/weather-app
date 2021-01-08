@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export const StorageKeys = {
 	Config: 'config',
 	Culture: 'culture',
-	favouriteCities: 'favourite-cities',
+	FavouriteCities: 'favourite-cities',
 	HereOAuthToken: 'here-oauth-token',
 	Position: 'position',
 	Units: 'units',

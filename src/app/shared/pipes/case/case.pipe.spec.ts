@@ -1,6 +1,7 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
-import { CasePipe } from '@wa/app/shared/pipes/case/case.pipe';
+
+import { CasePipe } from './case.pipe';
 
 describe('CasePipe', () => {
 	let spectator: SpectatorService<CasePipe>;

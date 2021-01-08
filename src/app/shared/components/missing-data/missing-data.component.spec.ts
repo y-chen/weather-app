@@ -1,7 +1,8 @@
 import { Provider } from '@angular/core';
 import { byText, createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
-import { MissingDataComponent } from '@wa/app/shared/components/missing-data/missing-data.component';
+
+import { MissingDataComponent } from './missing-data.component';
 
 describe('MissingDataComponent', () => {
 	let host: SpectatorHost<MissingDataComponent>;

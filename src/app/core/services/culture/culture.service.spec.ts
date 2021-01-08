@@ -5,8 +5,9 @@ import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { TranslateService } from '@ngx-translate/core';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import { SettingsService } from '@wa/app/core/services/settings/settings.service';
+
+import { SettingsService } from '../settings/settings.service';
+import { CultureService } from './culture.service';
 
 describe('CultureService', () => {
 	let spectator: SpectatorService<CultureService>;

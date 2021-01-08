@@ -15,7 +15,8 @@ import { EventService } from '@wa/app/core/services/event/event.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Culture } from '@wa/app/models/culture.model';
 import { Units } from '@wa/app/models/open-weather.model';
-import { SettingsMenuComponent } from '@wa/app/shared/components/settings-menu/settings-menu.component';
+
+import { SettingsMenuComponent } from './settings-menu.component';
 
 describe('SettingsMenuComponent', () => {
 	let host: SpectatorHost<SettingsMenuComponent>;
@@ -47,7 +48,13 @@ describe('SettingsMenuComponent', () => {
 			cultureServiceProvider,
 			eventServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().fixOnSettingsChange().mockConfig().mockCultures().mockCultureWithItalian().mockSettings().mockUnitWithImperial();
+		} = new MasterMock()
+			.fixOnSettingsChange()
+			.mockConfig()
+			.mockCultures()
+			.mockCultureWithItalian()
+			.mockSettings()
+			.mockUnitWithImperial();
 
 		componentMock = componentServiceMock;
 		cultureMock = cultureServiceMock;

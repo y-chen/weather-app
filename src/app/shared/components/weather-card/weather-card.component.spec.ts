@@ -8,9 +8,10 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
-import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
-import { FavouriteComponent } from '@wa/app/shared/components/favourite/favourite.component';
-import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
+
+import { BasicWeatherComponent } from '../basic-weather/basic-weather.component';
+import { FavouriteComponent } from '../favourite/favourite.component';
+import { WeatherCardComponent } from './weather-card.component';
 
 describe('WeatherCardComponent', () => {
 	let host: SpectatorHost<WeatherCardComponent>;

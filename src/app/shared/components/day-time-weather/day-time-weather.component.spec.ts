@@ -12,8 +12,9 @@ import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { DayTimeWeather } from '@wa/app/models/open-weather-parser.model';
-import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
-import { DayTimeWeatherComponent } from '@wa/app/shared/components/day-time-weather/day-time-weather.component';
+
+import { BasicWeatherComponent } from '../basic-weather/basic-weather.component';
+import { DayTimeWeatherComponent } from './day-time-weather.component';
 
 describe('DayTimeWeatherComponent', () => {
 	let host: SpectatorHost<DayTimeWeatherComponent>;

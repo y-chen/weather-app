@@ -6,10 +6,11 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
-import { ApiService } from '@wa/app/core/services/api/api.service';
-import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
-import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
 import { RawWeather } from '@wa/app/models/open-weather.model';
+
+import { ApiService } from '../api/api.service';
+import { OpenWeatherParserService } from '../open-weather-parser/open-weather-parser.service';
+import { OpenWeatherService } from './open-weather.service';
 
 describe('OpenWeatherService', () => {
 	let spectator: SpectatorService<OpenWeatherService>;

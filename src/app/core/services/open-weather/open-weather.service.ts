@@ -3,13 +3,14 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Injectable } from '@angular/core';
-import { ApiService } from '@wa/app/core/services/api/api.service';
-import { ConfigService } from '@wa/app/core/services/config/config.service';
-import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
-import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Param } from '@wa/app/models/http.model';
 import { Forecast, Weather } from '@wa/app/models/open-weather-parser.model';
 import { OpenWeatherSearchParams, RawForecast, RawWeather, Units, WeatherGroup } from '@wa/app/models/open-weather.model';
+
+import { ApiService } from '../api/api.service';
+import { ConfigService } from '../config/config.service';
+import { OpenWeatherParserService } from '../open-weather-parser/open-weather-parser.service';
+import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class OpenWeatherService {

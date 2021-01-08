@@ -3,8 +3,9 @@ import { Subscription } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { Culture, cultures } from '@wa/app/models/culture.model';
+
+import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class CultureService {

@@ -5,7 +5,8 @@ import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
-import { LanguageSelectorComponent } from '@wa/app/shared/components/language-selector/language-selector.component';
+
+import { LanguageSelectorComponent } from './language-selector.component';
 
 describe('LanguageSelectorComponent', () => {
 	let host: SpectatorHost<LanguageSelectorComponent>;

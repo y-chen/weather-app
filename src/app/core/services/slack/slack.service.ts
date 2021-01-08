@@ -4,10 +4,11 @@
 import moment from 'moment';
 
 import { Injectable } from '@angular/core';
-import { ApiService } from '@wa/app/core/services/api/api.service';
-import { ConfigService } from '@wa/app/core/services/config/config.service';
 import { Header } from '@wa/app/models/http.model';
 import { SlackMessage, SlackPayload } from '@wa/app/models/slack.model';
+
+import { ApiService } from '../api/api.service';
+import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class SlackService {

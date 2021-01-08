@@ -4,25 +4,26 @@ import { NgModule, Provider } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BasicWeatherComponent } from '@wa/app/shared/components/basic-weather/basic-weather.component';
-import { DayTimeWeatherComponent } from '@wa/app/shared/components/day-time-weather/day-time-weather.component';
-import { ErrorPageComponent } from '@wa/app/shared/components/error-page/error-page.component';
-import { FavouriteComponent } from '@wa/app/shared/components/favourite/favourite.component';
-import { LanguageSelectorComponent } from '@wa/app/shared/components/language-selector/language-selector.component';
-import { MissingDataComponent } from '@wa/app/shared/components/missing-data/missing-data.component';
-import { OverlaySpinnerComponent } from '@wa/app/shared/components/overlay-spinner/overlay-spinner.component';
-import { SearchComponent } from '@wa/app/shared/components/search/search.component';
-import { SettingsMenuComponent } from '@wa/app/shared/components/settings-menu/settings-menu.component';
-import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
-import { NavItemComponent } from '@wa/app/shared/components/shell/sidebar/nav-item/nav-item.component';
-import { SidebarComponent } from '@wa/app/shared/components/shell/sidebar/sidebar.component';
-import { ToolbarComponent } from '@wa/app/shared/components/shell/toolbar/toolbar.component';
-import { ValidationErrorsComponent } from '@wa/app/shared/components/validation-errors/validation-errors.component';
-import { WeatherCardComponent } from '@wa/app/shared/components/weather-card/weather-card.component';
-import { MaterialModule } from '@wa/app/shared/material/material.module';
-import { CasePipe } from '@wa/app/shared/pipes/case/case.pipe';
-import { KeysPipe } from '@wa/app/shared/pipes/keys/keys.pipe';
-import { LocalizedDatePipe } from '@wa/app/shared/pipes/localized-date/localized-date.pipe';
+
+import { BasicWeatherComponent } from './components/basic-weather/basic-weather.component';
+import { DayTimeWeatherComponent } from './components/day-time-weather/day-time-weather.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { FavouriteComponent } from './components/favourite/favourite.component';
+import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
+import { MissingDataComponent } from './components/missing-data/missing-data.component';
+import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
+import { SearchComponent } from './components/search/search.component';
+import { SettingsMenuComponent } from './components/settings-menu/settings-menu.component';
+import { ShellComponent } from './components/shell/shell.component';
+import { NavItemComponent } from './components/shell/sidebar/nav-item/nav-item.component';
+import { SidebarComponent } from './components/shell/sidebar/sidebar.component';
+import { ToolbarComponent } from './components/shell/toolbar/toolbar.component';
+import { ValidationErrorsComponent } from './components/validation-errors/validation-errors.component';
+import { WeatherCardComponent } from './components/weather-card/weather-card.component';
+import { MaterialModule } from './material/material.module';
+import { CasePipe } from './pipes/case/case.pipe';
+import { KeysPipe } from './pipes/keys/keys.pipe';
+import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 
 export const moduleDeclarations = [
 	BasicWeatherComponent,

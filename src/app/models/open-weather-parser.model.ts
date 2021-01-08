@@ -1,4 +1,4 @@
-import { IconSize, OpenCoord } from '@wa/app/models/open-weather.model';
+import { IconSize, OpenCoord } from './open-weather.model';
 
 export interface ParserOptions {
 	iconSize?: IconSize;

@@ -1,6 +1,7 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
-import { HttpLoggerInterceptor } from '@wa/app/interceptors/interceptors/http-logger/http-logger.interceptor';
+
+import { HttpLoggerInterceptor } from './http-logger.interceptor';
 
 describe('RequestsInterceptor', () => {
 	let spectator: SpectatorService<HttpLoggerInterceptor>;

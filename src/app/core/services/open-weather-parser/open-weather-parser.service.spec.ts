@@ -3,10 +3,11 @@ import { anyNumber, MockProxy, mockReset } from 'jest-mock-extended';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
-import { HereService } from '@wa/app/core/services/here/here.service';
-import { OpenWeatherParserService } from '@wa/app/core/services/open-weather-parser/open-weather-parser.service';
 import { RawWeather } from '@wa/app/models/open-weather.model';
+
+import { CultureService } from '../culture/culture.service';
+import { HereService } from '../here/here.service';
+import { OpenWeatherParserService } from './open-weather-parser.service';
 
 describe('OpenWeatherParserService', () => {
 	let spectator: SpectatorService<OpenWeatherParserService>;

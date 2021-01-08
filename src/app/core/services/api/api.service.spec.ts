@@ -6,7 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
 import { getTestData, TestData } from '@wa/app/common/test-data';
-import { ApiService } from '@wa/app/core/services/api/api.service';
+
+import { ApiService } from './api.service';
 
 describe('ApiService', () => {
 	let spectator: SpectatorService<ApiService>;

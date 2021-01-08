@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
-import { OpenWeatherService } from '@wa/app/core/services/open-weather/open-weather.service';
+import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
 import { Forecast } from '@wa/app/models/open-weather-parser.model';
 import { IconSize, OpenCoord } from '@wa/app/models/open-weather.model';
+
+import { OpenWeatherService } from '../../services/open-weather/open-weather.service';
 
 @Injectable()
 export class ForecastResolver implements Resolve<Forecast | null> {

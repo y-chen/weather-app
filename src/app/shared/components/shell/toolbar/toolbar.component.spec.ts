@@ -1,7 +1,8 @@
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
-import { ToolbarComponent } from '@wa/app/shared/components/shell/toolbar/toolbar.component';
+
+import { ToolbarComponent } from './toolbar.component';
 
 describe('ToolbarComponent', () => {
 	let host: SpectatorHost<ToolbarComponent>;

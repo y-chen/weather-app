@@ -1,6 +1,7 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MasterMock } from '@wa/app/common/master-mock';
-import { NotificationService } from '@wa/app/core/services/notification/notification.service';
+
+import { NotificationService } from './notification.service';
 
 describe('NotificationService', () => {
 	let spectator: SpectatorService<NotificationService>;

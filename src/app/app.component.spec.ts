@@ -4,10 +4,10 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { AppComponent } from '@wa/app/app.component';
-import { CultureService } from '@wa/app/core/services/culture/culture.service';
 
+import { AppComponent } from './app.component';
 import { MasterMock } from './common/master-mock';
+import { CultureService } from './core/services/culture/culture.service';
 
 describe('AppComponent', () => {
 	let host: SpectatorHost<AppComponent>;
