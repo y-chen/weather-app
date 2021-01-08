@@ -4,7 +4,7 @@ import { stringify } from 'flatted';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HereError, OpenWeatherMapError } from '@wa/app/models/error.model';
+import { ErrorStack, HereError, OpenWeatherMapError } from '@wa/app/models/error.model';
 import { Header } from '@wa/app/models/http.model';
 
 @Injectable()
@@ -32,11 +32,11 @@ export class ErrorService {
 		return message || stringify(error);
 	}
 
-	getServerStack(e: HttpErrorResponse): string {
+	getServerStack(e: HttpErrorResponse): ErrorStack {
 		const { status, statusText, error, message, url, headers } = e;
 		const mappedHeaders: Header[] = headers.keys().map((key: string) => ({ key, value: headers.get(key) }));
 
-		return stringify({ status, statusText, error, message, url, headers: mappedHeaders });
+		return { status, statusText, error, message, url, headers: mappedHeaders };
 	}
 
 	private isHereError(error: any): boolean {
