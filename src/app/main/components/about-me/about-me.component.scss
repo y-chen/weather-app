@@ -1,0 +1,32 @@
+@import 'media';
+@import 'mixins';
+
+:host {
+	mat-card-content {
+		@include flex-box(column);
+		gap: 5px;
+
+		.summary {
+			@include flex-box(row);
+			gap: 5px;
+
+			> img {
+				min-width: 118px;
+				min-height: 156px;
+				max-width: 118px;
+				max-height: 156px;
+			}
+
+			> p {
+				text-align: justify;
+				text-justify: inter-word;
+				font-stretch: expanded;
+				font-size: 16px;
+			}
+		}
+
+		> .links {
+			@include flex-box(row, center, center);
+		}
+	}
+}

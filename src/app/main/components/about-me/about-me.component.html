@@ -1,1 +1,27 @@
-<p>about-me works!</p>
+<mat-card>
+	<mat-card-header>
+		<mat-card-title> About Me </mat-card-title>
+	</mat-card-header>
+	<mat-card-content>
+		<div class="summary">
+			<img
+				src="https://bn1305files.storage.live.com/y4m0jjsUTNmTvIcvdNZ4e6E9kJJp4JIxyiiklrtmJ_Y-SGTxiNEfzVPrl6GSfZxw0TW57fevQ0pstoFsDrTqBogASiC-w8hpRD1JokdW-i3YR6oBQ_YzDWMzl9I4JSr7VZyglJqY6KbwkTxKmf818OMyq4YrcdJ4y1wNbf64PByF4rY_JSDJPRgyXLtnH1Ehjpk?width=118&height=156&cropmode=none"
+			/>
+
+			<p>
+				I’m an IT professional with a passion for software development, experienced on TypeScript, Angular and Microsoft stack with C#,
+				TypeScript and Angular. I consider myself a fast learner with the ability to work with any programming languages. I have a
+				strong inclination towards front end development, but I can also work on back end side. I really like the software development
+				process and I think it is a creative profession, seeing interesting and sophisticated applications growing is magical and I am
+				proud to be an active part of their development.
+			</p>
+		</div>
+		<div class="links">
+			<ng-container *ngFor="let link of links">
+				<a [href]="link.url" target="_blank">
+					<img src="/assets/icons/{{ link.icon }}.png" [alt]="link.name" [matTooltip]="link.name" />
+				</a>
+			</ng-container>
+		</div>
+	</mat-card-content>
+</mat-card>
