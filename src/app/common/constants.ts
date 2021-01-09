@@ -18,7 +18,6 @@ const LocalizationPathKeys = {
 };
 
 const StorageKeys = {
-	Config: 'config',
 	Culture: 'culture',
 	FavouriteCities: 'favourite-cities',
 	HereOAuthToken: 'here-oauth-token',
