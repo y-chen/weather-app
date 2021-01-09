@@ -36,6 +36,7 @@ describe('InputComponent', () => {
 
 		it('should dislay label correctly when passed by host', () => {
 			const labelText = 'Label';
+
 			host = createHost('<wa-input [label]="label"></wa-input>', {
 				hostProps: { label: labelText },
 				props: { control: new FormControl() },
@@ -53,10 +54,9 @@ describe('InputComponent', () => {
 				props: { control: new FormControl() },
 			});
 
-			const input = host.query('input');
-			const required = input.hasAttribute('required');
+			const input: HTMLInputElement = host.query('input');
 
-			expect(required).toEqual(true);
+			expect(input.required).toBeTrue();
 		});
 
 		it('should not be required when [required] is not passed by the host', () => {
@@ -64,23 +64,22 @@ describe('InputComponent', () => {
 				props: { control: new FormControl() },
 			});
 
-			const input = host.query('input');
-			const required = input.hasAttribute('required');
+			const input: HTMLInputElement = host.query('input');
 
-			expect(required).toEqual(false);
+			expect(input.required).toBeFalse();
 		});
 
 		it('should have corrent type passed by host', () => {
-			const passedType = 'email';
+			const expectedType = 'email';
+
 			host = createHost('<wa-input [type]="type"></wa-input>', {
-				hostProps: { type: passedType },
+				hostProps: { type: expectedType },
 				props: { control: new FormControl() },
 			});
 
-			const input = host.query('input');
-			const inputType = input.getAttribute('type');
+			const input: HTMLInputElement = host.query('input');
 
-			expect(inputType).toEqual(passedType);
+			expect(input.type).toEqual(expectedType);
 		});
 
 		it('should be type password when [password] is passed', () => {
@@ -88,10 +87,9 @@ describe('InputComponent', () => {
 				props: { control: new FormControl() },
 			});
 
-			const input = host.query('input');
-			const inputType = input.getAttribute('type');
+			const input: HTMLInputElement = host.query('input');
 
-			expect(inputType).toEqual('password');
+			expect(input.type).toEqual('password');
 		});
 	});
 
