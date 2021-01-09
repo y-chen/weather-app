@@ -7,7 +7,6 @@ mat-toolbar {
 
 	> mat-toolbar-row {
 		@include flex-box(row, space-between, center, center);
-		flex-wrap: wrap;
 		color: white;
 		min-height: var(--toolbar-height);
 		max-height: var(--toolbar-height);
