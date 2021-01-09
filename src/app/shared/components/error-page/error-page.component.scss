@@ -169,20 +169,22 @@
 				letter-spacing: 15px;
 			}
 
-			> ._1 {
+			.error-message {
 				text-align: center;
 				display: block;
 				position: relative;
-				letter-spacing: 12px;
-				font-size: 4em;
-				line-height: 80%;
-			}
 
-			> ._2 {
-				text-align: center;
-				display: block;
-				position: relative;
-				font-size: 20px;
+				&._1 {
+					letter-spacing: 12px;
+					font-size: 4em;
+					line-height: 60%;
+					margin: 10px 0;
+				}
+
+				&._2 {
+					font-size: 40px;
+					margin: 15px 0;
+				}
 			}
 
 			.text {
@@ -201,7 +203,7 @@
 				background-color: rgb(255, 255, 255);
 				position: relative;
 				display: inline-block;
-				width: 358px;
+				width: 386px;
 				padding: 5px;
 				z-index: 5;
 				font-size: 25px;
@@ -223,7 +225,7 @@
 				color: #fff;
 				text-align: center;
 				margin: 0px auto;
-				width: 420px;
+				width: 392px;
 				height: 10px;
 				z-index: -10;
 

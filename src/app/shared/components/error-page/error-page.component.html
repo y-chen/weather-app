@@ -12,8 +12,8 @@
 	<div class="c">
 		<div class="_CODE">{{ this.errorCode | translate | case: case }}</div>
 		<hr />
-		<div class="_1">{{ firstLineMessagePath | translate | case: case }}</div>
-		<div class="_2">{{ secondLineMessagePath | translate | case: case }}</div>
+		<div class="error-message _1">{{ firstLineMessagePath | translate | case: case }}</div>
+		<div class="error-message _2">{{ secondLineMessagePath | translate | case: case }}</div>
 		<a [routerLink]="['/app', 'home']" class="btn">{{ 'shared.errorPage.button' | translate | case: case }}</a>
 	</div>
 </div>
