@@ -93,7 +93,7 @@ describe('ErrorService', () => {
 			extendedError.rejection = new HttpErrorResponse({ error: openWeatherMapError, ...initHttpErrorResponse });
 			const { status, statusText, error, message, url, headers } = extendedError.rejection;
 			const mappedHeaders: Header[] = headers.keys().map((key: string) => ({ key, value: headers.get(key) }));
-			const expectedStack = stringify({ status, statusText, error, message, url, headers: mappedHeaders });
+			const expectedStack = { status, statusText, error, message, url, headers: mappedHeaders };
 
 			const stack = spectator.service.getServerStack(testData.extendedError.rejection);
 
