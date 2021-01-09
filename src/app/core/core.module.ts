@@ -17,6 +17,7 @@ import { LoggerService } from './services/logger/logger.service';
 import { NotificationService } from './services/notification/notification.service';
 import { OpenWeatherParserService } from './services/open-weather-parser/open-weather-parser.service';
 import { OpenWeatherService } from './services/open-weather/open-weather.service';
+import { ProfileService } from './services/profile/profile.service';
 import { SettingsService } from './services/settings/settings.service';
 import { SlackService } from './services/slack/slack.service';
 
@@ -39,6 +40,7 @@ import { SlackService } from './services/slack/slack.service';
 		NotificationService,
 		OpenWeatherParserService,
 		OpenWeatherService,
+		ProfileService,
 		SettingsService,
 		SlackService,
 		WeatherGroupResolver,

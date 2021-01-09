@@ -22,11 +22,12 @@ export const environment: Environment = {
 		appId: '1:255407891982:web:bfeeb22db54eb9c3e77e5f',
 		measurementId: 'G-MR3CW3H12G',
 	},
-	configId: '2Gj7vJyw4oSg4O5xbJ15',
 	slack: {
 		hookUrl: 'https://hooks.slack.com/services/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',
 		channel: 'ng-weather-app-log-staging',
 	},
+	configId: '2Gj7vJyw4oSg4O5xbJ15',
+	profileId: 'VEo3yNzpFO1zCxPXtM5d',
 };
 
 /*

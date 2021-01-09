@@ -4,8 +4,9 @@ export interface Environment {
 	version: string;
 	author: Author;
 	firebase: FirebaseConfig;
-	configId: string;
 	slack: SlackConfig;
+	configId: string;
+	profileId: string;
 }
 
 export interface Author {
