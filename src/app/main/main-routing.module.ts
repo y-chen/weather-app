@@ -4,6 +4,7 @@ import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resol
 import { WeatherGroupResolver } from '@wa/app/core/resolvers/weather-group/weather-group.resolver';
 import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 
+import { AboutMeComponent } from './components/about-me/about-me.component';
 import { ForecastComponent } from './components/forecast/forecast.component';
 import { HomeComponent } from './components/home/home.component';
 
@@ -29,6 +30,7 @@ const routes: Routes = [
 					label: `${navItemsLocalizationBasePath}.forecast`,
 					route: 'forecast',
 				},
+				{ icon: 'person', label: `${navItemsLocalizationBasePath}.aboutMe`, route: 'about-me' },
 			],
 		},
 		children: [
@@ -47,6 +49,10 @@ const routes: Routes = [
 				path: 'forecast/:id',
 				resolve: { forecast: ForecastResolver },
 				component: ForecastComponent,
+			},
+			{
+				path: 'about-me',
+				component: AboutMeComponent,
 			},
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
 		],

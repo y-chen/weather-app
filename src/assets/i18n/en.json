@@ -67,7 +67,8 @@
 				"current": "(current)",
 				"navItems": {
 					"forecast": "Forecast",
-					"home": "Home"
+					"home": "Home",
+					"aboutMe": "About me"
 				},
 				"open": "Open"
 			},

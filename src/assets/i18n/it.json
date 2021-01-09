@@ -69,7 +69,8 @@
 				"current": "(corrente)",
 				"navItems": {
 					"forecast": "Previsioni",
-					"home": "Home"
+					"home": "Home",
+					"aboutMe": "Su di me"
 				},
 				"open": "Apri"
 			},
