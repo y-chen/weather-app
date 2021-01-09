@@ -1,8 +1,8 @@
 /* eslint-disable no-shadow */
 
 export interface SendEmailBody {
-	subject: string;
 	bodyType: EmailBody;
+	subject: string;
 	message: string;
 }
 

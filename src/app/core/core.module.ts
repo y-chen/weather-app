@@ -10,6 +10,7 @@ import { ApiService } from './services/api/api.service';
 import { ConfigService } from './services/config/config.service';
 import { CultureService } from './services/culture/culture.service';
 import { ElasticEmailService } from './services/elastic-email/elastic-email.service';
+import { EmailComposerService } from './services/email-composer/email-composer.service';
 import { ErrorService } from './services/error/error.service';
 import { EventService } from './services/event/event.service';
 import { HereService } from './services/here/here.service';
@@ -33,6 +34,7 @@ import { SlackService } from './services/slack/slack.service';
 		CultureService,
 		DatePipe,
 		ElasticEmailService,
+		EmailComposerService,
 		ErrorService,
 		EventService,
 		ForecastResolver,
