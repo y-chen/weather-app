@@ -1,4 +1,7 @@
 {
+	"app": {
+		"spinnerMessage": "Welcome!"
+	},
 	"features": {
 		"main": {
 			"forecast": {

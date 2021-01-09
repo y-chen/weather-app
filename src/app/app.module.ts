@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+
 import { registerLocaleData } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import localeEn from '@angular/common/locales/en';
@@ -5,7 +7,6 @@ import localeItExtra from '@angular/common/locales/extra/it';
 import localeIt from '@angular/common/locales/it';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
-/* eslint-disable @typescript-eslint/naming-convention */
 import { AngularFireFunctionsModule } from '@angular/fire/functions';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';

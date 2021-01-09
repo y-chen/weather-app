@@ -3,6 +3,7 @@
 import { Culture } from '../models/culture.model';
 
 const LocalizationPathKeys = {
+	AppComponent: 'app',
 	ForecastComponent: 'features.main.forecast',
 	HomeComponent: 'features.main.home',
 	DayTimeWeatherComponent: 'shared.dayTimeWeather',
