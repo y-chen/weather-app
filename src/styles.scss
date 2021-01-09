@@ -6,7 +6,7 @@
 	--sidebar-desktop-width: 240px;
 	--sidebar-mobile-width: 40px;
 	--sidebar-icon-size: 16px;
-	--footer-height: 30px;
+	--footer-height: 20px;
 
 	--disabled-color: #999;
 }
@@ -47,6 +47,10 @@ body {
 		mat-card-content.form {
 			@include flex-box(column, center, center);
 			width: 100%;
+
+			:first-child {
+				width: 100%;
+			}
 
 			.form-row {
 				@include flex-box(row, space-between, center);
