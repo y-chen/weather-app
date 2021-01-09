@@ -39,7 +39,7 @@ export class GlobalErrorHandler implements ErrorHandler {
 		this.loggerService.error(message, stackTrace);
 		this.notificationService.showError(message);
 
-		// To investigate about why SlackService.sendError returns error
+		// Investigate about why SlackService.sendError returns error
 		// even when the error is sent correctly
 		this.slackService.sendError({ stackTrace, error }).then(
 			async () => await this.navigateToErroPage(status),
