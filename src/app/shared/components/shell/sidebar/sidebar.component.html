@@ -20,6 +20,8 @@
 	<mat-sidenav-content>
 		<div class="content">
 			<ng-content select="[outlet]"></ng-content>
+
+			<wa-footer [open]="!closed"></wa-footer>
 		</div>
 	</mat-sidenav-content>
 </mat-sidenav-container>
