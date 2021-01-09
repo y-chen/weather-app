@@ -1,6 +1,11 @@
 {
 	"name": "weather-app",
 	"version": "0.0.0",
+	"license": "MIT",
+	"author": {
+		"name": "Yiyi Chen",
+		"email": "chen.yiyi@hotmail.it"
+	},
 	"scripts": {
 		"ng": "ng",
 		"start": "ng serve",

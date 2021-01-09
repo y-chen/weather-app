@@ -1,15 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { name, version } from '../../package.json';
+import { Environment } from '@wa/app/models/environment.model';
+
+import { author, name, version } from '../../package.json';
 
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+export const environment: Environment = {
 	production: false,
 	name,
 	version,
+	author,
 	firebase: {
 		apiKey: 'AIzaSyDDx2nHBea8HgHXhloQvnYAeHvZyrnrC4g',
 		authDomain: 'ng-weather-app-staging.firebaseapp.com',

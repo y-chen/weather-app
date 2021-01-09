@@ -1,9 +1,14 @@
-import { name, version } from '../../package.json';
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-export const environment = {
+import { Environment } from '@wa/app/models/environment.model';
+
+import { author, name, version } from '../../package.json';
+
+export const environment: Environment = {
 	production: true,
 	name,
 	version,
+	author,
 	firebase: {
 		apiKey: 'AIzaSyAHMR9xp8zexa3xCOX8tH0lqP3ravvypkc',
 		authDomain: 'ng-weather-app-prod.firebaseapp.com',
