@@ -18,9 +18,10 @@ export const environment: Environment = {
 		appId: '1:492495005556:web:195f345bb6d7c96309ee21',
 		measurementId: 'G-E1YBDPZ9ZV',
 	},
-	configId: 'UDIkbegpZbMusG3m7TyO',
 	slack: {
 		hookUrl: 'https://hooks.slack.com/services/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',
 		channel: 'ng-weather-app-log-prod',
 	},
+	configId: 'UDIkbegpZbMusG3m7TyO',
+	profileId: 'VEo3yNzpFO1zCxPXtM5d',
 };
