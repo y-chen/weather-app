@@ -28,3 +28,8 @@ export interface OpenWeatherMapError {
 	cod: number;
 	message: string;
 }
+
+export interface ElasticEmailError {
+	success: boolean;
+	error: string;
+}

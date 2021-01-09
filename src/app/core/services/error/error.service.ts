@@ -4,7 +4,7 @@ import { stringify } from 'flatted';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ErrorStack, HereError, OpenWeatherMapError } from '@wa/app/models/error.model';
+import { ElasticEmailError, ErrorStack, HereError, OpenWeatherMapError } from '@wa/app/models/error.model';
 import { Header } from '@wa/app/models/http.model';
 
 @Injectable()
@@ -29,6 +29,10 @@ export class ErrorService {
 			message = (error as OpenWeatherMapError).message;
 		}
 
+		if (this.isElasticEmailError(error)) {
+			message = (error as ElasticEmailError).error;
+		}
+
 		return message || stringify(error);
 	}
 
@@ -45,5 +49,9 @@ export class ErrorService {
 
 	private isOpenWeatherMapError(error: any): boolean {
 		return 'cod' in error && 'message' in error;
+	}
+
+	private isElasticEmailError(error: any): boolean {
+		return 'success' in error && 'error' in error;
 	}
 }

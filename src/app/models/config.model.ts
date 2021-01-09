@@ -1,7 +1,7 @@
 export interface Config {
 	here: HereConfig;
 	openWeatherMap: OpenWeatherMapConfig;
-	slackHookUrl: string;
+	elasticEmail: ElasticEmailConfig;
 }
 
 export interface HereConfig {
@@ -22,4 +22,12 @@ export interface OpenWeatherMapConfig {
 export interface SlackConfig {
 	hookUrl: string;
 	channel: string;
+}
+
+export interface ElasticEmailConfig {
+	apiKey: string;
+	url: string;
+	from: string;
+	fromName: string;
+	to: string;
 }

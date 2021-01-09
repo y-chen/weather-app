@@ -9,7 +9,7 @@ import { GeolocationCoordinates } from '@wa/app/models/geolocation.model';
 
 import { Config } from '../models/config.model';
 import { Culture } from '../models/culture.model';
-import { ExtendedError, HereError, OpenWeatherMapError } from '../models/error.model';
+import { ElasticEmailError, ExtendedError, HereError, OpenWeatherMapError } from '../models/error.model';
 import { HereLocation, HereSearchParams } from '../models/here.model';
 import { DayTimeWeather, Forecast, ParserOptions, Weather } from '../models/open-weather-parser.model';
 import {
@@ -34,6 +34,7 @@ export interface TestData {
 	initHttpErrorResponse: any;
 	hereError: HereError;
 	openWeatherMapError: OpenWeatherMapError;
+	elasticEmailError: ElasticEmailError;
 	hereSearchParams: HereSearchParams;
 	hereLocation: HereLocation;
 	openWeatherSearchParams: OpenWeatherSearchParams;
@@ -62,7 +63,13 @@ export const getTestData = (): TestData => {
 			apiKey: 'OPEN-WEATHER-MAP-API-KEY',
 			url: 'OPEN-WEATHER-MAP-URL',
 		},
-		slackHookUrl: 'SLACK-HOOK-URL',
+		elasticEmail: {
+			apiKey: 'ELASTIC-EMAIL-API-KEY',
+			url: 'ELASTIC-EMAIL-URL',
+			from: 'FROM',
+			fromName: 'FROM-NAME',
+			to: 'TO',
+		},
 	};
 
 	const en: Culture = {
@@ -99,6 +106,11 @@ export const getTestData = (): TestData => {
 	const openWeatherMapError: OpenWeatherMapError = {
 		cod: 500,
 		message: 'OpenWeatherMap Message',
+	};
+
+	const elasticEmailError: ElasticEmailError = {
+		success: false,
+		error: 'Elastic Email Error',
 	};
 
 	const initHttpErrorResponse = { headers, status: 401, statusText: 'Unauthorized', url: 'http://example.com' };
@@ -906,6 +918,7 @@ export const getTestData = (): TestData => {
 		initHttpErrorResponse,
 		hereError,
 		openWeatherMapError,
+		elasticEmailError,
 		hereSearchParams,
 		hereLocation,
 		openWeatherSearchParams,

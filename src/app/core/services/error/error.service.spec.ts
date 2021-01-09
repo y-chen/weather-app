@@ -77,6 +77,15 @@ describe('ErrorService', () => {
 			expect(message).toBe(extendedError.rejection.error.message);
 		});
 
+		it('should return ElasticEmailError.error when error is of that type', () => {
+			const { extendedError, initHttpErrorResponse, elasticEmailError } = testData;
+			extendedError.rejection = new HttpErrorResponse({ error: elasticEmailError, ...initHttpErrorResponse });
+
+			const message = spectator.service.getServerMessage(extendedError.rejection);
+
+			expect(message).toBe(extendedError.rejection.error.error);
+		});
+
 		it('should return flatted.stringfy of the error when server error is undefined', () => {
 			const { extendedError, initHttpErrorResponse } = testData;
 			extendedError.rejection = new HttpErrorResponse({ error: { message: 'Error' }, ...initHttpErrorResponse });
