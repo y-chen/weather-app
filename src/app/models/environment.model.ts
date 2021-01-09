@@ -5,6 +5,7 @@ export interface Environment {
 	author: Author;
 	firebase: FirebaseConfig;
 	configId: string;
+	slack: SlackConfig;
 }
 
 export interface Author {

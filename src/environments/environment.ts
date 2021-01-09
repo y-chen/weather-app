@@ -23,6 +23,10 @@ export const environment: Environment = {
 		measurementId: 'G-MR3CW3H12G',
 	},
 	configId: '2Gj7vJyw4oSg4O5xbJ15',
+	slack: {
+		hookUrl: 'https://hooks.slack.com/services/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',
+		channel: 'ng-weather-app-log-staging',
+	},
 };
 
 /*

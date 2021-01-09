@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ErrorHandler, Injectable } from '@angular/core';
+import { ErrorHandler, Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { ErrorService } from '@wa/app/core/services/error/error.service';
 import { LoggerService } from '@wa/app/core/services/logger/logger.service';
@@ -15,9 +15,10 @@ export class GlobalErrorHandler implements ErrorHandler {
 		private readonly loggerService: LoggerService,
 		private readonly router: Router,
 		private readonly slackService: SlackService,
+		private readonly zone: NgZone,
 	) {}
 
-	async handleError(error: ExtendedError): Promise<void> {
+	handleError(error: ExtendedError): void {
 		let message: string;
 		let stackTrace: string | ErrorStack;
 		let status: number;
@@ -37,13 +38,18 @@ export class GlobalErrorHandler implements ErrorHandler {
 
 		this.loggerService.error(message, stackTrace);
 		this.notificationService.showError(message);
-		// await this.slackService.sendError({ stackTrace, error });
-		await this.navigateToErroPage(status);
+
+		// To investigate about why SlackService.sendError returns error
+		// even when the error is sent correctly
+		this.slackService.sendError({ stackTrace, error }).then(
+			async () => await this.navigateToErroPage(status),
+			async () => await this.navigateToErroPage(status),
+		);
 	}
 
 	private async navigateToErroPage(status?: number): Promise<void> {
 		if (status) {
-			await this.router.navigate(['/error', status]);
+			await this.zone.run(() => this.router.navigate(['/error', status]));
 		}
 	}
 }

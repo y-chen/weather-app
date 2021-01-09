@@ -1,10 +1,10 @@
 export interface Config {
-	here: Here;
-	openWeatherMap: OpenWeatherMap;
+	here: HereConfig;
+	openWeatherMap: OpenWeatherMapConfig;
 	slackHookUrl: string;
 }
 
-export interface Here {
+export interface HereConfig {
 	apiKey: string;
 	urls: HereUrls;
 }
@@ -14,7 +14,12 @@ export interface HereUrls {
 	revGeocode: string;
 }
 
-export interface OpenWeatherMap {
+export interface OpenWeatherMapConfig {
 	apiKey: string;
 	url: string;
+}
+
+export interface SlackConfig {
+	hookUrl: string;
+	channel: string;
 }

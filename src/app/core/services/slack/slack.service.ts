@@ -7,22 +7,28 @@ import moment from 'moment';
 import { Injectable } from '@angular/core';
 import { Header } from '@wa/app/models/http.model';
 import { SlackMessage, SlackPayload } from '@wa/app/models/slack.model';
+import { environment } from '@wa/environments/environment';
 
 import { ApiService } from '../api/api.service';
-import { ConfigService } from '../config/config.service';
 
 @Injectable()
 export class SlackService {
 	private readonly HOOK_URL: string;
+	private readonly CHANNEL: string;
 
-	constructor(private readonly api: ApiService, private readonly configService: ConfigService) {
-		// this.HOOK_URL = this.configService.config.slackHookUrl;
+	constructor(private readonly api: ApiService) {
+		// I have to temporary read SlackService's config from Angular environment files
+		// because the service constructor runs before ConfingService.loadConfig() finishes
+		// but HereService and OpenWeatherMapService behave as expected
+		const { hookUrl, channel } = environment.slack;
+		this.HOOK_URL = hookUrl;
+		this.CHANNEL = channel;
 	}
 
 	async sendError(content: unknown): Promise<void> {
 		const headers: Header[] = [{ key: 'Content-type', value: 'application/x-www-form-urlencoded' }];
 		const message: SlackMessage = { timestamp: moment.now(), type: 'error', content };
-		const payload: SlackPayload = { channel: 'ng-weather-app-log-staging', text: stringify(message) };
+		const payload: SlackPayload = { channel: this.CHANNEL, text: stringify(message) };
 
 		await this.api.post<void>(this.HOOK_URL, payload, { headers });
 	}

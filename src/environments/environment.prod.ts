@@ -19,4 +19,8 @@ export const environment: Environment = {
 		measurementId: 'G-E1YBDPZ9ZV',
 	},
 	configId: 'UDIkbegpZbMusG3m7TyO',
+	slack: {
+		hookUrl: 'https://hooks.slack.com/services/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',
+		channel: 'ng-weather-app-log-prod',
+	},
 };
