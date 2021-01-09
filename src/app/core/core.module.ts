@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ForecastResolver } from './resolvers/forecast/forecast.resolver';
+import { ProfileResolver } from './resolvers/profile/profile.resolver';
 import { WeatherGroupResolver } from './resolvers/weather-group/weather-group.resolver';
 import { ApiService } from './services/api/api.service';
 import { ConfigService } from './services/config/config.service';
@@ -40,6 +41,7 @@ import { SlackService } from './services/slack/slack.service';
 		NotificationService,
 		OpenWeatherParserService,
 		OpenWeatherService,
+		ProfileResolver,
 		ProfileService,
 		SettingsService,
 		SlackService,

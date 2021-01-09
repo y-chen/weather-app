@@ -9,6 +9,7 @@ const LocalizationPathKeys = {
 	DayTimeWeatherComponent: 'shared.dayTimeWeather',
 	ErrorPageComponent: 'shared.errorPage',
 	FavouriteComponent: 'shared.favourite',
+	AboutMeComponent: 'features.main.aboutMe',
 	SearchComponent: 'shared.search',
 	SettingsMenuComponent: 'shared.settingsMenu',
 	WeatherCardComponent: 'shared.basicWeather',

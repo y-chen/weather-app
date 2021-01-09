@@ -4,6 +4,9 @@
 	},
 	"features": {
 		"main": {
+			"aboutMe": {
+				"title": "Su di me"
+			},
 			"forecast": {
 				"missingDataMessage": "Usa funzione di ricerca o clicca sul link dei dettagli di una città dei preferiti",
 				"missingDataTitle": "Nessuna previsione trovata"

@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ForecastResolver } from '@wa/app/core/resolvers/forecast/forecast.resolver';
-import { WeatherGroupResolver } from '@wa/app/core/resolvers/weather-group/weather-group.resolver';
-import { ShellComponent } from '@wa/app/shared/components/shell/shell.component';
 
+import { ForecastResolver } from '../core/resolvers/forecast/forecast.resolver';
+import { ProfileResolver } from '../core/resolvers/profile/profile.resolver';
+import { WeatherGroupResolver } from '../core/resolvers/weather-group/weather-group.resolver';
+import { ShellComponent } from '../shared/components/shell/shell.component';
 import { AboutMeComponent } from './components/about-me/about-me.component';
 import { ForecastComponent } from './components/forecast/forecast.component';
 import { HomeComponent } from './components/home/home.component';
@@ -52,6 +53,7 @@ const routes: Routes = [
 			},
 			{
 				path: 'about-me',
+				resolve: { profile: ProfileResolver },
 				component: AboutMeComponent,
 			},
 			{ path: '', redirectTo: 'home', pathMatch: 'full' },
