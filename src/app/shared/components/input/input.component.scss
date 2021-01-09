@@ -1,0 +1,23 @@
+:host {
+	width: 100%;
+
+	mat-form-field {
+		width: 100%;
+
+		mat-icon {
+			cursor: pointer;
+		}
+
+		&.mat-focused {
+			.mat-icon {
+				color: var(--primary-color);
+			}
+		}
+
+		&.mat-form-field-invalid {
+			.mat-icon {
+				color: var(--warn-color);
+			}
+		}
+	}
+}

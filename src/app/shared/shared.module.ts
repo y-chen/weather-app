@@ -10,6 +10,7 @@ import { DayTimeWeatherComponent } from './components/day-time-weather/day-time-
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { FavouriteComponent } from './components/favourite/favourite.component';
 import { FullScreenSpinnerComponent } from './components/full-screen-spinner/full-screen-spinner.component';
+import { InputComponent } from './components/input/input.component';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { MissingDataComponent } from './components/missing-data/missing-data.component';
 import { OverlaySpinnerComponent } from './components/overlay-spinner/overlay-spinner.component';
@@ -35,6 +36,7 @@ export const moduleDeclarations = [
 	FavouriteComponent,
 	FooterComponent,
 	FullScreenSpinnerComponent,
+	InputComponent,
 	KeysPipe,
 	LanguageSelectorComponent,
 	LocalizedDatePipe,
@@ -71,6 +73,7 @@ export const moduleExports = [
 	FooterComponent,
 	FormsModule,
 	HttpClientModule,
+	InputComponent,
 	KeysPipe,
 	LanguageSelectorComponent,
 	LocalizedDatePipe,

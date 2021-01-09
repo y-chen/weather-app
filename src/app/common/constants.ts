@@ -17,6 +17,7 @@ const LocalizationPathKeys = {
 	SidebarComponent: 'shared.shell.sidebar',
 	NavItemComponent: 'shared.shell.sidebar',
 	ShellComponent: 'shell',
+	InputComponent: 'shared.input',
 };
 
 const StorageKeys = {
