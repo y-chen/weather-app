@@ -15,8 +15,7 @@
 		"outDir": "./.dist/out-tsc",
 		"paths": {
 			"@wa/app/*": ["src/app/*"],
-			"@wa/environments/*": ["src/environments/*"],
-			"crypto": ["node_modules/crypto-js"]
+			"@wa/environments/*": ["src/environments/*"]
 		},
 		"resolveJsonModule": true,
 		"sourceMap": true,

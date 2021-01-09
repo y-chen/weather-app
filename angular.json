@@ -29,7 +29,7 @@
 							"includePaths": ["src/assets/scss"]
 						},
 						"scripts": [],
-						"allowedCommonJsDependencies": ["crypto"]
+						"allowedCommonJsDependencies": ["lodash"]
 					},
 					"configurations": {
 						"production": {
