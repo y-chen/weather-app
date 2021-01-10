@@ -2,7 +2,10 @@
 
 import { registerLocaleData } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import localeDe from '@angular/common/locales/de';
 import localeEn from '@angular/common/locales/en';
+import localeDeExtra from '@angular/common/locales/extra/de';
+import localeEnExtra from '@angular/common/locales/extra/en';
 import localeItExtra from '@angular/common/locales/extra/it';
 import localeIt from '@angular/common/locales/it';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
@@ -22,7 +25,8 @@ import { ErrorHandlersModule } from './error-handlers/error-handlers.module';
 import { InterceptorsModule } from './interceptors/interceptors.module';
 import { SharedModule } from './shared/shared.module';
 
-registerLocaleData(localeEn, 'en');
+registerLocaleData(localeEn, 'en', localeEnExtra);
+registerLocaleData(localeDe, 'de', localeDeExtra);
 registerLocaleData(localeIt, 'it', localeItExtra);
 
 export const ConfigureApp = {
