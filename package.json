@@ -23,7 +23,7 @@
 		"eslint": "eslint \"src/**/*.{ts, js, json, html, scss}\"",
 		"eslint:fix": "npm run eslint --fix",
 		"prettier": "prettier \"**/*.{ts, js, json, html, scss}\"",
-		"prettier:write": "npm run prettier --write",
+		"prettier:write": "npm run prettier -- --write",
 		"check-up": "npm run prettier:write && npm run eslint:fix && npm run test && ng build",
 		"clean": "rimraf ./.coverage &&  rimraf ./.dist && rimraf ./.tmp && rimraf ./node_modules && npm ci",
 		"postinstall": "ng build --aot --prod"
