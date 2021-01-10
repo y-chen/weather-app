@@ -51,8 +51,6 @@ export class AboutMeComponent implements IComponent, OnInit {
 	}
 
 	async ngOnInit(): Promise<void> {
-		console.log(this.settingsService);
-
 		this.profile = (await this.componentService.getResolverData('profile')) as Profile;
 
 		const onLangChangeSub: Subscription = this.cultureService.onLangChange.subscribe(() => this.updateSummary());
@@ -84,10 +82,7 @@ export class AboutMeComponent implements IComponent, OnInit {
 	}
 
 	private updateSummary(): void {
-		console.log(this.settingsService);
 		const currentCulture: Culture = this.settingsService.getCulture();
-		console.log(currentCulture);
-
 		const foundSummary = this.profile.summaries.find((summary: Summary) => summary.language === currentCulture.language);
 
 		this.summary = foundSummary.content;
