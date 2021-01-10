@@ -2,38 +2,37 @@
 	"app": {
 		"spinnerMessage": "Loading..."
 	},
-	"features": {
-		"main": {
-			"aboutMe": {
-				"contactMe": {
-					"cancel": "Cancel",
-					"email": "Email",
-					"emailSentNotification": "Email successfully sent!",
-					"errors": {
-						"email": {
-							"email": "Provided email is not valid"
-						},
-						"message": {
-							"required": "A message is required"
-						}
+
+	"main": {
+		"aboutMe": {
+			"contactMe": {
+				"cancel": "Cancel",
+				"email": "Email",
+				"emailSentNotification": "Email successfully sent!",
+				"errors": {
+					"email": {
+						"email": "Provided email is not valid"
 					},
-					"message": "Message",
-					"name": "Name",
-					"send": "Send",
-					"subject": "Subject",
-					"subtitle": "Please, provide an email if you want me to contact you back",
-					"title": "Contact me"
+					"message": {
+						"required": "A message is required"
+					}
 				},
-				"title": "About me"
+				"message": "Message",
+				"name": "Name",
+				"send": "Send",
+				"subject": "Subject",
+				"subtitle": "Please, provide an email if you want me to contact you back",
+				"title": "Contact me"
 			},
-			"forecast": {
-				"missingDataMessage": "Use the search function or click on a favourite city details link",
-				"missingDataTitle": "No forecast data found"
-			},
-			"home": {
-				"missingDataMessage": "Make a search and add a city to your favourites",
-				"missingDataTitle": "No favourite found"
-			}
+			"title": "About me"
+		},
+		"forecast": {
+			"missingDataMessage": "Use the search function or click on a favourite city details link",
+			"missingDataTitle": "No forecast data found"
+		},
+		"home": {
+			"missingDataMessage": "Make a search and add a city to your favourites",
+			"missingDataTitle": "No favourite found"
 		}
 	},
 	"shared": {

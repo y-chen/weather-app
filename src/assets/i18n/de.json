@@ -2,38 +2,37 @@
 	"app": {
 		"spinnerMessage": "Wird geladen..."
 	},
-	"features": {
-		"main": {
-			"aboutMe": {
-				"contactMe": {
-					"cancel": "Abbrechen",
-					"email": "Email",
-					"emailSentNotification": "Email wurde gesendet!",
-					"errors": {
-						"email": {
-							"email": "Die angegebene Emailadresse ist nich korrekt"
-						},
-						"message": {
-							"required": "Eine Nachricht ist erforderlich"
-						}
+
+	"main": {
+		"aboutMe": {
+			"contactMe": {
+				"cancel": "Abbrechen",
+				"email": "Email",
+				"emailSentNotification": "Email wurde gesendet!",
+				"errors": {
+					"email": {
+						"email": "Die angegebene Emailadresse ist nich korrekt"
 					},
-					"message": "Nachricht",
-					"name": "Name",
-					"send": "Senden",
-					"subject": "Betreff",
-					"subtitle": "Wenn Sie eine Antwort wünschen, bitte geben Sie eine gültige Emailadresse an",
-					"title": "Kontakt"
+					"message": {
+						"required": "Eine Nachricht ist erforderlich"
+					}
 				},
-				"title": "Über mich"
+				"message": "Nachricht",
+				"name": "Name",
+				"send": "Senden",
+				"subject": "Betreff",
+				"subtitle": "Wenn Sie eine Antwort wünschen, bitte geben Sie eine gültige Emailadresse an",
+				"title": "Kontakt"
 			},
-			"forecast": {
-				"missingDataMessage": "Verwenden Sie die Suchfunktion oder klicken Sie auf Ihre Liebliengstädte",
-				"missingDataTitle": "Keine Wettervorhersage gefunden"
-			},
-			"home": {
-				"missingDataMessage": "Starten Sie eine Suchanfrage, um Städte als Lieblingstädte zu markieren",
-				"missingDataTitle": "Keine Lieblingsstädte gefunden"
-			}
+			"title": "Über mich"
+		},
+		"forecast": {
+			"missingDataMessage": "Verwenden Sie die Suchfunktion oder klicken Sie auf Ihre Liebliengstädte",
+			"missingDataTitle": "Keine Wettervorhersage gefunden"
+		},
+		"home": {
+			"missingDataMessage": "Starten Sie eine Suchanfrage, um Städte als Lieblingstädte zu markieren",
+			"missingDataTitle": "Keine Lieblingsstädte gefunden"
 		}
 	},
 	"shared": {

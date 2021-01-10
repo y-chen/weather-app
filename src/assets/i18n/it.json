@@ -2,38 +2,37 @@
 	"app": {
 		"spinnerMessage": "Caricamento in corso..."
 	},
-	"features": {
-		"main": {
-			"aboutMe": {
-				"contactMe": {
-					"cancel": "Cancella",
-					"email": "Email",
-					"emailSentNotification": "Email inviata con successo!",
-					"errors": {
-						"email": {
-							"email": "L'email fornita non è valida"
-						},
-						"message": {
-							"required": "Il messaggio è obbligatorio"
-						}
+
+	"main": {
+		"aboutMe": {
+			"contactMe": {
+				"cancel": "Cancella",
+				"email": "Email",
+				"emailSentNotification": "Email inviata con successo!",
+				"errors": {
+					"email": {
+						"email": "L'email fornita non è valida"
 					},
-					"message": "Messaggio",
-					"name": "Nome",
-					"send": "Invia",
-					"subject": "Soggetto",
-					"subtitle": "Per favore, fornisci un indirizzo email se vuoi essere ricontattato",
-					"title": "Contattami"
+					"message": {
+						"required": "Il messaggio è obbligatorio"
+					}
 				},
-				"title": "Su di me"
+				"message": "Messaggio",
+				"name": "Nome",
+				"send": "Invia",
+				"subject": "Oggetto",
+				"subtitle": "Per favore, fornisci un indirizzo email se vuoi essere ricontattato",
+				"title": "Contattami"
 			},
-			"forecast": {
-				"missingDataMessage": "Usa funzione di ricerca o clicca sul link dei dettagli di una città dei preferiti",
-				"missingDataTitle": "Nessuna previsione trovata"
-			},
-			"home": {
-				"missingDataMessage": "Fai una ricerca e aggiungi una città tra in tuoi preferiti",
-				"missingDataTitle": "Nessun preferito trovato"
-			}
+			"title": "Su di me"
+		},
+		"forecast": {
+			"missingDataMessage": "Usa funzione di ricerca o clicca sul link dei dettagli di una città dei preferiti",
+			"missingDataTitle": "Nessuna previsione trovata"
+		},
+		"home": {
+			"missingDataMessage": "Fai una ricerca e aggiungi una città tra in tuoi preferiti",
+			"missingDataTitle": "Nessun preferito trovato"
 		}
 	},
 	"shared": {
