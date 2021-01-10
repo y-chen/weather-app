@@ -1,43 +1,49 @@
 @import 'mixins';
 @import 'media';
 
-mat-toolbar {
-	min-height: var(--toolbar-height);
-	max-height: var(--toolbar-height);
+:host-context {
+	width: 100%;
+	position: absolute;
+	top: 0;
 
-	> mat-toolbar-row {
-		@include flex-box(row, space-between, center, center);
-		color: white;
+	mat-toolbar {
 		min-height: var(--toolbar-height);
 		max-height: var(--toolbar-height);
 
-		> * {
-			margin: auto 5px;
-		}
-
-		> a {
-			text-decoration: none;
+		> mat-toolbar-row {
+			@include flex-box(row, space-between, center, center);
 			color: white;
+			min-height: var(--toolbar-height);
+			max-height: var(--toolbar-height);
 
-			&:hover {
-				color: var(--accent-color);
+			> * {
+				margin: auto 5px;
 			}
-		}
 
-		> span,
-		wa-search {
-			font-size: 1rem;
-		}
+			> a {
+				text-decoration: none;
+				color: white;
 
-		> .search-container {
-			@include set-all-media(width, 35%, 40%, 45%, 50%);
-			width: 35%;
-			height: 100%;
-			padding: 0 10px;
-			align-self: flex-start;
+				&:hover {
+					color: var(--accent-color);
+				}
+			}
 
-			&:focus-within {
-				background-color: var(--accent-color);
+			> span,
+			wa-search {
+				font-size: 1rem;
+			}
+
+			> .search-container {
+				@include set-all-media(width, 35%, 40%, 45%, 50%);
+				width: 35%;
+				height: 100%;
+				padding: 0 10px;
+				align-self: flex-start;
+
+				&:focus-within {
+					background-color: var(--accent-color);
+				}
 			}
 		}
 	}
