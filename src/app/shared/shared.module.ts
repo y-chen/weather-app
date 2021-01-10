@@ -29,7 +29,7 @@ import { CasePipe } from './pipes/case/case.pipe';
 import { KeysPipe } from './pipes/keys/keys.pipe';
 import { LocalizedDatePipe } from './pipes/localized-date/localized-date.pipe';
 
-export const moduleDeclarations = [
+export const sharedModuleDeclarations = [
 	BasicWeatherComponent,
 	CasePipe,
 	DayTimeWeatherComponent,
@@ -54,7 +54,7 @@ export const moduleDeclarations = [
 	WeatherCardComponent,
 ];
 
-export const moduleImports = [
+export const sharedModuleImports = [
 	CommonModule,
 	FormsModule,
 	HttpClientModule,
@@ -64,42 +64,38 @@ export const moduleImports = [
 	TranslateModule,
 ];
 
-export const moduleExports = [
-	BasicWeatherComponent,
-	CasePipe,
-	CommonModule,
-	DayTimeWeatherComponent,
-	ErrorPageComponent,
-	FavouriteComponent,
-	FullScreenSpinnerComponent,
-	FooterComponent,
-	FormsModule,
-	HttpClientModule,
-	InputComponent,
-	KeysPipe,
-	LanguageSelectorComponent,
-	LocalizedDatePipe,
-	MaterialModule,
-	MissingDataComponent,
-	NavItemComponent,
-	OverlaySpinnerComponent,
-	ReactiveFormsModule,
-	SearchComponent,
-	ShellComponent,
-	SidebarComponent,
-	TextAreaComponent,
-	ToolbarComponent,
-	TranslateModule,
-	ValidationErrorsComponent,
-	WeatherCardComponent,
-];
-
-export const moduleProviders: Provider[] = [];
-
 @NgModule({
-	declarations: moduleDeclarations,
-	imports: moduleImports,
-	exports: moduleExports,
-	providers: moduleProviders,
+	declarations: sharedModuleDeclarations,
+	imports: sharedModuleImports,
+	exports: [
+		BasicWeatherComponent,
+		CasePipe,
+		CommonModule,
+		DayTimeWeatherComponent,
+		ErrorPageComponent,
+		FavouriteComponent,
+		FullScreenSpinnerComponent,
+		FooterComponent,
+		FormsModule,
+		HttpClientModule,
+		InputComponent,
+		KeysPipe,
+		LanguageSelectorComponent,
+		LocalizedDatePipe,
+		MaterialModule,
+		MissingDataComponent,
+		NavItemComponent,
+		OverlaySpinnerComponent,
+		ReactiveFormsModule,
+		SearchComponent,
+		ShellComponent,
+		SidebarComponent,
+		TextAreaComponent,
+		ToolbarComponent,
+		TranslateModule,
+		ValidationErrorsComponent,
+		WeatherCardComponent,
+	],
+	providers: [],
 })
 export class SharedModule {}

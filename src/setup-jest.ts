@@ -11,7 +11,7 @@ import { ConfigureFirebase } from './app/app.module';
 import { CoreModule } from './app/core/core.module';
 import { ErrorHandlersModule } from './app/error-handlers/error-handlers.module';
 import { InterceptorsModule } from './app/interceptors/interceptors.module';
-import { moduleDeclarations, moduleImports } from './app/shared/shared.module';
+import { sharedModuleDeclarations, sharedModuleImports } from './app/shared/shared.module';
 
 const ENGLISH_LANGUAGE = 'en';
 const ENGLISH_TRANSLATIONS = {
@@ -35,7 +35,7 @@ const TRANSLATIONS = {
 };
 
 defineGlobalsInjections({
-	declarations: moduleDeclarations,
+	declarations: sharedModuleDeclarations,
 	imports: [
 		ConfigureFirebase,
 		CoreModule,
@@ -43,7 +43,7 @@ defineGlobalsInjections({
 		InterceptorsModule,
 		RouterTestingModule,
 		TranslateTestingModule.withTranslations(TRANSLATIONS),
-		...moduleImports,
+		...sharedModuleImports,
 	],
 	providers: [],
 });
