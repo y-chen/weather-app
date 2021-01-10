@@ -10,7 +10,6 @@ import { ComponentService } from '@wa/app/core/services/component/component.serv
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { ElasticEmailService } from '@wa/app/core/services/elastic-email/elastic-email.service';
 import { EmailComposerService } from '@wa/app/core/services/email-composer/email-composer.service';
-import { EventService } from '@wa/app/core/services/event/event.service';
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { IComponent } from '@wa/app/models/component.model';
