@@ -82,4 +82,22 @@ body {
 		background-color: var(--accent-color);
 		color: #fff;
 	}
+
+	snack-bar-container {
+		&.snack-bar-success {
+			background-color: var(--primary-color);
+		}
+
+		&.snack-bar-error {
+			background-color: var(--warn-color);
+		}
+
+		button {
+			color: #fff !important;
+
+			&:hover {
+				background-color: var(--accent-color) !important;
+			}
+		}
+	}
 }
