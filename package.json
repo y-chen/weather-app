@@ -18,7 +18,7 @@
 		"test": "jest --config ./jest.config.json --no-cache",
 		"coverage": "rimraf ./.coverage && jest --config ./jest.config.json --no-cache --coverage",
 		"coverage:web": "npm run coverage && http-server ./.coverage/lcov-report -o",
-		"deploy:dev": "firebase use default && ng build --aot && firebase deploy",
+		"deploy:staging": "firebase use default && ng build --aot && firebase deploy",
 		"deploy:prod": "firebase use prod && ng build --prod && firebase deploy",
 		"lint": "npm run eslint",
 		"eslint": "eslint \"src/**/*.{ts, js, json, html, scss}\"",

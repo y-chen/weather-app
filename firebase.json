@@ -12,6 +12,16 @@
 				"source": "/app/home",
 				"destination": "/",
 				"type": 308
+			},
+			{
+				"source": "/app/forecast",
+				"destination": "/",
+				"type": 308
+			},
+			{
+				"source": "/app/about-me",
+				"destination": "/",
+				"type": 308
 			}
 		]
 	}
