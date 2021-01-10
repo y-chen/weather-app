@@ -20,7 +20,6 @@
 		"coverage:web": "npm run coverage && http-server ./.coverage/lcov-report -o",
 		"deploy:staging": "firebase use default && ng build --aot && firebase deploy",
 		"deploy:prod": "firebase use prod && ng build --prod && firebase deploy",
-		"lint": "npm run eslint",
 		"eslint": "eslint \"src/**/*.{ts, js, json, html, scss}\"",
 		"eslint:fix": "npm run eslint --fix",
 		"prettier": "prettier \"**/*.{ts, js, json, html, scss}\"",

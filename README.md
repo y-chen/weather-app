@@ -1,23 +1,54 @@
-# WeatherApp
+# Wheather App with angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.2.
+This is test Weather app developed using Angular using third parties web api.
 
-## Development server
+## Get started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Clone the repo
 
-## Code scaffolding
+```shell
+git clone https://github.com/y-chen/weather-app
+cd weather-app
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Install npm packages
 
-## Build
+Install the `npm` packages described in the `package.json` and verify that it works:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `.dist/` directory. Use the `--prod` flag for a production build.
+```shell
+npm install
+npm start
+```
 
-## Running unit tests
+The `npm start` command builds (compiles TypeScript and copies assets) the application into `dist/`, watches for changes to the source files, and runs `lite-server` on port `3000`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Shut it down manually with `Ctrl-C`.
 
-## Further help
+#### npm scripts
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+These are the most useful commands defined in `package.json`:
+
+* `npm start` - runs the TypeScript compiler, asset copier, and a server at the same time, all three in "watch mode".
+* `npm run build` - runs the TypeScript compiler and asset copier once.
+* `npm run eslint:fix` - runs `eslint` on the project files and fixes problems when possibile.
+* `npm run prettier:write` - runs `prettier` on the project files and formats them.
+
+These are the test-related scripts:
+
+* `npm test` - Runs tests.
+* `npm run coverage` - Runs tests and shows code coverage info.
+* `npm run coverage` - Runs tests and `http-server` from coverage folder to show info from generated web site.
+
+#### Environments
+
+There are two environments (staging and production), both hosted on `Firebase` at these addresses:
+
+* [Staging](https://ng-weather-app-staging.web.app)
+* [Production](https://ng-weather-app-prod.web.app)
+
+A new deploy in **staging** has been done every time a push in `master` happens.
+
+These are the environments-related scripts:
+
+* `npm run deploy:staging` - Deploys in **staging**.
+* `npm run deploy:prod` - Deploys in **production**
