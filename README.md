@@ -37,7 +37,7 @@ These are the test-related scripts:
 
 * `npm test` - Runs tests.
 * `npm run coverage` - Runs tests and shows code coverage info.
-* `npm run coverage` - Runs tests and `http-server` from coverage folder to show info from generated web site.
+* `npm run coverage:web` - Runs tests and `http-server` from coverage folder to show info from generated web site.
 
 #### Environments
 
