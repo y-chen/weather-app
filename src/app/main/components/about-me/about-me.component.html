@@ -45,12 +45,15 @@
 			</div>
 
 			<div class="form-column">
-				<mat-form-field appearance="fill">
-					<mat-label translate>{{ getLocalizationPath('contactMe.message') | translate }}</mat-label>
-					<textarea matInput cdkTextareaAutosize formControlName="message" cdkAutosizeMinRows="10" cdkAutosizeMaxRows="20" required>
-					</textarea>
-				</mat-form-field>
-				<wa-validation-errors [control]="contactMeForm.get('message')" [errors]="validationErrors.message"></wa-validation-errors>
+				<wa-text-area
+					[control]="contactMeForm.get('message')"
+					label="{{ getLocalizationPath('contactMe.message') | translate }}"
+					minRows="5"
+					maxRows="15"
+					required
+				>
+					<wa-validation-errors [control]="contactMeForm.get('message')" [errors]="validationErrors.message"></wa-validation-errors>
+				</wa-text-area>
 			</div>
 		</form>
 	</mat-card-content>

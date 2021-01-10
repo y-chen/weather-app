@@ -21,6 +21,7 @@ import { ShellComponent } from './components/shell/shell.component';
 import { NavItemComponent } from './components/shell/sidebar/nav-item/nav-item.component';
 import { SidebarComponent } from './components/shell/sidebar/sidebar.component';
 import { ToolbarComponent } from './components/shell/toolbar/toolbar.component';
+import { TextAreaComponent } from './components/text-area/text-area.component';
 import { ValidationErrorsComponent } from './components/validation-errors/validation-errors.component';
 import { WeatherCardComponent } from './components/weather-card/weather-card.component';
 import { MaterialModule } from './material/material.module';
@@ -47,6 +48,7 @@ export const moduleDeclarations = [
 	SettingsMenuComponent,
 	ShellComponent,
 	SidebarComponent,
+	TextAreaComponent,
 	ToolbarComponent,
 	ValidationErrorsComponent,
 	WeatherCardComponent,
@@ -85,6 +87,7 @@ export const moduleExports = [
 	SearchComponent,
 	ShellComponent,
 	SidebarComponent,
+	TextAreaComponent,
 	ToolbarComponent,
 	TranslateModule,
 	ValidationErrorsComponent,

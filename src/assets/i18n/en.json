@@ -70,6 +70,10 @@
 			"add": "Add",
 			"remove": "Remove"
 		},
+		"input": {
+			"hidePassword": "Hide password",
+			"showPassword": "Show password"
+		},
 		"search": {
 			"currentLocation": "Current location",
 			"placeholder": "Search by city name"

@@ -72,6 +72,10 @@
 			"add": "Aggiungi",
 			"remove": "Rimuovi"
 		},
+		"input": {
+			"hidePassword": "Nascondi password",
+			"showPassword": "Mostra password"
+		},
 		"search": {
 			"currentLocation": "Posizione corrente",
 			"placeholder": "Cerca per nome città"

@@ -8,9 +8,7 @@ import { InputComponent } from './input.component';
 describe('InputComponent', () => {
 	let host: SpectatorHost<InputComponent>;
 
-	const createHost = createHostFactory({
-		component: InputComponent,
-	});
+	const createHost = createHostFactory(InputComponent);
 
 	it('should create', () => {
 		host = createHost('<wa-input></wa-input>', {

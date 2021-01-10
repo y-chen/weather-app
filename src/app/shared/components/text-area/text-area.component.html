@@ -1,0 +1,17 @@
+<mat-form-field appearance="fill">
+	<mat-label>{{ label }}</mat-label>
+
+	<textarea
+		matInput
+		cdkTextareaAutosize
+		[formControl]="control"
+		[cdkAutosizeMinRows]="minRows"
+		[cdkAutosizeMaxRows]="maxRows"
+		[required]="required"
+	>
+	</textarea>
+
+	<mat-error>
+		<ng-content></ng-content>
+	</mat-error>
+</mat-form-field>
