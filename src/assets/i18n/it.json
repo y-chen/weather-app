@@ -1,6 +1,6 @@
 {
 	"app": {
-		"spinnerMessage": "Welcome!"
+		"spinnerMessage": "Caricamento in corso..."
 	},
 	"features": {
 		"main": {
