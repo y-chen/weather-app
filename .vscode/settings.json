@@ -2,5 +2,30 @@
 	"eslint.alwaysShowStatus": true,
 	"triggerTaskOnSave.tasks": {
 		"Run current test file": ["**/*.spec.ts"]
-	}
+	},
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"importSorter.generalConfiguration.sortOnBeforeSave": true,
+	"importSorter.sortConfiguration.customOrderingRules.rules": [
+		{
+			"type": "importMember",
+			"regex": "^$",
+			"orderLevel": 5,
+			"disableSort": true
+		},
+		{
+			"regex": "^[^.@]",
+			"orderLevel": 10
+		},
+		{
+			"regex": "^[@]",
+			"orderLevel": 15
+		},
+		{
+			"regex": "^[.]",
+			"orderLevel": 30
+		}
+	],
+	"importSorter.importStringConfiguration.tabType": "tab",
+	"importSorter.importStringConfiguration.tabSize": 1,
+	"importSorter.importStringConfiguration.maximumNumberOfImportExpressionsPerLine.count": 135
 }
