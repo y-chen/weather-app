@@ -56,6 +56,10 @@
 				"firstLineMessage": "page",
 				"secondLineMessage": "not found"
 			},
+			"429": {
+				"firstLineMessage": "too many requests",
+				"secondLineMessage": "take a break"
+			},
 			"500": {
 				"firstLineMessage": "something",
 				"secondLineMessage": "went wrong"

@@ -37,6 +37,7 @@ export class ErrorPageComponent implements OnInit {
 		switch (this.errorCode) {
 			case '400':
 			case '404':
+			case '429':
 			case '500':
 				break;
 			default:

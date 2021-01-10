@@ -57,6 +57,10 @@
 				"firstLineMessage": "pagina",
 				"secondLineMessage": "non trovata"
 			},
+			"429": {
+				"firstLineMessage": "troppe richieste",
+				"secondLineMessage": "fai una pausa"
+			},
 			"500": {
 				"errorCode": "500",
 				"firstLineMessage": "qualcosa",
