@@ -1,4 +1,4 @@
-# Wheather App with angular
+# Weather App with Angular
 
 This is test Weather app developed using Angular using third parties web api.
 
