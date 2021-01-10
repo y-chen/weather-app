@@ -63,7 +63,7 @@ export class ForecastComponent implements IComponent, OnInit {
 
 	private refreshTranslations(): void {
 		const refreshViewData: () => Promise<void> = async (): Promise<void> => {
-			if (this.forecast.coord) {
+			if (this.forecast?.coord) {
 				this.forecast = await this.openWeatherService.getForecastByCoord({
 					coord: this.forecast.coord,
 				});
