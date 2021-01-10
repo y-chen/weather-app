@@ -68,8 +68,8 @@
 			},
 			"button": "torna alla home",
 			"unknown": {
-				"firstLineMessage": "sconosciuto",
-				"secondLineMessage": "perfetto..."
+				"firstLineMessage": "cos'è successo???",
+				"secondLineMessage": "boh..."
 			}
 		},
 		"favourite": {

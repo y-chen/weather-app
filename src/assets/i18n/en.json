@@ -66,8 +66,8 @@
 			},
 			"button": "go back to home",
 			"unknown": {
-				"firstLineMessage": "error",
-				"secondLineMessage": "perfect..."
+				"firstLineMessage": "what happened???",
+				"secondLineMessage": "boh..."
 			}
 		},
 		"favourite": {

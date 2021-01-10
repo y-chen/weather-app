@@ -10,10 +10,10 @@
 		<div class="cloud x5"></div>
 	</div>
 	<div class="c">
-		<div class="_CODE">{{ this.errorCode | translate | case: case }}</div>
+		<div class="_CODE">{{ this.errorCode | translate | case: 'upper' }}</div>
 		<hr />
-		<div class="error-message _1">{{ firstLineMessagePath | translate | case: case }}</div>
-		<div class="error-message _2">{{ secondLineMessagePath | translate | case: case }}</div>
-		<a [routerLink]="['/app', 'home']" class="btn">{{ 'shared.errorPage.button' | translate | case: case }}</a>
+		<div class="error-message _1">{{ firstLineMessagePath | translate | case: 'upper' }}</div>
+		<div class="error-message _2">{{ secondLineMessagePath | translate | case: 'upper' }}</div>
+		<a [routerLink]="['/app', 'home']" class="btn">{{ 'shared.errorPage.button' | translate | case: 'upper' }}</a>
 	</div>
 </div>

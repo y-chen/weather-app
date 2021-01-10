@@ -10,8 +10,6 @@ import { ComponentService } from '@wa/app/core/services/component/component.serv
 	providers: [ComponentService],
 })
 export class ErrorPageComponent implements OnInit {
-	case = 'upper';
-
 	errorCode: string;
 	firstLineMessage: string;
 	secondLineMessage: string;
