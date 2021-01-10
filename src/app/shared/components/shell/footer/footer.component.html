@@ -1,6 +1,6 @@
 <footer>
 	<span>{{ appInfo }} -</span>
-	<a href="mailto:{{ author.email }}">
+	<a [routerLink]="['/app', 'about-me']">
 		{{ author.name }}
 	</a>
 </footer>
