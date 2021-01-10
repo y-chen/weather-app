@@ -1,10 +1,15 @@
 {
 	"name": "weather-app",
-	"version": "0.0.0",
+	"version": "1.0.0",
+	"homepage": "https://github.com/y-chen/weather-app#readme",
 	"license": "MIT",
 	"author": {
 		"name": "Yiyi Chen",
 		"email": "chen.yiyi@hotmail.it"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/y-chen/weather-app"
 	},
 	"scripts": {
 		"ng": "ng",
