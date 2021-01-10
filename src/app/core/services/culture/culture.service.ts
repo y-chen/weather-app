@@ -31,6 +31,10 @@ export class CultureService {
 		}
 	}
 
+	async getTranslation(localizationPath, data?: { [key: string]: any }): Promise<string> {
+		return (await this.translate.get(localizationPath, data).toPromise()) as string;
+	}
+
 	onLangChange(callback: () => Promise<void>): Subscription {
 		return this.translate.onLangChange.subscribe(async () => await callback());
 	}

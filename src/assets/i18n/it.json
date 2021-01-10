@@ -5,6 +5,25 @@
 	"features": {
 		"main": {
 			"aboutMe": {
+				"contactMe": {
+					"cancel": "Cancella",
+					"email": "Email",
+					"emailSentNotification": "Email inviata con successo!",
+					"errors": {
+						"email": {
+							"email": "L'email fornita non è valida"
+						},
+						"message": {
+							"required": "Il messaggio è obbligatorio"
+						}
+					},
+					"message": "Messaggio",
+					"name": "Nome",
+					"send": "Invia",
+					"subject": "Soggetto",
+					"subtitle": "Per favore, fornisci un indirizzo email se vuoi essere ricontattato",
+					"title": "Contattami"
+				},
 				"title": "Su di me"
 			},
 			"forecast": {
@@ -71,9 +90,9 @@
 				"close": "Chiudi",
 				"current": "(corrente)",
 				"navItems": {
+					"aboutMe": "Su di me",
 					"forecast": "Previsioni",
-					"home": "Home",
-					"aboutMe": "Su di me"
+					"home": "Home"
 				},
 				"open": "Apri"
 			},

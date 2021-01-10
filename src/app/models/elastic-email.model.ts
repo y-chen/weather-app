@@ -1,12 +1,5 @@
-/* eslint-disable no-shadow */
-
-export interface SendEmailBody {
-	bodyType: EmailBody;
+export interface SendEmailParams {
+	bodyType: 'bodyText' | 'bodyHtml';
 	subject: string;
 	message: string;
-}
-
-export enum EmailBody {
-	text = 'bodyText',
-	html = 'bodyHtml',
 }

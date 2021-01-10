@@ -2,7 +2,7 @@
 	<mat-card-header>
 		<mat-card-title translate>{{ getLocalizationPath('title') }} </mat-card-title>
 	</mat-card-header>
-	<mat-card-content>
+	<mat-card-content class="about-me">
 		<div class="summary">
 			<img [src]="profile.pictureUrl" />
 
@@ -18,4 +18,50 @@
 			</ng-container>
 		</div>
 	</mat-card-content>
+</mat-card>
+
+<mat-card>
+	<mat-card-header>
+		<mat-card-title translate>{{ getLocalizationPath('contactMe.title') }} </mat-card-title>
+		<mat-card-subtitle translate>{{ getLocalizationPath('contactMe.subtitle') }} </mat-card-subtitle>
+	</mat-card-header>
+
+	<mat-card-content class="contact-me form">
+		<form *ngIf="contactMeForm" [formGroup]="contactMeForm">
+			<div class="form-row">
+				<wa-input type="text" label="{{ getLocalizationPath('contactMe.name') | translate }}" [control]="contactMeForm.get('name')">
+				</wa-input>
+
+				<wa-input type="email" label="{{ getLocalizationPath('contactMe.email') | translate }}" [control]="contactMeForm.get('email')">
+					<wa-validation-errors [control]="contactMeForm.get('email')" [errors]="validationErrors.email"></wa-validation-errors>
+				</wa-input>
+
+				<wa-input
+					type="subject"
+					label="{{ getLocalizationPath('contactMe.subject') | translate }}"
+					[control]="contactMeForm.get('subject')"
+				>
+				</wa-input>
+			</div>
+
+			<div class="form-column">
+				<mat-form-field appearance="fill">
+					<mat-label translate>{{ getLocalizationPath('contactMe.message') | translate }}</mat-label>
+					<textarea matInput cdkTextareaAutosize formControlName="message" cdkAutosizeMinRows="10" cdkAutosizeMaxRows="20" required>
+					</textarea>
+				</mat-form-field>
+				<wa-validation-errors [control]="contactMeForm.get('message')" [errors]="validationErrors.message"></wa-validation-errors>
+			</div>
+		</form>
+	</mat-card-content>
+
+	<mat-card-actions>
+		<button type="button" id="cancel" mat-raised-button [disabled]="contactMeForm?.pristine" (click)="onCancelClick()">
+			{{ getLocalizationPath('contactMe.cancel') | translate }}
+		</button>
+
+		<button type="button" mat-raised-button color="accent" [disabled]="contactMeForm?.invalid" (click)="onSendClick()">
+			{{ getLocalizationPath('contactMe.send') | translate }}
+		</button>
+	</mat-card-actions>
 </mat-card>

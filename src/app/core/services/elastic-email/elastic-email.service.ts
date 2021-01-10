@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 import { Injectable } from '@angular/core';
-import { SendEmailBody } from '@wa/app/models/elastic-email.model';
+import { SendEmailParams } from '@wa/app/models/elastic-email.model';
 import { Param } from '@wa/app/models/http.model';
 
 import { ApiService } from '../api/api.service';
@@ -24,24 +24,24 @@ export class ElasticEmailService {
 		this.TO = to;
 	}
 
-	async sendEmail(email: SendEmailBody): Promise<void> {
+	async sendEmail(emailParams: SendEmailParams): Promise<void> {
 		const url = this.buildUrl('email/send');
+		const { subject, bodyType, message } = emailParams;
 
-		const { subject, bodyType, message } = email;
 		let params: Param[] = [
 			{ key: 'subject', value: subject },
 			{ key: bodyType, value: message },
 		];
-		params = this.appendParams();
+		params = this.appendParams(params);
 
-		await this.api.post<void>(url, email, { params });
+		await this.api.post<void>(url, null, { params });
 	}
 
 	private appendParams(params: Param[] = []): Param[] {
 		return params.concat([
 			{ key: 'apiKey', value: this.API_KEY },
 			{ key: 'from', value: this.FROM },
-			{ key: 'fromName', value: this.TO },
+			{ key: 'fromName', value: this.FROM_NAME },
 			{ key: 'to', value: this.TO },
 		]);
 	}

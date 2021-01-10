@@ -5,6 +5,25 @@
 	"features": {
 		"main": {
 			"aboutMe": {
+				"contactMe": {
+					"cancel": "Cancel",
+					"email": "Email",
+					"emailSentNotification": "Email successfully sent!",
+					"errors": {
+						"email": {
+							"email": "Provided email is not valid"
+						},
+						"message": {
+							"required": "A message is required"
+						}
+					},
+					"message": "Message",
+					"name": "Name",
+					"send": "Send",
+					"subject": "Subject",
+					"subtitle": "Please, Provide an email if you want me to contact you back",
+					"title": "Contact me"
+				},
 				"title": "About me"
 			},
 			"forecast": {
@@ -69,9 +88,9 @@
 				"close": "Close",
 				"current": "(current)",
 				"navItems": {
+					"aboutMe": "About me",
 					"forecast": "Forecast",
-					"home": "Home",
-					"aboutMe": "About me"
+					"home": "Home"
 				},
 				"open": "Open"
 			},

@@ -2,7 +2,10 @@
 @import 'mixins';
 
 :host {
-	mat-card-content {
+	@include flex-box(column);
+	gap: 10px;
+
+	mat-card-content.about-me {
 		@include flex-box(column);
 		gap: 5px;
 
@@ -28,5 +31,9 @@
 		> .links {
 			@include flex-box(row, center, center);
 		}
+	}
+
+	mat-card-actions {
+		display: flex;
 	}
 }
