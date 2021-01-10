@@ -18,11 +18,11 @@ describe('OverlaySpinnerComponent', () => {
 	});
 
 	it('should create', () => {
-		host = createHost('<cvm-overlay-spinner></cvm-overlay-spinner>', {
+		host = createHost('<wa-overlay-spinner></wa-overlay-spinner>', {
 			providers: [configProvider],
 		});
 
-		const overlay = host.queryHost('cvm-overlay-spinner');
+		const overlay = host.queryHost('wa-overlay-spinner');
 
 		expect(host).toExist();
 		expect(overlay).toExist();

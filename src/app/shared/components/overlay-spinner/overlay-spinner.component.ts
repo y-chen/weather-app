@@ -6,7 +6,7 @@ import { LoaderService } from '@wa/app/interceptors/services/loader/loader.servi
 import { LoadingInfo } from '@wa/app/models/loading-info.model';
 
 @Component({
-	selector: 'cvm-overlay-spinner',
+	selector: 'wa-overlay-spinner',
 	templateUrl: './overlay-spinner.component.html',
 	styleUrls: ['./overlay-spinner.component.scss'],
 })
