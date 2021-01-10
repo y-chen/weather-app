@@ -6,7 +6,7 @@ import { stringify } from 'flatted';
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 import { Header } from '@wa/app/models/http.model';
 
@@ -20,7 +20,7 @@ describe('ErrorService', () => {
 	let testData: TestData;
 
 	beforeEach(() => {
-		const { configServiceProvider } = new MasterMock().mockConfig().mockSettings();
+		const { configServiceProvider } = new MockMaster().mockConfig().mockSettings();
 
 		spectator = createService({
 			providers: [configServiceProvider],

@@ -7,7 +7,7 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
@@ -48,7 +48,7 @@ describe('SettingsMenuComponent', () => {
 			cultureServiceProvider,
 			eventServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock()
+		} = new MockMaster()
 			.fixOnSettingsChange()
 			.mockConfig()
 			.mockCultures()

@@ -4,7 +4,7 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 
 import { ForecastComponent } from './forecast.component';
@@ -20,7 +20,7 @@ describe('ForecastComponent', () => {
 	const createHost = createHostFactory(ForecastComponent);
 
 	beforeEach(() => {
-		const { componentServiceMock, componentServiceProvider, configServiceProvider } = new MasterMock().mockConfig();
+		const { componentServiceMock, componentServiceProvider, configServiceProvider } = new MockMaster().mockConfig();
 
 		componentMock = componentServiceMock;
 

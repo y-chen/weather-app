@@ -2,7 +2,7 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { StorageKeys } from '@wa/app/common/constants';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { Units } from '@wa/app/models/open-weather.model';
 
 import { LocalStorageService } from '../local-storage/local-storage.service';
@@ -16,7 +16,7 @@ describe('SettingsService', () => {
 	const createService = createServiceFactory(SettingsService);
 
 	beforeEach(() => {
-		const { localStorageServiceMock, configServiceProvider, localStorageServiceProvider } = new MasterMock().mockConfig();
+		const { localStorageServiceMock, configServiceProvider, localStorageServiceProvider } = new MockMaster().mockConfig();
 
 		localStorageMock = localStorageServiceMock;
 

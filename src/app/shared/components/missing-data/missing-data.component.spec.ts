@@ -1,6 +1,6 @@
 import { Provider } from '@angular/core';
 import { byText, createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 
 import { MissingDataComponent } from './missing-data.component';
 
@@ -12,7 +12,7 @@ describe('MissingDataComponent', () => {
 	const createHost = createHostFactory(MissingDataComponent);
 
 	beforeEach(() => {
-		const { configServiceProvider } = new MasterMock().mockConfig();
+		const { configServiceProvider } = new MockMaster().mockConfig();
 
 		configProvider = configServiceProvider;
 	});

@@ -25,7 +25,7 @@ import { SlackService } from '../core/services/slack/slack.service';
 import { Units } from '../models/open-weather.model';
 import { getTestData, TestData } from './test-data';
 
-export class MasterMock {
+export class MockMaster {
 	angularFirestoreMock: MockProxy<AngularFirestore>;
 	httpClientMock: MockProxy<HttpClient>;
 	routerServiceMock: MockProxy<Router>;
@@ -116,7 +116,7 @@ export class MasterMock {
 		this.testData = getTestData();
 	}
 
-	fixOnSettingsChange(): MasterMock {
+	fixOnSettingsChange(): MockMaster {
 		Object.defineProperty(this.eventServiceMock, 'onSettingsChange', {
 			get: jest.fn(() => new EventEmitter()),
 		});
@@ -124,7 +124,7 @@ export class MasterMock {
 		return this;
 	}
 
-	fixRouter(): MasterMock {
+	fixRouter(): MockMaster {
 		const routerProps = ['events'];
 		routerProps.forEach((prop) => {
 			Object.defineProperty(this.routerServiceMock, prop, {
@@ -135,31 +135,31 @@ export class MasterMock {
 		return this;
 	}
 
-	mockCultureWithEnglish(): MasterMock {
+	mockCultureWithEnglish(): MockMaster {
 		this.settingsServiceMock.getCulture.mockReturnValue(this.testData.en);
 
 		return this;
 	}
 
-	mockCultureWithItalian(): MasterMock {
+	mockCultureWithItalian(): MockMaster {
 		this.settingsServiceMock.getCulture.mockReturnValue(this.testData.it);
 
 		return this;
 	}
 
-	mockCultures(): MasterMock {
+	mockCultures(): MockMaster {
 		this.cultureServiceMock.getAvailableCultures.mockReturnValue(this.testData.cultures);
 
 		return this;
 	}
 
-	mockConfig(): MasterMock {
+	mockConfig(): MockMaster {
 		Object.defineProperty(this.configServiceMock, 'config', { get: jest.fn(() => this.testData.config) });
 
 		return this;
 	}
 
-	mockHttpClient(): MasterMock {
+	mockHttpClient(): MockMaster {
 		const result: Observable<string> = of('foo.bar');
 
 		this.httpClientMock.get.mockReturnValue(result);
@@ -171,20 +171,20 @@ export class MasterMock {
 		return this;
 	}
 
-	mockSettings(): MasterMock {
+	mockSettings(): MockMaster {
 		this.settingsServiceMock.getCulture.mockReturnValue(this.testData.en);
 		this.settingsServiceMock.getUnit.mockReturnValue(Units.Imperial);
 
 		return this;
 	}
 
-	mockUnitWithMetric(): MasterMock {
+	mockUnitWithMetric(): MockMaster {
 		this.settingsServiceMock.getUnit.mockReturnValue(Units.Metric);
 
 		return this;
 	}
 
-	mockUnitWithImperial(): MasterMock {
+	mockUnitWithImperial(): MockMaster {
 		this.settingsServiceMock.getUnit.mockReturnValue(Units.Imperial);
 
 		return this;

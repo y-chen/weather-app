@@ -4,7 +4,7 @@
 import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 import { RawWeather } from '@wa/app/models/open-weather.model';
 
@@ -31,7 +31,7 @@ describe('OpenWeatherService', () => {
 			configServiceProvider,
 			openWeatherParserServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockHttpClient().mockSettings().mockConfig();
+		} = new MockMaster().mockHttpClient().mockSettings().mockConfig();
 
 		apiMock = apiServiceMock;
 		openWeatherParserMock = openWeatherParserServiceMock;

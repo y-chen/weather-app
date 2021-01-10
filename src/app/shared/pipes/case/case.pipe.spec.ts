@@ -1,5 +1,5 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 
 import { CasePipe } from './case.pipe';
 
@@ -9,7 +9,7 @@ describe('CasePipe', () => {
 	const createService = createServiceFactory(CasePipe);
 
 	beforeEach(() => {
-		const { configServiceProvider } = new MasterMock().mockConfig();
+		const { configServiceProvider } = new MockMaster().mockConfig();
 
 		spectator = createService({
 			providers: [configServiceProvider],

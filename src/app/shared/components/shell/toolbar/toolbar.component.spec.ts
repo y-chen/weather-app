@@ -1,6 +1,6 @@
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 
 import { ToolbarComponent } from './toolbar.component';
 
@@ -18,7 +18,7 @@ describe('ToolbarComponent', () => {
 			componentServiceProvider,
 			configServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockConfig().mockCultureWithEnglish();
+		} = new MockMaster().mockConfig().mockCultureWithEnglish();
 
 		componentProvider = componentServiceProvider;
 		configProvider = configServiceProvider;

@@ -1,7 +1,7 @@
 import { Provider } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { ValidationError } from '@wa/app/models/validation-errors.model';
 
 import { ValidationErrorsComponent } from './validation-errors.component';
@@ -16,7 +16,7 @@ describe('ValidationErrorsComponent', () => {
 	let errorMessages: ValidationError[];
 
 	beforeEach(() => {
-		const { configServiceProvider } = new MasterMock().mockConfig().mockCultureWithEnglish();
+		const { configServiceProvider } = new MockMaster().mockConfig().mockCultureWithEnglish();
 
 		configProvider = configServiceProvider;
 

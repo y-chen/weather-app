@@ -2,7 +2,7 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 
@@ -28,7 +28,7 @@ describe('LanguageSelectorComponent', () => {
 			configServiceProvider,
 			cultureServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockConfig().mockCultures().mockCultureWithEnglish();
+		} = new MockMaster().mockConfig().mockCultures().mockCultureWithEnglish();
 
 		cultureMock = cultureServiceMock;
 		settingsMock = settingsServiceMock;

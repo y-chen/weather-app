@@ -7,7 +7,7 @@ import { ngMocks } from 'ng-mocks';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { SettingsService } from '@wa/app/core/services/settings/settings.service';
@@ -36,7 +36,7 @@ describe('DayTimeWeatherComponent', () => {
 			componentServiceProvider,
 			configServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockConfig().mockSettings();
+		} = new MockMaster().mockConfig().mockSettings();
 
 		componentMock = componentServiceMock;
 		settingsMock = settingsServiceMock;

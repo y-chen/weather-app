@@ -7,7 +7,7 @@ import { ngMocks } from 'ng-mocks';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { ConfigService } from '@wa/app/core/services/config/config.service';
@@ -30,7 +30,7 @@ describe('HomeComponent', () => {
 	let testData: TestData;
 
 	beforeEach(() => {
-		const { componentServiceMock, configServiceMock, componentServiceProvider, configServiceProvider } = new MasterMock().mockConfig();
+		const { componentServiceMock, configServiceMock, componentServiceProvider, configServiceProvider } = new MockMaster().mockConfig();
 
 		componentMock = componentServiceMock;
 		configMock = configServiceMock;

@@ -1,6 +1,6 @@
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 
 import { BasicWeatherComponent } from './basic-weather.component';
@@ -15,7 +15,7 @@ describe('BasicWeatherComponent', () => {
 	let testData: TestData;
 
 	beforeEach(() => {
-		const { configServiceProvider } = new MasterMock().mockConfig();
+		const { configServiceProvider } = new MockMaster().mockConfig();
 
 		configProvider = configServiceProvider;
 

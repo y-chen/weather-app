@@ -4,7 +4,7 @@
 import { anyObject, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 import { Param } from '@wa/app/models/http.model';
 
@@ -27,7 +27,7 @@ describe('HereService', () => {
 			apiServiceProvider,
 			configServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockConfig().mockSettings();
+		} = new MockMaster().mockConfig().mockSettings();
 
 		apiMock = apiServiceMock;
 

@@ -6,7 +6,7 @@ import { ngMocks } from 'ng-mocks';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { NavItem } from '@wa/app/models/navigation.model';
 
@@ -26,7 +26,7 @@ describe('SidebarComponent', () => {
 	let navItems: NavItem[];
 
 	beforeEach(() => {
-		const { componentServiceMock, componentServiceProvider, configServiceProvider } = new MasterMock().mockConfig();
+		const { componentServiceMock, componentServiceProvider, configServiceProvider } = new MockMaster().mockConfig();
 
 		componentMock = componentServiceMock;
 

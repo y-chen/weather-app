@@ -4,7 +4,7 @@ import { anyObject, MockProxy, mockReset } from 'jest-mock-extended';
 
 import { HttpClient } from '@angular/common/http';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 
 import { ApiService } from './api.service';
@@ -24,7 +24,7 @@ describe('ApiService', () => {
 			configServiceProvider,
 			httpClientProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockConfig().mockSettings().mockHttpClient();
+		} = new MockMaster().mockConfig().mockSettings().mockHttpClient();
 
 		httpMock = httpClientMock;
 

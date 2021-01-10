@@ -1,7 +1,7 @@
 import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
 
 import { OpenWeatherService } from '../../services/open-weather/open-weather.service';
@@ -16,7 +16,7 @@ describe('ForecastResolver', () => {
 	let testData: TestData;
 
 	beforeEach(() => {
-		const { openWeatherServiceMock, configServiceProvider, openWeatherServiceProvider } = new MasterMock().mockConfig();
+		const { openWeatherServiceMock, configServiceProvider, openWeatherServiceProvider } = new MockMaster().mockConfig();
 
 		openWeatherMock = openWeatherServiceMock;
 

@@ -5,7 +5,7 @@ import { ngMocks } from 'ng-mocks';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 import { Weather } from '@wa/app/models/open-weather-parser.model';
 
@@ -33,7 +33,7 @@ describe('WeatherCardComponent', () => {
 			componentServiceProvider,
 			configServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockConfig().mockCultureWithEnglish();
+		} = new MockMaster().mockConfig().mockCultureWithEnglish();
 
 		componentMock = componentServiceMock;
 

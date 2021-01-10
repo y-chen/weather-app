@@ -6,7 +6,7 @@ import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
 
 import { AppComponent } from './app.component';
-import { MasterMock } from './common/master-mock';
+import { MockMaster } from './common/mock-master';
 import { CultureService } from './core/services/culture/culture.service';
 
 describe('AppComponent', () => {
@@ -20,7 +20,7 @@ describe('AppComponent', () => {
 	const createHost = createHostFactory(AppComponent);
 
 	beforeEach(() => {
-		const { cultureServiceMock, configServiceProvider, cultureServiceProvider } = new MasterMock().mockConfig();
+		const { cultureServiceMock, configServiceProvider, cultureServiceProvider } = new MockMaster().mockConfig();
 
 		cultureMock = cultureServiceMock;
 

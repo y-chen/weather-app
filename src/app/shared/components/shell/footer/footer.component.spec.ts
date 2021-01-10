@@ -1,6 +1,6 @@
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 
 import { FooterComponent } from './footer.component';
 
@@ -12,7 +12,7 @@ describe('FooterComponent', () => {
 	const createHost = createHostFactory(FooterComponent);
 
 	beforeEach(() => {
-		const { configServiceProvider } = new MasterMock().mockConfig();
+		const { configServiceProvider } = new MockMaster().mockConfig();
 
 		configProvider = configServiceProvider;
 	});

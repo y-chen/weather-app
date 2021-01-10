@@ -1,5 +1,5 @@
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 
 import { HttpLoggerInterceptor } from './http-logger.interceptor';
 
@@ -9,7 +9,7 @@ describe('RequestsInterceptor', () => {
 	const createService = createServiceFactory(HttpLoggerInterceptor);
 
 	beforeEach(() => {
-		const { configServiceProvider } = new MasterMock().mockConfig();
+		const { configServiceProvider } = new MockMaster().mockConfig();
 
 		spectator = createService({
 			providers: [configServiceProvider],

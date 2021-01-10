@@ -4,7 +4,7 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 
 import { Provider } from '@angular/core';
 import { createHostFactory, SpectatorHost } from '@ngneat/spectator';
-import { MasterMock } from '@wa/app/common/master-mock';
+import { MockMaster } from '@wa/app/common/mock-master';
 import { ComponentService } from '@wa/app/core/services/component/component.service';
 
 import { ShellComponent } from './shell.component';
@@ -27,7 +27,7 @@ describe('ShellComponent', () => {
 			componentServiceProvider,
 			configServiceProvider,
 			settingsServiceProvider,
-		} = new MasterMock().mockConfig().mockCultures().mockCultureWithEnglish();
+		} = new MockMaster().mockConfig().mockCultures().mockCultureWithEnglish();
 
 		componentMock = componentServiceMock;
 
