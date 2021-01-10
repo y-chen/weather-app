@@ -35,5 +35,13 @@
 
 	mat-card-actions {
 		display: flex;
+
+		#cancel:not(.mat-button-disabled) {
+			color: #999;
+		}
+
+		> button:not(.mat-button-disabled) {
+			color: #fff;
+		}
 	}
 }
