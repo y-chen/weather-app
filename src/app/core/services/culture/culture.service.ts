@@ -28,8 +28,8 @@ export class CultureService {
 		const storedCulture: Culture = this.settingsService.getCulture();
 
 		if (storedCulture !== culture) {
-			this.translate.use(culture.language);
 			this.settingsService.setCulture(culture);
+			this.translate.use(culture.language);
 		}
 	}
 
