@@ -25,6 +25,6 @@ export const environment: Environment = {
 		channel: 'ng-weather-app-log-prod',
 	},
 	configId: 'UDIkbegpZbMusG3m7TyO',
-	profileId: 'VEo3yNzpFO1zCxPXtM5d',
+	profileId: 'ngSD10zzleo08NcUJzcy',
 	key: 'hcVf4ewTeW@5Qf&x',
 };
