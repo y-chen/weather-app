@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/naming-convention */
 
+import { AES, enc } from 'crypto-js';
 import { stringify } from 'flatted';
 import moment from 'moment';
 
@@ -19,9 +20,9 @@ export class SlackService {
 	constructor(private readonly api: ApiService) {
 		// I have to temporary read SlackService's config from Angular environment files
 		// because the service constructor runs before ConfingService.loadConfig() finishes
-		// but HereService and OpenWeatherMapService behave as expected
-		const { hookUrl, channel } = environment.slack;
-		this.HOOK_URL = hookUrl;
+		// but HereService and OpenWeatherMapService behave as expected.
+		const { hookUrlEncrypted, channel } = environment.slack;
+		this.HOOK_URL = AES.decrypt(hookUrlEncrypted, environment.key).toString(enc.Utf8);
 		this.CHANNEL = channel;
 	}
 

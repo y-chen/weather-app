@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 import { Environment } from '@wa/app/models/environment.model';
@@ -19,9 +20,11 @@ export const environment: Environment = {
 		measurementId: 'G-E1YBDPZ9ZV',
 	},
 	slack: {
-		hookUrl: 'https://hooks.slack.com/services/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',
+		hookUrlEncrypted:
+			'U2FsdGVkX19Rp+qtB4nEnxVhfEmpgzfVXR/uSAl8S8OQP7TljBVCUNq2WBRxb41AswPTjxKue+b5r7fM72J6BVQKDu1cMLF2qtsbWzlCCXLhztlnz30+r5V3Ur2kumuM7a9QAYXfgpk++R7tvD4tjA==',
 		channel: 'ng-weather-app-log-prod',
 	},
 	configId: 'UDIkbegpZbMusG3m7TyO',
 	profileId: 'VEo3yNzpFO1zCxPXtM5d',
+	key: 'hcVf4ewTeW@5Qf&x',
 };

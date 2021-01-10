@@ -7,6 +7,7 @@ export interface Environment {
 	slack: SlackConfig;
 	configId: string;
 	profileId: string;
+	key: string;
 }
 
 export interface Author {
@@ -25,6 +26,6 @@ export interface FirebaseConfig {
 }
 
 export interface SlackConfig {
-	hookUrl: string;
+	hookUrlEncrypted: string;
 	channel: string;
 }
