@@ -4,7 +4,10 @@
 	</mat-card-header>
 	<mat-card-content class="about-me">
 		<div class="summary">
-			<img [src]="profile.pictureUrl" />
+			<div class="image-container">
+				<mat-spinner *ngIf="loadingImage" color="primary" diameter="50" style="display: block; margin: 0 auto"></mat-spinner>
+				<img [src]="profile.pictureUrl" (load)="loadingImage = false" />
+			</div>
 
 			<p>
 				{{ summary }}

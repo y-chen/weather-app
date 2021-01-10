@@ -27,7 +27,9 @@ import { ValidationErrors } from '@wa/app/models/validation-errors.model';
 	providers: [ComponentService],
 })
 export class AboutMeComponent implements IComponent, OnInit {
+	loadingImage = true;
 	summary: string;
+
 	profile: Profile;
 	contactMeForm: FormGroup;
 

@@ -13,11 +13,16 @@
 			@include flex-box(row);
 			gap: 5px;
 
-			> img {
+			> .image-container {
 				min-width: 118px;
 				min-height: 156px;
 				max-width: 118px;
 				max-height: 156px;
+				@include flex-box(column, center);
+
+				> mat-spinner {
+					margin: 0 auto;
+				}
 			}
 
 			> p {
