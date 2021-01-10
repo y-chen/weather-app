@@ -1,0 +1,113 @@
+{
+	"app": {
+		"spinnerMessage": "Wird geladen..."
+	},
+	"features": {
+		"main": {
+			"aboutMe": {
+				"contactMe": {
+					"cancel": "Abbrechen",
+					"email": "Email",
+					"emailSentNotification": "Email wurde gesendet!",
+					"errors": {
+						"email": {
+							"email": "Die angegebene Emailadresse ist nich korrekt"
+						},
+						"message": {
+							"required": "Eine Nachricht ist erforderlich"
+						}
+					},
+					"message": "Nachricht",
+					"name": "Name",
+					"send": "Senden",
+					"subject": "Betreff",
+					"subtitle": "Wenn Sie eine Antwort wünschen, bitte geben Sie eine gültige Emailadresse an",
+					"title": "Kontakt"
+				},
+				"title": "Über mich"
+			},
+			"forecast": {
+				"missingDataMessage": "Verwenden Sie die Suchfunktion oder klicken Sie auf Ihre Liebliengstädte",
+				"missingDataTitle": "Keine Wettervorhersage gefunden"
+			},
+			"home": {
+				"missingDataMessage": "Starten Sie eine Suchanfrage, um Städte als Lieblingstädte zu markieren",
+				"missingDataTitle": "Keine Lieblingsstädte gefunden"
+			}
+		}
+	},
+	"shared": {
+		"basicWeather": {
+			"viewForecast": "Wettervorhersage anzeigen"
+		},
+		"dayTimeWeather": {
+			"afternoon": "Nachmittag",
+			"evening": "Abend",
+			"morning": "Morgen",
+			"night": "Nacht",
+			"unavailable": "Nicht verfügbar"
+		},
+		"errorPage": {
+			"400": {
+				"firstLineMessage": "Ungültige Anforderung",
+				"secondLineMessage": "Bitte, versuchen Sie es nochmal"
+			},
+			"404": {
+				"firstLineMessage": "Seite",
+				"secondLineMessage": "nicht gefunden"
+			},
+			"429": {
+				"firstLineMessage": "zu viele Anfragen",
+				"secondLineMessage": "Versuchen Sie es später"
+			},
+			"500": {
+				"firstLineMessage": "Etwas ist",
+				"secondLineMessage": "schiefgelaufen"
+			},
+			"button": "Zurück zur Startseite",
+			"unknown": {
+				"firstLineMessage": "Was ist passiert???",
+				"secondLineMessage": "boh..."
+			}
+		},
+		"favourite": {
+			"add": "Hinzufügen",
+			"remove": "Entfernen"
+		},
+		"input": {
+			"hidePassword": "Passwort verstecken",
+			"showPassword": "Passwort anzeigen"
+		},
+		"search": {
+			"currentLocation": "Aktueller Standort",
+			"placeholder": "Suchanfrage nach Stadtnamen"
+		},
+		"settingsMenu": {
+			"close": "Schließen",
+			"language": "Sprache",
+			"units": {
+				"imperial": "Imperial",
+				"metric": "Metric",
+				"settingName": "Einheit"
+			}
+		},
+		"shell": {
+			"sidebar": {
+				"close": "Schließen",
+				"current": "(aktuell)",
+				"navItems": {
+					"aboutMe": "Über mich",
+					"forecast": "Wettervorhersage",
+					"home": "Startseite"
+				},
+				"open": "Öffnen"
+			},
+			"toolbar": {
+				"languageSelector": "Sprache ändern",
+				"search": "Suchen",
+				"title": "Wetter App"
+			}
+		}
+	},
+	"unknown": "unbekannt"
+}

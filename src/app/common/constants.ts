@@ -35,6 +35,11 @@ const Cultures: Culture[] = [
 		code: 'en-GB',
 	},
 	{
+		label: 'Deutsch',
+		language: 'de',
+		code: 'de-DE',
+	},
+	{
 		label: 'Italiano',
 		language: 'it',
 		code: 'it-IT',
