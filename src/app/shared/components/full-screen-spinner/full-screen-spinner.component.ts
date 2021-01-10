@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
 
 @Component({
 	selector: 'wa-full-screen-spinner',
@@ -8,22 +7,4 @@ import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Rout
 })
 export class FullScreenSpinnerComponent {
 	@Input() message?: string;
-
-	show = true;
-
-	constructor(private readonly router: Router) {
-		this.router.events.subscribe((routerEvent: RouterEvent) => {
-			this.checkRouterEvent(routerEvent);
-		});
-	}
-
-	checkRouterEvent(routerEvent: RouterEvent): void {
-		if (routerEvent instanceof NavigationStart) {
-			this.show = true;
-		}
-
-		if (routerEvent instanceof NavigationEnd || routerEvent instanceof NavigationCancel || routerEvent instanceof NavigationError) {
-			this.show = false;
-		}
-	}
 }
