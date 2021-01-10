@@ -21,11 +21,15 @@ export class SettingsService {
 	getCulture(): Culture {
 		const storedCulture: string = this.localStorageService.get(StorageKeys.Culture);
 
-		try {
-			return JSON.parse(storedCulture) as Culture;
-		} catch (e) {
-			return this.defaultCulture;
+		if (storedCulture) {
+			try {
+				return JSON.parse(storedCulture) as Culture;
+			} catch (error) {
+				return this.defaultCulture;
+			}
 		}
+
+		return this.defaultCulture;
 	}
 
 	setCulture(culture: Culture): void {

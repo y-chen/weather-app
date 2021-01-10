@@ -13,9 +13,8 @@ export class CultureService {
 	constructor(private readonly settingsService: SettingsService, private readonly translate: TranslateService) {}
 
 	init(): void {
-		const defaultCulture: Culture = this.getAvailableCultures()[0];
-		this.translate.setDefaultLang(defaultCulture.language);
-		this.settingsService.setCulture(defaultCulture);
+		const storedCulture: Culture = this.settingsService.getCulture();
+		this.translate.setDefaultLang(storedCulture.language);
 	}
 
 	getAvailableCultures(): Culture[] {
