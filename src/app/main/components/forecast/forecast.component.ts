@@ -70,6 +70,7 @@ export class ForecastComponent implements IComponent, OnInit {
 			}
 		};
 
-		this.cultureService.onLangChange(refreshViewData);
+		const onLangChangeSub = this.cultureService.onLangChange.subscribe(() => refreshViewData());
+		this.componentService.subscribe(onLangChangeSub);
 	}
 }

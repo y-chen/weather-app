@@ -27,7 +27,7 @@ describe('CultureService', () => {
 			configServiceProvider,
 			settingsServiceProvider,
 			translateServiceProvider,
-		} = new MockMaster().mockConfig();
+		} = new MockMaster().mockConfig().mockSettings();
 
 		settingsMock = settingsServiceMock;
 		translateMock = translateServiceMock;
@@ -49,11 +49,10 @@ describe('CultureService', () => {
 	});
 
 	describe('init', () => {
-		it('should call SettingsService.setCulture and TranslateService.setDefaultLang to init culture', () => {
+		it('should call TranslateService.setDefaultLang to init culture', () => {
 			spectator.service.init();
 
 			expect(translateMock.setDefaultLang).toHaveBeenCalled();
-			expect(settingsMock.setCulture).toHaveBeenCalled();
 		});
 	});
 

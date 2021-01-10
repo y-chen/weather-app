@@ -1,8 +1,7 @@
 import moment from 'moment';
-import { Subscription } from 'rxjs';
 
-import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { EventEmitter, Injectable } from '@angular/core';
+import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Cultures } from '@wa/app/common/constants';
 import { Culture } from '@wa/app/models/culture.model';
 
@@ -11,6 +10,10 @@ import { SettingsService } from '../settings/settings.service';
 @Injectable()
 export class CultureService {
 	constructor(private readonly settingsService: SettingsService, private readonly translate: TranslateService) {}
+
+	get onLangChange(): EventEmitter<LangChangeEvent> {
+		return this.translate.onLangChange;
+	}
 
 	init(): void {
 		const storedCulture: Culture = this.settingsService.getCulture();
@@ -32,10 +35,6 @@ export class CultureService {
 
 	async getTranslation(localizationPath, data?: { [key: string]: any }): Promise<string> {
 		return (await this.translate.get(localizationPath, data).toPromise()) as string;
-	}
-
-	onLangChange(callback: () => Promise<void>): Subscription {
-		return this.translate.onLangChange.subscribe(async () => await callback());
 	}
 
 	convertUnixTimeToLocaleDate(unixTime: number, offset: number = 0): string {

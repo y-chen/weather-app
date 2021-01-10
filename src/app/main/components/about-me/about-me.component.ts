@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/unbound-method */
 
+import { Subscription } from 'rxjs';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -8,11 +10,14 @@ import { ComponentService } from '@wa/app/core/services/component/component.serv
 import { CultureService } from '@wa/app/core/services/culture/culture.service';
 import { ElasticEmailService } from '@wa/app/core/services/elastic-email/elastic-email.service';
 import { EmailComposerService } from '@wa/app/core/services/email-composer/email-composer.service';
+import { EventService } from '@wa/app/core/services/event/event.service';
 import { NotificationService } from '@wa/app/core/services/notification/notification.service';
+import { SettingsService } from '@wa/app/core/services/settings/settings.service';
 import { IComponent } from '@wa/app/models/component.model';
+import { Culture } from '@wa/app/models/culture.model';
 import { SendEmailParams } from '@wa/app/models/elastic-email.model';
 import { ContactMeForm } from '@wa/app/models/email.model';
-import { Profile } from '@wa/app/models/profile.model';
+import { Profile, Summary } from '@wa/app/models/profile.model';
 import { ValidationErrors } from '@wa/app/models/validation-errors.model';
 
 @Component({
@@ -22,6 +27,7 @@ import { ValidationErrors } from '@wa/app/models/validation-errors.model';
 	providers: [ComponentService],
 })
 export class AboutMeComponent implements IComponent, OnInit {
+	summary: string;
 	profile: Profile;
 	contactMeForm: FormGroup;
 
@@ -38,13 +44,20 @@ export class AboutMeComponent implements IComponent, OnInit {
 		private readonly formBuilder: FormBuilder,
 		private readonly notificationService: NotificationService,
 		private readonly route: ActivatedRoute,
+		private readonly settingsService: SettingsService,
 	) {
 		this.componentService.init({ localizationBasePath: LocalizationPathKeys.AboutMeComponent, route: this.route });
 	}
 
 	async ngOnInit(): Promise<void> {
+		console.log(this.settingsService);
+
 		this.profile = (await this.componentService.getResolverData('profile')) as Profile;
 
+		const onLangChangeSub: Subscription = this.cultureService.onLangChange.subscribe(() => this.updateSummary());
+		this.componentService.subscribe(onLangChangeSub);
+
+		this.updateSummary();
 		this.contactMeForm = this.createContactMeForm();
 	}
 
@@ -67,6 +80,16 @@ export class AboutMeComponent implements IComponent, OnInit {
 
 	getLocalizationPath(end: string): string {
 		return this.componentService.getLocalizationPath(end);
+	}
+
+	private updateSummary(): void {
+		console.log(this.settingsService);
+		const currentCulture: Culture = this.settingsService.getCulture();
+		console.log(currentCulture);
+
+		const foundSummary = this.profile.summaries.find((summary: Summary) => summary.language === currentCulture.language);
+
+		this.summary = foundSummary.content;
 	}
 
 	private createContactMeForm(): FormGroup {

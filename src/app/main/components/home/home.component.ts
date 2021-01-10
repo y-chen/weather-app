@@ -40,7 +40,7 @@ export class HomeComponent implements IComponent, OnInit {
 			}
 		};
 
-		const onLangChangeSub: Subscription = this.cultureService.onLangChange(refreshViewData);
+		const onLangChangeSub: Subscription = this.cultureService.onLangChange.subscribe(() => refreshViewData());
 		const onSettingsChangeSub: Subscription = this.eventService.onSettingsChange.subscribe(async () => await refreshViewData());
 
 		this.componentService.subscribe(onLangChangeSub);
