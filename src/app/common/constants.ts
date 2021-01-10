@@ -4,12 +4,12 @@ import { Culture } from '../models/culture.model';
 
 const LocalizationPathKeys = {
 	AppComponent: 'app',
-	ForecastComponent: 'features.main.forecast',
-	HomeComponent: 'features.main.home',
+	ForecastComponent: 'main.forecast',
+	HomeComponent: 'main.home',
 	DayTimeWeatherComponent: 'shared.dayTimeWeather',
 	ErrorPageComponent: 'shared.errorPage',
 	FavouriteComponent: 'shared.favourite',
-	AboutMeComponent: 'features.main.aboutMe',
+	AboutMeComponent: 'main.aboutMe',
 	SearchComponent: 'shared.search',
 	SettingsMenuComponent: 'shared.settingsMenu',
 	WeatherCardComponent: 'shared.basicWeather',
