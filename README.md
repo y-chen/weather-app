@@ -20,7 +20,7 @@ npm install
 npm start
 ```
 
-The `npm start` command builds (compiles TypeScript and copies assets) the application into `dist/`, watches for changes to the source files, and runs `lite-server` on port `3000`.
+The `npm start` command builds (compiles TypeScript and copies assets) the application into `.dist/`, watches for changes to the source files.
 
 Shut it down manually with `Ctrl-C`.
 
@@ -48,7 +48,7 @@ There are two environments (staging and production), both hosted on `Firebase` a
 
 A new deploy in **staging** has been done every time a push in `master` happens.
 
-These are the environments-related scripts:
+These are the environment-related scripts:
 
 * `npm run deploy:staging` - Deploys in **staging**.
 * `npm run deploy:prod` - Deploys in **production**
