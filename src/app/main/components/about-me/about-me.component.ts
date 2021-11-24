@@ -32,18 +32,9 @@ export class AboutMeComponent implements IComponent, OnInit {
 	profile: Profile;
 	contactMeForm: FormGroup;
 
-	protected readonly validationErrors: ValidationErrors = {
-		email: [{ type: 'email', message: `${LocalizationPathKeys.AboutMeComponent}.contactMe.errors.email.email` }],
-		message: [{ type: 'required', message: `${LocalizationPathKeys.AboutMeComponent}.contactMe.errors.message.required` }],
-	};
-
 	constructor(
 		private readonly componentService: ComponentService,
 		private readonly cultureService: CultureService,
-		private readonly emailComposerService: EmailComposerService,
-		private readonly elasticEmailService: ElasticEmailService,
-		private readonly formBuilder: FormBuilder,
-		private readonly notificationService: NotificationService,
 		private readonly route: ActivatedRoute,
 		private readonly settingsService: SettingsService,
 	) {
@@ -57,24 +48,6 @@ export class AboutMeComponent implements IComponent, OnInit {
 		this.componentService.subscribe(onLangChangeSub);
 
 		this.updateSummary();
-		this.contactMeForm = this.createContactMeForm();
-	}
-
-	onCancelClick(): void {
-		this.contactMeForm = this.createContactMeForm();
-	}
-
-	async onSendClick(): Promise<void> {
-		const contactFormData: ContactMeForm = this.contactMeForm.value as ContactMeForm;
-		const email: SendEmailParams = this.emailComposerService.composeContactMeFormEmail(contactFormData);
-		await this.elasticEmailService.sendEmail(email);
-
-		const emailSentNotification = await this.cultureService.getTranslation(
-			`${LocalizationPathKeys.AboutMeComponent}.contactMe.emailSentNotification`,
-		);
-		this.notificationService.showSuccess(emailSentNotification);
-
-		this.contactMeForm = this.createContactMeForm();
 	}
 
 	getLocalizationPath(end: string): string {
@@ -86,14 +59,5 @@ export class AboutMeComponent implements IComponent, OnInit {
 		const foundSummary = this.profile.summaries.find((summary: Summary) => summary.language === currentCulture.language);
 
 		this.summary = foundSummary.content;
-	}
-
-	private createContactMeForm(): FormGroup {
-		return this.formBuilder.group({
-			name: [null, []],
-			email: [null, [Validators.email]],
-			subject: [null, []],
-			message: [null, [Validators.required]],
-		});
 	}
 }
