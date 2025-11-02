@@ -6,7 +6,6 @@ import { MockProxy, mockReset } from 'jest-mock-extended';
 import { createServiceFactory, SpectatorService } from '@ngneat/spectator';
 import { MockMaster } from '@wa/app/common/mock-master';
 import { getTestData, TestData } from '@wa/app/common/test-data';
-import { RawWeather } from '@wa/app/models/open-weather.model';
 
 import { ApiService } from '../api/api.service';
 import { OpenWeatherParserService } from '../open-weather-parser/open-weather-parser.service';
@@ -52,93 +51,86 @@ describe('OpenWeatherService', () => {
 		expect(spectator.service).toBeDefined();
 	});
 
-	describe('getWeatherGroup', () => {
-		it('should call ApiService.get with expected arguments', async () => {
-			const searchParams = testData.openWeatherSearchParams;
-			const partialParams = [{ key: 'id', value: searchParams.group.join(',') }];
+        describe('getWeatherGroup', () => {
+                it('should call ApiService.get with expected arguments for each location', async () => {
+                        const { openWeatherSearchParams, oneCallResponse, weather } = testData;
 
-			apiMock.get.mockResolvedValue(testData.group);
+                        apiMock.get.mockResolvedValue(oneCallResponse);
+                        openWeatherParserMock.parseCurrentWeatherFromOneCall.mockResolvedValue(weather);
 
-			await spectator.service.getWeatherGroup(searchParams);
+                        const result = await spectator.service.getWeatherGroup(openWeatherSearchParams);
 
-			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('group'), {
-				params: expect.arrayContaining(partialParams),
-			});
-		});
+                        expect(apiMock.get).toHaveBeenCalledTimes(openWeatherSearchParams.group.length);
+                        expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('onecall'), {
+                                params: expect.arrayContaining([
+                                        { key: 'lat', value: expect.any(Number) },
+                                        { key: 'lon', value: expect.any(Number) },
+                                        { key: 'exclude', value: 'minutely,hourly,daily,alerts' },
+                                ]),
+                        });
+                        expect(openWeatherParserMock.parseCurrentWeatherFromOneCall).toHaveBeenCalledTimes(
+                                openWeatherSearchParams.group.length,
+                        );
+                        expect(openWeatherParserMock.parseCurrentWeatherFromOneCall).toHaveBeenCalledWith(oneCallResponse, {
+                                iconSize: openWeatherSearchParams.iconSize,
+                                locationKey: openWeatherSearchParams.group[0],
+                        });
+                        expect(result).toEqual([weather, weather]);
+                });
+        });
 
-		it('should call OpenWeatherParserService.translateLocationNames with retreived group', async () => {
-			const { group, openWeatherSearchParams } = testData;
+        describe('getForecastById', () => {
+                it('should delegate to getForecastByCoord with parsed coordinates', async () => {
+                        const { openWeatherSearchParams, forecast } = testData;
+                        const coord = openWeatherSearchParams.coord;
+                        const spy = jest
+                                .spyOn(spectator.service, 'getForecastByCoord')
+                                .mockResolvedValue(forecast);
 
-			apiMock.get.mockResolvedValue(group);
+                        await spectator.service.getForecastById(openWeatherSearchParams);
 
-			await spectator.service.getWeatherGroup(openWeatherSearchParams);
+                        expect(spy).toHaveBeenCalledWith({ ...openWeatherSearchParams, coord });
+                });
+        });
 
-			expect(openWeatherParserMock.translateLocationNames).toHaveBeenCalledWith(group);
-		});
+        describe('getForecastByCoord', () => {
+                it('should call ApiService.get with expected arguments', async () => {
+                        const { openWeatherSearchParams, oneCallResponse } = testData;
 
-		it('should call OpenWeatherParserService.parseWeatherData for each element of the group', async () => {
-			const { group, openWeatherSearchParams } = testData;
+                        apiMock.get.mockResolvedValue(oneCallResponse);
+                        openWeatherParserMock.parseOneCallForecast.mockResolvedValue(testData.forecast);
 
-			apiMock.get.mockResolvedValue(group);
+                        await spectator.service.getForecastByCoord(openWeatherSearchParams);
 
-			await spectator.service.getWeatherGroup(openWeatherSearchParams);
+                        expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('onecall'), {
+                                params: expect.arrayContaining([
+                                        { key: 'lat', value: openWeatherSearchParams.coord.lat },
+                                        { key: 'lon', value: openWeatherSearchParams.coord.lon },
+                                        { key: 'exclude', value: 'minutely,daily,alerts' },
+                                ]),
+                        });
+                });
 
-			group.list.forEach((weather: RawWeather, index: number) =>
-				expect(openWeatherParserMock.parseWeatherData).toHaveBeenNthCalledWith(index + 1, weather),
-			);
-		});
-	});
+                it('should call OpenWeatherParserService.parseOneCallForecast with expected arguments', async () => {
+                        const { openWeatherSearchParams, oneCallResponse } = testData;
 
-	describe('getForecastById', () => {
-		it('should call ApiService.get with expected arguments', async () => {
-			const { rawForecast, openWeatherSearchParams } = testData;
-			const partialParams = [{ key: 'id', value: openWeatherSearchParams.id }];
+                        apiMock.get.mockResolvedValue(oneCallResponse);
+                        openWeatherParserMock.parseOneCallForecast.mockResolvedValue(testData.forecast);
 
-			apiMock.get.mockResolvedValue(rawForecast);
+                        await spectator.service.getForecastByCoord(openWeatherSearchParams);
 
-			await spectator.service.getForecastById(openWeatherSearchParams);
+                        expect(openWeatherParserMock.parseOneCallForecast).toHaveBeenCalledWith(
+                                oneCallResponse,
+                                openWeatherSearchParams.iconSize,
+                        );
+                });
+        });
 
-			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
-				params: expect.arrayContaining(partialParams),
-			});
-		});
+        describe('normalizeLocationKeys', () => {
+                it('should convert legacy city identifiers to coordinate keys', () => {
+                        const normalized = spectator.service.normalizeLocationKeys([2643743]);
 
-		it('should call OpenWeatherParserService.parseForecastData with expected arguments', async () => {
-			const { rawForecast, openWeatherSearchParams } = testData;
-
-			apiMock.get.mockResolvedValue(rawForecast);
-
-			await spectator.service.getForecastById(openWeatherSearchParams);
-
-			expect(openWeatherParserMock.parseForecastData).toHaveBeenCalledWith(rawForecast, openWeatherSearchParams.iconSize);
-		});
-	});
-
-	describe('getForecastByCoord', () => {
-		it('should call ApiService.get with expected arguments', async () => {
-			const { rawForecast, openWeatherSearchParams } = testData;
-			const partialParams = [
-				{ key: 'lat', value: openWeatherSearchParams.coord.lat },
-				{ key: 'lon', value: openWeatherSearchParams.coord.lon },
-			];
-
-			apiMock.get.mockResolvedValue(rawForecast);
-
-			await spectator.service.getForecastByCoord(openWeatherSearchParams);
-
-			expect(apiMock.get).toHaveBeenCalledWith(expect.toEndWith('forecast'), {
-				params: expect.arrayContaining(partialParams),
-			});
-		});
-
-		it('should call OpenWeatherParserService.parseForecastData with expected arguments', async () => {
-			const { rawForecast, openWeatherSearchParams } = testData;
-
-			apiMock.get.mockResolvedValue(rawForecast);
-
-			await spectator.service.getForecastByCoord(openWeatherSearchParams);
-
-			expect(openWeatherParserMock.parseForecastData).toHaveBeenCalledWith(rawForecast, openWeatherSearchParams.iconSize);
-		});
-	});
+                        expect(normalized).toEqual(['51.5074,-0.1278']);
+                });
+        });
 });

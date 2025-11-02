@@ -13,15 +13,19 @@ export class WeatherGroupResolver implements Resolve<Weather[]> {
 	constructor(private readonly localStorageService: LocalStorageService, private readonly openWeatherService: OpenWeatherService) {}
 
 	async resolve(route: ActivatedRouteSnapshot): Promise<Weather[]> {
-		const favouriteCities: string = this.localStorageService.get(StorageKeys.FavouriteCities);
-		const group: number[] = favouriteCities ? (JSON.parse(favouriteCities) as number[]) : (route.data.defaultCities as number[]);
+                const favouriteCities: string = this.localStorageService.get(StorageKeys.FavouriteCities);
+                const storedGroup = favouriteCities
+                        ? (JSON.parse(favouriteCities) as (string | number)[])
+                        : (route.data.defaultCities as string[]);
 
-		this.localStorageService.set(StorageKeys.FavouriteCities, JSON.stringify(group));
+                const group: string[] = this.openWeatherService.normalizeLocationKeys(storedGroup);
 
-		if (group && group.length > 0) {
-			return await this.openWeatherService.getWeatherGroup({ group });
-		}
+                this.localStorageService.set(StorageKeys.FavouriteCities, JSON.stringify(group));
 
-		return [];
-	}
+                if (group && group.length > 0) {
+                        return await this.openWeatherService.getWeatherGroup({ group });
+                }
+
+                return [];
+        }
 }

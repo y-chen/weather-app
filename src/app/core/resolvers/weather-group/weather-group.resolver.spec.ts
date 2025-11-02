@@ -36,8 +36,12 @@ describe('GroupForecastResolver', () => {
 			providers: [configServiceProvider, localStorageServiceProvider, openWeatherServiceProvider],
 		});
 
-		testData = getTestData();
-	});
+                testData = getTestData();
+
+                openWeatherMock.normalizeLocationKeys.mockImplementation(
+                        (keys: (string | number)[] = []) => keys.map((key) => String(key)),
+                );
+        });
 
 	afterEach(() => {
 		mockReset(localStorageMock);
@@ -85,7 +89,7 @@ describe('GroupForecastResolver', () => {
 
 			await spectator.service.resolve(route);
 
-			expect(openWeatherMock.getWeatherGroup).toHaveBeenCalledWith({ group: JSON.parse(storedFavouriteCities) as number[] });
+                        expect(openWeatherMock.getWeatherGroup).toHaveBeenCalledWith({ group: JSON.parse(storedFavouriteCities) as string[] });
 		});
 
 		it('should call OpenWeatherService.getWeatherGroup with default cities when are retreived', async () => {

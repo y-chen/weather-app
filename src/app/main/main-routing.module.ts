@@ -10,13 +10,13 @@ import { ForecastComponent } from './components/forecast/forecast.component';
 import { HomeComponent } from './components/home/home.component';
 
 const navItemsLocalizationBasePath = 'shared.shell.sidebar.navItems';
-const defaultCities: number[] = [
-	2643743, // London
-	2950159, // Berlin
-	3169070, // Rome
-	2761369, // Vienna
-	2988507, // Paris
-	3117735, // Madrid
+const defaultCities: string[] = [
+        '51.5074,-0.1278', // London
+        '52.52,13.405', // Berlin
+        '41.9028,12.4964', // Rome
+        '48.2082,16.3738', // Vienna
+        '48.8566,2.3522', // Paris
+        '40.4168,-3.7038', // Madrid
 ];
 
 const routes: Routes = [

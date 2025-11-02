@@ -5,7 +5,7 @@
 import { Injectable } from '@angular/core';
 import { Param } from '@wa/app/models/http.model';
 import { Forecast, Weather } from '@wa/app/models/open-weather-parser.model';
-import { OpenWeatherSearchParams, RawForecast, RawWeather, Units, WeatherGroup } from '@wa/app/models/open-weather.model';
+import { OneCallResponse, OpenCoord, OpenWeatherSearchParams, Units } from '@wa/app/models/open-weather.model';
 
 import { ApiService } from '../api/api.service';
 import { ConfigService } from '../config/config.service';
@@ -14,8 +14,16 @@ import { SettingsService } from '../settings/settings.service';
 
 @Injectable()
 export class OpenWeatherService {
-	private readonly URL: string;
-	private readonly API_KEY: string;
+        private readonly URL: string;
+        private readonly API_KEY: string;
+        private readonly LEGACY_COORDS: Record<string, OpenCoord> = {
+                '2643743': { lat: 51.5074, lon: -0.1278 }, // London
+                '2950159': { lat: 52.52, lon: 13.405 }, // Berlin
+                '3169070': { lat: 41.9028, lon: 12.4964 }, // Rome
+                '2761369': { lat: 48.2082, lon: 16.3738 }, // Vienna
+                '2988507': { lat: 48.8566, lon: 2.3522 }, // Paris
+                '3117735': { lat: 40.4168, lon: -3.7038 }, // Madrid
+        };
 
 	constructor(
 		private readonly api: ApiService,
@@ -28,43 +36,40 @@ export class OpenWeatherService {
 		this.API_KEY = apiKey;
 	}
 
-	async getWeatherGroup(searchParams: OpenWeatherSearchParams): Promise<Weather[]> {
-		const url = this.buildUrl('group');
-		let params: Param[] = [{ key: 'id', value: searchParams.group.join(',') }];
-		params = this.appendParams(params);
+        async getWeatherGroup(searchParams: OpenWeatherSearchParams): Promise<Weather[]> {
+                const normalizedGroup = this.normalizeLocationKeys(searchParams.group);
 
-		const weatherGroup = await this.api.get<WeatherGroup>(url, { params });
-		await this.openWeatherParserService.translateLocationNames(weatherGroup);
+                const weatherGroup: Weather[] = await Promise.all(
+                        normalizedGroup.map(async (locationKey: string) => {
+                                const coord = this.parseLocationKey(locationKey);
 
-		return weatherGroup.list.map((weather: RawWeather) => this.openWeatherParserService.parseWeatherData(weather));
-	}
+                                const response = await this.fetchOneCall(coord, ['minutely', 'hourly', 'daily', 'alerts']);
 
-	async getForecastById(searchParams: OpenWeatherSearchParams): Promise<Forecast> {
-		const url = this.buildUrl('forecast');
-		let params: Param[] = [{ key: 'id', value: searchParams.id }];
-		params = this.appendParams(params);
+                                return await this.openWeatherParserService.parseCurrentWeatherFromOneCall(response, {
+                                        iconSize: searchParams.iconSize,
+                                        locationKey,
+                                });
+                        }),
+                );
 
-		const forecast: RawForecast = await this.api.get<RawForecast>(url, { params });
+                return weatherGroup;
+        }
 
-		return await this.openWeatherParserService.parseForecastData(forecast, searchParams.iconSize);
-	}
+        async getForecastById(searchParams: OpenWeatherSearchParams): Promise<Forecast> {
+                const coord = this.parseLocationKey(searchParams.id);
 
-	async getForecastByCoord(searchParams: OpenWeatherSearchParams): Promise<Forecast> {
-		const url = this.buildUrl('forecast');
-		const { lat, lon } = searchParams.coord;
-		let params: Param[] = [
-			{ key: 'lat', value: lat },
-			{ key: 'lon', value: lon },
-		];
-		params = this.appendParams(params);
+                return await this.getForecastByCoord({ ...searchParams, coord });
+        }
 
-		const forecast = await this.api.get<RawForecast>(url, { params });
+        async getForecastByCoord(searchParams: OpenWeatherSearchParams): Promise<Forecast> {
+                const coord = searchParams.coord;
+                const response = await this.fetchOneCall(coord, ['minutely', 'daily', 'alerts']);
 
-		return await this.openWeatherParserService.parseForecastData(forecast, searchParams.iconSize);
-	}
+                return await this.openWeatherParserService.parseOneCallForecast(response, searchParams.iconSize);
+        }
 
-	private appendParams(params: Param[] = []): Param[] {
-		const unit: Units = this.settingsService.getUnit();
+        private appendParams(params: Param[] = []): Param[] {
+                const unit: Units = this.settingsService.getUnit();
 
 		return params.concat([
 			{ key: 'lang', value: this.settingsService.getCulture().language },
@@ -73,7 +78,58 @@ export class OpenWeatherService {
 		]);
 	}
 
-	private buildUrl(endpoint: string): string {
-		return `${this.URL}/${endpoint}`;
-	}
+        private buildUrl(): string {
+                return `${this.URL}/onecall`;
+        }
+
+        private async fetchOneCall(coord: OpenCoord, excludedSegments: string[] = []): Promise<OneCallResponse> {
+                const url = this.buildUrl();
+                let params: Param[] = [
+                        { key: 'lat', value: coord.lat },
+                        { key: 'lon', value: coord.lon },
+                ];
+
+                if (excludedSegments.length > 0) {
+                        params.push({ key: 'exclude', value: excludedSegments.join(',') });
+                }
+
+                params = this.appendParams(params);
+
+                return await this.api.get<OneCallResponse>(url, { params });
+        }
+
+        normalizeLocationKeys(keys: (string | number)[] = []): string[] {
+                return keys
+                        .map((key) => {
+                                const locationKey = String(key);
+                                const coord = this.parseLocationKey(locationKey);
+
+                                if (!Number.isFinite(coord.lat) || !Number.isFinite(coord.lon)) {
+                                        return null;
+                                }
+
+                                return `${coord.lat},${coord.lon}`;
+                        })
+                        .filter((value): value is string => value !== null);
+        }
+
+        private parseLocationKey(key: string): OpenCoord {
+                if (!key) {
+                        return { lat: Number.NaN, lon: Number.NaN };
+                }
+
+                if (key.includes(',')) {
+                        const [lat, lon] = key.split(',').map((value: string) => Number(value));
+
+                        return { lat, lon };
+                }
+
+                const legacyCoord = this.LEGACY_COORDS[key];
+
+                if (legacyCoord) {
+                        return legacyCoord;
+                }
+
+                return { lat: Number.NaN, lon: Number.NaN };
+        }
 }

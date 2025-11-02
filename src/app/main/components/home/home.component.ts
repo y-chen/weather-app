@@ -33,7 +33,7 @@ export class HomeComponent implements IComponent, OnInit {
 		this.favouritesWeather = (await this.componentService.getResolverData('favouritesWeather')) as Weather[];
 
 		const refreshViewData = async () => {
-			const group: number[] = this.favouritesWeather.map((weather: Weather) => weather.id);
+                        const group: string[] = this.favouritesWeather.map((weather: Weather) => weather.id);
 
 			if (group.length > 0) {
 				this.favouritesWeather = await this.openWeatherService.getWeatherGroup({ group });

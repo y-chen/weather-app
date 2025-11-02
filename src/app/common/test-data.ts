@@ -13,7 +13,14 @@ import { ElasticEmailError, ExtendedError, HereError, OpenWeatherMapError } from
 import { HereLocation, HereSearchParams } from '../models/here.model';
 import { DayTimeWeather, Forecast, ParserOptions, Weather } from '../models/open-weather-parser.model';
 import {
-	DayTime, IconSize, OpenCoord, OpenWeatherSearchParams, RawForecast, RawWeather, WeatherGroup
+        DayTime,
+        IconSize,
+        OneCallResponse,
+        OpenCoord,
+        OpenWeatherSearchParams,
+        RawForecast,
+        RawWeather,
+        WeatherGroup,
 } from '../models/open-weather.model';
 
 export interface TestData {
@@ -23,8 +30,8 @@ export interface TestData {
 	cultures: Culture[];
 	coord: OpenCoord;
 	iconSize: IconSize;
-	id: number;
-	defaultCities: number[];
+        id: string;
+        defaultCities: string[];
 	storedFavouriteCities: string;
 	route: ActivatedRouteSnapshot;
 	body: any;
@@ -40,9 +47,10 @@ export interface TestData {
 	openWeatherSearchParams: OpenWeatherSearchParams;
 	group: WeatherGroup;
 	parserOptions: ParserOptions;
-	rawWeather: RawWeather;
-	rawForecast: RawForecast;
-	forecast: Forecast;
+        rawWeather: RawWeather;
+        rawForecast: RawForecast;
+        oneCallResponse: OneCallResponse;
+        forecast: Forecast;
 	weathers: Weather[];
 	weather: Weather;
 	dayTimeName: DayTime;
@@ -85,12 +93,12 @@ export const getTestData = (): TestData => {
 	};
 
 	const cultures: Culture[] = [en, it];
-	const coord: OpenCoord = { lat: 1, lon: 1 };
-	const iconSize: IconSize = 2;
-	const id = 1;
+        const coord: OpenCoord = { lat: 1, lon: 1 };
+        const iconSize: IconSize = 2;
+        const id = '1,1';
 	const route = new ActivatedRouteSnapshot();
-	const defaultCities: number[] = [1, 2];
-	const storedFavouriteCities = '[3,4]';
+        const defaultCities: string[] = ['1,1', '2,2'];
+        const storedFavouriteCities = '["3,4"]';
 	const body = { key: 'value' };
 	const observable: Observable<string> = of('foo.bar');
 	const url = 'http://example.com';
@@ -142,18 +150,18 @@ export const getTestData = (): TestData => {
 		},
 	};
 
-	const openWeatherSearchParams: OpenWeatherSearchParams = {
-		q: 'Query',
-		group: [1, 1],
-		id: 0,
-		coord: { lat: 0, lon: 0 },
-		iconSize: 2,
-	};
+        const openWeatherSearchParams: OpenWeatherSearchParams = {
+                q: 'Query',
+                group: ['0,0', '1,1'],
+                id: '0,0',
+                coord: { lat: 0, lon: 0 },
+                iconSize: 2,
+        };
 
-	const group: WeatherGroup = {
-		cnt: 0,
-		list: [],
-	};
+        const group: WeatherGroup = {
+                cnt: 0,
+                list: [],
+        };
 
 	const parserOptions: ParserOptions = {
 		iconSize: 2,
@@ -161,11 +169,11 @@ export const getTestData = (): TestData => {
 		titleOverride: 'Title Override',
 	};
 
-	const rawWeather: RawWeather = {
-		coord: {
-			lon: 16.37,
-			lat: 48.21,
-		},
+        const rawWeather: RawWeather = {
+                coord: {
+                        lon: 16.37,
+                        lat: 48.21,
+                },
 		sys: {
 			country: 'AT',
 			timezone: 3600,
@@ -197,9 +205,50 @@ export const getTestData = (): TestData => {
 			all: 75,
 		},
 		dt: 1609844944,
-		id: 2775259,
-		name: 'Inner city',
-	};
+                id: '48.21,16.37',
+                name: 'Inner city',
+        };
+
+        const oneCallResponse: OneCallResponse = {
+                lat: 0,
+                lon: 0,
+                timezone: 'UTC',
+                timezone_offset: 0,
+                current: {
+                        dt: 0,
+                        temp: 0,
+                        feels_like: 0,
+                        pressure: 0,
+                        humidity: 0,
+                        clouds: 0,
+                        weather: [
+                                {
+                                        id: 800,
+                                        main: 'Clear',
+                                        description: 'clear sky',
+                                        icon: '01d',
+                                },
+                        ],
+                },
+                hourly: [
+                        {
+                                dt: 0,
+                                temp: 0,
+                                feels_like: 0,
+                                pressure: 0,
+                                humidity: 0,
+                                clouds: 0,
+                                weather: [
+                                        {
+                                                id: 800,
+                                                main: 'Clear',
+                                                description: 'clear sky',
+                                                icon: '01d',
+                                        },
+                                ],
+                        },
+                ],
+        };
 
 	const rawForecast: RawForecast = {
 		cod: '200',
@@ -776,8 +825,8 @@ export const getTestData = (): TestData => {
 				dt_txt: '2021-01-09 09:00:00',
 			},
 		],
-		city: {
-			id: 2775259,
+                city: {
+                        id: '48.2077,16.3705',
 			name: 'Inner city',
 			coord: {
 				lat: 48.2077,
@@ -791,24 +840,24 @@ export const getTestData = (): TestData => {
 		},
 	};
 
-	const forecast: Forecast = {
-		id: 0,
+        const forecast: Forecast = {
+                id: '0,0',
 		name: 'Name',
 		coord: { lat: 0, lon: 0 },
 		days: [
 			{
 				day: 'Day 1',
 				night: {
-					0: {
-						id: 1,
+                                        0: {
+                                                id: '1,1',
 						title: 'First Title',
 						description: 'First Description',
 						temperature: 'First Temperature',
 						icon: 'First Icon',
 						time: 'First Time',
 					},
-					1: {
-						id: 2,
+                                        1: {
+                                                id: '2,2',
 						title: 'Second Title',
 						description: 'Second Description',
 						temperature: 'Second Temperature',
@@ -817,78 +866,85 @@ export const getTestData = (): TestData => {
 					},
 				},
 			},
-			{
-				day: 'Day 2',
-				night: {
-					0: {
-						id: 1,
-						title: 'First Title',
-						description: 'First Description',
-						temperature: 'First Temperature',
-						icon: 'First Icon',
-						time: 'First Time',
-					},
-					1: {
-						id: 2,
-						title: 'Second Title',
-						description: 'Second Description',
-						temperature: 'Second Temperature',
-						icon: 'Second Icon',
-						time: 'Second Time',
-					},
-				},
-			},
-		],
-	};
+                        {
+                                day: 'Day 2',
+                                night: {
+                                        0: {
+                                                id: '1,1',
+                                                title: 'First Title',
+                                                description: 'First Description',
+                                                temperature: 'First Temperature',
+                                                icon: 'First Icon',
+                                                time: 'First Time',
+                                                coord: { lat: 0, lon: 0 },
+                                        },
+                                        1: {
+                                                id: '2,2',
+                                                title: 'Second Title',
+                                                description: 'Second Description',
+                                                temperature: 'Second Temperature',
+                                                icon: 'Second Icon',
+                                                time: 'Second Time',
+                                                coord: { lat: 0, lon: 0 },
+                                        },
+                                },
+                        },
+                ],
+        };
 
-	const weathers: Weather[] = [
-		{
-			id: 1,
-			title: 'First Title',
-			description: 'First Description',
-			temperature: 'First Temperature',
-			icon: 'First Icon',
-			time: 'First Time',
-		},
-		{
-			id: 2,
-			title: 'Second Title',
-			description: 'Second Description',
-			temperature: 'Second Temperature',
-			icon: 'Second Icon',
-			time: 'Second Time',
-		},
-	];
+        const weathers: Weather[] = [
+                {
+                        id: '1,1',
+                        title: 'First Title',
+                        description: 'First Description',
+                        temperature: 'First Temperature',
+                        icon: 'First Icon',
+                        time: 'First Time',
+                        coord: { lat: 0, lon: 0 },
+                },
+                {
+                        id: '2,2',
+                        title: 'Second Title',
+                        description: 'Second Description',
+                        temperature: 'Second Temperature',
+                        icon: 'Second Icon',
+                        time: 'Second Time',
+                        coord: { lat: 0, lon: 0 },
+                },
+        ];
 
-	const weather: Weather = {
-		id: 0,
-		title: 'title',
-		temperature: 'temperature',
-		description: 'description',
-		icon: 'icon',
-		time: 'time',
-	};
+        const weather: Weather = {
+                id: '0,0',
+                title: 'title',
+                temperature: 'temperature',
+                description: 'description',
+                icon: 'icon',
+                time: 'time',
+                coord: { lat: 0, lon: 0 },
+        };
 
-	const dayTimeName: DayTime = 'night';
+        const dayTimeName: DayTime = 'night';
 
-	const dayTimeWeather: DayTimeWeather = [
-		{
-			id: 1,
-			title: 'First Title',
-			description: 'First Description',
-			temperature: 'First Temperature',
-			icon: 'First Icon',
-			time: 'First Time',
-		},
-		{
-			id: 2,
-			title: 'Second Title',
-			description: 'Second Description',
-			temperature: 'Second Temperature',
-			icon: 'Second Icon',
-			time: 'Second Time',
-		},
-	];
+        const dayTimeWeather: DayTimeWeather = [
+                {
+                        id: '1,1',
+                        title: 'First Title',
+                        description: 'First Description',
+                        temperature: 'First Temperature',
+                        icon: 'First Icon',
+                        time: 'First Time',
+                        coord: { lat: 0, lon: 0 },
+                },
+                {
+                        id: '2,2',
+                        title: 'Second Title',
+                        description: 'Second Description',
+                        temperature: 'Second Temperature',
+                        icon: 'Second Icon',
+                        time: 'Second Time',
+                        coord: { lat: 0, lon: 0 },
+                },
+        ];
 
 	const coordinates = {
 		accuracy: 30,
@@ -924,8 +980,9 @@ export const getTestData = (): TestData => {
 		openWeatherSearchParams,
 		group,
 		parserOptions,
-		rawForecast,
-		rawWeather,
+                rawForecast,
+                oneCallResponse,
+                rawWeather,
 		forecast,
 		weathers,
 		weather,

@@ -11,32 +11,38 @@ import { IComponent } from '@wa/app/models/component.model';
 	providers: [ComponentService],
 })
 export class FavouriteComponent implements IComponent {
-	@Input() cityId: number;
+        @Input() locationKey: string;
 
 	constructor(private readonly localStorageService: LocalStorageService, private readonly componentService: ComponentService) {
 		this.componentService.init({ localizationBasePath: LocalizationPathKeys.FavouriteComponent });
 	}
 
 	isFavourite(): boolean {
-		const favouriteCitieStorageValue: string = this.localStorageService.get(StorageKeys.FavouriteCities);
-		const favouriteCities: number[] = JSON.parse(favouriteCitieStorageValue) as number[];
+                const favouriteCitieStorageValue: string = this.localStorageService.get(StorageKeys.FavouriteCities);
+                if (!favouriteCitieStorageValue) {
+                        return false;
+                }
 
-		return favouriteCities?.includes(this.cityId);
-	}
+                const favouriteCities: string[] = JSON.parse(favouriteCitieStorageValue) as string[];
 
-	onFavouriteClick(): void {
-		const favouriteCitieStorageValue: string = this.localStorageService.get(StorageKeys.FavouriteCities);
-		const favouriteCities: number[] = JSON.parse(favouriteCitieStorageValue) as number[];
-		const cityIndex: number = favouriteCities.indexOf(this.cityId);
+                return favouriteCities?.includes(this.locationKey);
+        }
 
-		if (cityIndex > -1) {
-			favouriteCities.splice(cityIndex, 1);
-		} else {
-			favouriteCities.push(this.cityId);
-		}
+        onFavouriteClick(): void {
+                const favouriteCitieStorageValue: string = this.localStorageService.get(StorageKeys.FavouriteCities);
+                const favouriteCities: string[] = favouriteCitieStorageValue
+                        ? (JSON.parse(favouriteCitieStorageValue) as string[])
+                        : [];
+                const cityIndex: number = favouriteCities.indexOf(this.locationKey);
 
-		this.localStorageService.set(StorageKeys.FavouriteCities, JSON.stringify(favouriteCities));
-	}
+                if (cityIndex > -1) {
+                        favouriteCities.splice(cityIndex, 1);
+                } else {
+                        favouriteCities.push(this.locationKey);
+                }
+
+                this.localStorageService.set(StorageKeys.FavouriteCities, JSON.stringify(favouriteCities));
+        }
 
 	getLocalizationPath(end: string): string {
 		return this.componentService.getLocalizationPath(end);

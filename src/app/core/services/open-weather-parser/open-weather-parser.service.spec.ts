@@ -49,27 +49,31 @@ describe('OpenWeatherParserService', () => {
 	});
 
 	describe('parseWeatherData', () => {
-		it('should use RawWeather data instead of ParserOptions when options are not available', () => {
-			const { rawWeather } = testData;
+                it('should use RawWeather data instead of ParserOptions when options are not available', () => {
+                        const { rawWeather } = testData;
 
-			const parsed = spectator.service.parseWeatherData(rawWeather);
+                        const parsed = spectator.service.parseWeatherData(rawWeather);
 
-			expect(parsed.title).toEqual(rawWeather.name);
-			expect(parsed.icon.endsWith(`${4}x.png`)).toBeTrue();
-			expect(cultureMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), rawWeather.sys.timezone);
-		});
+                        expect(parsed.title).toEqual(rawWeather.name);
+                        expect(parsed.icon.endsWith(`${4}x.png`)).toBeTrue();
+                        expect(cultureMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), rawWeather.sys.timezone);
+                        expect(parsed.id).toEqual('48.21,16.37');
+                        expect(parsed.coord).toEqual(rawWeather.coord);
+                });
 
-		it('should use ParserOptions data instead of RawWeather data when options are available', () => {
-			const { parserOptions, rawWeather } = testData;
-			const { iconSize, titleOverride, timezone } = parserOptions;
+                it('should use ParserOptions data instead of RawWeather data when options are available', () => {
+                        const { parserOptions, rawWeather } = testData;
+                        const { iconSize, titleOverride, timezone } = parserOptions;
 
-			const parsed = spectator.service.parseWeatherData(rawWeather, parserOptions);
+                        const parsed = spectator.service.parseWeatherData(rawWeather, parserOptions);
 
-			expect(parsed.title).toEqual(titleOverride);
-			expect(parsed.icon.endsWith(`${iconSize}x.png`)).toBeTrue();
-			expect(cultureMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), timezone);
-		});
-	});
+                        expect(parsed.title).toEqual(titleOverride);
+                        expect(parsed.icon.endsWith(`${iconSize}x.png`)).toBeTrue();
+                        expect(cultureMock.convertUnixTimeToLocaleDate).toHaveBeenCalledWith(anyNumber(), timezone);
+                        expect(parsed.id).toEqual(parserOptions.locationKey || '48.21,16.37');
+                        expect(parsed.coord).toEqual(rawWeather.coord);
+                });
+        });
 
 	describe('parseForecastData', () => {
 		it('should call HereService.locationLookup with expected arguments', async () => {

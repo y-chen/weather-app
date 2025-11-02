@@ -2,7 +2,7 @@
 	<mat-toolbar-row>
 		<span>{{ forecast.name }}</span>
 
-		<wa-favourite [cityId]="forecast.id" color="primary"></wa-favourite>
+              <wa-favourite [locationKey]="forecast.id" color="primary"></wa-favourite>
 	</mat-toolbar-row>
 
 	<mat-card *ngFor="let day of forecast.days">

@@ -1,16 +1,17 @@
 import { IconSize, OpenCoord } from './open-weather.model';
 
 export interface ParserOptions {
-	iconSize?: IconSize;
-	timezone?: number;
-	titleOverride?: string;
+        iconSize?: IconSize;
+        timezone?: number;
+        titleOverride?: string;
+        locationKey?: string;
 }
 
 export interface Forecast {
-	id: number;
-	name: string;
-	coord: OpenCoord;
-	days: DayForecast[];
+        id: string;
+        name: string;
+        coord: OpenCoord;
+        days: DayForecast[];
 }
 
 export interface DayForecast {
@@ -27,10 +28,11 @@ export interface DayTimeWeather {
 }
 
 export interface Weather {
-	id: number;
-	title: string;
-	description: string;
-	temperature: string;
-	icon: string;
-	time: string;
+        id: string;
+        title: string;
+        description: string;
+        temperature: string;
+        icon: string;
+        time: string;
+        coord: OpenCoord;
 }

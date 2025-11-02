@@ -13,7 +13,7 @@ export class ForecastResolver implements Resolve<Forecast | null> {
 
 	async resolve(route: ActivatedRouteSnapshot): Promise<Forecast> | null {
 		const iconSize = route.data?.iconSize as IconSize;
-		const id: number = route.params?.id as number;
+                const id: string = route.params?.id as string;
 		if (id) {
 			return await this.openWeatherService.getForecastById({ id, iconSize });
 		}

@@ -23,7 +23,7 @@ describe('FavouriteComponent', () => {
 
 	const createHost = createHostFactory(FavouriteComponent);
 
-	let favoutiteCities: number[];
+        let favoutiteCities: string[];
 
 	beforeEach(() => {
 		const {
@@ -41,7 +41,7 @@ describe('FavouriteComponent', () => {
 		configProvider = configServiceProvider;
 		localStorageProvider = localStorageServiceProvider;
 
-		favoutiteCities = [0, 1];
+                favoutiteCities = ['0,0', '1,1'];
 	});
 
 	afterEach(() => {
@@ -68,32 +68,32 @@ describe('FavouriteComponent', () => {
 		expect(componentMock.init).toHaveBeenCalled();
 	});
 
-	it('should call LocalStorageService.set with expected arguments when cityId is not in the favourites', () => {
-		const notFavouriteCityId = 2;
-		const expectedFavourites: string = JSON.stringify([...favoutiteCities, notFavouriteCityId]);
+        it('should call LocalStorageService.set with expected arguments when locationKey is not in the favourites', () => {
+                const notFavouriteCityId = '2,2';
+                const expectedFavourites: string = JSON.stringify([...favoutiteCities, notFavouriteCityId]);
 
-		localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
+                localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
 
-		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
-			hostProps: { cityId: notFavouriteCityId },
-			providers: [configProvider, localStorageProvider],
-		});
+                host = createHost('<wa-favourite [locationKey]="locationKey"></wa-favourite>', {
+                        hostProps: { locationKey: notFavouriteCityId },
+                        providers: [configProvider, localStorageProvider],
+                });
 
 		host.click('mat-icon');
 
 		expect(localStorageMock.set).toHaveBeenCalledWith(StorageKeys.FavouriteCities, expectedFavourites);
 	});
 
-	it('should call LocalStorageService.set with expected arguments when cityId is in the favourites ', () => {
-		const favouriteCityId = 0;
-		const expectedFavourites = '[1]';
+        it('should call LocalStorageService.set with expected arguments when locationKey is in the favourites ', () => {
+                const favouriteCityId = '0,0';
+                const expectedFavourites = '["1,1"]';
 
-		localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
+                localStorageMock.get.calledWith(StorageKeys.FavouriteCities).mockReturnValue(JSON.stringify(favoutiteCities));
 
-		host = createHost('<wa-favourite [cityId]="cityId"></wa-favourite>', {
-			hostProps: { cityId: favouriteCityId },
-			providers: [configProvider, localStorageProvider],
-		});
+                host = createHost('<wa-favourite [locationKey]="locationKey"></wa-favourite>', {
+                        hostProps: { locationKey: favouriteCityId },
+                        providers: [configProvider, localStorageProvider],
+                });
 
 		host.click('mat-icon');
 

@@ -41,14 +41,15 @@ describe('WeatherCardComponent', () => {
 		configProvider = configServiceProvider;
 		settingsProvider = settingsServiceProvider;
 
-		weather = {
-			id: 1,
-			title: 'title',
-			temperature: 'temperature',
-			description: 'description',
-			icon: 'icon',
-			time: 'Thu Jan 02 2020 02:00:00 GMT+0100',
-		};
+                weather = {
+                        id: '0,0',
+                        title: 'title',
+                        temperature: 'temperature',
+                        description: 'description',
+                        icon: 'icon',
+                        time: 'Thu Jan 02 2020 02:00:00 GMT+0100',
+                        coord: { lat: 0, lon: 0 },
+                };
 	});
 
 	afterEach(() => {
@@ -110,7 +111,7 @@ describe('WeatherCardComponent', () => {
 
 			const favouriteComponent = ngMocks.findInstance(FavouriteComponent);
 
-			expect(favouriteComponent.cityId).toBe(weather.id);
+                        expect(favouriteComponent.locationKey).toBe(weather.id);
 		});
 	});
 
@@ -136,7 +137,8 @@ describe('WeatherCardComponent', () => {
 
 			const link: HTMLAnchorElement = host.query('.view-forecast-link');
 
-			expect(link.href).toEndWith(weather.id.toString());
+                        expect(link.search).toContain(`lat=${weather.coord.lat}`);
+                        expect(link.search).toContain(`lon=${weather.coord.lon}`);
 		});
 
 		it('should not have a mat-card-action element when Weather.id is not defined', () => {

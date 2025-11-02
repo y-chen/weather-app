@@ -1,44 +1,44 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 export interface RawForecast {
-	cod: string;
-	message: number;
-	cnt: number;
-	list: RawWeather[];
-	city: City;
+        cod: string;
+        message: number;
+        cnt: number;
+        list: RawWeather[];
+        city: City;
 }
 
 export interface City {
-	id: number;
-	name: string;
-	coord: OpenCoord;
-	country: string;
-	population: number;
-	timezone: number;
-	sunrise: number;
-	sunset: number;
+        id?: number | string;
+        name: string;
+        coord: OpenCoord;
+        country?: string;
+        population?: number;
+        timezone: number;
+        sunrise?: number;
+        sunset?: number;
 }
 
 export interface OpenWeatherSearchParams {
-	q?: string;
-	group?: number[];
-	id?: number;
-	coord?: OpenCoord;
-	iconSize?: IconSize;
+        q?: string;
+        group?: string[];
+        id?: string;
+        coord?: OpenCoord;
+        iconSize?: IconSize;
 }
 
 export interface WeatherGroup {
-	cnt: number;
-	list: RawWeather[];
+        cnt: number;
+        list: RawWeather[];
 }
 
 export interface RawWeather {
-	id?: number;
-	name?: string;
-	coord?: OpenCoord;
-	weather: WeatherDetails[];
-	base?: string;
-	main: Temperature;
+        id?: number | string;
+        name?: string;
+        coord?: OpenCoord;
+        weather: WeatherDetails[];
+        base?: string;
+        main: Temperature;
 	visibility: number;
 	wind?: Wind;
 	clouds: Clouds;
@@ -89,7 +89,7 @@ export interface Snow {
 }
 
 export interface Rain {
-	[key: string]: number;
+        [key: string]: number;
 }
 
 export interface DayInfo {
@@ -109,6 +109,99 @@ export type DayTime = 'night' | 'morning' | 'afternoon' | 'evening';
 
 // eslint-disable-next-line no-shadow
 export enum Units {
-	Metric = 'Metric',
-	Imperial = 'Imperial',
+        Metric = 'Metric',
+        Imperial = 'Imperial',
+}
+
+export interface OneCallResponse {
+        lat: number;
+        lon: number;
+        timezone: string;
+        timezone_offset: number;
+        current: OneCallCurrent;
+        hourly?: OneCallHourly[];
+        daily?: OneCallDaily[];
+}
+
+export interface OneCallCurrent {
+        dt: number;
+        sunrise?: number;
+        sunset?: number;
+        temp: number;
+        feels_like: number;
+        pressure: number;
+        humidity: number;
+        dew_point?: number;
+        uvi?: number;
+        clouds: number;
+        visibility?: number;
+        wind_speed?: number;
+        wind_deg?: number;
+        wind_gust?: number;
+        weather: WeatherDetails[];
+        rain?: Precipitation;
+        snow?: Precipitation;
+}
+
+export interface OneCallHourly {
+        dt: number;
+        temp: number;
+        feels_like: number;
+        pressure: number;
+        humidity: number;
+        dew_point?: number;
+        uvi?: number;
+        clouds: number;
+        visibility?: number;
+        wind_speed?: number;
+        wind_deg?: number;
+        wind_gust?: number;
+        weather: WeatherDetails[];
+        pop?: number;
+        rain?: Precipitation;
+        snow?: Precipitation;
+}
+
+export interface OneCallDaily {
+        dt: number;
+        sunrise?: number;
+        sunset?: number;
+        moonrise?: number;
+        moonset?: number;
+        moon_phase?: number;
+        summary?: string;
+        temp: DailyTemperature;
+        feels_like: DailyFeelsLike;
+        pressure: number;
+        humidity: number;
+        dew_point?: number;
+        wind_speed?: number;
+        wind_deg?: number;
+        wind_gust?: number;
+        weather: WeatherDetails[];
+        clouds: number;
+        pop?: number;
+        rain?: number;
+        snow?: number;
+        uvi?: number;
+}
+
+export interface DailyTemperature {
+        day: number;
+        min: number;
+        max: number;
+        night: number;
+        eve: number;
+        morn: number;
+}
+
+export interface DailyFeelsLike {
+        day: number;
+        night: number;
+        eve: number;
+        morn: number;
+}
+
+export interface Precipitation {
+        [key: string]: number;
 }
